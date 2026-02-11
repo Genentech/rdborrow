@@ -2,9 +2,20 @@ Package: rdborrow
 Type: Package
 Title: External Control Borrowing for Rare Disease Simulation and Analysis
 Version: 0.0.1.1
+Authors@R: c(
+    person("Lei", "Shi", , "leishi1998@gmail.com", role = c("aut")),
+    person("Matthew", "Secrest", , "secrmatt@gmail.com", role = c("cre","ctb"),
+           comment = c(ORCID = "0000-0002-0939-4902"))
+  )
+Maintainer: Matthew Secrest <secrmatt@gmail.com>
+Description: Implements simulation and analysis workflows for borrowing
+    external control data in rare disease settings, including DID, weighting,
+    and SCM methods.
+License: Apache License (>= 2.0)
 RoxygenNote: 7.3.3
 Depends:
-    R (>= 2.15),
+    R (>= 4.0)
+Imports:
     checkmate,
     futile.logger,
     mvtnorm,
