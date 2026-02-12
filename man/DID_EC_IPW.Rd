@@ -49,7 +49,3 @@ tau and standard deviation
 \description{
 Difference in difference + IPW + external control borrowing
 }
-\examples{
-This is part of the run_analysis() function
-
-}

@@ -13,8 +13,6 @@
 #' @return tau and standard deviation
 #' @export
 #'
-#' @examples This is part of the run_analysis() function
-#' 
 DID_EC_IPW_bootstrap = function(data,
                       indices,
                       outcome_col_name, 

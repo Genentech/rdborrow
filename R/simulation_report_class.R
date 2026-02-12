@@ -11,10 +11,6 @@
 #' @include method_class.R
 #' @export setup_simulation
 #'
-#' @examples This is part of the run_simulation() function
-#' 
-
-
 .simulation_report_obj = setClass(
   "simulation_report_obj",
   slots = c(
@@ -65,13 +61,7 @@ setMethod(
 #' @param power 
 #'
 #' @return return a simulation report object
-#' @export
-#'
-#' @examples
-#' 
-#' This is part of the run_simulation() function
-#' 
-#' 
+#' @export 
 setup_simulation_report = function(method_description,
                                    bias,
                                    variance,

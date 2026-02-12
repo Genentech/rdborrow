@@ -26,7 +26,3 @@ Simulation class
 \item{\code{power}}{}
 }}
 
-\examples{
-This is part of the run_simulation() function
-
-}

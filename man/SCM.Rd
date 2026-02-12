@@ -60,8 +60,3 @@ A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confi
 \description{
 SCM() is the main function calculates the estimated ATE by SC method and Bootstrap CI, it calls subject_SC() and lambdacv().
 }
-\examples{
-This is part of the run_analysis() function
-
- 
-}

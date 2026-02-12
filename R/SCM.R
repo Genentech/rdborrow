@@ -20,9 +20,6 @@
 #'
 #' @include SCMboot.R
 #' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confidence interval for primary endpoint (only when Bootstrap=TRUE)
-#' @examples This is part of the run_analysis() function
-#' 
-#'  
 SCM = function(data,
                outcome_col_name, 
                trial_status_col_name, 
