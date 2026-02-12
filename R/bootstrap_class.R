@@ -7,6 +7,7 @@
 #' @export setup_analysis
 #'
 #' @examples
+#' \dontrun{
 #' bootstrap_obj = setup_bootstrap(
 #'   replicates = 2e3,
 #'   bootstrap_CI_type = "perc"
@@ -32,7 +33,7 @@
 #'
 #'
 #' res = run_analysis(analysis_primary_obj)
-
+#' }
 .bootstrap_obj <- setClass(
   "bootstrap_obj",
   slots = c(
@@ -75,13 +76,13 @@ setMethod(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
-#' 
+#' }
 setup_bootstrap = function(replicates = 5e2,
                            bootstrap_CI_type = "bca"){
   # TODO: sanity check

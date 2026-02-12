@@ -45,7 +45,7 @@ a simulation object for OLE phase
 Construct a simulation object for OLE analysis
 }
 \examples{
-
+\dontrun{
 simulation_OLE_obj = setup_simulation_OLE(
   data_matrix_list = data_matrix_list,  # two scenarios
   trial_status_col_name = trial_status_col_name, 
@@ -59,7 +59,5 @@ simulation_OLE_obj = setup_simulation_OLE(
   method_description = c("IPW, DID", 
                          "AIPW, DID", 
                          "OR, DID"))
-
-
-
+}
 }

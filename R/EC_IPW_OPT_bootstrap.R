@@ -13,6 +13,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' EC_IPW_OPT(outcome = outcome, 
 #'    trial_status = trial_status, 
 #'    treatment = treatment, 
@@ -21,7 +22,7 @@
 #'    wt = wt, 
 #'    optimal_weight_flag = optimal_weight_flag,
 #'    Bootstrap)
-
+#' }
 EC_IPW_OPT_bootstrap = function(data,
                            indices,
                            outcome_col_name, 

@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' EC_IPW_OPT(data = data,
 #'    outcome_col_name = outcome_col_name, 
 #'    trial_status_col_name = trial_status_col_name, 
@@ -28,7 +29,7 @@
 #'    wt = wt, 
 #'    optimal_weight_flag = optimal_weight_flag,
 #'    Bootstrap, R, bootstrap_CI_type)
-
+#' }
 EC_IPW_OPT = function(data,
                       outcome_col_name, 
                       trial_status_col_name, 

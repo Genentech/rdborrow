@@ -13,13 +13,14 @@
 #' @export setup_method_DID
 #'
 #' @examples
+#' \dontrun{
 #' method_DID_obj = setup_method_DID(
 #'    method_name = "IPW",
 #'    bootstrap_flag = T,
 #'    bootstrap_obj = bootstrap_obj,
 #'    model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
 #'    model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5")
-#' 
+#' }
 .method_DID_obj = setClass(
   "method_DID_obj",
   contains = "method_OLE_obj",

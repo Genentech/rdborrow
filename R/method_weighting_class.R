@@ -13,12 +13,13 @@
 #' @export setup_method_weighting
 #'
 #' @examples
+#' \dontrun{
 #' method_IPW_optimal_weight = setup_method_weighting(method_name = "IPW",
 #'                                                    optimal_weight_flag = T,
 #'                                                    bootstrap_flag = T,
 #'                                                    bootstrap_obj = bootstrap_obj,
 #'                                                    model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
-#' 
+#' }
 .method_weighting_obj = setClass(
   "method_weighting_obj",
   contains = "method_primary_obj",

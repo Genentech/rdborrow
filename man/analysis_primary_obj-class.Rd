@@ -15,7 +15,7 @@ Analysis class
 }}
 
 \examples{
-
+\dontrun{
 method_weighting_obj = setup_method_weighting(
   method_name = "IPW",
   optimal_weight_flag = F, 
@@ -30,5 +30,5 @@ analysis_primary_obj = setup_analysis_primary(
   outcome_col_name = c("y1", "y2"), 
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
   method_weighting_obj = method_weighting_obj)
-
+}
 }

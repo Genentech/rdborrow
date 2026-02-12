@@ -8,6 +8,7 @@
 #' @export
 #' 
 #' @examples
+#' \dontrun{
 #' normal <- normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
 #' X <- simulate_X_copula(1000, 4, normal, 
 #'                       margins = c("norm", "t", "norm", "binom"), 
@@ -17,8 +18,7 @@
 #'                                  list(size = 10, prob = 0.5))
 #'                       )
 #' cor(X, method = "spearman")
-
-
+#' }
 simulate_X_copula = function(n, p, cp, margins, paramMargins){
   # TODO: sanity check
   # p and cp

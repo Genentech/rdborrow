@@ -39,11 +39,11 @@ An analysis object [`Analysis`][Analysis-class]
 Construct an analysis_OLE object
 }
 \examples{
+\dontrun{
 analysis_obj = setup_analysis(trial_status_col_name = S, 
    treatment_col_name = A, 
    outcome_col_name = Y, 
    covariates_col_name = X, 
    method = method_obj)
-
-
+}
 }

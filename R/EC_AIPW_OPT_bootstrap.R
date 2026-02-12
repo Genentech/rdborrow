@@ -12,7 +12,8 @@
 #'
 #' @return a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @export
-#' @examples 
+#' @examples
+#' \dontrun{
 #' res = EC_AIPW_OPT(data = data,
 #'   outcome_col_name = outcome_col_name, 
 #'   trial_status_col_name = trial_status_col_name, 
@@ -23,8 +24,7 @@
 #'   wt = wt, 
 #'   optimal_weight_flag = optimal_weight_flag,
 #'   Bootstrap)
-#' 
-
+#' }
 EC_AIPW_OPT_bootstrap = function(data,
                                  indices,
                                  outcome_col_name, 

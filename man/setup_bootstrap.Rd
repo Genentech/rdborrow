@@ -18,11 +18,11 @@ An bootstrap object
 Construct a bootstrap object
 }
 \examples{
+\dontrun{
 analysis_obj = setup_analysis(trial_status_col_name = S, 
    treatment_col_name = A, 
    outcome_col_name = Y, 
    covariates_col_name = X, 
    method = method_obj)
-
-
+}
 }

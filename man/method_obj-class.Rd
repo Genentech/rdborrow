@@ -19,6 +19,7 @@ method class
 }}
 
 \examples{
+\dontrun{
 method_weighting_obj = setup_method_weighting(
   method_name = "AIPW",
   optimal_weight_flag = T, 
@@ -28,5 +29,5 @@ method_weighting_obj = setup_method_weighting(
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
                          "y2 ~ x1 + x2 + x3 + x4 + x5"))
-
+}
 }
