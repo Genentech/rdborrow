@@ -1,4 +1,5 @@
 #' Simulate X from a mixture model
+#' @importFrom mvtnorm rmvnorm
 #' @param n total number of units simulated
 #' @param p_cat dimension of categorical covariates
 #' @param p_cont dimension of continuous covariates

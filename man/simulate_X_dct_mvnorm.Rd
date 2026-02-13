@@ -2,8 +2,7 @@
 % Please edit documentation in R/simulate_X_dct_mvnorm.R
 \name{simulate_X_dct_mvnorm}
 \alias{simulate_X_dct_mvnorm}
-\title{simulate X by discretizing a multivariate normal distribution
-pkg: futile.logger, mvtnorm}
+\title{simulate X by discretizing a multivariate normal distribution}
 \usage{
 simulate_X_dct_mvnorm(
   n,
@@ -32,7 +31,6 @@ a list contains simulated data and true ATE
 }
 \description{
 simulate X by discretizing a multivariate normal distribution
-pkg: futile.logger, mvtnorm
 }
 \examples{
 simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))

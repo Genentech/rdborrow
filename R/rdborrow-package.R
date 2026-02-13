@@ -8,7 +8,7 @@
 #' @keywords rdborrow
 #' @aliases rdborrow
 #'
-#' @importFrom methods is new setClass setMethod
+#' @importFrom methods is new setClass setMethod setValidity show
 #' @importFrom stats as.formula coef glm lm model.matrix predict qnorm rbinom rmultinom rnorm var
 #'
 #' @section Authors:

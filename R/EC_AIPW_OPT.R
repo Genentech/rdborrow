@@ -1,5 +1,6 @@
 #' Using AIPW with external borrowing
 #' @importFrom boot boot boot.ci
+#' @importFrom Matrix bdiag
 #' @param model_form_piS 
 #' @param model_form_mu0_ext 
 #' @param optimal_weight_flag 
@@ -102,9 +103,9 @@ EC_AIPW_OPT = function(data,
     # propensity score model
     piS.model = glm(model_form_piS , data = df, family = "binomial")
     # outcome regression model
-    Y0.model = lapply(model_form_mu0_ext, function(x){lm(as.formula(x), data = filter(df, A==0) )})
-    Y0.model.dummy = lapply(model_form_mu0_ext, function(x){lm(as.formula(x), data = filter(df))})
-    
+    Y0.model = lapply(model_form_mu0_ext, function(x){lm(as.formula(x), data = df[df$A == 0, ])})
+    Y0.model.dummy = lapply(model_form_mu0_ext, function(x){lm(as.formula(x), data = df)})   
+
     # predict Y0 from outcome regression models
     Y0 = data.frame(sapply(1:T_follow, function(x){predict(Y0.model[[x]], newdata = df)}))
     colnames(Y0) = paste0("y", 1:T_follow, "_0")
@@ -113,13 +114,14 @@ EC_AIPW_OPT = function(data,
     colnames(Yr) = paste0("y", 1:T_follow, "_r")
     
     # estimate ATE
-    temp = df %>% cbind(., Y0, Yr) %>%
-      mutate(piA = sum(A[S==1])/n,
-             piS = sum(S)/(n+m),
-             piSX = predict(piS.model, newdata = df, type="response"),
-             rx = (piSX/(1-piSX))*((1-piS)/piS)) %>%
-      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
-    
+    temp = cbind(df, Y0, Yr)
+    temp$piA = sum(temp$A[temp$S == 1]) / n
+    temp$piS = sum(temp$S) / (n + m)
+    temp$piSX = predict(piS.model, newdata = df, type = "response")
+    temp$rx = (temp$piSX / (1 - temp$piSX)) * ((1 - temp$piS) / temp$piS)
+    temp$w11 = temp$piA
+    temp$w10 = 1 - temp$piA
+    temp$w00 = temp$rx  
     ### create outcomes: obs * T
     Ys = as.matrix(Yr)
     
@@ -187,7 +189,7 @@ EC_AIPW_OPT = function(data,
     # cat(c(n1, n2, n3, n4, n5))
     A.left = rbind(A0, A51)
     A.right = rbind(Phi1.gamma, Phi2.gamma, Phi3.gamma, A45, Y0.gamma)
-    A = cbind(A.left, A.right)
+    A_mat = cbind(A.left, A.right)
     
     ## meat
     phi1 = temp$S*temp$A*sweep(Ys, 2, mu1)/temp$`piA`/temp$piS    # influence from rct treated
@@ -206,7 +208,7 @@ EC_AIPW_OPT = function(data,
     
     
     ## sandwich
-    sigma = solve(A)%*%B%*%t(solve(A))
+    sigma = solve(A_mat)%*%B%*%t(solve(A_mat))
     
     ## Optimal weight as proposed in manuscript
     # fit1 = lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==1&A==0) )
@@ -244,9 +246,7 @@ EC_AIPW_OPT = function(data,
   cutoff = qnorm(1-alpha/2, lower.tail = T)
   
   if(Bootstrap == T){
-    Group_ID = df %>% group_by(S, A) %>% mutate(group_id = cur_group_id())
-    Group_ID = Group_ID$group_id
-    
+    Group_ID = as.integer(interaction(df$S, df$A, drop = TRUE))  
     boot.ci.type = switch (bootstrap_CI_type,
                            norm = "normal",
                            bca = "bca",

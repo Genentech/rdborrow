@@ -57,18 +57,18 @@ DID_EC_OR_bootstrap = function(data = data,
   
   # external outcome model
   model_list_ext = lapply(1:T_follow, function(x){
-    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S==0)))
+    lm(as.formula(model_form_mu0_ext[x]), data = df[df$S == 0, ])
   })
   # list2env(setNames(model.list, c("m.ext1","m.ext2","m.ext3","m.ext4")), envir = .GlobalEnv)
   
   # rct outcome model
   model_list_rct_pc = lapply(1:T_pc, function(x){
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu0_rct[x]), data = filter(df, S==1 & A==0)))
+    lm(as.formula(model_form_mu0_rct[x]), data = df[df$S == 1 & df$A == 0, ])
   })
   
   
   model_list_rct_cr = lapply((T_pc+1):T_follow, function(x){
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu1_rct[x]), data = filter(df, S==1 & A==1)))
+    lm(as.formula(model_form_mu1_rct[x]), data = df[df$S == 1 & df$A == 1, ])
   })
   
   model_list_rct = c(model_list_rct_pc, model_list_rct_cr)
@@ -82,7 +82,7 @@ DID_EC_OR_bootstrap = function(data = data,
                       1:T_follow,
                       function(x){
                         
-                        predict(model_list_ext[[x]], newdata = filter(df, S==1))
+                        predict(model_list_ext[[x]], newdata = df[df$S == 1, ])
                         
                       }
                     ))
@@ -98,7 +98,7 @@ DID_EC_OR_bootstrap = function(data = data,
                   lapply(
                     1:T_follow,
                     function(x){
-                      predict(model_list_rct[[x]], newdata = filter(df, S==1))
+                      predict(model_list_rct[[x]], newdata = df[df$S == 1, ])
                     }
                   ))
   })

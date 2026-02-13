@@ -19,6 +19,8 @@ The following authors contribute to the development and maintainance of the pack
 - Chen Chen, Genentech Inc.
 
 - Jiawen Zhu, Genentech Inc.
+
+- Matthew Secrest, Genentech Inc.
 }
 
 \section{See Also}{
@@ -26,7 +28,7 @@ The following authors contribute to the development and maintainance of the pack
 
 Useful links:
 
-- GitHub Repo for rdborrow: \url{https://github.com/pathwayrf/rdborrow}
+- GitHub Repo for rdborrow: \url{https://github.com/Genentech/rdborrow}
 
 - Estimating treatment effect in randomized trial after control to treatment crossover using external controls: \url{https://www.tandfonline.com/doi/full/10.1080/10543406.2024.2330209}
 

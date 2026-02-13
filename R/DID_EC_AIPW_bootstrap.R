@@ -66,30 +66,34 @@ DID_EC_AIPW_bootstrap = function(data,
   
   # 
   piS = glm(as.formula(model_form_piS), data = df, family = "binomial")
-  suppressWarnings({piSX = predict(piS, newdata = filter(df), type = "response")})
+    suppressWarnings({piSX = predict(piS, newdata = filter(df), type = "response")})
   if (model_form_piA == ""){
     piAX = sum(A)/n
   }else{
-    piA = glm(as.formula(model_form_piA), data = filter(df, S == 1), family = "binomial")
-    suppressWarnings({piAX = predict(piA, newdata = filter(df), type = "response")})
+    piA = glm(as.formula(model_form_piA), data = df[df$S == 1, ], family = "binomial")
+    suppressWarnings({piAX = predict(piA, newdata = df, type = "response")}) 
+  
   }
   
   # predict Y0 from outcome regression models
   model_list_ext = lapply(1:T_follow, function(x){
-    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S==0)))
+    lm(as.formula(model_form_mu0_ext[x]), data = df[df$S == 0, ])
   })
-  suppressWarnings({Y0 = data.frame(sapply(1:T_follow, function(x){predict(model_list_ext[[x]], newdata = filter(df))}))})
+  suppressWarnings({Y0 = data.frame(sapply(1:T_follow, function(x){predict(model_list_ext[[x]], newdata = df)}))})
+
   colnames(Y0) = paste0("y", 1:T_follow, "_0")
   # for residual
   Yr = Y - Y0 
   colnames(Yr) = paste0("y", 1:T_follow, "_r")
   
-  temp = df %>% cbind(., Y0, Yr) %>%
-    mutate(piAX = piAX, #sum(A)/sum(S)
-           piSX = piSX,
-           rx = piSX * (1 - pi.S)/(1 - piSX)/pi.S) %>%
-    mutate(w11 = 1/piAX, w10 = 1/(1 - piAX), w00 = rx)
-  
+  temp = cbind(df, Y0, Yr)
+  temp$piAX = piAX
+  temp$piSX = piSX
+  temp$rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
+  temp$w11 = 1 / temp$piAX
+  temp$w10 = 1 / (1 - temp$piAX)
+  temp$w00 = temp$rx
+ 
   # create outcomes
   Ys = as.matrix(Yr)
   potential = (temp$S*temp$A*temp$w11/sum(temp$S*temp$A*temp$w11) +

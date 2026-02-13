@@ -55,11 +55,11 @@ EC_IPW_OPT_bootstrap = function(data,
   if((!optimal_weight_flag) && wt == 0){
     # estimate ATE
     ## TODO: why do use the true propensity score? 
-    temp = df %>%
-      filter(S == 1) %>%
-      mutate(piA = sum(A)/n) %>%
-      mutate(w11 = piA, w10 = 1 - piA)
-    
+    temp = df[df$S == 1, ]
+    temp$piA = sum(temp$A) / n
+    temp$w11 = temp$piA
+    temp$w10 = 1 - temp$piA
+
     ### create outcomes: obs by T
     Ys = as.matrix(Y[S==1, ])
     
@@ -78,12 +78,14 @@ EC_IPW_OPT_bootstrap = function(data,
     piS.model = glm(as.formula(model_form_piS), data = df, family = "binomial")
     
     # estimate ATE
-    temp = df%>%
-      mutate(piA = sum(A[S==1])/n,
-             piS = sum(S)/(n+m),
-             piSX = predict(piS.model, newdata = df, type = "response"),
-             rx = (piSX/(1 - piSX))*((1 - piS)/piS)) %>%
-      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+    temp = df
+    temp$piA = sum(temp$A[temp$S == 1]) / n
+    temp$piS = sum(temp$S) / (n + m)
+    temp$piSX = predict(piS.model, newdata = df, type = "response")
+    temp$rx = (temp$piSX / (1 - temp$piSX)) * ((1 - temp$piS) / temp$piS)
+    temp$w11 = temp$piA
+    temp$w10 = 1 - temp$piA
+    temp$w00 = temp$rx   
     
     ### create outcomes: obs * T
     Ys = as.matrix(Y)

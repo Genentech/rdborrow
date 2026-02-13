@@ -49,7 +49,8 @@ DID_EC_IPW_bootstrap = function(data,
   
   # 
   piS = glm(as.formula(model_form_piS), data = df, family = "binomial")
-  piSX = predict(piS, newdata = filter(df), type = "response")
+  piSX = predict(piS, newdata = df, type = "response")
+
   if (model_form_piA == ""){
     piAX = sum(A)/n
   }else{
@@ -57,13 +58,13 @@ DID_EC_IPW_bootstrap = function(data,
     piAX = predict(piA, newdata = filter(df), type = "response")
   }
   
-  
-  temp = df %>% 
-    mutate(piAX = piAX, #sum(A)/sum(S)
-           piSX = piSX,
-           rx = piSX * (1 - pi.S)/(1 - piSX)/pi.S) %>%
-    mutate(w11 = 1/piAX, w10 = 1/(1 - piAX), w00 = rx)
-
+  temp = df
+  temp$piAX = piAX
+  temp$piSX = piSX
+  temp$rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
+  temp$w11 = 1 / temp$piAX
+  temp$w10 = 1 / (1 - temp$piAX)
+  temp$w00 = temp$rx 
   
   # create outcomes
   Ys = as.matrix(Y)

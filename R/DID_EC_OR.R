@@ -72,20 +72,20 @@ DID_EC_OR = function(data,
   # external outcome model
   # print("external outcome modeling:")
   model_list_ext = lapply(1:T_follow, function(x){
-    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S==0)))
+    lm(as.formula(model_form_mu0_ext[x]), data = df[df$S == 0, ])
   })
-  
+   
   # list2env(setNames(model.list, c("m.ext1","m.ext2","m.ext3","m.ext4")), envir = .GlobalEnv)
   
   # rct outcome model
   # print("rct0 outcome modeling:")
   model_list_rct_pc = lapply(1:T_pc, function(x){
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu0_rct[x]), data = filter(df, S==1 & A==0)))
+    lm(as.formula(model_form_mu0_rct[x]), data = df[df$S == 1 & df$A == 0, ])
   })
   
   # print("rct1 outcome modeling:")
   model_list_rct_cr = lapply((T_pc+1):T_follow, function(x){
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu1_rct[x]), data = filter(df, S==1 & A==1)))
+    lm(as.formula(model_form_mu1_rct[x]), data = df[df$S == 1 & df$A == 1, ])
   })
   
   model_list_rct = c(model_list_rct_pc, model_list_rct_cr)
@@ -96,7 +96,7 @@ DID_EC_OR = function(data,
                     lapply(
                       1:T_follow,
                       function(x){
-                        predict(model_list_ext[[x]], newdata = filter(df, S==1))
+                        predict(model_list_ext[[x]], newdata = df[df$S == 1, ])
                       }
                     ))
   colnames(mu_S0A0) = paste0("mu_S0A0_", 1:T_follow)
@@ -108,7 +108,7 @@ DID_EC_OR = function(data,
                     lapply(
                       1:T_follow,
                       function(x){
-                        predict(model_list_rct[[x]], newdata = filter(df, S==1))
+                        predict(model_list_rct[[x]], newdata = df[df$S == 1, ])
                       }
                     ))
   colnames(mu_S1) = paste0("mu_S1_", 1:T_follow)
@@ -126,9 +126,8 @@ DID_EC_OR = function(data,
   cutoff = qnorm(1-alpha/2, lower.tail = T)
   
   if(Bootstrap){
-    Group_ID = df %>% group_by(S, A) %>% mutate(group_id = cur_group_id())
-    Group_ID = Group_ID$group_id
-    
+    Group_ID = as.integer(interaction(df$S, df$A, drop = TRUE))
+
     boot.ci.type = switch (bootstrap_CI_type,
                            norm = "normal",
                            bca = "bca",

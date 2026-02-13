@@ -64,8 +64,8 @@ SCM = function(data,
   long_term_col_name = outcome_col_name[(T_cross + 1):length(outcome_col_name)]
   
   # create df matrices: attributes by row and subject by column
-  X10 = t(as.matrix(df %>% filter(S==1 & A==0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
-  X00 = t(as.matrix(df %>% filter(S==0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
+  X10 = t(as.matrix(df[df$S == 1 & df$A == 0, c(covariates_col_name, outcome_col_name)]))
+  X00 = t(as.matrix(df[df$S == 0, c(covariates_col_name, outcome_col_name)]))
   
   # remove colnames of X10 and X00
   colnames(X00) = NULL
@@ -105,8 +105,7 @@ SCM = function(data,
   y.est.mat = do.call(rbind, lapply(res, function(x) as.vector(x[[2]])))
   
   # Aggregate group level synthetic control estiamte
-  Y.trt = df %>% filter(S == 1 & A == 1) %>% 
-    dplyr::select(all_of(long_term_col_name)) %>% colMeans()
+  Y.trt = colMeans(df[df$S == 1 & df$A == 1, long_term_col_name, drop = FALSE])
 
   tau = Y.trt - colMeans(y.est.mat)
   names(tau) = paste0("tau", (T_cross+1):T_follow)
@@ -114,8 +113,7 @@ SCM = function(data,
   ####### Use Bootstrap for standard error and confidence intervals
   cat("Performing bootstrap inference with SCM estimates...\n")
   
-  Group_ID = df %>% group_by(S, A) %>% mutate(group_id = cur_group_id())
-  Group_ID = Group_ID$group_id
+  Group_ID = as.integer(interaction(df$S, df$A, drop = TRUE))
   
   boot.ci.type = switch(bootstrap_CI_type,
                          norm = "normal",

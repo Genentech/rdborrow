@@ -62,8 +62,7 @@ SCMboot = function(data,
   y.est.mat = do.call(rbind, lapply(res, function(x) as.vector(x[[2]])))
   
   # Aggregate group level synthetic control estiamte
-  Y.trt = df_b %>% filter(S == 1 & A == 1) %>% 
-    dplyr::select(all_of(long_term_col_name)) %>% colMeans()
+  Y.trt = colMeans(df_b[df_b$S == 1 & df_b$A == 1, long_term_col_name, drop = FALSE])
   
   tau = Y.trt - colMeans(y.est.mat)
   

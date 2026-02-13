@@ -53,7 +53,6 @@ Collate:
     'analysis_OLE_class.R'
     'method_weighting_class.R'
     'analysis_primary_class.R'
-    'package.R'
     'rdborrow-package.R'
     'run_analysis.R'
     'run_simulation.R'

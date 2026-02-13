@@ -70,11 +70,10 @@ EC_IPW_OPT = function(data,
 
     # estimate ATE
     ## TODO: why do use the true propensity score? 
-    temp = df %>%
-      filter(S == 1) %>%
-      mutate(piA = sum(A)/n) %>%
-      mutate(w11 = piA, w10 = 1 - piA)
-    
+    temp = df[df$S == 1, ]
+    temp$piA = sum(temp$A) / n
+    temp$w11 = temp$piA
+    temp$w10 = 1 - temp$piA
     ### create outcomes: obs by T
     Ys = as.matrix(Y[S==1, ])
     
@@ -111,13 +110,14 @@ EC_IPW_OPT = function(data,
     # print(piS.model)
     
     # estimate ATE
-    temp = df%>%
-      mutate(piA = sum(A[S==1])/n,
-             piS = sum(S)/(n+m),
-             piSX = predict(piS.model, newdata = df, type = "response"),
-             # piSX = exp(log(2) + df$X - 3 * df$U)/(1+exp(log(2) + df$X - 3 * df$U)),
-             rx = (piSX/(1 - piSX))*((1 - piS)/piS)) %>%
-      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+    temp = df
+    temp$piA = sum(temp$A[temp$S == 1]) / n
+    temp$piS = sum(temp$S) / (n + m)
+    temp$piSX = predict(piS.model, newdata = df, type = "response")
+    temp$rx = (temp$piSX / (1 - temp$piSX)) * ((1 - temp$piS) / temp$piS)
+    temp$w11 = temp$piA
+    temp$w10 = 1 - temp$piA
+    temp$w00 = temp$rx
     
     # temp$w00[temp$w00 > 0.9] = 0.9
     # temp$w00[temp$w00 < 0.1] = 0.1
@@ -209,9 +209,8 @@ EC_IPW_OPT = function(data,
   cutoff = qnorm(1-alpha/2, lower.tail = T)
   
   if(Bootstrap == T){
-    Group_ID = df %>% group_by(S, A) %>% mutate(group_id = cur_group_id())
-    Group_ID = Group_ID$group_id
-    
+    Group_ID = as.integer(interaction(df$S, df$A, drop = TRUE))
+
     boot.ci.type = switch(bootstrap_CI_type,
                            norm = "normal",
                            bca = "bca",

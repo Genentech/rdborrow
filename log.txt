@@ -1,9 +1,7 @@
 ══ Documenting ═════════════════════════════════════════════════════════════════
 ℹ Updating rdborrow documentation
+Writing 'NAMESPACE'
 ℹ Loading rdborrow
-Warning: replacing previous import ‘CVXR::id’ by ‘dplyr::id’ when loading ‘rdborrow’
-Warning: replacing previous import ‘copula::psi’ by ‘gsl::psi’ when loading ‘rdborrow’
-Warning: replacing previous import ‘copula::sinc’ by ‘gsl::sinc’ when loading ‘rdborrow’
 
 ══ Building ════════════════════════════════════════════════════════════════════
 Setting env vars:
@@ -29,7 +27,7 @@ Setting env vars:
 • _R_CHECK_PACKAGES_USED_IGNORE_UNUSED_IMPORTS_: FALSE
 • NOT_CRAN                                     : true
 ── R CMD check ─────────────────────────────────────────────────────────────────
-* using log directory ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck’
+* using log directory ‘/tmp/RtmpoRUdTV/file7a7573d1e8a27/rdborrow.Rcheck’
 * using R version 4.5.2 (2025-10-31)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
@@ -42,11 +40,7 @@ Setting env vars:
 * checking extension type ... Package
 * this is package ‘rdborrow’ version ‘0.0.1.1’
 * package encoding: UTF-8
-* checking package namespace information ... NOTE
-Found export directive that requires package ‘methods’:
-  ‘exportClasses’
-Remove all such namespace directives (if obsolete) or ensure that the
-DESCRIPTION Depends or Imports field contains ‘methods’.
+* checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
@@ -54,12 +48,7 @@ DESCRIPTION Depends or Imports field contains ‘methods’.
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘rdborrow’ can be installed ... [11s/11s] WARNING
-Found the following significant warnings:
-  Warning: replacing previous import ‘CVXR::id’ by ‘dplyr::id’ when loading ‘rdborrow’
-  Warning: replacing previous import ‘copula::psi’ by ‘gsl::psi’ when loading ‘rdborrow’
-  Warning: replacing previous import ‘copula::sinc’ by ‘gsl::sinc’ when loading ‘rdborrow’
-See ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck/00install.out’ for details.
+* checking whether package ‘rdborrow’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... OK
@@ -82,154 +71,27 @@ Non-standard files/directories found at top level:
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
 * checking dependencies in R code ... NOTE
-package 'methods' is used but not declared
+Namespace in Imports field not imported from: ‘tidyverse’
+  All declared Imports should be used.
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-.analysis_OLE_obj: no visible global function definition for ‘new’
-.analysis_obj: no visible global function definition for ‘new’
-.analysis_primary_obj: no visible global function definition for ‘new’
-.bootstrap_obj: no visible global function definition for ‘new’
-.method_DID_obj: no visible global function definition for ‘new’
-.method_OLE_obj: no visible global function definition for ‘new’
-.method_SCM_obj: no visible global function definition for ‘new’
-.method_obj: no visible global function definition for ‘new’
-.method_primary_obj: no visible global function definition for ‘new’
-.method_weighting_obj: no visible global function definition for ‘new’
-.simulation_OLE_obj: no visible global function definition for ‘new’
-.simulation_obj: no visible global function definition for ‘new’
-.simulation_primary_obj: no visible global function definition for
-  ‘new’
-.simulation_report_obj: no visible global function definition for ‘new’
-DID_EC_AIPW: no visible global function definition for ‘glm’
-DID_EC_AIPW: no visible global function definition for ‘as.formula’
-DID_EC_AIPW: no visible global function definition for ‘predict’
-DID_EC_AIPW : <anonymous>: no visible global function definition for
-  ‘lm’
-DID_EC_AIPW : <anonymous>: no visible global function definition for
-  ‘as.formula’
-DID_EC_AIPW : <anonymous>: no visible global function definition for
-  ‘predict’
-DID_EC_AIPW: no visible binding for global variable ‘.’
-DID_EC_AIPW: no visible binding for global variable ‘rx’
-DID_EC_AIPW: no visible global function definition for ‘qnorm’
-DID_EC_AIPW: no visible global function definition for ‘var’
-DID_EC_AIPW_bootstrap: no visible global function definition for ‘glm’
 DID_EC_AIPW_bootstrap: no visible global function definition for
-  ‘as.formula’
-DID_EC_AIPW_bootstrap: no visible global function definition for
-  ‘predict’
-DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-  definition for ‘lm’
-DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-  definition for ‘as.formula’
-DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-  definition for ‘predict’
-DID_EC_AIPW_bootstrap: no visible binding for global variable ‘.’
-DID_EC_AIPW_bootstrap: no visible binding for global variable ‘rx’
-DID_EC_IPW: no visible global function definition for ‘glm’
-DID_EC_IPW: no visible global function definition for ‘as.formula’
-DID_EC_IPW: no visible global function definition for ‘predict’
+  ‘filter’
+DID_EC_IPW: no visible global function definition for ‘filter’
+DID_EC_IPW: no visible global function definition for ‘%>%’
+DID_EC_IPW: no visible global function definition for ‘mutate’
 DID_EC_IPW: no visible binding for global variable ‘rx’
-DID_EC_IPW: no visible global function definition for ‘qnorm’
-DID_EC_IPW: no visible global function definition for ‘var’
-DID_EC_IPW_bootstrap: no visible global function definition for ‘glm’
+DID_EC_IPW: no visible global function definition for ‘group_by’
+DID_EC_IPW: no visible global function definition for ‘cur_group_id’
 DID_EC_IPW_bootstrap: no visible global function definition for
-  ‘as.formula’
-DID_EC_IPW_bootstrap: no visible global function definition for
-  ‘predict’
-DID_EC_IPW_bootstrap: no visible binding for global variable ‘rx’
-DID_EC_OR : <anonymous>: no visible global function definition for ‘lm’
-DID_EC_OR : <anonymous>: no visible global function definition for
-  ‘as.formula’
-DID_EC_OR : <anonymous>: no visible global function definition for
-  ‘predict’
-DID_EC_OR: no visible global function definition for ‘qnorm’
-DID_EC_OR: no visible global function definition for ‘var’
-DID_EC_OR_bootstrap : <anonymous>: no visible global function
-  definition for ‘lm’
-DID_EC_OR_bootstrap : <anonymous>: no visible global function
-  definition for ‘as.formula’
-DID_EC_OR_bootstrap : <anonymous>: no visible global function
-  definition for ‘predict’
-EC_AIPW_OPT: no visible global function definition for ‘glm’
-EC_AIPW_OPT : <anonymous>: no visible global function definition for
-  ‘lm’
-EC_AIPW_OPT : <anonymous>: no visible global function definition for
-  ‘as.formula’
-EC_AIPW_OPT : <anonymous>: no visible global function definition for
-  ‘predict’
-EC_AIPW_OPT: no visible binding for global variable ‘.’
-EC_AIPW_OPT: no visible global function definition for ‘predict’
-EC_AIPW_OPT: no visible binding for global variable ‘piSX’
-EC_AIPW_OPT: no visible binding for global variable ‘piS’
-EC_AIPW_OPT: no visible binding for global variable ‘piA’
-EC_AIPW_OPT: no visible binding for global variable ‘rx’
-EC_AIPW_OPT: no visible global function definition for ‘model.matrix’
-EC_AIPW_OPT : <anonymous>: no visible global function definition for
-  ‘model.matrix’
-EC_AIPW_OPT: no visible global function definition for ‘qnorm’
-EC_AIPW_OPT: no visible global function definition for ‘var’
-EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piA’
-EC_AIPW_OPT_bootstrap: no visible global function definition for ‘glm’
-EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-  definition for ‘lm’
-EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-  definition for ‘as.formula’
-EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-  definition for ‘predict’
-EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘.’
-EC_AIPW_OPT_bootstrap: no visible global function definition for
-  ‘predict’
-EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
-EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piS’
-EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘rx’
-EC_IPW_OPT: no visible binding for global variable ‘piA’
-EC_IPW_OPT: no visible global function definition for ‘glm’
-EC_IPW_OPT: no visible global function definition for ‘as.formula’
-EC_IPW_OPT: no visible global function definition for ‘predict’
-EC_IPW_OPT: no visible binding for global variable ‘piSX’
-EC_IPW_OPT: no visible binding for global variable ‘piS’
-EC_IPW_OPT: no visible binding for global variable ‘rx’
-EC_IPW_OPT: no visible global function definition for ‘model.matrix’
-EC_IPW_OPT: no visible global function definition for ‘qnorm’
-EC_IPW_OPT: no visible global function definition for ‘var’
-EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piA’
-EC_IPW_OPT_bootstrap: no visible global function definition for ‘glm’
-EC_IPW_OPT_bootstrap: no visible global function definition for
-  ‘as.formula’
-EC_IPW_OPT_bootstrap: no visible global function definition for
-  ‘predict’
-EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
-EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piS’
-EC_IPW_OPT_bootstrap: no visible binding for global variable ‘rx’
-SCM: no visible global function definition for ‘var’
-run_analysis: no visible global function definition for ‘is’
-run_simulation: no visible global function definition for ‘is’
-run_simulation : <anonymous>: no visible global function definition for
-  ‘var’
-simulate_X_dct_mvnorm : <anonymous>: no visible global function
-  definition for ‘qnorm’
-simulate_X_mixture: no visible global function definition for
-  ‘rmultinom’
-simulate_X_mixture: no visible global function definition for ‘uncount’
-simulate_trial_status: no visible global function definition for
-  ‘rbinom’
-simulate_trt_assign: no visible global function definition for ‘rbinom’
-show,analysis_obj: no visible binding for global variable ‘data’
-show,analysis_primary_obj: no visible binding for global variable
-  ‘data’
+  ‘filter’
 Undefined global functions or variables:
-  . as.formula data glm is lm model.matrix new piA piS piSX predict
-  qnorm rbinom rmultinom rx uncount var
+  %>% cur_group_id filter group_by mutate rx
 Consider adding
-  importFrom("methods", "is", "new")
-  importFrom("stats", "as.formula", "glm", "lm", "model.matrix",
-             "predict", "qnorm", "rbinom", "rmultinom", "var")
-  importFrom("utils", "data")
-to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-contains 'methods').
+  importFrom("stats", "filter")
+to your NAMESPACE file.
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... NOTE
@@ -237,9 +99,6 @@ Rd file 'simulate_X_dct_mvnorm.Rd':
   \examples lines wider than 100 characters:
      simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))
      simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1, 3), cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7)))
-Rd file 'simulate_trt_assign.Rd':
-  \examples lines wider than 100 characters:
-     ## Not run: A = simulate_trt_assign(X = SyntheticData %>% select(x1, x2), S = SyntheticData %>% select(S), prob = 1/2)
 These lines will be truncated in the PDF manual.
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... WARNING
@@ -351,6 +210,9 @@ Argument items with no description in Rd file 'SCM.Rd':
   ‘outcome_col_name’ ‘trial_status_col_name’ ‘treatment_col_name’
   ‘covariates_col_name’ ‘T_cross’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
   ‘alpha’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’ ‘parallel’ ‘ncpus’
+Argument items with no description in Rd file 'SCMboot.Rd':
+  ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘lambda’ ‘pb’
 Argument items with no description in Rd file 'lambdacv.Rd':
   ‘ec’ ‘long_term_col_name’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’
 Argument items with no description in Rd file 'run_analysis.Rd':
@@ -426,16 +288,12 @@ DESCRIPTION file?
 * checking for detritus in the temp directory ... OK
 * DONE
 
-Status: 5 WARNINGs, 7 NOTEs
+Status: 4 WARNINGs, 6 NOTEs
 See
-  ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck/00check.log’
+  ‘/tmp/RtmpoRUdTV/file7a7573d1e8a27/rdborrow.Rcheck/00check.log’
 for details.
-
 ── R CMD check results ─────────────────────────────────── rdborrow 0.0.1.1 ────
-Duration: 1m 42.5s
-
-❯ checking whether package ‘rdborrow’ can be installed ... [11s/11s] WARNING
-  See below...
+Duration: 45.7s
 
 ❯ checking for missing documentation entries ... WARNING
   Undocumented code objects:
@@ -528,12 +386,6 @@ Duration: 1m 42.5s
      ‘vignettes/primary_simulation_workflow.Rmd’
   (Is a VignetteBuilder field missing?)
 
-❯ checking package namespace information ... NOTE
-  Found export directive that requires package ‘methods’:
-    ‘exportClasses’
-  Remove all such namespace directives (if obsolete) or ensure that the
-  DESCRIPTION Depends or Imports field contains ‘methods’.
-
 ❯ checking top-level files ... NOTE
   File
     LICENSE
@@ -542,162 +394,31 @@ Duration: 1m 42.5s
     ‘LICENSE.md’ ‘log.txt’
 
 ❯ checking dependencies in R code ... NOTE
-  package 'methods' is used but not declared
+  Namespace in Imports field not imported from: ‘tidyverse’
+    All declared Imports should be used.
 
 ❯ checking R code for possible problems ... NOTE
-  .analysis_OLE_obj: no visible global function definition for ‘new’
-  .analysis_obj: no visible global function definition for ‘new’
-  .analysis_primary_obj: no visible global function definition for ‘new’
-  .bootstrap_obj: no visible global function definition for ‘new’
-  .method_DID_obj: no visible global function definition for ‘new’
-  .method_OLE_obj: no visible global function definition for ‘new’
-  .method_SCM_obj: no visible global function definition for ‘new’
-  .method_obj: no visible global function definition for ‘new’
-  .method_primary_obj: no visible global function definition for ‘new’
-  .method_weighting_obj: no visible global function definition for ‘new’
-  .simulation_OLE_obj: no visible global function definition for ‘new’
-  .simulation_obj: no visible global function definition for ‘new’
-  .simulation_primary_obj: no visible global function definition for
-    ‘new’
-  .simulation_report_obj: no visible global function definition for ‘new’
-  DID_EC_AIPW: no visible global function definition for ‘glm’
-  DID_EC_AIPW: no visible global function definition for ‘as.formula’
-  DID_EC_AIPW: no visible global function definition for ‘predict’
-  DID_EC_AIPW : <anonymous>: no visible global function definition for
-    ‘lm’
-  DID_EC_AIPW : <anonymous>: no visible global function definition for
-    ‘as.formula’
-  DID_EC_AIPW : <anonymous>: no visible global function definition for
-    ‘predict’
-  DID_EC_AIPW: no visible binding for global variable ‘.’
-  DID_EC_AIPW: no visible binding for global variable ‘rx’
-  DID_EC_AIPW: no visible global function definition for ‘qnorm’
-  DID_EC_AIPW: no visible global function definition for ‘var’
-  DID_EC_AIPW_bootstrap: no visible global function definition for ‘glm’
   DID_EC_AIPW_bootstrap: no visible global function definition for
-    ‘as.formula’
-  DID_EC_AIPW_bootstrap: no visible global function definition for
-    ‘predict’
-  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-    definition for ‘lm’
-  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-    definition for ‘as.formula’
-  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
-    definition for ‘predict’
-  DID_EC_AIPW_bootstrap: no visible binding for global variable ‘.’
-  DID_EC_AIPW_bootstrap: no visible binding for global variable ‘rx’
-  DID_EC_IPW: no visible global function definition for ‘glm’
-  DID_EC_IPW: no visible global function definition for ‘as.formula’
-  DID_EC_IPW: no visible global function definition for ‘predict’
+    ‘filter’
+  DID_EC_IPW: no visible global function definition for ‘filter’
+  DID_EC_IPW: no visible global function definition for ‘%>%’
+  DID_EC_IPW: no visible global function definition for ‘mutate’
   DID_EC_IPW: no visible binding for global variable ‘rx’
-  DID_EC_IPW: no visible global function definition for ‘qnorm’
-  DID_EC_IPW: no visible global function definition for ‘var’
-  DID_EC_IPW_bootstrap: no visible global function definition for ‘glm’
+  DID_EC_IPW: no visible global function definition for ‘group_by’
+  DID_EC_IPW: no visible global function definition for ‘cur_group_id’
   DID_EC_IPW_bootstrap: no visible global function definition for
-    ‘as.formula’
-  DID_EC_IPW_bootstrap: no visible global function definition for
-    ‘predict’
-  DID_EC_IPW_bootstrap: no visible binding for global variable ‘rx’
-  DID_EC_OR : <anonymous>: no visible global function definition for ‘lm’
-  DID_EC_OR : <anonymous>: no visible global function definition for
-    ‘as.formula’
-  DID_EC_OR : <anonymous>: no visible global function definition for
-    ‘predict’
-  DID_EC_OR: no visible global function definition for ‘qnorm’
-  DID_EC_OR: no visible global function definition for ‘var’
-  DID_EC_OR_bootstrap : <anonymous>: no visible global function
-    definition for ‘lm’
-  DID_EC_OR_bootstrap : <anonymous>: no visible global function
-    definition for ‘as.formula’
-  DID_EC_OR_bootstrap : <anonymous>: no visible global function
-    definition for ‘predict’
-  EC_AIPW_OPT: no visible global function definition for ‘glm’
-  EC_AIPW_OPT : <anonymous>: no visible global function definition for
-    ‘lm’
-  EC_AIPW_OPT : <anonymous>: no visible global function definition for
-    ‘as.formula’
-  EC_AIPW_OPT : <anonymous>: no visible global function definition for
-    ‘predict’
-  EC_AIPW_OPT: no visible binding for global variable ‘.’
-  EC_AIPW_OPT: no visible global function definition for ‘predict’
-  EC_AIPW_OPT: no visible binding for global variable ‘piSX’
-  EC_AIPW_OPT: no visible binding for global variable ‘piS’
-  EC_AIPW_OPT: no visible binding for global variable ‘piA’
-  EC_AIPW_OPT: no visible binding for global variable ‘rx’
-  EC_AIPW_OPT: no visible global function definition for ‘model.matrix’
-  EC_AIPW_OPT : <anonymous>: no visible global function definition for
-    ‘model.matrix’
-  EC_AIPW_OPT: no visible global function definition for ‘qnorm’
-  EC_AIPW_OPT: no visible global function definition for ‘var’
-  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piA’
-  EC_AIPW_OPT_bootstrap: no visible global function definition for ‘glm’
-  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-    definition for ‘lm’
-  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-    definition for ‘as.formula’
-  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
-    definition for ‘predict’
-  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘.’
-  EC_AIPW_OPT_bootstrap: no visible global function definition for
-    ‘predict’
-  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
-  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piS’
-  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘rx’
-  EC_IPW_OPT: no visible binding for global variable ‘piA’
-  EC_IPW_OPT: no visible global function definition for ‘glm’
-  EC_IPW_OPT: no visible global function definition for ‘as.formula’
-  EC_IPW_OPT: no visible global function definition for ‘predict’
-  EC_IPW_OPT: no visible binding for global variable ‘piSX’
-  EC_IPW_OPT: no visible binding for global variable ‘piS’
-  EC_IPW_OPT: no visible binding for global variable ‘rx’
-  EC_IPW_OPT: no visible global function definition for ‘model.matrix’
-  EC_IPW_OPT: no visible global function definition for ‘qnorm’
-  EC_IPW_OPT: no visible global function definition for ‘var’
-  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piA’
-  EC_IPW_OPT_bootstrap: no visible global function definition for ‘glm’
-  EC_IPW_OPT_bootstrap: no visible global function definition for
-    ‘as.formula’
-  EC_IPW_OPT_bootstrap: no visible global function definition for
-    ‘predict’
-  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
-  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piS’
-  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘rx’
-  SCM: no visible global function definition for ‘var’
-  run_analysis: no visible global function definition for ‘is’
-  run_simulation: no visible global function definition for ‘is’
-  run_simulation : <anonymous>: no visible global function definition for
-    ‘var’
-  simulate_X_dct_mvnorm : <anonymous>: no visible global function
-    definition for ‘qnorm’
-  simulate_X_mixture: no visible global function definition for
-    ‘rmultinom’
-  simulate_X_mixture: no visible global function definition for ‘uncount’
-  simulate_trial_status: no visible global function definition for
-    ‘rbinom’
-  simulate_trt_assign: no visible global function definition for ‘rbinom’
-  show,analysis_obj: no visible binding for global variable ‘data’
-  show,analysis_primary_obj: no visible binding for global variable
-    ‘data’
+    ‘filter’
   Undefined global functions or variables:
-    . as.formula data glm is lm model.matrix new piA piS piSX predict
-    qnorm rbinom rmultinom rx uncount var
+    %>% cur_group_id filter group_by mutate rx
   Consider adding
-    importFrom("methods", "is", "new")
-    importFrom("stats", "as.formula", "glm", "lm", "model.matrix",
-               "predict", "qnorm", "rbinom", "rmultinom", "var")
-    importFrom("utils", "data")
-  to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
-  contains 'methods').
+    importFrom("stats", "filter")
+  to your NAMESPACE file.
 
 ❯ checking Rd line widths ... NOTE
   Rd file 'simulate_X_dct_mvnorm.Rd':
     \examples lines wider than 100 characters:
        simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))
        simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1, 3), cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7)))
-  
-  Rd file 'simulate_trt_assign.Rd':
-    \examples lines wider than 100 characters:
-       ## Not run: A = simulate_trt_assign(X = SyntheticData %>% select(x1, x2), S = SyntheticData %>% select(S), prob = 1/2)
   
   These lines will be truncated in the PDF manual.
 
@@ -749,6 +470,9 @@ Duration: 1m 42.5s
     ‘outcome_col_name’ ‘trial_status_col_name’ ‘treatment_col_name’
     ‘covariates_col_name’ ‘T_cross’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
     ‘alpha’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’ ‘parallel’ ‘ncpus’
+  Argument items with no description in Rd file 'SCMboot.Rd':
+    ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘lambda’ ‘pb’
   Argument items with no description in Rd file 'lambdacv.Rd':
     ‘ec’ ‘long_term_col_name’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’
   Argument items with no description in Rd file 'run_analysis.Rd':
@@ -800,6 +524,6 @@ Duration: 1m 42.5s
   Perhaps the ‘VignetteBuilder’ information is missing from the
   DESCRIPTION file?
 
-0 errors ✔ | 5 warnings ✖ | 7 notes ✖
+0 errors ✔ | 4 warnings ✖ | 6 notes ✖
 Error: R CMD check found WARNINGs
 Execution halted
