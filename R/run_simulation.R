@@ -1,5 +1,5 @@
 #' Run simulation from a simualtion_obj
-#'
+#' @importFrom future.apply future_lapply
 #' @param simulation_obj 
 #' @param quiet 
 #'

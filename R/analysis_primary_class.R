@@ -36,7 +36,7 @@ setMethod(
   f = "show",
   signature = "analysis_primary_obj",
   definition = function(object) {
-    full_data = data
+    full_data = object@data
     print(full_data)
     cat("Using method: ", object@method_obj@method_name)
   }

@@ -1,5 +1,5 @@
 #' run analysis
-#' 
+#' @importFrom checkmate assert_class
 #' @param analysis_obj 
 #' @param Bootstrap 
 #' 

@@ -3,10 +3,13 @@
 #' rdborrow is a package that implements causal inference methods for 
 #' analyzing and designing clinical trials with external controls.
 #'
-#' @rdname aaa-rdborrow-package
+#' @rdname rdborrow-package
 #' @name rdborrow-package
 #' @keywords rdborrow
-#' @aliases rdborrow-package rdborrow
+#' @aliases rdborrow
+#'
+#' @importFrom methods is new setClass setMethod
+#' @importFrom stats as.formula coef glm lm model.matrix predict qnorm rbinom rmultinom rnorm var
 #'
 #' @section Authors:
 #' The following authors contribute to the development and maintainance of the package:
@@ -19,11 +22,13 @@
 #' 
 #' - Jiawen Zhu, Genentech Inc.
 #' 
+#' - Matthew Secrest, Genentech Inc.
+#' 
 #' @section See Also: 
 #' 
 #' Useful links:
 #' 
-#' - GitHub Repo for rdborrow: \url{https://github.com/pathwayrf/rdborrow}
+#' - GitHub Repo for rdborrow: \url{https://github.com/Genentech/rdborrow}
 #' 
 #' - Estimating treatment effect in randomized trial after control to treatment crossover using external controls: \url{https://www.tandfonline.com/doi/full/10.1080/10543406.2024.2330209}
 #' 

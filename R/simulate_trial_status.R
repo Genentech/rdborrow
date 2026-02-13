@@ -1,7 +1,7 @@
 # trial participation status
 ## TODO: generalize to incorporate other models
 #' Simulate trial status indicator
-#'
+#' @importFrom boot inv.logit
 #' @param X 
 #' @param model_specs 
 #'

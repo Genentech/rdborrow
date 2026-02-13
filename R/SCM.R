@@ -1,7 +1,10 @@
 #' Implement the Synthetic Control Method  
 #'
 #' SCM() is the main function calculates the estimated ATE by SC method and Bootstrap CI, it calls subject_SC() and lambdacv().
-#'
+#' @importFrom CVXR Variable Problem Minimize
+#' @importFrom Matrix Matrix
+#' @importFrom boot boot boot.ci
+#' @importFrom progress progress_bar
 #' @param outcome_col_name 
 #' @param trial_status_col_name 
 #' @param treatment_col_name 

@@ -37,15 +37,16 @@ simulate_X_mixture = function(n, p_cat, p_cont, cat_level_list, cat_comb_prob, c
     num_comb = length(cat_comb_prob)
     
     covariate_cat = expand.grid(cat_level_list)
-    covariate_cat = covariate_cat %>% mutate(count = N) %>% uncount(count)
+    covariate_cat = covariate_cat[rep(1:nrow(covariate_cat), N), ]
     # flog.debug(paste("User chose to simulate continuous covariate. \n"))
     
     if (p_cont == 0){
       covariate = covariate_cat
     }
     else{
-      covariate_cont =  bind_rows(lapply(1:num_comb, function(k){data.frame(rmvnorm(N[k], mean =    cont_para_list[[k]]$mean, sigma = cont_para_list[[k]]$sigma))}))
-      
+      covariate_cont = do.call(rbind, lapply(1:num_comb, function(k){
+        data.frame(rmvnorm(N[k], mean = cont_para_list[[k]]$mean, sigma = cont_para_list[[k]]$sigma))
+      }))      
       covariate = cbind(covariate_cat, covariate_cont)
     }
     

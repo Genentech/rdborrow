@@ -1,5 +1,5 @@
 #' Difference in difference + IPW + external control borrowing
-#'
+#' @importFrom boot boot boot.ci
 #' @param model_form_piS 
 #' @param model_form_piA 
 #' @param data 

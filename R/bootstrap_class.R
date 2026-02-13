@@ -3,8 +3,7 @@
 #' @slot replicates 
 #' @slot bootstrap_CI_type 
 #'
-#' @include method_class.R
-#' @export setup_analysis
+#' @export setup_bootstrap
 #'
 #' @examples
 #' \dontrun{
@@ -51,9 +50,6 @@ setMethod(
   f = "show",
   signature = "bootstrap_obj",
   definition = function(object) {
-#    full_data = data
-#    print(full_data)
-    # "norm","basic", "stud", "perc", "bca"
     boot.ci.type = switch (object@bootstrap_CI_type,
       norm = "normal approximation",
       bca = "bias-corrected",
@@ -61,7 +57,6 @@ setMethod(
       perc = "percentile",
       basic = "basic"
     )
-    cat("Running Bootstrap: ", ifelse(object@bootstrap_flag, "Yes", "No"), "\n")
     cat("Number of Replicates: ", as.character(object@replicates), "\n")
     cat("Type of bootstrap confidence interval: ", boot.ci.type)
   }

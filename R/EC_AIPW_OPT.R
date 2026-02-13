@@ -1,5 +1,5 @@
 #' Using AIPW with external borrowing
-#'
+#' @importFrom boot boot boot.ci
 #' @param model_form_piS 
 #' @param model_form_mu0_ext 
 #' @param optimal_weight_flag 

@@ -9,7 +9,7 @@
 #' @slot power 
 #'
 #' @include method_class.R
-#' @export setup_simulation
+#' @export setup_simulation_report
 #'
 .simulation_report_obj = setClass(
   "simulation_report_obj",

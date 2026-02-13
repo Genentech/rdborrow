@@ -1,5 +1,5 @@
 #' Difference in difference + outcome regression + external control borrowing
-#'
+#' @importFrom boot boot boot.ci
 #' @param model_form_mu0_ext 
 #' @param model_form_mu0_rct 
 #' @param model_form_mu1_rct 

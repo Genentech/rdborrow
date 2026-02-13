@@ -1,5 +1,6 @@
 #' simulate X by discretizing a multivariate normal distribution
-#' pkg: futile.logger, mvtnorm
+#' @importFrom mvtnorm rmvnorm
+#' @importFrom futile.logger flog.debug
 #' @param n total number of units simulated
 #' @param p dimension of the parameters
 #' @param mu mean for mvnorm

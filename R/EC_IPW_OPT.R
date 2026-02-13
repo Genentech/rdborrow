@@ -1,5 +1,5 @@
 #' Using IPW with external borrowing
-#'
+#' @importFrom boot boot boot.ci
 #' @param model_form_piS 
 #' @param optimal_weight_flag 
 #' @param wt 

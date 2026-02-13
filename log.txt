@@ -1,0 +1,805 @@
+══ Documenting ═════════════════════════════════════════════════════════════════
+ℹ Updating rdborrow documentation
+ℹ Loading rdborrow
+Warning: replacing previous import ‘CVXR::id’ by ‘dplyr::id’ when loading ‘rdborrow’
+Warning: replacing previous import ‘copula::psi’ by ‘gsl::psi’ when loading ‘rdborrow’
+Warning: replacing previous import ‘copula::sinc’ by ‘gsl::sinc’ when loading ‘rdborrow’
+
+══ Building ════════════════════════════════════════════════════════════════════
+Setting env vars:
+• CFLAGS    : -Wall -pedantic
+• CXXFLAGS  : -Wall -pedantic
+• CXX11FLAGS: -Wall -pedantic
+• CXX14FLAGS: -Wall -pedantic
+• CXX17FLAGS: -Wall -pedantic
+• CXX20FLAGS: -Wall -pedantic
+── R CMD build ─────────────────────────────────────────────────────────────────
+* checking for file ‘/home/matts/rdborrow/DESCRIPTION’ ... OK
+* preparing ‘rdborrow’:
+* checking DESCRIPTION meta-information ... OK
+* checking for LF line-endings in source and make files and shell scripts
+* checking for empty or unneeded directories
+* building ‘rdborrow_0.0.1.1.tar.gz’
+
+══ Checking ════════════════════════════════════════════════════════════════════
+Setting env vars:
+• _R_CHECK_CRAN_INCOMING_REMOTE_               : FALSE
+• _R_CHECK_CRAN_INCOMING_                      : FALSE
+• _R_CHECK_FORCE_SUGGESTS_                     : FALSE
+• _R_CHECK_PACKAGES_USED_IGNORE_UNUSED_IMPORTS_: FALSE
+• NOT_CRAN                                     : true
+── R CMD check ─────────────────────────────────────────────────────────────────
+* using log directory ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck’
+* using R version 4.5.2 (2025-10-31)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.1 LTS
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘rdborrow/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘rdborrow’ version ‘0.0.1.1’
+* package encoding: UTF-8
+* checking package namespace information ... NOTE
+Found export directive that requires package ‘methods’:
+  ‘exportClasses’
+Remove all such namespace directives (if obsolete) or ensure that the
+DESCRIPTION Depends or Imports field contains ‘methods’.
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘rdborrow’ can be installed ... [11s/11s] WARNING
+Found the following significant warnings:
+  Warning: replacing previous import ‘CVXR::id’ by ‘dplyr::id’ when loading ‘rdborrow’
+  Warning: replacing previous import ‘copula::psi’ by ‘gsl::psi’ when loading ‘rdborrow’
+  Warning: replacing previous import ‘copula::sinc’ by ‘gsl::sinc’ when loading ‘rdborrow’
+See ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck/00install.out’ for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+File
+  LICENSE
+is not mentioned in the DESCRIPTION file.
+Non-standard files/directories found at top level:
+  ‘LICENSE.md’ ‘log.txt’
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+package 'methods' is used but not declared
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+.analysis_OLE_obj: no visible global function definition for ‘new’
+.analysis_obj: no visible global function definition for ‘new’
+.analysis_primary_obj: no visible global function definition for ‘new’
+.bootstrap_obj: no visible global function definition for ‘new’
+.method_DID_obj: no visible global function definition for ‘new’
+.method_OLE_obj: no visible global function definition for ‘new’
+.method_SCM_obj: no visible global function definition for ‘new’
+.method_obj: no visible global function definition for ‘new’
+.method_primary_obj: no visible global function definition for ‘new’
+.method_weighting_obj: no visible global function definition for ‘new’
+.simulation_OLE_obj: no visible global function definition for ‘new’
+.simulation_obj: no visible global function definition for ‘new’
+.simulation_primary_obj: no visible global function definition for
+  ‘new’
+.simulation_report_obj: no visible global function definition for ‘new’
+DID_EC_AIPW: no visible global function definition for ‘glm’
+DID_EC_AIPW: no visible global function definition for ‘as.formula’
+DID_EC_AIPW: no visible global function definition for ‘predict’
+DID_EC_AIPW : <anonymous>: no visible global function definition for
+  ‘lm’
+DID_EC_AIPW : <anonymous>: no visible global function definition for
+  ‘as.formula’
+DID_EC_AIPW : <anonymous>: no visible global function definition for
+  ‘predict’
+DID_EC_AIPW: no visible binding for global variable ‘.’
+DID_EC_AIPW: no visible binding for global variable ‘rx’
+DID_EC_AIPW: no visible global function definition for ‘qnorm’
+DID_EC_AIPW: no visible global function definition for ‘var’
+DID_EC_AIPW_bootstrap: no visible global function definition for ‘glm’
+DID_EC_AIPW_bootstrap: no visible global function definition for
+  ‘as.formula’
+DID_EC_AIPW_bootstrap: no visible global function definition for
+  ‘predict’
+DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+  definition for ‘lm’
+DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+  definition for ‘as.formula’
+DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+  definition for ‘predict’
+DID_EC_AIPW_bootstrap: no visible binding for global variable ‘.’
+DID_EC_AIPW_bootstrap: no visible binding for global variable ‘rx’
+DID_EC_IPW: no visible global function definition for ‘glm’
+DID_EC_IPW: no visible global function definition for ‘as.formula’
+DID_EC_IPW: no visible global function definition for ‘predict’
+DID_EC_IPW: no visible binding for global variable ‘rx’
+DID_EC_IPW: no visible global function definition for ‘qnorm’
+DID_EC_IPW: no visible global function definition for ‘var’
+DID_EC_IPW_bootstrap: no visible global function definition for ‘glm’
+DID_EC_IPW_bootstrap: no visible global function definition for
+  ‘as.formula’
+DID_EC_IPW_bootstrap: no visible global function definition for
+  ‘predict’
+DID_EC_IPW_bootstrap: no visible binding for global variable ‘rx’
+DID_EC_OR : <anonymous>: no visible global function definition for ‘lm’
+DID_EC_OR : <anonymous>: no visible global function definition for
+  ‘as.formula’
+DID_EC_OR : <anonymous>: no visible global function definition for
+  ‘predict’
+DID_EC_OR: no visible global function definition for ‘qnorm’
+DID_EC_OR: no visible global function definition for ‘var’
+DID_EC_OR_bootstrap : <anonymous>: no visible global function
+  definition for ‘lm’
+DID_EC_OR_bootstrap : <anonymous>: no visible global function
+  definition for ‘as.formula’
+DID_EC_OR_bootstrap : <anonymous>: no visible global function
+  definition for ‘predict’
+EC_AIPW_OPT: no visible global function definition for ‘glm’
+EC_AIPW_OPT : <anonymous>: no visible global function definition for
+  ‘lm’
+EC_AIPW_OPT : <anonymous>: no visible global function definition for
+  ‘as.formula’
+EC_AIPW_OPT : <anonymous>: no visible global function definition for
+  ‘predict’
+EC_AIPW_OPT: no visible binding for global variable ‘.’
+EC_AIPW_OPT: no visible global function definition for ‘predict’
+EC_AIPW_OPT: no visible binding for global variable ‘piSX’
+EC_AIPW_OPT: no visible binding for global variable ‘piS’
+EC_AIPW_OPT: no visible binding for global variable ‘piA’
+EC_AIPW_OPT: no visible binding for global variable ‘rx’
+EC_AIPW_OPT: no visible global function definition for ‘model.matrix’
+EC_AIPW_OPT : <anonymous>: no visible global function definition for
+  ‘model.matrix’
+EC_AIPW_OPT: no visible global function definition for ‘qnorm’
+EC_AIPW_OPT: no visible global function definition for ‘var’
+EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piA’
+EC_AIPW_OPT_bootstrap: no visible global function definition for ‘glm’
+EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+  definition for ‘lm’
+EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+  definition for ‘as.formula’
+EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+  definition for ‘predict’
+EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘.’
+EC_AIPW_OPT_bootstrap: no visible global function definition for
+  ‘predict’
+EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
+EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piS’
+EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘rx’
+EC_IPW_OPT: no visible binding for global variable ‘piA’
+EC_IPW_OPT: no visible global function definition for ‘glm’
+EC_IPW_OPT: no visible global function definition for ‘as.formula’
+EC_IPW_OPT: no visible global function definition for ‘predict’
+EC_IPW_OPT: no visible binding for global variable ‘piSX’
+EC_IPW_OPT: no visible binding for global variable ‘piS’
+EC_IPW_OPT: no visible binding for global variable ‘rx’
+EC_IPW_OPT: no visible global function definition for ‘model.matrix’
+EC_IPW_OPT: no visible global function definition for ‘qnorm’
+EC_IPW_OPT: no visible global function definition for ‘var’
+EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piA’
+EC_IPW_OPT_bootstrap: no visible global function definition for ‘glm’
+EC_IPW_OPT_bootstrap: no visible global function definition for
+  ‘as.formula’
+EC_IPW_OPT_bootstrap: no visible global function definition for
+  ‘predict’
+EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
+EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piS’
+EC_IPW_OPT_bootstrap: no visible binding for global variable ‘rx’
+SCM: no visible global function definition for ‘var’
+run_analysis: no visible global function definition for ‘is’
+run_simulation: no visible global function definition for ‘is’
+run_simulation : <anonymous>: no visible global function definition for
+  ‘var’
+simulate_X_dct_mvnorm : <anonymous>: no visible global function
+  definition for ‘qnorm’
+simulate_X_mixture: no visible global function definition for
+  ‘rmultinom’
+simulate_X_mixture: no visible global function definition for ‘uncount’
+simulate_trial_status: no visible global function definition for
+  ‘rbinom’
+simulate_trt_assign: no visible global function definition for ‘rbinom’
+show,analysis_obj: no visible binding for global variable ‘data’
+show,analysis_primary_obj: no visible binding for global variable
+  ‘data’
+Undefined global functions or variables:
+  . as.formula data glm is lm model.matrix new piA piS piSX predict
+  qnorm rbinom rmultinom rx uncount var
+Consider adding
+  importFrom("methods", "is", "new")
+  importFrom("stats", "as.formula", "glm", "lm", "model.matrix",
+             "predict", "qnorm", "rbinom", "rmultinom", "var")
+  importFrom("utils", "data")
+to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+contains 'methods').
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... NOTE
+Rd file 'simulate_X_dct_mvnorm.Rd':
+  \examples lines wider than 100 characters:
+     simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))
+     simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1, 3), cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7)))
+Rd file 'simulate_trt_assign.Rd':
+  \examples lines wider than 100 characters:
+     ## Not run: A = simulate_trt_assign(X = SyntheticData %>% select(x1, x2), S = SyntheticData %>% select(S), prob = 1/2)
+These lines will be truncated in the PDF manual.
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘SyntheticData’ ‘setup_method’ ‘setup_method_DID’ ‘setup_method_SCM’
+  ‘setup_method_weighting’
+Undocumented data sets:
+  ‘SyntheticData’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... WARNING
+S4 class codoc mismatches from Rd file 'simulation_OLE_obj-class.Rd':
+Slots for class 'simulation_OLE_obj'
+  Code: T_cross alpha covariates_col_name data_matrix_list
+        method_description method_obj_list outcome_col_name
+        treatment_col_name trial_status_col_name true_effect
+  Inherited: covariates_col_name outcome_col_name treatment_col_name
+        trial_status_col_name method_obj_list alpha method_description
+  Docs: T_cross
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in Rd file 'DID_EC_AIPW.Rd'
+  ‘quiet’
+Undocumented arguments in Rd file 'DID_EC_IPW.Rd'
+  ‘T_cross’ ‘quiet’
+Undocumented arguments in Rd file 'DID_EC_OR.Rd'
+  ‘quiet’
+Undocumented arguments in Rd file 'EC_AIPW_OPT.Rd'
+  ‘quiet’
+Undocumented arguments in Rd file 'EC_AIPW_OPT_bootstrap.Rd'
+  ‘indices’
+Undocumented arguments in Rd file 'EC_IPW_OPT.Rd'
+  ‘quiet’
+Undocumented arguments in Rd file 'EC_IPW_OPT_bootstrap.Rd'
+  ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’
+Documented arguments not in \usage in Rd file 'EC_IPW_OPT_bootstrap.Rd':
+  ‘outcome’ ‘trial_status’ ‘treatment’ ‘covariates’ ‘Bootstrap’
+Undocumented arguments in Rd file 'SCM.Rd'
+  ‘quiet’
+Undocumented arguments in Rd file 'lambdacv.Rd'
+  ‘pb’
+Undocumented arguments in Rd file 'run_analysis.Rd'
+  ‘quiet’
+Documented arguments not in \usage in Rd file 'run_analysis.Rd':
+  ‘Bootstrap’
+Undocumented arguments in Rd file 'setup_analysis.Rd'
+  ‘alpha’
+Undocumented arguments in Rd file 'setup_analysis_OLE.Rd'
+  ‘method_OLE_obj’
+Documented arguments not in \usage in Rd file 'setup_analysis_OLE.Rd':
+  ‘method_obj’
+Undocumented arguments in Rd file 'simulate_X_mixture.Rd'
+  ‘cont_para_list’
+Undocumented arguments in Rd file 'simulate_outcome_from_model.Rd'
+  ‘OLE_flag’ ‘T_cross’
+Documented arguments not in \usage in Rd file 'simulate_outcome_from_model.Rd':
+  ‘n’ ‘T_follow’
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... NOTE
+Argument items with no description in Rd file 'DID_EC_AIPW.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+  ‘model_form_piA’ ‘model_form_mu0_ext’ ‘Bootstrap’ ‘R’
+  ‘bootstrap_CI_type’ ‘alpha’
+Argument items with no description in Rd file 'DID_EC_AIPW_bootstrap.Rd':
+  ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+  ‘model_form_piA’ ‘model_form_mu0_ext’
+Argument items with no description in Rd file 'DID_EC_IPW.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+  ‘model_form_piA’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’ ‘alpha’
+Argument items with no description in Rd file 'DID_EC_IPW_bootstrap.Rd':
+  ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+  ‘model_form_piA’
+Argument items with no description in Rd file 'DID_EC_OR.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’
+  ‘model_form_mu0_ext’ ‘model_form_mu0_rct’ ‘model_form_mu1_rct’
+  ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’ ‘alpha’
+Argument items with no description in Rd file 'DID_EC_OR_bootstrap.Rd':
+  ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’
+  ‘model_form_mu0_ext’ ‘model_form_mu0_rct’ ‘model_form_mu1_rct’
+Argument items with no description in Rd file 'EC_AIPW_OPT.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+  ‘model_form_mu0_ext’ ‘optimal_weight_flag’ ‘wt’ ‘Bootstrap’ ‘R’
+  ‘bootstrap_CI_type’ ‘alpha’
+Argument items with no description in Rd file 'EC_AIPW_OPT_bootstrap.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+  ‘model_form_mu0_ext’ ‘optimal_weight_flag’ ‘wt’
+Argument items with no description in Rd file 'EC_IPW_OPT.Rd':
+  ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+  ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+  ‘optimal_weight_flag’ ‘wt’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
+  ‘alpha’
+Argument items with no description in Rd file 'EC_IPW_OPT_bootstrap.Rd':
+  ‘model_form_piS’ ‘optimal_weight_flag’ ‘wt’ ‘outcome’ ‘trial_status’
+  ‘treatment’ ‘covariates’ ‘Bootstrap’
+Argument items with no description in Rd file 'SCM.Rd':
+  ‘outcome_col_name’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘covariates_col_name’ ‘T_cross’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
+  ‘alpha’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’ ‘parallel’ ‘ncpus’
+Argument items with no description in Rd file 'lambdacv.Rd':
+  ‘ec’ ‘long_term_col_name’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’
+Argument items with no description in Rd file 'run_analysis.Rd':
+  ‘analysis_obj’ ‘Bootstrap’
+Argument items with no description in Rd file 'run_simulation.Rd':
+  ‘simulation_obj’ ‘quiet’
+Argument items with no description in Rd file 'setup_analysis.Rd':
+  ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj’
+Argument items with no description in Rd file 'setup_analysis_OLE.Rd':
+  ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘outcome_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘alpha’
+  ‘method_obj’
+Argument items with no description in Rd file 'setup_analysis_primary.Rd':
+  ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘outcome_col_name’ ‘covariates_col_name’ ‘method_weighting_obj’
+  ‘alpha’
+Argument items with no description in Rd file 'setup_bootstrap.Rd':
+  ‘replicates’ ‘bootstrap_CI_type’
+Argument items with no description in Rd file 'setup_simulation.Rd':
+  ‘trial_status_col_name’ ‘treatment_col_name’ ‘outcome_col_name’
+  ‘covariates_col_name’ ‘method_obj_list’ ‘method_description’ ‘alpha’
+Argument items with no description in Rd file 'setup_simulation_OLE.Rd':
+  ‘data_matrix_list’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj_list’ ‘T_cross’
+  ‘true_effect’ ‘method_description’ ‘alpha’
+Argument items with no description in Rd file 'setup_simulation_primary.Rd':
+  ‘data_matrix_list_null’ ‘trial_status_col_name’ ‘treatment_col_name’
+  ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj_list’
+  ‘true_effect’ ‘method_description’ ‘data_matrix_list_alt’
+  ‘alt_effect’ ‘alpha’
+Argument items with no description in Rd file 'setup_simulation_report.Rd':
+  ‘method_description’ ‘bias’ ‘variance’ ‘mse’ ‘coverage’
+  ‘type_I_error’ ‘power’
+Argument items with no description in Rd file 'simulate_outcome_from_model.Rd':
+  ‘X’ ‘A’ ‘outcome_model_specs’ ‘n’ ‘T_follow’
+Argument items with no description in Rd file 'simulate_trial.Rd':
+  ‘X_int’ ‘X_ext’ ‘num_treated’ ‘OLE_flag’ ‘T_cross’
+  ‘outcome_model_specs’
+Argument items with no description in Rd file 'simulate_trial_status.Rd':
+  ‘X’ ‘model_specs’
+Argument items with no description in Rd file 'simulate_trt_assign.Rd':
+  ‘X’ ‘S’ ‘prob’
+Argument items with no description in Rd file 'subject_SC.Rd':
+  ‘subject’ ‘X10’ ‘X00’ ‘long_term_col_name’ ‘lambda’
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking files in ‘vignettes’ ... WARNING
+Files in the 'vignettes' directory but no files in 'inst/doc':
+  ‘OLE_analysis_workflow.Rmd’ ‘OLE_simulation_workflow.Rmd’
+  ‘primary_analysis_workflow.Rmd’ ‘primary_simulation_workflow.Rmd’
+  ‘simulate_func_test/simulate_covariates.Rmd’
+  ‘simulate_func_test/simulate_outcome.Rmd’
+Files named as vignettes but with no recognized vignette engine:
+   ‘vignettes/OLE_analysis_workflow.Rmd’
+   ‘vignettes/OLE_simulation_workflow.Rmd’
+   ‘vignettes/primary_analysis_workflow.Rmd’
+   ‘vignettes/primary_simulation_workflow.Rmd’
+(Is a VignetteBuilder field missing?)
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ...
+  Running ‘testthat.R’
+ OK
+* checking package vignettes ... NOTE
+Package has ‘vignettes’ subdirectory but apparently no vignettes.
+Perhaps the ‘VignetteBuilder’ information is missing from the
+DESCRIPTION file?
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+
+Status: 5 WARNINGs, 7 NOTEs
+See
+  ‘/tmp/Rtmp58Xltp/file5ac991d17066/rdborrow.Rcheck/00check.log’
+for details.
+
+── R CMD check results ─────────────────────────────────── rdborrow 0.0.1.1 ────
+Duration: 1m 42.5s
+
+❯ checking whether package ‘rdborrow’ can be installed ... [11s/11s] WARNING
+  See below...
+
+❯ checking for missing documentation entries ... WARNING
+  Undocumented code objects:
+    ‘SyntheticData’ ‘setup_method’ ‘setup_method_DID’ ‘setup_method_SCM’
+    ‘setup_method_weighting’
+  Undocumented data sets:
+    ‘SyntheticData’
+  All user-level objects in a package should have documentation entries.
+  See chapter ‘Writing R documentation files’ in the ‘Writing R
+  Extensions’ manual.
+
+❯ checking for code/documentation mismatches ... WARNING
+  S4 class codoc mismatches from Rd file 'simulation_OLE_obj-class.Rd':
+  Slots for class 'simulation_OLE_obj'
+    Code: T_cross alpha covariates_col_name data_matrix_list
+          method_description method_obj_list outcome_col_name
+          treatment_col_name trial_status_col_name true_effect
+    Inherited: covariates_col_name outcome_col_name treatment_col_name
+          trial_status_col_name method_obj_list alpha method_description
+    Docs: T_cross
+
+❯ checking Rd \usage sections ... WARNING
+  Undocumented arguments in Rd file 'DID_EC_AIPW.Rd'
+    ‘quiet’
+  
+  Undocumented arguments in Rd file 'DID_EC_IPW.Rd'
+    ‘T_cross’ ‘quiet’
+  
+  Undocumented arguments in Rd file 'DID_EC_OR.Rd'
+    ‘quiet’
+  
+  Undocumented arguments in Rd file 'EC_AIPW_OPT.Rd'
+    ‘quiet’
+  
+  Undocumented arguments in Rd file 'EC_AIPW_OPT_bootstrap.Rd'
+    ‘indices’
+  
+  Undocumented arguments in Rd file 'EC_IPW_OPT.Rd'
+    ‘quiet’
+  
+  Undocumented arguments in Rd file 'EC_IPW_OPT_bootstrap.Rd'
+    ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’
+  Documented arguments not in \usage in Rd file 'EC_IPW_OPT_bootstrap.Rd':
+    ‘outcome’ ‘trial_status’ ‘treatment’ ‘covariates’ ‘Bootstrap’
+  
+  Undocumented arguments in Rd file 'SCM.Rd'
+    ‘quiet’
+  
+  Undocumented arguments in Rd file 'lambdacv.Rd'
+    ‘pb’
+  
+  Undocumented arguments in Rd file 'run_analysis.Rd'
+    ‘quiet’
+  Documented arguments not in \usage in Rd file 'run_analysis.Rd':
+    ‘Bootstrap’
+  
+  Undocumented arguments in Rd file 'setup_analysis.Rd'
+    ‘alpha’
+  
+  Undocumented arguments in Rd file 'setup_analysis_OLE.Rd'
+    ‘method_OLE_obj’
+  Documented arguments not in \usage in Rd file 'setup_analysis_OLE.Rd':
+    ‘method_obj’
+  
+  Undocumented arguments in Rd file 'simulate_X_mixture.Rd'
+    ‘cont_para_list’
+  
+  Undocumented arguments in Rd file 'simulate_outcome_from_model.Rd'
+    ‘OLE_flag’ ‘T_cross’
+  Documented arguments not in \usage in Rd file 'simulate_outcome_from_model.Rd':
+    ‘n’ ‘T_follow’
+  
+  Functions with \usage entries need to have the appropriate \alias
+  entries, and all their arguments documented.
+  The \usage entries must correspond to syntactically valid R code.
+  See chapter ‘Writing R documentation files’ in the ‘Writing R
+  Extensions’ manual.
+
+❯ checking files in ‘vignettes’ ... WARNING
+  Files in the 'vignettes' directory but no files in 'inst/doc':
+    ‘OLE_analysis_workflow.Rmd’ ‘OLE_simulation_workflow.Rmd’
+    ‘primary_analysis_workflow.Rmd’ ‘primary_simulation_workflow.Rmd’
+    ‘simulate_func_test/simulate_covariates.Rmd’
+    ‘simulate_func_test/simulate_outcome.Rmd’
+  Files named as vignettes but with no recognized vignette engine:
+     ‘vignettes/OLE_analysis_workflow.Rmd’
+     ‘vignettes/OLE_simulation_workflow.Rmd’
+     ‘vignettes/primary_analysis_workflow.Rmd’
+     ‘vignettes/primary_simulation_workflow.Rmd’
+  (Is a VignetteBuilder field missing?)
+
+❯ checking package namespace information ... NOTE
+  Found export directive that requires package ‘methods’:
+    ‘exportClasses’
+  Remove all such namespace directives (if obsolete) or ensure that the
+  DESCRIPTION Depends or Imports field contains ‘methods’.
+
+❯ checking top-level files ... NOTE
+  File
+    LICENSE
+  is not mentioned in the DESCRIPTION file.
+  Non-standard files/directories found at top level:
+    ‘LICENSE.md’ ‘log.txt’
+
+❯ checking dependencies in R code ... NOTE
+  package 'methods' is used but not declared
+
+❯ checking R code for possible problems ... NOTE
+  .analysis_OLE_obj: no visible global function definition for ‘new’
+  .analysis_obj: no visible global function definition for ‘new’
+  .analysis_primary_obj: no visible global function definition for ‘new’
+  .bootstrap_obj: no visible global function definition for ‘new’
+  .method_DID_obj: no visible global function definition for ‘new’
+  .method_OLE_obj: no visible global function definition for ‘new’
+  .method_SCM_obj: no visible global function definition for ‘new’
+  .method_obj: no visible global function definition for ‘new’
+  .method_primary_obj: no visible global function definition for ‘new’
+  .method_weighting_obj: no visible global function definition for ‘new’
+  .simulation_OLE_obj: no visible global function definition for ‘new’
+  .simulation_obj: no visible global function definition for ‘new’
+  .simulation_primary_obj: no visible global function definition for
+    ‘new’
+  .simulation_report_obj: no visible global function definition for ‘new’
+  DID_EC_AIPW: no visible global function definition for ‘glm’
+  DID_EC_AIPW: no visible global function definition for ‘as.formula’
+  DID_EC_AIPW: no visible global function definition for ‘predict’
+  DID_EC_AIPW : <anonymous>: no visible global function definition for
+    ‘lm’
+  DID_EC_AIPW : <anonymous>: no visible global function definition for
+    ‘as.formula’
+  DID_EC_AIPW : <anonymous>: no visible global function definition for
+    ‘predict’
+  DID_EC_AIPW: no visible binding for global variable ‘.’
+  DID_EC_AIPW: no visible binding for global variable ‘rx’
+  DID_EC_AIPW: no visible global function definition for ‘qnorm’
+  DID_EC_AIPW: no visible global function definition for ‘var’
+  DID_EC_AIPW_bootstrap: no visible global function definition for ‘glm’
+  DID_EC_AIPW_bootstrap: no visible global function definition for
+    ‘as.formula’
+  DID_EC_AIPW_bootstrap: no visible global function definition for
+    ‘predict’
+  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+    definition for ‘lm’
+  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+    definition for ‘as.formula’
+  DID_EC_AIPW_bootstrap : <anonymous>: no visible global function
+    definition for ‘predict’
+  DID_EC_AIPW_bootstrap: no visible binding for global variable ‘.’
+  DID_EC_AIPW_bootstrap: no visible binding for global variable ‘rx’
+  DID_EC_IPW: no visible global function definition for ‘glm’
+  DID_EC_IPW: no visible global function definition for ‘as.formula’
+  DID_EC_IPW: no visible global function definition for ‘predict’
+  DID_EC_IPW: no visible binding for global variable ‘rx’
+  DID_EC_IPW: no visible global function definition for ‘qnorm’
+  DID_EC_IPW: no visible global function definition for ‘var’
+  DID_EC_IPW_bootstrap: no visible global function definition for ‘glm’
+  DID_EC_IPW_bootstrap: no visible global function definition for
+    ‘as.formula’
+  DID_EC_IPW_bootstrap: no visible global function definition for
+    ‘predict’
+  DID_EC_IPW_bootstrap: no visible binding for global variable ‘rx’
+  DID_EC_OR : <anonymous>: no visible global function definition for ‘lm’
+  DID_EC_OR : <anonymous>: no visible global function definition for
+    ‘as.formula’
+  DID_EC_OR : <anonymous>: no visible global function definition for
+    ‘predict’
+  DID_EC_OR: no visible global function definition for ‘qnorm’
+  DID_EC_OR: no visible global function definition for ‘var’
+  DID_EC_OR_bootstrap : <anonymous>: no visible global function
+    definition for ‘lm’
+  DID_EC_OR_bootstrap : <anonymous>: no visible global function
+    definition for ‘as.formula’
+  DID_EC_OR_bootstrap : <anonymous>: no visible global function
+    definition for ‘predict’
+  EC_AIPW_OPT: no visible global function definition for ‘glm’
+  EC_AIPW_OPT : <anonymous>: no visible global function definition for
+    ‘lm’
+  EC_AIPW_OPT : <anonymous>: no visible global function definition for
+    ‘as.formula’
+  EC_AIPW_OPT : <anonymous>: no visible global function definition for
+    ‘predict’
+  EC_AIPW_OPT: no visible binding for global variable ‘.’
+  EC_AIPW_OPT: no visible global function definition for ‘predict’
+  EC_AIPW_OPT: no visible binding for global variable ‘piSX’
+  EC_AIPW_OPT: no visible binding for global variable ‘piS’
+  EC_AIPW_OPT: no visible binding for global variable ‘piA’
+  EC_AIPW_OPT: no visible binding for global variable ‘rx’
+  EC_AIPW_OPT: no visible global function definition for ‘model.matrix’
+  EC_AIPW_OPT : <anonymous>: no visible global function definition for
+    ‘model.matrix’
+  EC_AIPW_OPT: no visible global function definition for ‘qnorm’
+  EC_AIPW_OPT: no visible global function definition for ‘var’
+  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piA’
+  EC_AIPW_OPT_bootstrap: no visible global function definition for ‘glm’
+  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+    definition for ‘lm’
+  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+    definition for ‘as.formula’
+  EC_AIPW_OPT_bootstrap : <anonymous>: no visible global function
+    definition for ‘predict’
+  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘.’
+  EC_AIPW_OPT_bootstrap: no visible global function definition for
+    ‘predict’
+  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
+  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘piS’
+  EC_AIPW_OPT_bootstrap: no visible binding for global variable ‘rx’
+  EC_IPW_OPT: no visible binding for global variable ‘piA’
+  EC_IPW_OPT: no visible global function definition for ‘glm’
+  EC_IPW_OPT: no visible global function definition for ‘as.formula’
+  EC_IPW_OPT: no visible global function definition for ‘predict’
+  EC_IPW_OPT: no visible binding for global variable ‘piSX’
+  EC_IPW_OPT: no visible binding for global variable ‘piS’
+  EC_IPW_OPT: no visible binding for global variable ‘rx’
+  EC_IPW_OPT: no visible global function definition for ‘model.matrix’
+  EC_IPW_OPT: no visible global function definition for ‘qnorm’
+  EC_IPW_OPT: no visible global function definition for ‘var’
+  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piA’
+  EC_IPW_OPT_bootstrap: no visible global function definition for ‘glm’
+  EC_IPW_OPT_bootstrap: no visible global function definition for
+    ‘as.formula’
+  EC_IPW_OPT_bootstrap: no visible global function definition for
+    ‘predict’
+  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piSX’
+  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘piS’
+  EC_IPW_OPT_bootstrap: no visible binding for global variable ‘rx’
+  SCM: no visible global function definition for ‘var’
+  run_analysis: no visible global function definition for ‘is’
+  run_simulation: no visible global function definition for ‘is’
+  run_simulation : <anonymous>: no visible global function definition for
+    ‘var’
+  simulate_X_dct_mvnorm : <anonymous>: no visible global function
+    definition for ‘qnorm’
+  simulate_X_mixture: no visible global function definition for
+    ‘rmultinom’
+  simulate_X_mixture: no visible global function definition for ‘uncount’
+  simulate_trial_status: no visible global function definition for
+    ‘rbinom’
+  simulate_trt_assign: no visible global function definition for ‘rbinom’
+  show,analysis_obj: no visible binding for global variable ‘data’
+  show,analysis_primary_obj: no visible binding for global variable
+    ‘data’
+  Undefined global functions or variables:
+    . as.formula data glm is lm model.matrix new piA piS piSX predict
+    qnorm rbinom rmultinom rx uncount var
+  Consider adding
+    importFrom("methods", "is", "new")
+    importFrom("stats", "as.formula", "glm", "lm", "model.matrix",
+               "predict", "qnorm", "rbinom", "rmultinom", "var")
+    importFrom("utils", "data")
+  to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+  contains 'methods').
+
+❯ checking Rd line widths ... NOTE
+  Rd file 'simulate_X_dct_mvnorm.Rd':
+    \examples lines wider than 100 characters:
+       simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))
+       simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1, 3), cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7)))
+  
+  Rd file 'simulate_trt_assign.Rd':
+    \examples lines wider than 100 characters:
+       ## Not run: A = simulate_trt_assign(X = SyntheticData %>% select(x1, x2), S = SyntheticData %>% select(S), prob = 1/2)
+  
+  These lines will be truncated in the PDF manual.
+
+❯ checking Rd contents ... NOTE
+  Argument items with no description in Rd file 'DID_EC_AIPW.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+    ‘model_form_piA’ ‘model_form_mu0_ext’ ‘Bootstrap’ ‘R’
+    ‘bootstrap_CI_type’ ‘alpha’
+  Argument items with no description in Rd file 'DID_EC_AIPW_bootstrap.Rd':
+    ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+    ‘model_form_piA’ ‘model_form_mu0_ext’
+  Argument items with no description in Rd file 'DID_EC_IPW.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+    ‘model_form_piA’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’ ‘alpha’
+  Argument items with no description in Rd file 'DID_EC_IPW_bootstrap.Rd':
+    ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘model_form_piS’
+    ‘model_form_piA’
+  Argument items with no description in Rd file 'DID_EC_OR.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’
+    ‘model_form_mu0_ext’ ‘model_form_mu0_rct’ ‘model_form_mu1_rct’
+    ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’ ‘alpha’
+  Argument items with no description in Rd file 'DID_EC_OR_bootstrap.Rd':
+    ‘data’ ‘indices’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘T_cross’
+    ‘model_form_mu0_ext’ ‘model_form_mu0_rct’ ‘model_form_mu1_rct’
+  Argument items with no description in Rd file 'EC_AIPW_OPT.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+    ‘model_form_mu0_ext’ ‘optimal_weight_flag’ ‘wt’ ‘Bootstrap’ ‘R’
+    ‘bootstrap_CI_type’ ‘alpha’
+  Argument items with no description in Rd file 'EC_AIPW_OPT_bootstrap.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+    ‘model_form_mu0_ext’ ‘optimal_weight_flag’ ‘wt’
+  Argument items with no description in Rd file 'EC_IPW_OPT.Rd':
+    ‘data’ ‘outcome_col_name’ ‘trial_status_col_name’
+    ‘treatment_col_name’ ‘covariates_col_name’ ‘model_form_piS’
+    ‘optimal_weight_flag’ ‘wt’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
+    ‘alpha’
+  Argument items with no description in Rd file 'EC_IPW_OPT_bootstrap.Rd':
+    ‘model_form_piS’ ‘optimal_weight_flag’ ‘wt’ ‘outcome’ ‘trial_status’
+    ‘treatment’ ‘covariates’ ‘Bootstrap’
+  Argument items with no description in Rd file 'SCM.Rd':
+    ‘outcome_col_name’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘covariates_col_name’ ‘T_cross’ ‘Bootstrap’ ‘R’ ‘bootstrap_CI_type’
+    ‘alpha’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’ ‘parallel’ ‘ncpus’
+  Argument items with no description in Rd file 'lambdacv.Rd':
+    ‘ec’ ‘long_term_col_name’ ‘lambda.min’ ‘lambda.max’ ‘nlambda’
+  Argument items with no description in Rd file 'run_analysis.Rd':
+    ‘analysis_obj’ ‘Bootstrap’
+  Argument items with no description in Rd file 'run_simulation.Rd':
+    ‘simulation_obj’ ‘quiet’
+  Argument items with no description in Rd file 'setup_analysis.Rd':
+    ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj’
+  Argument items with no description in Rd file 'setup_analysis_OLE.Rd':
+    ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘outcome_col_name’ ‘covariates_col_name’ ‘T_cross’ ‘alpha’
+    ‘method_obj’
+  Argument items with no description in Rd file 'setup_analysis_primary.Rd':
+    ‘data’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘outcome_col_name’ ‘covariates_col_name’ ‘method_weighting_obj’
+    ‘alpha’
+  Argument items with no description in Rd file 'setup_bootstrap.Rd':
+    ‘replicates’ ‘bootstrap_CI_type’
+  Argument items with no description in Rd file 'setup_simulation.Rd':
+    ‘trial_status_col_name’ ‘treatment_col_name’ ‘outcome_col_name’
+    ‘covariates_col_name’ ‘method_obj_list’ ‘method_description’ ‘alpha’
+  Argument items with no description in Rd file 'setup_simulation_OLE.Rd':
+    ‘data_matrix_list’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj_list’ ‘T_cross’
+    ‘true_effect’ ‘method_description’ ‘alpha’
+  Argument items with no description in Rd file 'setup_simulation_primary.Rd':
+    ‘data_matrix_list_null’ ‘trial_status_col_name’ ‘treatment_col_name’
+    ‘outcome_col_name’ ‘covariates_col_name’ ‘method_obj_list’
+    ‘true_effect’ ‘method_description’ ‘data_matrix_list_alt’
+    ‘alt_effect’ ‘alpha’
+  Argument items with no description in Rd file 'setup_simulation_report.Rd':
+    ‘method_description’ ‘bias’ ‘variance’ ‘mse’ ‘coverage’
+    ‘type_I_error’ ‘power’
+  Argument items with no description in Rd file 'simulate_outcome_from_model.Rd':
+    ‘X’ ‘A’ ‘outcome_model_specs’ ‘n’ ‘T_follow’
+  Argument items with no description in Rd file 'simulate_trial.Rd':
+    ‘X_int’ ‘X_ext’ ‘num_treated’ ‘OLE_flag’ ‘T_cross’
+    ‘outcome_model_specs’
+  Argument items with no description in Rd file 'simulate_trial_status.Rd':
+    ‘X’ ‘model_specs’
+  Argument items with no description in Rd file 'simulate_trt_assign.Rd':
+    ‘X’ ‘S’ ‘prob’
+  Argument items with no description in Rd file 'subject_SC.Rd':
+    ‘subject’ ‘X10’ ‘X00’ ‘long_term_col_name’ ‘lambda’
+
+❯ checking package vignettes ... NOTE
+  Package has ‘vignettes’ subdirectory but apparently no vignettes.
+  Perhaps the ‘VignetteBuilder’ information is missing from the
+  DESCRIPTION file?
+
+0 errors ✔ | 5 warnings ✖ | 7 notes ✖
+Error: R CMD check found WARNINGs
+Execution halted

@@ -1,4 +1,5 @@
 #' simulate X by coupling several marginal distributions using copula
+#' @importFrom copula mvdc rMvdc normalCopula
 #' @param n total number of units simulated
 #' @param p dimension of the parameters
 #' @param cp copula

@@ -19,12 +19,11 @@ Imports:
     checkmate,
     futile.logger,
     mvtnorm,
-    dplyr,
     tidyverse,
     boot,
+    methods,
     Matrix,
     CVXR,
-    gsl,
     copula,
     future.apply,
     progress

@@ -1,3 +1,16 @@
+#' SCM bootstrap statistic
+#'
+#' @param data 
+#' @param indices 
+#' @param outcome_col_name 
+#' @param trial_status_col_name 
+#' @param treatment_col_name 
+#' @param covariates_col_name 
+#' @param T_cross 
+#' @param lambda 
+#' @param pb 
+#'
+#' @return a vector of estimated treatment effects
 SCMboot = function(data, 
                    indices,
                    outcome_col_name, 
@@ -32,9 +45,9 @@ SCMboot = function(data,
   long_term_col_name = outcome_col_name[(T_cross + 1):length(outcome_col_name)]
   
   # create data matrices: attributes by row and subject by column
-  X10 = t(as.matrix(df_b %>% filter(S==1 & A==0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
-  X00 = t(as.matrix(df_b %>% filter(S==0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
-  
+  X10 = t(as.matrix(df_b[df_b$S == 1 & df_b$A == 0, c(covariates_col_name, outcome_col_name)]))
+  X00 = t(as.matrix(df_b[df_b$S == 0, c(covariates_col_name, outcome_col_name)]))
+
   # remove colnames of X10 and X00
   colnames(X00) = NULL
   colnames(X10) = NULL
