@@ -1,6 +1,7 @@
+ℹ Updating rdborrow documentation
+ℹ Loading rdborrow
 ══ Documenting ═════════════════════════════════════════════════════════════════
 ℹ Updating rdborrow documentation
-Writing 'NAMESPACE'
 ℹ Loading rdborrow
 
 ══ Building ════════════════════════════════════════════════════════════════════
@@ -27,7 +28,7 @@ Setting env vars:
 • _R_CHECK_PACKAGES_USED_IGNORE_UNUSED_IMPORTS_: FALSE
 • NOT_CRAN                                     : true
 ── R CMD check ─────────────────────────────────────────────────────────────────
-* using log directory ‘/tmp/RtmpoRUdTV/file7a7573d1e8a27/rdborrow.Rcheck’
+* using log directory ‘/tmp/RtmpJvuEjs/file7b0d22898d962/rdborrow.Rcheck’
 * using R version 4.5.2 (2025-10-31)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
@@ -70,28 +71,11 @@ Non-standard files/directories found at top level:
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
-* checking dependencies in R code ... NOTE
-Namespace in Imports field not imported from: ‘tidyverse’
-  All declared Imports should be used.
+* checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-DID_EC_AIPW_bootstrap: no visible global function definition for
-  ‘filter’
-DID_EC_IPW: no visible global function definition for ‘filter’
-DID_EC_IPW: no visible global function definition for ‘%>%’
-DID_EC_IPW: no visible global function definition for ‘mutate’
-DID_EC_IPW: no visible binding for global variable ‘rx’
-DID_EC_IPW: no visible global function definition for ‘group_by’
-DID_EC_IPW: no visible global function definition for ‘cur_group_id’
-DID_EC_IPW_bootstrap: no visible global function definition for
-  ‘filter’
-Undefined global functions or variables:
-  %>% cur_group_id filter group_by mutate rx
-Consider adding
-  importFrom("stats", "filter")
-to your NAMESPACE file.
+* checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... NOTE
@@ -287,13 +271,12 @@ DESCRIPTION file?
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-
-Status: 4 WARNINGs, 6 NOTEs
+Status: 4 WARNINGs, 4 NOTEs
 See
-  ‘/tmp/RtmpoRUdTV/file7a7573d1e8a27/rdborrow.Rcheck/00check.log’
+  ‘/tmp/RtmpJvuEjs/file7b0d22898d962/rdborrow.Rcheck/00check.log’
 for details.
 ── R CMD check results ─────────────────────────────────── rdborrow 0.0.1.1 ────
-Duration: 45.7s
+Duration: 45.4s
 
 ❯ checking for missing documentation entries ... WARNING
   Undocumented code objects:
@@ -392,27 +375,6 @@ Duration: 45.7s
   is not mentioned in the DESCRIPTION file.
   Non-standard files/directories found at top level:
     ‘LICENSE.md’ ‘log.txt’
-
-❯ checking dependencies in R code ... NOTE
-  Namespace in Imports field not imported from: ‘tidyverse’
-    All declared Imports should be used.
-
-❯ checking R code for possible problems ... NOTE
-  DID_EC_AIPW_bootstrap: no visible global function definition for
-    ‘filter’
-  DID_EC_IPW: no visible global function definition for ‘filter’
-  DID_EC_IPW: no visible global function definition for ‘%>%’
-  DID_EC_IPW: no visible global function definition for ‘mutate’
-  DID_EC_IPW: no visible binding for global variable ‘rx’
-  DID_EC_IPW: no visible global function definition for ‘group_by’
-  DID_EC_IPW: no visible global function definition for ‘cur_group_id’
-  DID_EC_IPW_bootstrap: no visible global function definition for
-    ‘filter’
-  Undefined global functions or variables:
-    %>% cur_group_id filter group_by mutate rx
-  Consider adding
-    importFrom("stats", "filter")
-  to your NAMESPACE file.
 
 ❯ checking Rd line widths ... NOTE
   Rd file 'simulate_X_dct_mvnorm.Rd':
@@ -524,6 +486,6 @@ Duration: 45.7s
   Perhaps the ‘VignetteBuilder’ information is missing from the
   DESCRIPTION file?
 
-0 errors ✔ | 4 warnings ✖ | 6 notes ✖
+0 errors ✔ | 4 warnings ✖ | 4 notes ✖
 Error: R CMD check found WARNINGs
 Execution halted

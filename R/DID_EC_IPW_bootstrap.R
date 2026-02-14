@@ -54,8 +54,8 @@ DID_EC_IPW_bootstrap = function(data,
   if (model_form_piA == ""){
     piAX = sum(A)/n
   }else{
-    piA = glm(as.formula(model_form_piA), data = filter(df, S == 1), family = "binomial")
-    piAX = predict(piA, newdata = filter(df), type = "response")
+    piA = glm(as.formula(model_form_piA), data = df[df$S == 1, ], family = "binomial")
+    piAX = predict(piA, newdata = df, type = "response")
   }
   
   temp = df

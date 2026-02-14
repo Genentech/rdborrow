@@ -66,7 +66,7 @@ DID_EC_AIPW_bootstrap = function(data,
   
   # 
   piS = glm(as.formula(model_form_piS), data = df, family = "binomial")
-    suppressWarnings({piSX = predict(piS, newdata = filter(df), type = "response")})
+    suppressWarnings({piSX = predict(piS, newdata = df, type = "response")})
   if (model_form_piA == ""){
     piAX = sum(A)/n
   }else{
