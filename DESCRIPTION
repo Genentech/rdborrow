@@ -57,7 +57,10 @@ Imports:
     gsl,
     copula,
     future.apply,
-    progress
+    progress,
+    stats,
+    utils,
+    methods
 Suggests: 
     knitr,
     rmarkdown,
