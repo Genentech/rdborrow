@@ -86,6 +86,8 @@ Collate:
     'simulate_trt_assign.R'
     'simulation_class.R'
     'simulation_report_class.R'
+URL: https://github.com/Genentech/rdborrow
+BugReports: https://github.com/Genentech/rdborrow/issues
 VignetteBuilder: knitr
 LazyData: true
 Encoding: UTF-8
