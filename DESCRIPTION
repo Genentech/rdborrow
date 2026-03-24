@@ -1,8 +1,38 @@
-Package: rdborrow
 Type: Package
+Package: rdborrow
 Title: External Control Borrowing for Rare Disease Simulation and Analysis
 Version: 0.0.1.0
 RoxygenNote: 7.3.1
+Authors@R: c(
+    person(
+        given = "Lei",
+        family = "Shi",
+        role = "aut",
+        email = "leishi1998@gmail.com"
+    ),
+    person(
+        given = "Matt",
+        family = "Secrest",
+        role = c("cre", "aut"),
+        email = "secrestm@gene.com",
+        comment = c(ORCID = "0000-0002-0939-4902")
+    ),
+    person(
+        given = "Herbert",
+        family = "Pang",
+        role = "aut",
+    ),
+    person(
+        given = "Chen",
+        family = "Chen",
+        role = "aut"
+    ),
+    person(
+        given = "Jiawen",
+        family = "Zhu",
+        role = "aut"
+    )
+)
 Depends:
     R (>= 2.15),
     checkmate,
