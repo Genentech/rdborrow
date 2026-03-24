@@ -1,6 +1,5 @@
 #' @import checkmate
-#' @import gsl
-#' @import copula
+#' @importFrom copula mvdc rMvdc normalCopula
 #' @import futile.logger
 #' @import mvtnorm
 #' @import dplyr
