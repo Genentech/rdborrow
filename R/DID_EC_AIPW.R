@@ -18,8 +18,6 @@
 #' @return tau and standard deviation
 #' @export
 #'
-#' @examples 
-#' This is a built-in function for run_analysis
 DID_EC_AIPW = function(data,
                        outcome_col_name, 
                        trial_status_col_name, 

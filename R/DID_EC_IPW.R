@@ -16,8 +16,6 @@
 #' @return tau and standard deviation
 #' @export
 #'
-#' @examples This is part of the run_analysis() function
-#' 
 DID_EC_IPW = function(data,
                       outcome_col_name, 
                       trial_status_col_name, 

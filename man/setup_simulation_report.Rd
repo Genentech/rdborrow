@@ -35,9 +35,3 @@ return a simulation report object
 \description{
 setup_simulation_report
 }
-\examples{
-
-This is part of the run_simulation() function
-
-
-}

@@ -54,6 +54,3 @@ tau and standard deviation
 \description{
 Difference in difference + AIPW + external control borrowing
 }
-\examples{
-This is a built-in function for run_analysis
-}
