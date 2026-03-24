@@ -1,7 +1,7 @@
 Type: Package
 Package: rdborrow
 Title: External Control Borrowing for Rare Disease Simulation and Analysis
-Version: 0.0.1.0
+Version: 0.0.2.0
 RoxygenNote: 7.3.1
 Authors@R: c(
     person(
@@ -34,7 +34,8 @@ Authors@R: c(
     )
 )
 Depends:
-    R (>= 2.15),
+    R (>= 4.0)
+Imports:
     checkmate,
     futile.logger,
     mvtnorm,
