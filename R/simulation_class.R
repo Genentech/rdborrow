@@ -62,7 +62,9 @@
 
 #' Simulation for OLE study
 #'
-#' @slot T_cross numeric. 
+#' @slot data_matrix_list List of simulated data matrices.
+#' @slot true_effect True treatment effect for evaluating estimator performance.
+#' @slot T_cross Numeric crossover time point for the OLE phase.
 #'
 #' @return a simulation object for OLE phase
 #' @export

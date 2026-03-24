@@ -14,6 +14,10 @@ Simulation for OLE study
 \section{Slots}{
 
 \describe{
-\item{\code{T_cross}}{numeric.}
+\item{\code{data_matrix_list}}{List of simulated data matrices.}
+
+\item{\code{true_effect}}{True treatment effect for evaluating estimator performance.}
+
+\item{\code{T_cross}}{Numeric crossover time point for the OLE phase.}
 }}
 

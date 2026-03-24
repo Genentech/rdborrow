@@ -36,7 +36,17 @@ pkg: futile.logger, mvtnorm
 }
 \examples{
 \dontrun{
-simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1), cat_prob = list(c(0.3, 0.7)))
-simulate_X_dct_mvnorm(20, 3, mu = rep(0, 3), sig = diag(3), cat_cols = c(1, 3), cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7)))
+simulate_X_dct_mvnorm(
+  20, 3,
+  mu = rep(0, 3), sig = diag(3),
+  cat_cols = c(1),
+  cat_prob = list(c(0.3, 0.7))
+)
+simulate_X_dct_mvnorm(
+  20, 3,
+  mu = rep(0, 3), sig = diag(3),
+  cat_cols = c(1, 3),
+  cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7))
+)
 }
 }
