@@ -24,6 +24,7 @@ a list contains simulated data and true ATE
 simulate X by coupling several marginal distributions using copula
 }
 \examples{
+\dontrun{
 normal <- normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
 X <- simulate_X_copula(1000, 4, normal, 
                       margins = c("norm", "t", "norm", "binom"), 
@@ -33,4 +34,5 @@ X <- simulate_X_copula(1000, 4, normal,
                                  list(size = 10, prob = 0.5))
                       )
 cor(X, method = "spearman")
+}
 }

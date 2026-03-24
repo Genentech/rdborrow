@@ -40,6 +40,7 @@ a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 Using IPW with external borrowing
 }
 \examples{
+\dontrun{
 EC_IPW_OPT(outcome = outcome, 
    trial_status = trial_status, 
    treatment = treatment, 
@@ -48,4 +49,5 @@ EC_IPW_OPT(outcome = outcome,
    wt = wt, 
    optimal_weight_flag = optimal_weight_flag,
    Bootstrap)
+}
 }

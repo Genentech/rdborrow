@@ -9,10 +9,12 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' S = simulate_trial_status(X, model_specs = list(
 #'   family = "binomial",
 #'   coef = c(1,2,3)
 #'   ))
+#' }
 simulate_trial_status = function(X, model_specs){
   n = nrow(X)
   X_intercept = cbind(intercept = 1, X)

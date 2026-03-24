@@ -17,6 +17,7 @@ Bootstrap class
 }}
 
 \examples{
+\dontrun{
 bootstrap_obj = setup_bootstrap(
   replicates = 2e3,
   bootstrap_CI_type = "perc"
@@ -40,6 +41,6 @@ analysis_primary_obj = setup_analysis_primary(
   covariates = c("x1", "x2", "x3", "x4", "x5"), 
   method_weighting_obj = method_weighting_obj)
 
-
 res = run_analysis(analysis_primary_obj)
+}
 }

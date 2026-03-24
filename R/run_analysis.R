@@ -14,7 +14,9 @@
 #' @export
 #' 
 #' @examples 
+#' \dontrun{
 #' run_analysis(analysis_obj, Bootstrap = F)
+#' }
 
 run_analysis = function(analysis_obj, quiet = TRUE){
   

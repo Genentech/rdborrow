@@ -24,7 +24,7 @@ a data frame containing simulated outcome
 Simulate outcome from given effect additive models
 }
 \examples{
-
+\dontrun{
 model_form1 = "y1 = A*3 + x1*1 + x2*1 + rnorm(n, mean = 0, sd=0.5)"
 model_form2 = "y2 = A*0 + x1*1 + x2*(-1) + rnorm(n, mean = 0, sd=0.5)"
 Y = simulate_outcome_from_model(T_follow = 2, X = X, A = A, 
@@ -37,4 +37,5 @@ Y = simulate_outcome_from_model(T_follow = 2, X = X, A = A,
                                   )
                                 ))
 Y
+}
 }

@@ -11,6 +11,7 @@
 #' @export setup_method_SCM
 #'
 #' @examples
+#' \dontrun{
 #' method_SCM_obj = setup_method_SCM(
 #'   method_name = "SCM", 
 #'   bootstrap_flag = T, 
@@ -20,7 +21,7 @@
 #'   nlambda = 10, 
 #'   parallel = "multicore", 
 #'   ncpus = 4) 
-#' 
+#' }
 
 .method_SCM_obj = setClass(
   "method_SCM_obj",

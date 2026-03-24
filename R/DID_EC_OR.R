@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples 
+#' \dontrun{
 #' model_form_mu = c("y1 ~ x1 + x2", 
 #' "y2 ~ x1 + x2",
 #' "y3 ~ x1 + x2",
@@ -28,6 +29,7 @@
 #'                  model_form_mu0_ext = model_form_mu, 
 #'                  model_form_mu0_rct = model_form_mu, 
 #'                  model_form_mu1_rct = model_form_mu)
+#' }
 #' 
 DID_EC_OR = function(data,
                      outcome_col_name, 

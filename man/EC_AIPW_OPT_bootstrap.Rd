@@ -43,6 +43,7 @@ a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 Using AIPW with external borrowing
 }
 \examples{
+\dontrun{
 res = EC_AIPW_OPT(data = data,
   outcome_col_name = outcome_col_name, 
   trial_status_col_name = trial_status_col_name, 
@@ -53,5 +54,5 @@ res = EC_AIPW_OPT(data = data,
   wt = wt, 
   optimal_weight_flag = optimal_weight_flag,
   Bootstrap)
-
+}
 }

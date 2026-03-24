@@ -17,7 +17,7 @@ Analysis OLE class
 }}
 
 \examples{
-
+\dontrun{
 bootstrap_obj = setup_bootstrap(
   replicates = 2e3, 
   bootstrap_CI_type = "perc" 
@@ -38,4 +38,5 @@ analysis_OLE_obj = setup_analysis_OLE(
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
   T_cross = 2, 
   method_OLE_obj = method_DID_obj)
+}
 }

@@ -7,13 +7,12 @@
 #' @export setup_analysis_primary
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' method_weighting_obj = setup_method_weighting(
 #'   method_name = "IPW",
 #'   optimal_weight_flag = F, 
 #'   wt = 0,
 #'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
-#' 
 #' 
 #' analysis_primary_obj = setup_analysis_primary(
 #'   data = SyntheticData,
@@ -22,7 +21,7 @@
 #'   outcome_col_name = c("y1", "y2"), 
 #'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
 #'   method_weighting_obj = method_weighting_obj)
-#' 
+#' }
 
 .analysis_primary_obj = setClass(
   "analysis_primary_obj",
@@ -57,12 +56,13 @@ setMethod(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_analysis_primary = function(data, trial_status_col_name, treatment_col_name, 
                           outcome_col_name, covariates_col_name, method_weighting_obj,

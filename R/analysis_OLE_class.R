@@ -10,7 +10,7 @@
 #' @export setup_analysis_OLE
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' bootstrap_obj = setup_bootstrap(
 #'   replicates = 2e3, 
 #'   bootstrap_CI_type = "perc" 
@@ -31,6 +31,7 @@
 #'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
 #'   T_cross = 2, 
 #'   method_OLE_obj = method_DID_obj)
+#' }
 
 .analysis_OLE_obj = setClass(
   "analysis_OLE_obj",
@@ -67,12 +68,13 @@ setMethod(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_analysis_OLE = function(data, trial_status_col_name, treatment_col_name, 
                           outcome_col_name, covariates_col_name, method_OLE_obj,

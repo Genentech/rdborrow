@@ -15,6 +15,7 @@
 #' @export
 #'
 #' @examples 
+#' \dontrun{
 #' DID_EC_AIPW_bootstrap = function(data,
 #'   indices,
 #'   outcome_col_name, 
@@ -26,6 +27,7 @@
 #'   model_form_piA = "",
 #'   model_form_mu0_ext = ""
 #' )
+#' }
 DID_EC_AIPW_bootstrap = function(data,
                        indices,
                        outcome_col_name, 

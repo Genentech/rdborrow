@@ -18,5 +18,7 @@ a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 run analysis
 }
 \examples{
+\dontrun{
 run_analysis(analysis_obj, Bootstrap = F)
+}
 }

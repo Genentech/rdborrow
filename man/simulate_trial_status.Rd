@@ -18,8 +18,10 @@ a data frame containing the trial status vector
 Simulate trial status indicator
 }
 \examples{
+\dontrun{
 S = simulate_trial_status(X, model_specs = list(
   family = "binomial",
   coef = c(1,2,3)
   ))
+}
 }

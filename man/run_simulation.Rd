@@ -18,5 +18,7 @@ a simulation_report object
 Run simulation from a simualtion_obj
 }
 \examples{
+\dontrun{
 simulation_report = run_simulation(simulation_OLE_obj, quiet = F)
+}
 }

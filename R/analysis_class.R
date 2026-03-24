@@ -12,7 +12,7 @@
 #' @export setup_analysis
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' method_weighting_obj = setup_method_weighting(
 #'   method_name = "IPW",
 #'   optimal_weight_flag = F, 
@@ -27,8 +27,8 @@
 #'   outcome_col_name = c("y1", "y2"), 
 #'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
 #'   method_obj = method_weighting_obj)
-#' 
- 
+#' }
+
 .analysis_obj = setClass(
   "analysis_obj",
   slots = c(
@@ -69,12 +69,13 @@ setMethod(
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_analysis = function(data, trial_status_col_name, treatment_col_name, 
                           outcome_col_name, covariates_col_name, method_obj,

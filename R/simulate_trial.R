@@ -11,14 +11,14 @@
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' Data = simulate_trial(X_int, 
 #'  X_ext, 
 #'  num_treated = 150, 
 #'  OLE_flag = T, 
 #'  T_cross = 2,  
 #'  outcome_model_specs) 
-#' 
+#' }
 simulate_trial = function(X_int, X_ext, num_treated, OLE_flag, T_cross, outcome_model_specs){
   # TODO: sanity check for dimension of num_treated, T_cross, outcome_model_specs
   

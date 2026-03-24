@@ -31,9 +31,11 @@ a list contains simulated covariates
 Simulate X from a mixture model
 }
 \examples{
+\dontrun{
 X = simulate_X_mixture(n = 100, p_cat = 0, p_cont = 2, 
 cat_level_list = list(),
 cat_comb_prob = c(),
 cont_para_list = list(list(mean = c(0, 0), sigma = diag(2)))
 )
+}
 }

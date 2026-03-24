@@ -108,12 +108,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_simulation = function(trial_status_col_name, 
                             treatment_col_name, 
@@ -158,6 +159,7 @@ setup_simulation = function(trial_status_col_name,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' simulation_primary_obj = setup_simulation_primary(
 #'  data_matrix_list_null = data_matrix_list_null,  # two scenarios
 #'  data_matrix_list_alt = data_matrix_list_alt,
@@ -173,7 +175,7 @@ setup_simulation = function(trial_status_col_name,
 #'                         "AIPW, optimal weight", 
 #'                         "IPW, zero weight",
 #'                         "AIPW, zero weight"))
-#' 
+#' }
 setup_simulation_primary = function(data_matrix_list_null, 
                                     trial_status_col_name,
                                     treatment_col_name, 
@@ -224,7 +226,7 @@ setup_simulation_primary = function(data_matrix_list_null,
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' simulation_OLE_obj = setup_simulation_OLE(
 #'   data_matrix_list = data_matrix_list,  # two scenarios
 #'   trial_status_col_name = trial_status_col_name, 
@@ -238,8 +240,7 @@ setup_simulation_primary = function(data_matrix_list_null,
 #'   method_description = c("IPW, DID", 
 #'                          "AIPW, DID", 
 #'                          "OR, DID"))
-#' 
-#' 
+#' }
 #' 
 setup_simulation_OLE = function(data_matrix_list, 
                                       trial_status_col_name, 

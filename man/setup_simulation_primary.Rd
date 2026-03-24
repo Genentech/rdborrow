@@ -48,6 +48,7 @@ return a simulation object for primary analysis
 Construct a simulation object for primary analysis
 }
 \examples{
+\dontrun{
 simulation_primary_obj = setup_simulation_primary(
  data_matrix_list_null = data_matrix_list_null,  # two scenarios
  data_matrix_list_alt = data_matrix_list_alt,
@@ -63,5 +64,5 @@ simulation_primary_obj = setup_simulation_primary(
                         "AIPW, optimal weight", 
                         "IPW, zero weight",
                         "AIPW, zero weight"))
-
+}
 }

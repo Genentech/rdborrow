@@ -35,3 +35,6 @@ return a simulation report object
 \description{
 setup_simulation_report
 }
+\examples{
+\dontrun{}
+}

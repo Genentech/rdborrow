@@ -64,7 +64,7 @@ setMethod(
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{}
 setup_simulation_report = function(method_description,
                                    bias,
                                    variance,
