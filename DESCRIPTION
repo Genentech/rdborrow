@@ -14,7 +14,7 @@ Description: Implements causal inference methods for incorporating external
     <doi:10.1080/01621459.2024.2395586>.
 Version: 0.0.2.0
 License: Apache License (>= 2)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Authors@R: c(
     person(
         given = "Lei",
