@@ -40,7 +40,6 @@ Imports:
     futile.logger,
     mvtnorm,
     dplyr,
-    tidyverse,
     boot,
     Matrix,
     CVXR,
