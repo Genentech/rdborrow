@@ -13,3 +13,5 @@
 #' @importFrom stats as.formula glm lm model.matrix predict qnorm rbinom rmultinom var
 #' @importFrom utils data
 NULL
+
+utils::globalVariables(c(".", "rx", "piA", "piS", "piSX", "uncount"))
