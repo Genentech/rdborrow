@@ -31,7 +31,7 @@ library(rdborrow)
 set.seed(2023)
 
 data_matrix_list = list()
-ntrial = 20
+ntrial = 3
 
 # Specify the significance level alpha 
 alpha = 0.05
@@ -123,7 +123,7 @@ for (trial_iter in 1:ntrial){
 ```{r}
 # Specify a list of methods to be tested
 bootstrap_obj = setup_bootstrap(
-  replicates = 1e3,
+  replicates = 50,
   bootstrap_CI_type = "perc"
 )
 

@@ -32,7 +32,7 @@ set.seed(2023)
 
 data_matrix_list_null = list()
 data_matrix_list_alt = list()
-ntrial = 500
+ntrial = 3
 
 # Specify the significance level alpha 
 alpha = 0.05
@@ -262,8 +262,8 @@ simulation_report # Type I error and Power
 ```{r}
 # Specify a list of methods to be tested
 bootstrap_obj = setup_bootstrap(
-  replicates = 5e2,
-  bootstrap_CI_type = "bca"
+  replicates = 50,
+  bootstrap_CI_type = "perc"
 )
 
 ## IPW - optimal weight
