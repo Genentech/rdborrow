@@ -4,8 +4,7 @@
 #' @import mvtnorm
 #' @import dplyr
 #' @import boot
-#' @import Matrix
-#' @import CVXR
+#' @importFrom CVXR Variable Minimize Problem
 #' @import progress
 #' @import future.apply
 #' @importFrom methods is new
