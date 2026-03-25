@@ -61,6 +61,7 @@ Imports:
     utils,
     methods
 Suggests: 
+    ECOSolveR
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
