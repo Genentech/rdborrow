@@ -45,7 +45,7 @@ Authors@R: c(
         role = "aut"
     ))
 Depends:
-    R (>= 4.0)
+    R (>= 4.5.0)
 Imports:
     checkmate,
     futile.logger,
