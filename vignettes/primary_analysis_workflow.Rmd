@@ -1,8 +1,12 @@
 ---
 title: "Primary Analysis Workflow"
 author: "Lei"
-date: "2024-02-19"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Primary Analysis Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}

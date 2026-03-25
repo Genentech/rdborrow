@@ -1,8 +1,12 @@
 ---
-title: "Simulation Workflow for OLE phase"
+title: "Simulation Workflow for OLE Phase"
 author: "Lei"
-date: "2023-11-26"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simulation Workflow for OLE Phase}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 

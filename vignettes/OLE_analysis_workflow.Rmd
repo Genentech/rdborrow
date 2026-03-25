@@ -2,7 +2,11 @@
 title: "OLE Analysis Workflow"
 author: "Lei"
 date: "`r Sys.Date()`"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OLE Analysis Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}

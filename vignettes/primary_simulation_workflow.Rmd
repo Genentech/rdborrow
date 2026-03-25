@@ -1,8 +1,12 @@
 ---
 title: "Simulation Workflow for Primary Analysis"
 author: "Lei"
-date: "2023-11-26"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simulation Workflow for Primary Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
