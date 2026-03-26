@@ -19,27 +19,27 @@ setup_simulation_primary(
 )
 }
 \arguments{
-\item{data_matrix_list_null}{}
+\item{data_matrix_list_null}{List of data frames simulated under the null.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_obj_list}{}
+\item{method_obj_list}{List of method objects to evaluate.}
 
-\item{true_effect}{}
+\item{true_effect}{Numeric vector of true treatment effects.}
 
-\item{method_description}{}
+\item{method_description}{Character vector of method labels.}
 
-\item{data_matrix_list_alt}{}
+\item{data_matrix_list_alt}{List of data frames simulated under the alternative.}
 
-\item{alt_effect}{}
+\item{alt_effect}{Numeric vector of alternative treatment effects.}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
 }
 \value{
 return a simulation object for primary analysis

@@ -46,14 +46,16 @@
 
 #' Construct a method_DID object
 #' 
-#' @param method_name
-#' @param bootstrap_flag
-#' @param bootstrap_obj
-#' @param model_form_piS
-#' @param model_form_mu0_ext
-#' @param model_form_piA
-#' @param model_form_mu0_rct
-#' @param model_form_mu1_rct
+#' @param method_name character. Name of the method.
+#' @param bootstrap_flag logical. Whether to use bootstrap for inference.
+#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.
+#' @param model_form_piS character. The model formula for the selection model (S).
+#' @param model_form_mu0_ext character. The model formula for the outcome model in the external data (mu0_ext).
+#' @param model_form_piA character. The model formula for the treatment model (A).
+#' @param model_form_mu0_rct character. The model formula for the outcome model in the RCT data under control (mu0_rct).
+#' @param model_form_mu1_rct character. The model formula for the outcome model in the RCT data under treatment (mu1_rct).
+#' 
+#' @return An object of class `method_DID_obj`.
 setup_method_DID = function(method_name = "IPW", 
                             bootstrap_flag = F,
                             bootstrap_obj = .bootstrap_obj(),

@@ -24,35 +24,37 @@ SCM(
 )
 }
 \arguments{
-\item{data}{A data frame}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{Bootstrap}{}
+\item{Bootstrap}{Logical. Whether to use bootstrap inference.}
 
-\item{R}{}
+\item{R}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
 
-\item{lambda.min}{}
+\item{lambda.min}{Numeric. Minimum penalty parameter.}
 
-\item{lambda.max}{}
+\item{lambda.max}{Numeric. Maximum penalty parameter.}
 
-\item{nlambda}{}
+\item{nlambda}{Integer. Number of lambda values for cross-validation.}
 
-\item{parallel}{}
+\item{parallel}{Character. Parallelization type for \code{boot}.}
 
-\item{ncpus}{}
+\item{ncpus}{Integer. Number of CPUs for parallel bootstrap.}
+
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confidence interval for primary endpoint (only when Bootstrap=TRUE)

@@ -17,6 +17,30 @@ setup_method_weighting(
   model_form_mu1_rct = ""
 )
 }
+\arguments{
+\item{method_name}{character. Name of the method.}
+
+\item{optimal_weight_flag}{logical. Whether to use optimal weighting.}
+
+\item{wt}{numeric. The value of wt for the weighting scheme.}
+
+\item{bootstrap_flag}{logical. Whether to use bootstrap for inference.}
+
+\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.}
+
+\item{model_form_piS}{character. The model formula for the selection model (S).}
+
+\item{model_form_mu0_ext}{character. The model formula for the outcome model in the external data (mu0_ext).}
+
+\item{model_form_piA}{character. The model formula for the treatment model (A).}
+
+\item{model_form_mu0_rct}{character. The model formula for the outcome model in the RCT data under control (mu0_rct).}
+
+\item{model_form_mu1_rct}{character. The model formula for the outcome model in the RCT data under treatment (mu1_rct).}
+}
+\value{
+An object of class `method_weighting_obj`.
+}
 \description{
 Construct a method_weighting object
 }

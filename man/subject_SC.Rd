@@ -2,21 +2,21 @@
 % Please edit documentation in R/SCM.R
 \name{subject_SC}
 \alias{subject_SC}
-\title{find synthetic control for one specific subject}
+\title{Find synthetic control for one specific subject}
 \usage{
 subject_SC(subject, X10, X00, long_term_col_name, lambda)
 }
 \arguments{
-\item{subject}{}
+\item{subject}{Integer index of the target subject.}
 
-\item{X10}{}
+\item{X10}{Matrix of RCT control subjects (attributes by columns).}
 
-\item{X00}{}
+\item{X00}{Matrix of external control subjects (attributes by columns).}
 
-\item{long_term_col_name}{}
+\item{long_term_col_name}{Character vector of long-term outcome column names.}
 
-\item{lambda}{}
+\item{lambda}{Numeric penalty parameter.}
 }
 \description{
-find synthetic control for one specific subject
+Find synthetic control for one specific subject
 }

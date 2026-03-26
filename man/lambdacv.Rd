@@ -2,7 +2,7 @@
 % Please edit documentation in R/SCM.R
 \name{lambdacv}
 \alias{lambdacv}
-\title{find the optima lambda via LOOCV}
+\title{Find the optimal lambda via LOOCV}
 \usage{
 lambdacv(
   ec,
@@ -14,16 +14,18 @@ lambdacv(
 )
 }
 \arguments{
-\item{ec}{}
+\item{ec}{Matrix of external control data (attributes by columns).}
 
-\item{long_term_col_name}{}
+\item{long_term_col_name}{Character vector of long-term outcome column names.}
 
-\item{lambda.min}{}
+\item{lambda.min}{Numeric. Minimum penalty parameter.}
 
-\item{lambda.max}{}
+\item{lambda.max}{Numeric. Maximum penalty parameter.}
 
-\item{nlambda}{}
+\item{nlambda}{Integer. Number of lambda values to evaluate.}
+
+\item{pb}{A progress bar object or \code{NULL}.}
 }
 \description{
-find the optima lambda via LOOCV
+Find the optimal lambda via LOOCV
 }

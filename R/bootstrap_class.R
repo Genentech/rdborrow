@@ -69,8 +69,8 @@ setMethod(
 
 #' Construct a bootstrap object
 #'
-#' @param replicates 
-#' @param bootstrap_CI_type 
+#' @param replicates Number of bootstrap replicates.
+#' @param bootstrap_CI_type Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).
 #'
 #' @return An bootstrap object 
 #' @export

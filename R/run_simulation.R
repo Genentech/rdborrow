@@ -1,7 +1,7 @@
 #' Run simulation from a simualtion_obj
 #'
-#' @param simulation_obj 
-#' @param quiet 
+#' @param simulation_obj A simulation object created by \code{setup_simulation_primary} or \code{setup_simulation_OLE}.
+#' @param quiet Logical. If \code{TRUE}, suppress iteration output.
 #'
 #' @return a simulation_report object
 #' @export

@@ -10,6 +10,7 @@
 #' @importFrom methods is new
 #' @importFrom stats as.formula glm lm model.matrix predict qnorm rbinom rmultinom var
 #' @importFrom utils data
+#' @importFrom Matrix bdiag
 NULL
 
 utils::globalVariables(c(".", "rx", "piA", "piS", "piSX", "uncount"))

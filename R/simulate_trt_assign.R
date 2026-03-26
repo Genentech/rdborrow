@@ -1,9 +1,9 @@
 # Simulate treatment
 #' Title
 #'
-#' @param X 
-#' @param S 
-#' @param prob 
+#' @param X Data frame of covariates.
+#' @param S Data frame with trial status indicator.
+#' @param prob Probability of treatment assignment.
 #'
 #' @return Vector A that indicates the treatment status
 #' @export

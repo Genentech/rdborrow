@@ -23,6 +23,8 @@ simulate_X_mixture(
 \item{cat_level_list}{a list describing the levels of categorical variables}
 
 \item{cat_comb_prob}{probability of each combination of categorical variables}
+
+\item{cont_para_list}{List of parameter lists for continuous covariates (each with \code{mean} and \code{sigma}).}
 }
 \value{
 a list contains simulated covariates

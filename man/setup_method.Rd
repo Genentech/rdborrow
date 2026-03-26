@@ -10,6 +10,16 @@ setup_method(
   bootstrap_obj = .bootstrap_obj()
 )
 }
+\arguments{
+\item{method_name}{character. Name of the method.}
+
+\item{bootstrap_flag}{logical. Whether to use bootstrap for inference.}
+
+\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.}
+}
+\value{
+An object of class `method_obj`.
+}
 \description{
 Construct a method object
 }

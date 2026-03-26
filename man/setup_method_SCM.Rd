@@ -15,6 +15,26 @@ setup_method_SCM(
   ncpus = 1
 )
 }
+\arguments{
+\item{method_name}{character. Name of the method.}
+
+\item{bootstrap_flag}{logical. Whether to use bootstrap for inference.}
+
+\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.}
+
+\item{lambda.min}{numeric. The minimum value of the regularization parameter lambda for SCM.}
+
+\item{lambda.max}{numeric. The maximum value of the regularization parameter lambda for SCM.}
+
+\item{nlambda}{numeric. The number of lambda values to consider for SCM.}
+
+\item{parallel}{character. The type of parallelization to use for SCM (e.g., "no", "multicore", "snow").}
+
+\item{ncpus}{numeric. The number of CPU cores to use for parallelization in SCM.}
+}
+\value{
+An object of class `method_SCM_obj`.
+}
 \description{
 Construct a method_SCM object
 }

@@ -1,10 +1,10 @@
 #' Simulate outcome from given effect additive models
 #'
-#' @param n 
-#' @param T_follow 
-#' @param X 
-#' @param A 
-#' @param outcome_model_specs 
+#' @param X Data frame of covariates.
+#' @param A Data frame of treatment indicators.
+#' @param outcome_model_specs List of outcome model specifications.
+#' @param OLE_flag Logical. Whether this is an OLE simulation.
+#' @param T_cross Integer crossover time point.
 #' 
 #' @return a data frame containing simulated outcome 
 #' @export

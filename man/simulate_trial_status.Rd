@@ -7,9 +7,9 @@
 simulate_trial_status(X, model_specs)
 }
 \arguments{
-\item{X}{}
+\item{X}{Data frame of covariates.}
 
-\item{model_specs}{}
+\item{model_specs}{List with \code{family} and \code{coef} for the participation model.}
 }
 \value{
 a data frame containing the trial status vector

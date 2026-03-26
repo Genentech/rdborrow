@@ -40,9 +40,11 @@
 
 #' Construct a method object
 #' 
-#' @param method_name
-#' @param bootstrap_flag
-#' @param bootstrap_obj
+#' @param method_name character. Name of the method.
+#' @param bootstrap_flag logical. Whether to use bootstrap for inference.
+#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.
+#' 
+#' @return An object of class `method_obj`.
 setup_method = function(method_name = "", 
                         bootstrap_flag = F,
                         bootstrap_obj = .bootstrap_obj()){

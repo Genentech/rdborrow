@@ -22,31 +22,33 @@ DID_EC_AIPW(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{data.frame. The input data containing the outcome, trial status, treatment, and covariates.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{character. The column name for the outcome variable in the data.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{character. The column name for the trial status variable in the data (indicating RCT vs external control).}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{character. The column name for the treatment variable in the data.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{character vector. The column names for the covariates in the data.}
 
-\item{T_cross}{}
+\item{T_cross}{numeric. The time point that separates the placebo-control period and the follow-up period.}
 
-\item{model_form_piS}{}
+\item{model_form_piS}{character. The model formula for the selection model (S).}
 
-\item{model_form_piA}{}
+\item{model_form_piA}{character. The model formula for the treatment model (A).}
 
-\item{model_form_mu0_ext}{}
+\item{model_form_mu0_ext}{character. The model formula for the outcome model in the external data (mu0_ext).}
 
-\item{Bootstrap}{}
+\item{Bootstrap}{logical. Whether to use bootstrap for inference.}
 
-\item{R}{}
+\item{R}{numeric. The number of bootstrap replications.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{character. The type of bootstrap confidence interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").}
 
-\item{alpha}{}
+\item{alpha}{numeric. The significance level for confidence intervals.}
+
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 tau and standard deviation

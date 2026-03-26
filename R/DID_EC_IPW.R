@@ -1,16 +1,18 @@
 #' Difference in difference + IPW + external control borrowing
 #'
-#' @param model_form_piS 
-#' @param model_form_piA 
-#' @param data 
-#' @param outcome_col_name 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param covariates_col_name 
-#' @param Bootstrap 
-#' @param R 
-#' @param bootstrap_CI_type 
-#' @param alpha 
+#' @param data A data frame containing all subject-level data.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param T_cross Integer crossover time point.
+#' @param model_form_piS Formula string for the trial participation model.
+#' @param model_form_piA Formula string for the treatment assignment model.
+#' @param Bootstrap Logical. Whether to use bootstrap inference.
+#' @param R Number of bootstrap replicates.
+#' @param bootstrap_CI_type Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).
+#' @param alpha Significance level.
+#' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
 #' @include DID_EC_IPW_bootstrap.R 
 #' @return tau and standard deviation

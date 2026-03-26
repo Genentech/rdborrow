@@ -98,13 +98,13 @@
 
 #' Construct an simulation object
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param alpha 
-#' @param method_description 
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param method_description Character vector of method labels.
+#' @param alpha Significance level.
 #'
 #' @return An simulation object 
 #' @export
@@ -145,17 +145,17 @@ setup_simulation = function(trial_status_col_name,
 
 #' Construct a simulation object for primary analysis
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param true_effect 
-#' @param method_description 
-#' @param alpha 
-#' @param data_matrix_list_null 
-#' @param data_matrix_list_alt 
-#' @param alt_effect 
+#' @param data_matrix_list_null List of data frames simulated under the null.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param true_effect Numeric vector of true treatment effects.
+#' @param method_description Character vector of method labels.
+#' @param data_matrix_list_alt List of data frames simulated under the alternative.
+#' @param alt_effect Numeric vector of alternative treatment effects.
+#' @param alpha Significance level.
 #'
 #' @return return a simulation object for primary analysis
 #' @export
@@ -213,16 +213,16 @@ setup_simulation_primary = function(data_matrix_list_null,
 
 #' Construct a simulation object for OLE analysis
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param T_cross 
-#' @param true_effect 
-#' @param method_description 
-#' @param alpha 
-#' @param data_matrix_list
+#' @param data_matrix_list List of simulated data frames.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param T_cross Integer crossover time point.
+#' @param true_effect Numeric vector of true treatment effects.
+#' @param method_description Character vector of method labels.
+#' @param alpha Significance level.
 #'
 #' @return a simulation object for OLE phase
 #' @export

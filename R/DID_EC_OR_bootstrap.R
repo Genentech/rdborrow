@@ -1,15 +1,15 @@
 #' Difference in difference + outcome regression + external control borrowing
 #'
-#' @param model_form_mu0_ext 
-#' @param model_form_mu0_rct 
-#' @param model_form_mu1_rct 
-#' @param data 
-#' @param indices 
-#' @param outcome_col_name 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param covariates_col_name 
-#' @param T_cross 
+#' @param data A data frame containing all subject-level data.
+#' @param indices Bootstrap sample indices.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param T_cross Integer crossover time point.
+#' @param model_form_mu0_ext Formula string(s) for the external control outcome model.
+#' @param model_form_mu0_rct Formula string(s) for the RCT control outcome model.
+#' @param model_form_mu1_rct Formula string(s) for the RCT treatment outcome model.
 #'
 #' @return tau and standard deviation
 #' @export

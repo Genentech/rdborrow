@@ -7,9 +7,9 @@
 setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
 }
 \arguments{
-\item{replicates}{}
+\item{replicates}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
 }
 \value{
 An bootstrap object

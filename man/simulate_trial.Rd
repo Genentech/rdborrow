@@ -14,17 +14,17 @@ simulate_trial(
 )
 }
 \arguments{
-\item{X_int}{}
+\item{X_int}{Data frame of internal (RCT) covariates.}
 
-\item{X_ext}{}
+\item{X_ext}{Data frame of external control covariates.}
 
-\item{num_treated}{}
+\item{num_treated}{Number of treated subjects.}
 
-\item{OLE_flag}{}
+\item{OLE_flag}{Logical. Whether this is an OLE simulation.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{outcome_model_specs}{}
+\item{outcome_model_specs}{List of outcome model specifications.}
 }
 \value{
 a data frame for the simulated data

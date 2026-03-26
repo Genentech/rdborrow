@@ -18,23 +18,25 @@ EC_AIPW_OPT_bootstrap(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{outcome_col_name}{}
+\item{indices}{Bootstrap sample indices.}
 
-\item{trial_status_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{treatment_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{covariates_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{model_form_piS}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{model_form_mu0_ext}{}
+\item{model_form_piS}{Formula string for the trial participation model.}
 
-\item{optimal_weight_flag}{}
+\item{model_form_mu0_ext}{Formula string(s) for the external control outcome model.}
 
-\item{wt}{}
+\item{optimal_weight_flag}{Logical. Whether to use the optimal borrowing weight.}
+
+\item{wt}{Numeric fixed borrowing weight.}
 }
 \value{
 a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)

@@ -1,13 +1,14 @@
 #' Using IPW with external borrowing
 #'
-#' @param outcome 
-#' @param trial_status 
-#' @param treatment 
-#' @param covariates 
-#' @param model_form_piS 
-#' @param optimal_weight_flag 
-#' @param wt 
-#' @param Bootstrap 
+#' @param data A data frame containing all subject-level data.
+#' @param indices Bootstrap sample indices.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param model_form_piS Formula string for the trial participation model.
+#' @param optimal_weight_flag Logical. Whether to use the optimal borrowing weight.
+#' @param wt Numeric fixed borrowing weight.
 #'
 #' @return a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @export

@@ -1,18 +1,19 @@
 #' Difference in difference + AIPW + external control borrowing
 #'
-#' @param model_form_piS 
-#' @param model_form_piA 
-#' @param model_form_mu0_ext 
-#' @param data 
-#' @param outcome_col_name 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param covariates_col_name 
-#' @param Bootstrap 
-#' @param R 
-#' @param bootstrap_CI_type 
-#' @param alpha 
-#' @param T_cross 
+#' @param model_form_piS character. The model formula for the selection model (S).
+#' @param model_form_piA  character. The model formula for the treatment model (A).
+#' @param model_form_mu0_ext character. The model formula for the outcome model in the external data (mu0_ext).
+#' @param data data.frame. The input data containing the outcome, trial status, treatment, and covariates.
+#' @param outcome_col_name character. The column name for the outcome variable in the data.
+#' @param trial_status_col_name character. The column name for the trial status variable in the data (indicating RCT vs external control).
+#' @param treatment_col_name character. The column name for the treatment variable in the data.
+#' @param covariates_col_name character vector. The column names for the covariates in the data.
+#' @param Bootstrap logical. Whether to use bootstrap for inference.
+#' @param R numeric. The number of bootstrap replications.
+#' @param bootstrap_CI_type character. The type of bootstrap confidence interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").
+#' @param alpha numeric. The significance level for confidence intervals.
+#' @param T_cross numeric. The time point that separates the placebo-control period and the follow-up period.
+#' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
 #' @include DID_EC_AIPW_bootstrap.R
 #' @return tau and standard deviation

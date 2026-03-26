@@ -2,21 +2,22 @@
 #'
 #' SCM() is the main function calculates the estimated ATE by SC method and Bootstrap CI, it calls subject_SC() and lambdacv().
 #'
-#' @param outcome_col_name 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param covariates_col_name 
-#' @param T_cross 
-#' @param Bootstrap 
-#' @param R 
-#' @param bootstrap_CI_type 
-#' @param alpha 
-#' @param data A data frame
-#' @param lambda.min 
-#' @param lambda.max 
-#' @param nlambda 
-#' @param parallel 
-#' @param ncpus 
+#' @param data A data frame containing all subject-level data.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param T_cross Integer crossover time point.
+#' @param Bootstrap Logical. Whether to use bootstrap inference.
+#' @param R Number of bootstrap replicates.
+#' @param bootstrap_CI_type Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).
+#' @param alpha Significance level.
+#' @param lambda.min Numeric. Minimum penalty parameter.
+#' @param lambda.max Numeric. Maximum penalty parameter.
+#' @param nlambda Integer. Number of lambda values for cross-validation.
+#' @param parallel Character. Parallelization type for \code{boot}.
+#' @param ncpus Integer. Number of CPUs for parallel bootstrap.
+#' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
 #' @include SCMboot.R
 #' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confidence interval for primary endpoint (only when Bootstrap=TRUE)
@@ -171,13 +172,13 @@ SCM = function(data,
 }
 
 
-#' find synthetic control for one specific subject
+#' Find synthetic control for one specific subject
 #'
-#' @param subject 
-#' @param X10 
-#' @param X00 
-#' @param long_term_col_name 
-#' @param lambda 
+#' @param subject Integer index of the target subject.
+#' @param X10 Matrix of RCT control subjects (attributes by columns).
+#' @param X00 Matrix of external control subjects (attributes by columns).
+#' @param long_term_col_name Character vector of long-term outcome column names.
+#' @param lambda Numeric penalty parameter.
 
 subject_SC = function(subject, X10, X00, long_term_col_name, lambda){
   # subset to only the intersted subject and matching vars
@@ -202,13 +203,14 @@ subject_SC = function(subject, X10, X00, long_term_col_name, lambda){
   return(list(wt.est, y.est))
 }
 
-#' find the optima lambda via LOOCV 
+#' Find the optimal lambda via LOOCV
 #'
-#' @param ec 
-#' @param lambda.min 
-#' @param lambda.max 
-#' @param nlambda 
-#' @param long_term_col_name 
+#' @param ec Matrix of external control data (attributes by columns).
+#' @param long_term_col_name Character vector of long-term outcome column names.
+#' @param lambda.min Numeric. Minimum penalty parameter.
+#' @param lambda.max Numeric. Maximum penalty parameter.
+#' @param nlambda Integer. Number of lambda values to evaluate.
+#' @param pb A progress bar object or \code{NULL}.
 
 lambdacv = function(ec,
                     long_term_col_name,

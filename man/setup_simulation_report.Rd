@@ -15,26 +15,23 @@ setup_simulation_report(
 )
 }
 \arguments{
-\item{method_description}{}
+\item{method_description}{Character vector of method labels.}
 
-\item{bias}{}
+\item{bias}{Numeric vector of bias estimates.}
 
-\item{variance}{}
+\item{variance}{Numeric vector of variance estimates.}
 
-\item{mse}{}
+\item{mse}{Numeric vector of MSE estimates.}
 
-\item{coverage}{}
+\item{coverage}{Numeric vector of coverage probabilities.}
 
-\item{type_I_error}{}
+\item{type_I_error}{Numeric vector of type I error rates.}
 
-\item{power}{}
+\item{power}{Numeric vector of power estimates.}
 }
 \value{
-return a simulation report object
+A \code{simulation_report_obj}.
 }
 \description{
 setup_simulation_report
-}
-\examples{
-\dontrun{}
 }

@@ -2,8 +2,8 @@
 ## TODO: generalize to incorporate other models
 #' Simulate trial status indicator
 #'
-#' @param X 
-#' @param model_specs 
+#' @param X Data frame of covariates.
+#' @param model_specs List with \code{family} and \code{coef} for the participation model.
 #'
 #' @return a data frame containing the trial status vector
 #' @export

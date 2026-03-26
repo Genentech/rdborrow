@@ -22,31 +22,33 @@ DID_EC_OR(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{model_form_mu0_ext}{}
+\item{model_form_mu0_ext}{Formula string(s) for the external control outcome model.}
 
-\item{model_form_mu0_rct}{}
+\item{model_form_mu0_rct}{Formula string(s) for the RCT control outcome model.}
 
-\item{model_form_mu1_rct}{}
+\item{model_form_mu1_rct}{Formula string(s) for the RCT treatment outcome model.}
 
-\item{Bootstrap}{}
+\item{Bootstrap}{Logical. Whether to use bootstrap inference.}
 
-\item{R}{}
+\item{R}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
+
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 tau and standard deviation
