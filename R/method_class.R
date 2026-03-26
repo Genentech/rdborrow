@@ -19,7 +19,6 @@
 #'   model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
 #'                          "y2 ~ x1 + x2 + x3 + x4 + x5"))
 #' }
-
 .method_obj = setClass(
   "method_obj",
   slots = c(
@@ -39,7 +38,11 @@
   contains = "method_obj"
 )
 
-
+#' Construct a method object
+#' 
+#' @param method_name
+#' @param bootstrap_flag
+#' @param bootstrap_obj
 setup_method = function(method_name = "", 
                         bootstrap_flag = F,
                         bootstrap_obj = .bootstrap_obj()){
@@ -54,6 +57,5 @@ setup_method = function(method_name = "",
     bootstrap_flag = bootstrap_flag,
     bootstrap_obj = bootstrap_obj
   )
-  
   
 }

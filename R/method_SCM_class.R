@@ -40,7 +40,16 @@
   )
 )
 
-
+#' Construct a method_SCM object
+#' 
+#' @param method_name
+#' @param bootstrap_flag
+#' @param bootstrap_obj
+#' @param lambda.min
+#' @param lambda.max
+#' @param nlambda
+#' @param parallel
+#' @param ncpus
 setup_method_SCM = function(method_name = "SCM", 
                             bootstrap_flag = F,
                             bootstrap_obj = .bootstrap_obj(),

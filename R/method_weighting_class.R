@@ -46,7 +46,18 @@
   )
 )
 
-
+#' Construct a method_weighting object
+#' 
+#' @param method_name
+#' @param optimal_weight_flag
+#' @param wt
+#' @param bootstrap_flag
+#' @param bootstrap_obj
+#' @param model_form_piS
+#' @param model_form_mu0_ext
+#' @param model_form_piA
+#' @param model_form_mu0_rct
+#' @param model_form_mu1_rct
 setup_method_weighting = function(method_name = "IPW", 
                                   optimal_weight_flag = F, 
                                   wt = 0, 

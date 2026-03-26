@@ -44,7 +44,16 @@
   )
 )
 
-
+#' Construct a method_DID object
+#' 
+#' @param method_name
+#' @param bootstrap_flag
+#' @param bootstrap_obj
+#' @param model_form_piS
+#' @param model_form_mu0_ext
+#' @param model_form_piA
+#' @param model_form_mu0_rct
+#' @param model_form_mu1_rct
 setup_method_DID = function(method_name = "IPW", 
                             bootstrap_flag = F,
                             bootstrap_obj = .bootstrap_obj(),
