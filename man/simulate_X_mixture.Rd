@@ -23,6 +23,8 @@ simulate_X_mixture(
 \item{cat_level_list}{a list describing the levels of categorical variables}
 
 \item{cat_comb_prob}{probability of each combination of categorical variables}
+
+\item{cont_para_list}{List of parameter lists for continuous covariates (each with \code{mean} and \code{sigma}).}
 }
 \value{
 a list contains simulated covariates
@@ -31,9 +33,11 @@ a list contains simulated covariates
 Simulate X from a mixture model
 }
 \examples{
+\dontrun{
 X = simulate_X_mixture(n = 100, p_cat = 0, p_cont = 2, 
 cat_level_list = list(),
 cat_comb_prob = c(),
 cont_para_list = list(list(mean = c(0, 0), sigma = diag(2)))
 )
+}
 }

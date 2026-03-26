@@ -11,6 +11,7 @@
 #' @export setup_method_SCM
 #'
 #' @examples
+#' \dontrun{
 #' method_SCM_obj = setup_method_SCM(
 #'   method_name = "SCM", 
 #'   bootstrap_flag = T, 
@@ -20,7 +21,7 @@
 #'   nlambda = 10, 
 #'   parallel = "multicore", 
 #'   ncpus = 4) 
-#' 
+#' }
 
 .method_SCM_obj = setClass(
   "method_SCM_obj",
@@ -39,7 +40,18 @@
   )
 )
 
-
+#' Construct a method_SCM object
+#' 
+#' @param method_name character. Name of the method.
+#' @param bootstrap_flag logical. Whether to use bootstrap for inference.
+#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.
+#' @param lambda.min numeric. The minimum value of the regularization parameter lambda for SCM.
+#' @param lambda.max numeric. The maximum value of the regularization parameter lambda for SCM.
+#' @param nlambda numeric. The number of lambda values to consider for SCM.
+#' @param parallel character. The type of parallelization to use for SCM (e.g., "no", "multicore", "snow").
+#' @param ncpus numeric. The number of CPU cores to use for parallelization in SCM.
+#' 
+#' @return An object of class `method_SCM_obj`.
 setup_method_SCM = function(method_name = "SCM", 
                             bootstrap_flag = F,
                             bootstrap_obj = .bootstrap_obj(),

@@ -21,29 +21,31 @@ EC_IPW_OPT(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{model_form_piS}{}
+\item{model_form_piS}{Formula string for the trial participation model.}
 
-\item{optimal_weight_flag}{}
+\item{optimal_weight_flag}{Logical. Whether to use the optimal borrowing weight.}
 
-\item{wt}{}
+\item{wt}{Numeric fixed borrowing weight.}
 
-\item{Bootstrap}{}
+\item{Bootstrap}{Logical. Whether to use bootstrap inference.}
 
-\item{R}{}
+\item{R}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
+
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
@@ -52,6 +54,7 @@ a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 Using IPW with external borrowing
 }
 \examples{
+\dontrun{
 EC_IPW_OPT(data = data,
    outcome_col_name = outcome_col_name, 
    trial_status_col_name = trial_status_col_name, 
@@ -61,4 +64,5 @@ EC_IPW_OPT(data = data,
    wt = wt, 
    optimal_weight_flag = optimal_weight_flag,
    Bootstrap, R, bootstrap_CI_type)
+}
 }

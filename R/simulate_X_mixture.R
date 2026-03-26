@@ -4,17 +4,18 @@
 #' @param p_cont dimension of continuous covariates
 #' @param cat_level_list a list describing the levels of categorical variables
 #' @param cat_comb_prob probability of each combination of categorical variables
+#' @param cont_para_list List of parameter lists for continuous covariates (each with \code{mean} and \code{sigma}).
 #' @return a list contains simulated covariates
 #' @export
 #' 
 #' @examples
+#' \dontrun{
 #' X = simulate_X_mixture(n = 100, p_cat = 0, p_cont = 2, 
 #' cat_level_list = list(),
 #' cat_comb_prob = c(),
 #' cont_para_list = list(list(mean = c(0, 0), sigma = diag(2)))
 #' )
-
-
+#' }
 
 simulate_X_mixture = function(n, p_cat, p_cont, cat_level_list, cat_comb_prob, cont_para_list){
   # TODO: sanity check

@@ -1,24 +1,24 @@
 #' Simulate trials
 #'
-#' @param X_int 
-#' @param X_ext 
-#' @param outcome_model_specs 
-#' @param num_treated 
-#' @param OLE_flag 
-#' @param T_cross 
+#' @param X_int Data frame of internal (RCT) covariates.
+#' @param X_ext Data frame of external control covariates.
+#' @param num_treated Number of treated subjects.
+#' @param OLE_flag Logical. Whether this is an OLE simulation.
+#' @param T_cross Integer crossover time point.
+#' @param outcome_model_specs List of outcome model specifications.
 #'
 #' @return a data frame for the simulated data
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' Data = simulate_trial(X_int, 
 #'  X_ext, 
 #'  num_treated = 150, 
 #'  OLE_flag = T, 
 #'  T_cross = 2,  
 #'  outcome_model_specs) 
-#' 
+#' }
 simulate_trial = function(X_int, X_ext, num_treated, OLE_flag, T_cross, outcome_model_specs){
   # TODO: sanity check for dimension of num_treated, T_cross, outcome_model_specs
   

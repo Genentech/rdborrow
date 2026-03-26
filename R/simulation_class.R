@@ -62,7 +62,9 @@
 
 #' Simulation for OLE study
 #'
-#' @slot T_cross numeric. 
+#' @slot data_matrix_list List of simulated data matrices.
+#' @slot true_effect True treatment effect for evaluating estimator performance.
+#' @slot T_cross Numeric crossover time point for the OLE phase.
 #'
 #' @return a simulation object for OLE phase
 #' @export
@@ -96,24 +98,25 @@
 
 #' Construct an simulation object
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param alpha 
-#' @param method_description 
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param method_description Character vector of method labels.
+#' @param alpha Significance level.
 #'
 #' @return An simulation object 
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_simulation = function(trial_status_col_name, 
                             treatment_col_name, 
@@ -142,22 +145,23 @@ setup_simulation = function(trial_status_col_name,
 
 #' Construct a simulation object for primary analysis
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param true_effect 
-#' @param method_description 
-#' @param alpha 
-#' @param data_matrix_list_null 
-#' @param data_matrix_list_alt 
-#' @param alt_effect 
+#' @param data_matrix_list_null List of data frames simulated under the null.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param true_effect Numeric vector of true treatment effects.
+#' @param method_description Character vector of method labels.
+#' @param data_matrix_list_alt List of data frames simulated under the alternative.
+#' @param alt_effect Numeric vector of alternative treatment effects.
+#' @param alpha Significance level.
 #'
 #' @return return a simulation object for primary analysis
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' simulation_primary_obj = setup_simulation_primary(
 #'  data_matrix_list_null = data_matrix_list_null,  # two scenarios
 #'  data_matrix_list_alt = data_matrix_list_alt,
@@ -173,7 +177,7 @@ setup_simulation = function(trial_status_col_name,
 #'                         "AIPW, optimal weight", 
 #'                         "IPW, zero weight",
 #'                         "AIPW, zero weight"))
-#' 
+#' }
 setup_simulation_primary = function(data_matrix_list_null, 
                                     trial_status_col_name,
                                     treatment_col_name, 
@@ -209,22 +213,22 @@ setup_simulation_primary = function(data_matrix_list_null,
 
 #' Construct a simulation object for OLE analysis
 #'
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param method_obj_list 
-#' @param T_cross 
-#' @param true_effect 
-#' @param method_description 
-#' @param alpha 
-#' @param data_matrix_list
+#' @param data_matrix_list List of simulated data frames.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_obj_list List of method objects to evaluate.
+#' @param T_cross Integer crossover time point.
+#' @param true_effect Numeric vector of true treatment effects.
+#' @param method_description Character vector of method labels.
+#' @param alpha Significance level.
 #'
 #' @return a simulation object for OLE phase
 #' @export
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' simulation_OLE_obj = setup_simulation_OLE(
 #'   data_matrix_list = data_matrix_list,  # two scenarios
 #'   trial_status_col_name = trial_status_col_name, 
@@ -238,8 +242,7 @@ setup_simulation_primary = function(data_matrix_list_null,
 #'   method_description = c("IPW, DID", 
 #'                          "AIPW, DID", 
 #'                          "OR, DID"))
-#' 
-#' 
+#' }
 #' 
 setup_simulation_OLE = function(data_matrix_list, 
                                       trial_status_col_name, 

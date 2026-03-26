@@ -1,18 +1,20 @@
 #' Using AIPW with external borrowing
 #'
-#' @param model_form_piS 
-#' @param model_form_mu0_ext 
-#' @param optimal_weight_flag 
-#' @param wt 
-#' @param data 
-#' @param outcome_col_name 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param covariates_col_name 
+#' @param data A data frame containing all subject-level data.
+#' @param indices Bootstrap sample indices.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param model_form_piS Formula string for the trial participation model.
+#' @param model_form_mu0_ext Formula string(s) for the external control outcome model.
+#' @param optimal_weight_flag Logical. Whether to use the optimal borrowing weight.
+#' @param wt Numeric fixed borrowing weight.
 #'
 #' @return a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @export
 #' @examples 
+#' \dontrun{
 #' res = EC_AIPW_OPT(data = data,
 #'   outcome_col_name = outcome_col_name, 
 #'   trial_status_col_name = trial_status_col_name, 
@@ -23,7 +25,7 @@
 #'   wt = wt, 
 #'   optimal_weight_flag = optimal_weight_flag,
 #'   Bootstrap)
-#' 
+#' }
 
 EC_AIPW_OPT_bootstrap = function(data,
                                  indices,

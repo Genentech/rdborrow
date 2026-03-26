@@ -7,9 +7,9 @@
 run_simulation(simulation_obj, quiet = TRUE)
 }
 \arguments{
-\item{simulation_obj}{}
+\item{simulation_obj}{A simulation object created by \code{setup_simulation_primary} or \code{setup_simulation_OLE}.}
 
-\item{quiet}{}
+\item{quiet}{Logical. If \code{TRUE}, suppress iteration output.}
 }
 \value{
 a simulation_report object
@@ -18,5 +18,7 @@ a simulation_report object
 Run simulation from a simualtion_obj
 }
 \examples{
+\dontrun{
 simulation_report = run_simulation(simulation_OLE_obj, quiet = F)
+}
 }

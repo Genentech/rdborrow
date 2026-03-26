@@ -10,7 +10,7 @@
 #' @export setup_analysis_OLE
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' bootstrap_obj = setup_bootstrap(
 #'   replicates = 2e3, 
 #'   bootstrap_CI_type = "perc" 
@@ -31,6 +31,7 @@
 #'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
 #'   T_cross = 2, 
 #'   method_OLE_obj = method_DID_obj)
+#' }
 
 .analysis_OLE_obj = setClass(
   "analysis_OLE_obj",
@@ -54,25 +55,26 @@ setMethod(
 
 #' Construct an analysis_OLE object
 #'
-#' @param method_obj 
-#' @param data 
-#' @param trial_status_col_name 
-#' @param treatment_col_name 
-#' @param outcome_col_name 
-#' @param covariates_col_name 
-#' @param T_cross 
-#' @param alpha 
+#' @param data A data frame containing all subject-level data.
+#' @param trial_status_col_name Name of the trial status column.
+#' @param treatment_col_name Name of the treatment column.
+#' @param outcome_col_name Character vector of outcome column names.
+#' @param covariates_col_name Character vector of covariate column names.
+#' @param method_OLE_obj A method object for OLE analysis.
+#' @param T_cross Integer crossover time point.
+#' @param alpha Significance level (default 0.05).
 #'
 #' @return An analysis object [`Analysis`][Analysis-class]
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' analysis_obj = setup_analysis(trial_status_col_name = S, 
 #'    treatment_col_name = A, 
 #'    outcome_col_name = Y, 
 #'    covariates_col_name = X, 
 #'    method = method_obj)
-#' 
+#' }
 #' 
 setup_analysis_OLE = function(data, trial_status_col_name, treatment_col_name, 
                           outcome_col_name, covariates_col_name, method_OLE_obj,

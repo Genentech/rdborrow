@@ -16,21 +16,21 @@ setup_analysis_OLE(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{T_cross}{}
+\item{method_OLE_obj}{A method object for OLE analysis.}
 
-\item{alpha}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{method_obj}{}
+\item{alpha}{Significance level (default 0.05).}
 }
 \value{
 An analysis object [`Analysis`][Analysis-class]
@@ -39,11 +39,12 @@ An analysis object [`Analysis`][Analysis-class]
 Construct an analysis_OLE object
 }
 \examples{
+\dontrun{
 analysis_obj = setup_analysis(trial_status_col_name = S, 
    treatment_col_name = A, 
    outcome_col_name = Y, 
    covariates_col_name = X, 
    method = method_obj)
-
+}
 
 }

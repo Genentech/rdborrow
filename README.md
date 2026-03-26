@@ -1,5 +1,9 @@
 # rdborrow
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Genentech/rdborrow/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Genentech/rdborrow/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ## How to cite the manuscript
 
 Shi L, Herbert P, Chen C, Jiawen Z, (2024). rdborrow: An R package for Causal Inference Incorporating External Controls in Randomized Trials with Longitudinal Outcomes. In submission. 

@@ -2,17 +2,19 @@
 ## TODO: generalize to incorporate other models
 #' Simulate trial status indicator
 #'
-#' @param X 
-#' @param model_specs 
+#' @param X Data frame of covariates.
+#' @param model_specs List with \code{family} and \code{coef} for the participation model.
 #'
 #' @return a data frame containing the trial status vector
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' S = simulate_trial_status(X, model_specs = list(
 #'   family = "binomial",
 #'   coef = c(1,2,3)
 #'   ))
+#' }
 simulate_trial_status = function(X, model_specs){
   n = nrow(X)
   X_intercept = cbind(intercept = 1, X)

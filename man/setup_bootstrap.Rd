@@ -7,9 +7,9 @@
 setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
 }
 \arguments{
-\item{replicates}{}
+\item{replicates}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
 }
 \value{
 An bootstrap object
@@ -18,11 +18,12 @@ An bootstrap object
 Construct a bootstrap object
 }
 \examples{
+\dontrun{
 analysis_obj = setup_analysis(trial_status_col_name = S, 
    treatment_col_name = A, 
    outcome_col_name = Y, 
    covariates_col_name = X, 
    method = method_obj)
-
+}
 
 }

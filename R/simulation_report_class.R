@@ -11,10 +11,6 @@
 #' @include method_class.R
 #' @export setup_simulation
 #'
-#' @examples This is part of the run_simulation() function
-#' 
-
-
 .simulation_report_obj = setClass(
   "simulation_report_obj",
   slots = c(
@@ -56,22 +52,16 @@ setMethod(
 
 #' setup_simulation_report
 #'
-#' @param method_description 
-#' @param bias 
-#' @param variance 
-#' @param mse 
-#' @param coverage 
-#' @param type_I_error 
-#' @param power 
+#' @param method_description Character vector of method labels.
+#' @param bias Numeric vector of bias estimates.
+#' @param variance Numeric vector of variance estimates.
+#' @param mse Numeric vector of MSE estimates.
+#' @param coverage Numeric vector of coverage probabilities.
+#' @param type_I_error Numeric vector of type I error rates.
+#' @param power Numeric vector of power estimates.
 #'
-#' @return return a simulation report object
+#' @return A \code{simulation_report_obj}.
 #' @export
-#'
-#' @examples
-#' 
-#' This is part of the run_simulation() function
-#' 
-#' 
 setup_simulation_report = function(method_description,
                                    bias,
                                    variance,

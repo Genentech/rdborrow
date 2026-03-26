@@ -15,19 +15,19 @@ setup_simulation(
 )
 }
 \arguments{
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_obj_list}{}
+\item{method_obj_list}{List of method objects to evaluate.}
 
-\item{method_description}{}
+\item{method_description}{Character vector of method labels.}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
 }
 \value{
 An simulation object
@@ -36,11 +36,12 @@ An simulation object
 Construct an simulation object
 }
 \examples{
+\dontrun{
 analysis_obj = setup_analysis(trial_status_col_name = S, 
    treatment_col_name = A, 
    outcome_col_name = Y, 
    covariates_col_name = X, 
    method = method_obj)
-
+}
 
 }

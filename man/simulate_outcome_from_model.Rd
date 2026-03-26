@@ -7,15 +7,15 @@
 simulate_outcome_from_model(X, A, outcome_model_specs, OLE_flag, T_cross)
 }
 \arguments{
-\item{X}{}
+\item{X}{Data frame of covariates.}
 
-\item{A}{}
+\item{A}{Data frame of treatment indicators.}
 
-\item{outcome_model_specs}{}
+\item{outcome_model_specs}{List of outcome model specifications.}
 
-\item{n}{}
+\item{OLE_flag}{Logical. Whether this is an OLE simulation.}
 
-\item{T_follow}{}
+\item{T_cross}{Integer crossover time point.}
 }
 \value{
 a data frame containing simulated outcome
@@ -24,7 +24,7 @@ a data frame containing simulated outcome
 Simulate outcome from given effect additive models
 }
 \examples{
-
+\dontrun{
 model_form1 = "y1 = A*3 + x1*1 + x2*1 + rnorm(n, mean = 0, sd=0.5)"
 model_form2 = "y2 = A*0 + x1*1 + x2*(-1) + rnorm(n, mean = 0, sd=0.5)"
 Y = simulate_outcome_from_model(T_follow = 2, X = X, A = A, 
@@ -37,4 +37,5 @@ Y = simulate_outcome_from_model(T_follow = 2, X = X, A = A,
                                   )
                                 ))
 Y
+}
 }

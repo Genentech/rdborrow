@@ -21,35 +21,35 @@ DID_EC_IPW(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{model_form_piS}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{model_form_piA}{}
+\item{model_form_piS}{Formula string for the trial participation model.}
 
-\item{Bootstrap}{}
+\item{model_form_piA}{Formula string for the treatment assignment model.}
 
-\item{R}{}
+\item{Bootstrap}{Logical. Whether to use bootstrap inference.}
 
-\item{bootstrap_CI_type}{}
+\item{R}{Number of bootstrap replicates.}
 
-\item{alpha}{}
+\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
+
+\item{alpha}{Significance level.}
+
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 tau and standard deviation
 }
 \description{
 Difference in difference + IPW + external control borrowing
-}
-\examples{
-This is part of the run_analysis() function
-
 }

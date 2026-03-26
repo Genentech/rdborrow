@@ -1,16 +1,16 @@
 #' Simulate outcome from given effect additive models
 #'
-#' @param n 
-#' @param T_follow 
-#' @param X 
-#' @param A 
-#' @param outcome_model_specs 
+#' @param X Data frame of covariates.
+#' @param A Data frame of treatment indicators.
+#' @param outcome_model_specs List of outcome model specifications.
+#' @param OLE_flag Logical. Whether this is an OLE simulation.
+#' @param T_cross Integer crossover time point.
 #' 
 #' @return a data frame containing simulated outcome 
 #' @export
 #'
 #' @examples 
-#' 
+#' \dontrun{
 #' model_form1 = "y1 = A*3 + x1*1 + x2*1 + rnorm(n, mean = 0, sd=0.5)"
 #' model_form2 = "y2 = A*0 + x1*1 + x2*(-1) + rnorm(n, mean = 0, sd=0.5)"
 #' Y = simulate_outcome_from_model(T_follow = 2, X = X, A = A, 
@@ -23,6 +23,7 @@
 #'                                   )
 #'                                 ))
 #' Y
+#' }
 
 simulate_outcome_from_model = function(X, A, outcome_model_specs, OLE_flag, T_cross){
   # TODO: sanity check 

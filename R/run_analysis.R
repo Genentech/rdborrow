@@ -1,7 +1,8 @@
 #' run analysis
 #' 
-#' @param analysis_obj 
-#' @param Bootstrap 
+#' @param analysis_obj An analysis object created by \code{setup_analysis},
+#'   \code{setup_analysis_primary}, or \code{setup_analysis_OLE}.
+#' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #' 
 #' @return  a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @include EC_IPW_OPT.R
@@ -14,7 +15,9 @@
 #' @export
 #' 
 #' @examples 
+#' \dontrun{
 #' run_analysis(analysis_obj, Bootstrap = F)
+#' }
 
 run_analysis = function(analysis_obj, quiet = TRUE){
   

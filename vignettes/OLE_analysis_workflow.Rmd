@@ -2,7 +2,11 @@
 title: "OLE Analysis Workflow"
 author: "Lei"
 date: "`r Sys.Date()`"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OLE Analysis Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}
@@ -17,7 +21,7 @@ library(rdborrow)
 #### 1.1 IPW
 ```{r message=FALSE, warning=FALSE}
 bootstrap_obj = setup_bootstrap(
-  replicates = 2e3, 
+  replicates = 50,
   bootstrap_CI_type = "perc" 
 )
 
@@ -43,7 +47,7 @@ res = run_analysis(analysis_OLE_obj)
 #### 1.2 AIPW
 ```{r message=FALSE, warning=FALSE}
 bootstrap_obj = setup_bootstrap(
-  replicates = 2e3, 
+  replicates = 50,
   bootstrap_CI_type = "perc" 
 )
 
@@ -76,7 +80,7 @@ res = run_analysis(analysis_OLE_obj)
 #### 1.3 OR
 ```{r message=FALSE, warning=FALSE}
 bootstrap_obj = setup_bootstrap(
-  replicates = 2e3, 
+  replicates = 50,
   bootstrap_CI_type = "perc" 
 )
 
@@ -110,7 +114,7 @@ res
 ### 2 SCM method: with parallel computing
 ```{r}
 bootstrap_obj = setup_bootstrap(
-  replicates = 200, 
+  replicates = 50,
   bootstrap_CI_type = "perc" 
 )
 
@@ -121,8 +125,8 @@ method_SCM_obj = setup_method_SCM(
   lambda.min = 0, 
   lambda.max = 1e-3, 
   nlambda = 10, 
-  parallel = "multicore", 
-  ncpus = 4) 
+  parallel = "no", 
+  ncpus = 1) 
 
 analysis_OLE_obj = setup_analysis_OLE(
   data = SyntheticData, 
@@ -140,7 +144,7 @@ run_analysis(analysis_OLE_obj)
 ### 3 SCM method: without parallel computing
 ```{r}
 bootstrap_obj = setup_bootstrap(
-  replicates = 200, 
+  replicates = 50,
   bootstrap_CI_type = "perc" 
 )
 

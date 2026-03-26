@@ -23,6 +23,7 @@ method class
 }}
 
 \examples{
+\dontrun{
 method_SCM_obj = setup_method_SCM(
   method_name = "SCM", 
   bootstrap_flag = T, 
@@ -32,5 +33,5 @@ method_SCM_obj = setup_method_SCM(
   nlambda = 10, 
   parallel = "multicore", 
   ncpus = 4) 
-
+}
 }

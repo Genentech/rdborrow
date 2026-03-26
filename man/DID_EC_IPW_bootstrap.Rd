@@ -2,7 +2,7 @@
 % Please edit documentation in R/DID_EC_IPW_bootstrap.R
 \name{DID_EC_IPW_bootstrap}
 \alias{DID_EC_IPW_bootstrap}
-\title{Difference in difference + IPW + external control borrowing}
+\title{Bootstrap statistic for DID + IPW}
 \usage{
 DID_EC_IPW_bootstrap(
   data,
@@ -17,31 +17,27 @@ DID_EC_IPW_bootstrap(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{indices}{}
+\item{indices}{Bootstrap sample indices.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{model_form_piS}{}
+\item{model_form_piS}{Formula string for the trial participation model.}
 
-\item{model_form_piA}{}
+\item{model_form_piA}{Formula string for the treatment assignment model.}
 }
 \value{
-tau and standard deviation
+Named numeric vector of treatment effect estimates.
 }
 \description{
-Difference in difference + IPW + external control borrowing
-}
-\examples{
-This is part of the run_analysis() function
-
+Bootstrap statistic for DID + IPW
 }

@@ -18,25 +18,25 @@ DID_EC_OR_bootstrap(
 )
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame containing all subject-level data.}
 
-\item{indices}{}
+\item{indices}{Bootstrap sample indices.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{model_form_mu0_ext}{}
+\item{model_form_mu0_ext}{Formula string(s) for the external control outcome model.}
 
-\item{model_form_mu0_rct}{}
+\item{model_form_mu0_rct}{Formula string(s) for the RCT control outcome model.}
 
-\item{model_form_mu1_rct}{}
+\item{model_form_mu1_rct}{Formula string(s) for the RCT treatment outcome model.}
 }
 \value{
 tau and standard deviation
@@ -45,6 +45,7 @@ tau and standard deviation
 Difference in difference + outcome regression + external control borrowing
 }
 \examples{
+\dontrun{
 model_form_mu = c("y1 ~ x1 + x2", 
 "y2 ~ x1 + x2",
 "y3 ~ x1 + x2",
@@ -54,5 +55,5 @@ res1 = DID_EC_OR(outcome = Y, trial_status = S, treatment = A, covariates = X,
                  model_form_mu0_ext = model_form_mu, 
                  model_form_mu0_rct = model_form_mu, 
                  model_form_mu1_rct = model_form_mu)
-
+}
 }

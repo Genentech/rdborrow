@@ -7,11 +7,11 @@
 simulate_trt_assign(X, S, prob)
 }
 \arguments{
-\item{X}{}
+\item{X}{Data frame of covariates.}
 
-\item{S}{}
+\item{S}{Data frame with trial status indicator.}
 
-\item{prob}{}
+\item{prob}{Probability of treatment assignment.}
 }
 \value{
 Vector A that indicates the treatment status
@@ -20,5 +20,11 @@ Vector A that indicates the treatment status
 Title
 }
 \examples{
-A = simulate_trt_assign(X = SyntheticData \%>\% select(x1, x2), S = SyntheticData \%>\% select(S), prob = 1/2)
+\dontrun{
+A <- simulate_trt_assign(
+  X = SyntheticData \%>\% select(x1, x2),
+  S = SyntheticData \%>\% select(S),
+  prob = 1/2
+)
+}
 }

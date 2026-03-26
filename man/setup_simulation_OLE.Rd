@@ -18,25 +18,25 @@ setup_simulation_OLE(
 )
 }
 \arguments{
-\item{data_matrix_list}{}
+\item{data_matrix_list}{List of simulated data frames.}
 
-\item{trial_status_col_name}{}
+\item{trial_status_col_name}{Name of the trial status column.}
 
-\item{treatment_col_name}{}
+\item{treatment_col_name}{Name of the treatment column.}
 
-\item{outcome_col_name}{}
+\item{outcome_col_name}{Character vector of outcome column names.}
 
-\item{covariates_col_name}{}
+\item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_obj_list}{}
+\item{method_obj_list}{List of method objects to evaluate.}
 
-\item{T_cross}{}
+\item{T_cross}{Integer crossover time point.}
 
-\item{true_effect}{}
+\item{true_effect}{Numeric vector of true treatment effects.}
 
-\item{method_description}{}
+\item{method_description}{Character vector of method labels.}
 
-\item{alpha}{}
+\item{alpha}{Significance level.}
 }
 \value{
 a simulation object for OLE phase
@@ -45,7 +45,7 @@ a simulation object for OLE phase
 Construct a simulation object for OLE analysis
 }
 \examples{
-
+\dontrun{
 simulation_OLE_obj = setup_simulation_OLE(
   data_matrix_list = data_matrix_list,  # two scenarios
   trial_status_col_name = trial_status_col_name, 
@@ -59,7 +59,6 @@ simulation_OLE_obj = setup_simulation_OLE(
   method_description = c("IPW, DID", 
                          "AIPW, DID", 
                          "OR, DID"))
-
-
+}
 
 }

@@ -7,9 +7,10 @@
 run_analysis(analysis_obj, quiet = TRUE)
 }
 \arguments{
-\item{analysis_obj}{}
+\item{analysis_obj}{An analysis object created by \code{setup_analysis},
+\code{setup_analysis_primary}, or \code{setup_analysis_OLE}.}
 
-\item{Bootstrap}{}
+\item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
 a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
@@ -18,5 +19,7 @@ a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 run analysis
 }
 \examples{
+\dontrun{
 run_analysis(analysis_obj, Bootstrap = F)
+}
 }

@@ -1,8 +1,12 @@
 ---
 title: "Primary Analysis Workflow"
 author: "Lei"
-date: "2024-02-19"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Primary Analysis Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}
@@ -129,7 +133,7 @@ In this section we present Bootstrap inference results. We report Bootstrap conf
 ## Data argument + column names (coxph, glm)
 ## having a bootstrap_flag outside the class
 bootstrap_obj = setup_bootstrap(
-  replicates = 2e3,
+  replicates = 50,
   bootstrap_CI_type = "perc"
 )
 
@@ -160,7 +164,7 @@ res
 # test: with optimal weight
 ## Data argument + column names (coxph, glm)
 bootstrap_obj = setup_bootstrap(
-  replicates = 2e3,
+  replicates = 50,
   bootstrap_CI_type = "perc"
 )
 
