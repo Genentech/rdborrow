@@ -81,16 +81,24 @@ model_form_x_t1 <- "x1*1 + x2*1 + x3*1 + x4*1"
 model_form_x_t2 <- "x1*1 + x2*(-1) + x3*(-1) + x4*1"
 
 outcome_model_specs <- list(
-  list(effect = 3, model_form_x = model_form_x_t1, noise_mean = 0, noise_sd = 0.5), # model form for the first time point, given by model_form1
-  list(effect = 0, model_form_x = model_form_x_t2, noise_mean = 0, noise_sd = 0.5) # model form for the second time point, given by model_form2
+  list(effect = 3, model_form_x = model_form_x_t1,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 0, model_form_x = model_form_x_t2,
+    noise_mean = 0, noise_sd = 0.5)
 )
 
-Data <- simulate_trial(X_int, X_ext, prob_treated = 2 / 3, OLE_flag = FALSE, T_cross = 0, outcome_model_specs)
+data_sim <- simulate_trial(
+  X_int, X_ext,
+  prob_treated = 2 / 3,
+  OLE_flag = FALSE,
+  T_cross = 0,
+  outcome_model_specs
+)
 ```
 
 Display the first 10 rows of the dataset:
 ```{r}
-head(Data, 10)
+head(data_sim, 10)
 ```
 
 
@@ -116,26 +124,31 @@ model_form_x_t3 <- "x1*1 + x2*1 + x3*1 + x4*1"
 model_form_x_t4 <- "x1*1 + x2*(-1) + x3*(-1) + x4*1"
 
 outcome_model_specs <- list(
-  list(effect = 3, model_form_x = model_form_x_t1, noise_mean = 0, noise_sd = 0.5), # model form for the first time point, given by model_form1
-  list(effect = 0, model_form_x = model_form_x_t2, noise_mean = 0, noise_sd = 0.5), # model form for the second time point, given by model_form2
-  list(effect = 5, model_form_x = model_form_x_t3, noise_mean = 0, noise_sd = 0.5), # model form for the third time point, given by model_form3
-  list(effect = 5, model_form_x = model_form_x_t4, noise_mean = 0, noise_sd = 0.5) # model form for the fourth time point, given by model_form4
+  list(effect = 3, model_form_x = model_form_x_t1,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 0, model_form_x = model_form_x_t2,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 5, model_form_x = model_form_x_t3,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 5, model_form_x = model_form_x_t4,
+    noise_mean = 0, noise_sd = 0.5)
 )
 
 
-Data <- simulate_trial(X_int, # simulated covariates for internal study
-  X_ext, # simulated covariates for external study
-  prob_treated = 2 / 3, # treatment probability for two periods
+data_sim <- simulate_trial(
+  X_int,
+  X_ext,
+  prob_treated = 2 / 3,
   OLE_flag = TRUE,
-  T_cross = 2, # follow up time within each phases
+  T_cross = 2,
   outcome_model_specs
-) # outcome models
+)
 ```
 
 
 Display the first 10 rows of the dataset:
 ```{r}
-head(Data, 10)
+head(data_sim, 10)
 ```
 
 putting some instruction here...
