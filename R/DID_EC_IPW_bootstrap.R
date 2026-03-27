@@ -56,12 +56,12 @@ DID_EC_IPW_bootstrap <- function(data,
   }
 
 
-  temp <- df %>%
+  temp <- df |>
     mutate(
-      piAX = piAX, # sum(A)/sum(S)
+      piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
-    ) %>%
+    ) |>
     mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
 
@@ -98,5 +98,5 @@ DID_EC_IPW_bootstrap <- function(data,
   # return(list(c(tau[1], sd(boot.out$t[,1]), boot.ci(boot.out,index=1,type=c("perc"))$percent[4:5]),
   #             c(tau[2], sd(boot.out$t[,2]), boot.ci(boot.out,index=2,type=c("perc"))$percent[4:5])))
 
-  return(tau)
+  tau
 }

@@ -69,12 +69,12 @@ DID_EC_IPW <- function(data,
   }
 
 
-  temp <- df %>%
+  temp <- df |>
     mutate(
-      piAX = piAX, # sum(A)/sum(S)
+      piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
-    ) %>%
+    ) |>
     mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
 
@@ -100,8 +100,8 @@ DID_EC_IPW <- function(data,
   cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
-    Group_ID <- df %>%
-      group_by(S, A) %>%
+    Group_ID <- df |>
+      group_by(S, A) |>
       mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
@@ -150,7 +150,7 @@ DID_EC_IPW <- function(data,
       lower_CI_boot = lower_CI_boot,
       upper_CI_boot = upper_CI_boot
     )
-    return(results)
+    results
   } else {
     stop("No other inference methods defined!")
   }
