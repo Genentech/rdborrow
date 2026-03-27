@@ -89,7 +89,7 @@ setup_analysis <- function(data, trial_status_col_name, treatment_col_name,
   # correct dimension compatible
   # validity
 
-  analysis_obj <- .analysis_obj(
+  .analysis_obj(
     data = data,
     covariates_col_name = covariates_col_name,
     outcome_col_name = outcome_col_name,
