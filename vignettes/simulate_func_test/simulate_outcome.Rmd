@@ -101,7 +101,7 @@ For OLE study, while most of the components remain unchanged compared to primary
 (1) For treatment allocation, besides the allocation indicator for the first phase, we also need to add in one indicator for the second phase;
 (2) For outcome model, the model forms should be formulated in terms of the treatment allocation vector specific to each phase of the design.
 
-Here, besides the aforementioned setup, we further consider two more additional followup time points. At these two later time points, all the participants in the interal group are switched to treated group $A = 1$. The outcome models are still linear but with time-varying parameters.
+Here, besides the aforementioned setup, we further consider two more additional followup time points. At these two later time points, all the participants in the internal group are switched to treated group $A = 1$. The outcome models are still linear but with time-varying parameters.
 
 
 ### Simulate outcomes after OLE
