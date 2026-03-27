@@ -72,10 +72,10 @@ DID_EC_IPW_bootstrap <- function(data,
     (1 - temp$S) * temp$w00 / sum((1 - temp$S) * temp$w00)) * Ys
 
 
-  mu_S1A1 <- colSums(data.frame(potential[temp$S == 1 & temp$A == 1, (T_pc + 1):T_follow, drop = F]))
-  mu_S0A0 <- colSums(data.frame(potential[temp$S == 0, (T_pc + 1):T_follow, drop = F]))
-  bias <- sum(rowMeans(data.frame(potential[temp$S == 1 & temp$A == 0, 1:T_pc, drop = F]))) -
-    sum(rowMeans(data.frame(potential[temp$S == 0, 1:T_pc, drop = F])))
+  mu_S1A1 <- colSums(data.frame(potential[temp$S == 1 & temp$A == 1, (T_pc + 1):T_follow, drop = FALSE]))
+  mu_S0A0 <- colSums(data.frame(potential[temp$S == 0, (T_pc + 1):T_follow, drop = FALSE]))
+  bias <- sum(rowMeans(data.frame(potential[temp$S == 1 & temp$A == 0, 1:T_pc, drop = FALSE]))) -
+    sum(rowMeans(data.frame(potential[temp$S == 0, 1:T_pc, drop = FALSE])))
 
 
   tau <- mu_S1A1 - mu_S0A0 - bias

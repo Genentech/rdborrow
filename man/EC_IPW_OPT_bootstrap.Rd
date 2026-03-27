@@ -12,7 +12,7 @@ EC_IPW_OPT_bootstrap(
   treatment_col_name,
   covariates_col_name,
   model_form_piS = "",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0
 )
 }

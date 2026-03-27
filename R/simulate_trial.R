@@ -15,7 +15,7 @@
 #' Data <- simulate_trial(X_int,
 #'   X_ext,
 #'   num_treated = 150,
-#'   OLE_flag = T,
+#'   OLE_flag = TRUE,
 #'   T_cross = 2,
 #'   outcome_model_specs
 #' )
@@ -55,7 +55,7 @@ simulate_trial <- function(X_int, X_ext, num_treated, OLE_flag, T_cross, outcome
 
   ## For external data S = 0:
   Y_ext <- simulate_outcome_from_model(
-    OLE_flag = F,
+    OLE_flag = FALSE,
     T_cross = T_cross, # number of followup time points
     X = X_ext, # covariates are specified by X_ext
     A = A_ext, # treatment is specified by A_ext

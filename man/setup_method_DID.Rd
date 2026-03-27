@@ -6,7 +6,7 @@
 \usage{
 setup_method_DID(
   method_name = "IPW",
-  bootstrap_flag = F,
+  bootstrap_flag = FALSE,
   bootstrap_obj = .bootstrap_obj(),
   model_form_piS = "",
   model_form_mu0_ext = "",

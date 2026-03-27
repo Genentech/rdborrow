@@ -115,7 +115,7 @@ for (trial_iter in 1:ntrial) {
   Data <- simulate_trial(X_int,
     X_ext,
     num_treated = 100,
-    OLE_flag = F,
+    OLE_flag = FALSE,
     T_cross = 2,
     outcome_model_specs
   )
@@ -194,7 +194,7 @@ for (trial_iter in 1:ntrial) {
   Data <- simulate_trial(X_int,
     X_ext,
     num_treated = 100,
-    OLE_flag = F,
+    OLE_flag = FALSE,
     T_cross = 2,
     outcome_model_specs
   )
@@ -212,14 +212,14 @@ data_matrix_list_alt[[1]]
 ## IPW - optimal weight
 method_IPW_optimal_weight <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = T,
+  optimal_weight_flag = TRUE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
 
 ## AIPW - optimal weight
 method_AIPW_optimal_weight <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = T,
+  optimal_weight_flag = TRUE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
@@ -231,7 +231,7 @@ method_AIPW_optimal_weight <- setup_method_weighting(
 method_IPW_zero_weight <- setup_method_weighting(
   method_name = "IPW",
   wt = 0,
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
 
@@ -239,7 +239,7 @@ method_IPW_zero_weight <- setup_method_weighting(
 method_AIPW_zero_weight <- setup_method_weighting(
   method_name = "AIPW",
   wt = 0,
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
@@ -280,7 +280,7 @@ simulation_primary_obj <- setup_simulation_primary(
 ```
 
 ```{r}
-simulation_report <- run_simulation(simulation_primary_obj, quiet = F)
+simulation_report <- run_simulation(simulation_primary_obj, quiet = FALSE)
 ```
 
 ```{r}
@@ -300,8 +300,8 @@ bootstrap_obj <- setup_bootstrap(
 ## IPW - optimal weight
 method_IPW_optimal_weight <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = T,
-  bootstrap_flag = T,
+  optimal_weight_flag = TRUE,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
@@ -309,8 +309,8 @@ method_IPW_optimal_weight <- setup_method_weighting(
 ## AIPW - optimal weight
 method_AIPW_optimal_weight <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = T,
-  bootstrap_flag = T,
+  optimal_weight_flag = TRUE,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(
@@ -323,8 +323,8 @@ method_AIPW_optimal_weight <- setup_method_weighting(
 method_IPW_zero_weight <- setup_method_weighting(
   method_name = "IPW",
   wt = 0,
-  optimal_weight_flag = F,
-  bootstrap_flag = T,
+  optimal_weight_flag = FALSE,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
@@ -333,8 +333,8 @@ method_IPW_zero_weight <- setup_method_weighting(
 method_AIPW_zero_weight <- setup_method_weighting(
   method_name = "AIPW",
   wt = 0,
-  optimal_weight_flag = F,
-  bootstrap_flag = T,
+  optimal_weight_flag = FALSE,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(

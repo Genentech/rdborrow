@@ -33,7 +33,7 @@ head(SyntheticData)
 ## Data argument + column names (coxph, glm)
 method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
@@ -56,7 +56,7 @@ res
 # test: within trial
 method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = T,
+  optimal_weight_flag = TRUE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
 
@@ -84,7 +84,7 @@ The second approach is AIPW, which also accommodates two external borrowing stra
 # test: AIPW with 0 weight, should be same as IPW with 0 weight
 method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(
@@ -113,7 +113,7 @@ res <- run_analysis(analysis_primary_obj)
 # bootstrap as part of the method and analysis
 method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = T,
+  optimal_weight_flag = TRUE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
@@ -151,8 +151,8 @@ bootstrap_obj <- setup_bootstrap(
 
 method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = T,
-  bootstrap_flag = T,
+  optimal_weight_flag = TRUE,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   wt = 0,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
@@ -183,9 +183,9 @@ bootstrap_obj <- setup_bootstrap(
 
 method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = T,
+  optimal_weight_flag = TRUE,
   wt = 0,
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = c(

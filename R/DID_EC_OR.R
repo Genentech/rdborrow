@@ -45,7 +45,7 @@ DID_EC_OR <- function(data,
                       model_form_mu0_ext = "",
                       model_form_mu0_rct = "",
                       model_form_mu1_rct = "",
-                      Bootstrap = F,
+                      Bootstrap = FALSE,
                       R = 5e2,
                       bootstrap_CI_type = "bca",
                       alpha = 0.05,
@@ -124,7 +124,7 @@ DID_EC_OR <- function(data,
 
   # summarize results
 
-  cutoff <- qnorm(1 - alpha / 2, lower.tail = T)
+  cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
     Group_ID <- df %>%

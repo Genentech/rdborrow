@@ -10,7 +10,7 @@
 #' \dontrun{
 #' method_weighting_obj <- setup_method_weighting(
 #'   method_name = "IPW",
-#'   optimal_weight_flag = F,
+#'   optimal_weight_flag = FALSE,
 #'   wt = 0,
 #'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 #' )
@@ -75,7 +75,7 @@ setup_analysis_primary <- function(data, trial_status_col_name, treatment_col_na
   # correct dimension compatible
   # validity
   # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = F, then long_term_marker should all be F
+  # if long_term_flag = FALSE, then long_term_marker should all be F
 
   analysis_primary_obj <- .analysis_primary_obj(
     data = data,

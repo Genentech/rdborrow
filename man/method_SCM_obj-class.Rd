@@ -26,7 +26,7 @@ method class
 \dontrun{
 method_SCM_obj <- setup_method_SCM(
   method_name = "SCM",
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   lambda.min = 0,
   lambda.max = 1e-3,

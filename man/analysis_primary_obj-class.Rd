@@ -18,7 +18,7 @@ Analysis class
 \dontrun{
 method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )

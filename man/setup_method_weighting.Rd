@@ -6,9 +6,9 @@
 \usage{
 setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0,
-  bootstrap_flag = F,
+  bootstrap_flag = FALSE,
   bootstrap_obj = .bootstrap_obj(),
   model_form_piS = "",
   model_form_mu0_ext = "",

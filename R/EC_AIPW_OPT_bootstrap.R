@@ -36,7 +36,7 @@ EC_AIPW_OPT_bootstrap <- function(data,
                                   covariates_col_name,
                                   model_form_piS = "",
                                   model_form_mu0_ext = "",
-                                  optimal_weight_flag = F,
+                                  optimal_weight_flag = FALSE,
                                   wt = 0) {
   Y <- subset(data[indices, ], select = outcome_col_name)
   S <- subset(data[indices, ], select = trial_status_col_name)
@@ -70,8 +70,8 @@ EC_AIPW_OPT_bootstrap <- function(data,
     Ys <- as.matrix(Y[S == 1, ])
 
     potential <- (temp$A / temp$w11 + (1 - temp$A) / temp$w10) * Ys
-    mu1 <- colSums(potential[temp$A == 1, , drop = F]) / n
-    mu0 <- colSums(potential[temp$A == 0, , drop = F]) / n
+    mu1 <- colSums(potential[temp$A == 1, , drop = FALSE]) / n
+    mu0 <- colSums(potential[temp$A == 0, , drop = FALSE]) / n
 
     tau <- mu1 - mu0
 
@@ -126,9 +126,9 @@ EC_AIPW_OPT_bootstrap <- function(data,
     Ys <- as.matrix(Yr)
 
     potential <- (temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys
-    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = F]) / n
-    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = F]) / n
-    mu00 <- colSums(potential[temp$S == 0, , drop = F]) / (sum((1 - temp$S) * temp$w00))
+    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / n
+    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / n
+    mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
 
 
     ## Optimal weight as proposed in manuscript

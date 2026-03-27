@@ -37,7 +37,7 @@ Simulate trials
 Data <- simulate_trial(X_int,
   X_ext,
   num_treated = 150,
-  OLE_flag = T,
+  OLE_flag = TRUE,
   T_cross = 2,
   outcome_model_specs
 )

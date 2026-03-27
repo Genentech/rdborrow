@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' simulation_report <- run_simulation(simulation_OLE_obj, quiet = F)
+#' simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
 #' }
 run_simulation <- function(simulation_obj, quiet = TRUE) {
   covariates_col_name <- simulation_obj@covariates_col_name

@@ -121,7 +121,7 @@ for (trial_iter in 1:ntrial) {
   Data <- simulate_trial(X_int,
     X_ext,
     num_treated = 150,
-    OLE_flag = T,
+    OLE_flag = TRUE,
     T_cross = 2,
     outcome_model_specs
   )
@@ -152,7 +152,7 @@ model_form_mu <- c(
 ## IPW - optimal weight
 method_IPW_DID <- setup_method_DID(
   method_name = "IPW",
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
@@ -161,7 +161,7 @@ method_IPW_DID <- setup_method_DID(
 ## AIPW - optimal weight
 method_AIPW_DID <- setup_method_DID(
   method_name = "AIPW",
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5",
@@ -172,7 +172,7 @@ method_AIPW_DID <- setup_method_DID(
 
 method_OR_DID <- setup_method_DID(
   method_name = "OR",
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_mu0_ext = model_form_mu,
   model_form_mu0_rct = model_form_mu,
@@ -210,7 +210,7 @@ simulation_OLE_obj <- setup_simulation_OLE(
 ```
 
 ```{r}
-simulation_report <- run_simulation(simulation_OLE_obj, quiet = F)
+simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
 ```
 
 ```{r}

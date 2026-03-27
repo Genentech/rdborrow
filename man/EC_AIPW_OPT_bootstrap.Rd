@@ -13,7 +13,7 @@ EC_AIPW_OPT_bootstrap(
   covariates_col_name,
   model_form_piS = "",
   model_form_mu0_ext = "",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0
 )
 }

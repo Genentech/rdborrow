@@ -11,7 +11,7 @@ SCM(
   treatment_col_name,
   covariates_col_name,
   T_cross,
-  Bootstrap = T,
+  Bootstrap = TRUE,
   R = 100,
   bootstrap_CI_type = "bca",
   alpha = 0.05,

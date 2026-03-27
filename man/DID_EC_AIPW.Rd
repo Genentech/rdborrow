@@ -14,7 +14,7 @@ DID_EC_AIPW(
   model_form_piS = "",
   model_form_piA = "",
   model_form_mu0_ext = "",
-  Bootstrap = F,
+  Bootstrap = FALSE,
   R = 500,
   bootstrap_CI_type = "bca",
   alpha = 0.05,

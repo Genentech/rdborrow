@@ -15,9 +15,9 @@
 #'
 #' method_weighting_obj <- setup_method_weighting(
 #'   method_name = "AIPW",
-#'   optimal_weight_flag = T,
+#'   optimal_weight_flag = TRUE,
 #'   wt = 0,
-#'   bootstrap_flag = T,
+#'   bootstrap_flag = TRUE,
 #'   bootstrap_obj = bootstrap_obj,
 #'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
 #'   model_form_mu0_ext = c(
@@ -96,7 +96,7 @@ setup_bootstrap <- function(replicates = 5e2,
   # correct dimension compatible
   # validity
   # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = F, then long_term_marker should all be F
+  # if long_term_flag = FALSE, then long_term_marker should all be F
 
   bootstrap_obj <- .bootstrap_obj(
     replicates = replicates,

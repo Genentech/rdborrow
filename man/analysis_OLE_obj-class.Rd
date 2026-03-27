@@ -25,7 +25,7 @@ bootstrap_obj <- setup_bootstrap(
 
 method_DID_obj <- setup_method_DID(
   method_name = "IPW",
-  bootstrap_flag = T,
+  bootstrap_flag = TRUE,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"

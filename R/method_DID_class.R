@@ -16,7 +16,7 @@
 #' \dontrun{
 #' method_DID_obj <- setup_method_DID(
 #'   method_name = "IPW",
-#'   bootstrap_flag = T,
+#'   bootstrap_flag = TRUE,
 #'   bootstrap_obj = bootstrap_obj,
 #'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
 #'   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
@@ -35,7 +35,7 @@
     model_form_mu1_rct = "character"
   ),
   prototype = list(
-    bootstrap_flag = F,
+    bootstrap_flag = FALSE,
     bootstrap_obj = .bootstrap_obj(),
     model_form_piA = "",
     model_form_piS = "",
@@ -58,7 +58,7 @@
 #'
 #' @return An object of class `method_DID_obj`.
 setup_method_DID <- function(method_name = "IPW",
-                             bootstrap_flag = F,
+                             bootstrap_flag = FALSE,
                              bootstrap_obj = .bootstrap_obj(),
                              model_form_piS = "",
                              model_form_mu0_ext = "",

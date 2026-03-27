@@ -14,7 +14,7 @@ DID_EC_OR(
   model_form_mu0_ext = "",
   model_form_mu0_rct = "",
   model_form_mu1_rct = "",
-  Bootstrap = F,
+  Bootstrap = FALSE,
   R = 500,
   bootstrap_CI_type = "bca",
   alpha = 0.05,

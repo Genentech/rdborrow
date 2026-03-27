@@ -39,9 +39,9 @@ EC_IPW_OPT <- function(data,
                        treatment_col_name,
                        covariates_col_name,
                        model_form_piS = "",
-                       optimal_weight_flag = F,
+                       optimal_weight_flag = FALSE,
                        wt = 0,
-                       Bootstrap = F,
+                       Bootstrap = FALSE,
                        R = 5e2,
                        bootstrap_CI_type = "bca",
                        alpha = 0.05,
@@ -81,8 +81,8 @@ EC_IPW_OPT <- function(data,
     Ys <- as.matrix(Y[S == 1, ])
 
     potential <- data.frame((temp$A / temp$w11 + (1 - temp$A) / temp$w10) * Ys)
-    mu1 <- colSums(potential[temp$A == 1, , drop = F]) / n
-    mu0 <- colSums(potential[temp$A == 0, , drop = F]) / n
+    mu1 <- colSums(potential[temp$A == 1, , drop = FALSE]) / n
+    mu0 <- colSums(potential[temp$A == 0, , drop = FALSE]) / n
 
     # print(c(mu1, mu0))
     tau <- mu1 - mu0
@@ -131,9 +131,9 @@ EC_IPW_OPT <- function(data,
     Ys <- as.matrix(Y)
 
     potential <- data.frame((temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys)
-    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = F]) / sum(temp$S * temp$A / temp$w11)
-    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = F]) / sum(temp$S * (1 - temp$A) / temp$w10)
-    mu00 <- colSums(potential[temp$S == 0, , drop = F]) / (sum((1 - temp$S) * temp$w00))
+    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / sum(temp$S * temp$A / temp$w11)
+    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / sum(temp$S * (1 - temp$A) / temp$w10)
+    mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
 
 
     # variance
@@ -187,7 +187,7 @@ EC_IPW_OPT <- function(data,
     #+ sum((1-temp$S))*var((1-temp$S)*predict(fit0,newdata =temp)*temp$w00/sum((1-temp$S)*temp$w00))
     w.opt <- num / (num + denom)
     # only use the optimal weight if we want
-    if (optimal_weight_flag == T) {
+    if (optimal_weight_flag == TRUE) {
       wt <- w.opt
       # print(wt)
     }
@@ -213,9 +213,9 @@ EC_IPW_OPT <- function(data,
 
   # summarize results
 
-  cutoff <- qnorm(1 - alpha / 2, lower.tail = T)
+  cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
-  if (Bootstrap == T) {
+  if (Bootstrap == TRUE) {
     Group_ID <- df %>%
       group_by(S, A) %>%
       mutate(group_id = cur_group_id())

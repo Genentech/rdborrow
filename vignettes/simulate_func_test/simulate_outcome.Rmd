@@ -85,7 +85,7 @@ outcome_model_specs <- list(
   list(effect = 0, model_form_x = model_form_x_t2, noise_mean = 0, noise_sd = 0.5) # model form for the second time point, given by model_form2
 )
 
-Data <- simulate_trial(X_int, X_ext, prob_treated = 2 / 3, OLE_flag = F, T_cross = 0, outcome_model_specs)
+Data <- simulate_trial(X_int, X_ext, prob_treated = 2 / 3, OLE_flag = FALSE, T_cross = 0, outcome_model_specs)
 ```
 
 Display the first 10 rows of the dataset:
@@ -126,7 +126,7 @@ outcome_model_specs <- list(
 Data <- simulate_trial(X_int, # simulated covariates for internal study
   X_ext, # simulated covariates for external study
   prob_treated = 2 / 3, # treatment probability for two periods
-  OLE_flag = T,
+  OLE_flag = TRUE,
   T_cross = 2, # follow up time within each phases
   outcome_model_specs
 ) # outcome models

@@ -18,7 +18,7 @@
 #'
 #' method_DID_obj <- setup_method_DID(
 #'   method_name = "IPW",
-#'   bootstrap_flag = T,
+#'   bootstrap_flag = TRUE,
 #'   bootstrap_obj = bootstrap_obj,
 #'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
 #'   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
@@ -87,7 +87,7 @@ setup_analysis_OLE <- function(data, trial_status_col_name, treatment_col_name,
   # correct dimension compatible
   # validity
   # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = F, then long_term_marker should all be F
+  # if long_term_flag = FALSE, then long_term_marker should all be F
 
   analysis_OLE_obj <- .analysis_OLE_obj(
     data = data,

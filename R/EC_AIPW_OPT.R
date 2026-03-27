@@ -40,9 +40,9 @@ EC_AIPW_OPT <- function(data,
                         covariates_col_name,
                         model_form_piS = "",
                         model_form_mu0_ext = "",
-                        optimal_weight_flag = F,
+                        optimal_weight_flag = FALSE,
                         wt = 0,
-                        Bootstrap = F,
+                        Bootstrap = FALSE,
                         R = 5e2,
                         bootstrap_CI_type = "bca",
                         alpha = 0.05,
@@ -137,9 +137,9 @@ EC_AIPW_OPT <- function(data,
 
 
     potential <- (temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys
-    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = F]) / n
-    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = F]) / n
-    mu00 <- colSums(potential[temp$S == 0, , drop = F]) / (sum((1 - temp$S) * temp$w00))
+    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / n
+    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / n
+    mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
 
 
     # variance
@@ -266,9 +266,9 @@ EC_AIPW_OPT <- function(data,
     names(sd.tau) <- paste0("sd.tau", 1:T_follow)
   }
 
-  cutoff <- qnorm(1 - alpha / 2, lower.tail = T)
+  cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
-  if (Bootstrap == T) {
+  if (Bootstrap == TRUE) {
     Group_ID <- df %>%
       group_by(S, A) %>%
       mutate(group_id = cur_group_id())

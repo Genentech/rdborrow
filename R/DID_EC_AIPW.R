@@ -28,7 +28,7 @@ DID_EC_AIPW <- function(data,
                         model_form_piS = "",
                         model_form_piA = "",
                         model_form_mu0_ext = "",
-                        Bootstrap = F,
+                        Bootstrap = FALSE,
                         R = 5e2,
                         bootstrap_CI_type = "bca",
                         alpha = 0.05,
@@ -106,7 +106,7 @@ DID_EC_AIPW <- function(data,
 
   # summarize results
 
-  cutoff <- qnorm(1 - alpha / 2, lower.tail = T)
+  cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
     Group_ID <- df %>%

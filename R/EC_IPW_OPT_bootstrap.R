@@ -33,7 +33,7 @@ EC_IPW_OPT_bootstrap <- function(data,
                                  treatment_col_name,
                                  covariates_col_name,
                                  model_form_piS = "",
-                                 optimal_weight_flag = F,
+                                 optimal_weight_flag = FALSE,
                                  wt = 0) {
   Y <- subset(data[indices, ], select = outcome_col_name)
   S <- subset(data[indices, ], select = trial_status_col_name)
@@ -67,8 +67,8 @@ EC_IPW_OPT_bootstrap <- function(data,
     Ys <- as.matrix(Y[S == 1, ])
 
     potential <- (temp$A / temp$w11 + (1 - temp$A) / temp$w10) * Ys
-    mu1 <- colSums(potential[temp$A == 1, , drop = F]) / n
-    mu0 <- colSums(potential[temp$A == 0, , drop = F]) / n
+    mu1 <- colSums(potential[temp$A == 1, , drop = FALSE]) / n
+    mu0 <- colSums(potential[temp$A == 0, , drop = FALSE]) / n
 
     # print(c(mu1, mu0))
     tau <- mu1 - mu0
@@ -93,9 +93,9 @@ EC_IPW_OPT_bootstrap <- function(data,
     Ys <- as.matrix(Y)
 
     potential <- (temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys
-    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = F]) / sum(temp$S * temp$A / temp$w11)
-    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = F]) / sum(temp$S * (1 - temp$A) / temp$w10)
-    mu00 <- colSums(potential[temp$S == 0, , drop = F]) / (sum((1 - temp$S) * temp$w00))
+    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / sum(temp$S * temp$A / temp$w11)
+    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / sum(temp$S * (1 - temp$A) / temp$w10)
+    mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
 
 
     ## Optimal weight as proposed in manuscript
@@ -110,7 +110,7 @@ EC_IPW_OPT_bootstrap <- function(data,
     #+ sum((1-temp$S))*var((1-temp$S)*predict(fit0,newdata =temp)*temp$w00/sum((1-temp$S)*temp$w00))
     w.opt <- num / (num + denom)
     # only use the optimal weight if we want
-    if (optimal_weight_flag == T) {
+    if (optimal_weight_flag == TRUE) {
       wt <- w.opt
     }
 

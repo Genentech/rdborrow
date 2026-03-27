@@ -26,7 +26,7 @@ DID_EC_IPW <- function(data,
                        T_cross,
                        model_form_piS = "",
                        model_form_piA = "",
-                       Bootstrap = F,
+                       Bootstrap = FALSE,
                        R = 5e2,
                        bootstrap_CI_type = "bca",
                        alpha = 0.05,
@@ -85,10 +85,10 @@ DID_EC_IPW <- function(data,
     (1 - temp$S) * temp$w00 / sum((1 - temp$S) * temp$w00)) * Ys
 
 
-  mu_S1A1 <- colSums(data.frame(potential[temp$S == 1 & temp$A == 1, (T_pc + 1):T_follow, drop = F]))
-  mu_S0A0 <- colSums(data.frame(potential[temp$S == 0, (T_pc + 1):T_follow, drop = F]))
-  bias <- sum(rowMeans(data.frame(potential[temp$S == 1 & temp$A == 0, 1:T_pc, drop = F]))) -
-    sum(rowMeans(data.frame(potential[temp$S == 0, 1:T_pc, drop = F])))
+  mu_S1A1 <- colSums(data.frame(potential[temp$S == 1 & temp$A == 1, (T_pc + 1):T_follow, drop = FALSE]))
+  mu_S0A0 <- colSums(data.frame(potential[temp$S == 0, (T_pc + 1):T_follow, drop = FALSE]))
+  bias <- sum(rowMeans(data.frame(potential[temp$S == 1 & temp$A == 0, 1:T_pc, drop = FALSE]))) -
+    sum(rowMeans(data.frame(potential[temp$S == 0, 1:T_pc, drop = FALSE])))
 
   # print(c(mu_S1A1, mu_S0A0, bias))
   tau <- mu_S1A1 - mu_S0A0 - bias
@@ -97,7 +97,7 @@ DID_EC_IPW <- function(data,
 
   # summarize results
 
-  cutoff <- qnorm(1 - alpha / 2, lower.tail = T)
+  cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
     Group_ID <- df %>%

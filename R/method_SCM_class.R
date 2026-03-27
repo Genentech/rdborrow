@@ -14,7 +14,7 @@
 #' \dontrun{
 #' method_SCM_obj <- setup_method_SCM(
 #'   method_name = "SCM",
-#'   bootstrap_flag = T,
+#'   bootstrap_flag = TRUE,
 #'   bootstrap_obj = bootstrap_obj,
 #'   lambda.min = 0,
 #'   lambda.max = 1e-3,
@@ -53,7 +53,7 @@
 #'
 #' @return An object of class `method_SCM_obj`.
 setup_method_SCM <- function(method_name = "SCM",
-                             bootstrap_flag = F,
+                             bootstrap_flag = FALSE,
                              bootstrap_obj = .bootstrap_obj(),
                              lambda.min,
                              lambda.max,

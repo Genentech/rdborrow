@@ -6,7 +6,7 @@
 \usage{
 setup_method(
   method_name = "",
-  bootstrap_flag = F,
+  bootstrap_flag = FALSE,
   bootstrap_obj = .bootstrap_obj()
 )
 }
