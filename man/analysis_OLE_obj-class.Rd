@@ -18,25 +18,27 @@ Analysis OLE class
 
 \examples{
 \dontrun{
-bootstrap_obj = setup_bootstrap(
-  replicates = 2e3, 
-  bootstrap_CI_type = "perc" 
+bootstrap_obj <- setup_bootstrap(
+  replicates = 2e3,
+  bootstrap_CI_type = "perc"
 )
 
-method_DID_obj = setup_method_DID(
+method_DID_obj <- setup_method_DID(
   method_name = "IPW",
   bootstrap_flag = T,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5")
+  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
+)
 
-analysis_OLE_obj = setup_analysis_OLE( 
-  data = SyntheticData, 
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2", "y3", "y4"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  T_cross = 2, 
-  method_OLE_obj = method_DID_obj)
+analysis_OLE_obj <- setup_analysis_OLE(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2", "y3", "y4"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  T_cross = 2,
+  method_OLE_obj = method_DID_obj
+)
 }
 }

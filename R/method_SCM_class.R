@@ -1,10 +1,10 @@
 #' method class
 #'
-#' @slot parallel
-#' @slot ncpus
-#' @slot lambda.min
-#' @slot lambda.max
-#' @slot nlambda
+#' @slot parallel Parallelization type for boot.
+#' @slot ncpus Number of CPUs for parallel bootstrap.
+#' @slot lambda.min Minimum penalty parameter.
+#' @slot lambda.max Maximum penalty parameter.
+#' @slot nlambda Number of lambda values for cross-validation.
 #'
 #' @include method_class.R
 #' @include bootstrap_class.R

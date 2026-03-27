@@ -58,15 +58,17 @@ Using AIPW with external borrowing
 }
 \examples{
 \dontrun{
-res = EC_AIPW_OPT(data = data,
-  outcome_col_name = outcome_col_name, 
-  trial_status_col_name = trial_status_col_name, 
-  treatment_col_name = treatment_col_name, 
-  covariates_col_name = covariates_col_name, 
+res <- EC_AIPW_OPT(
+  data = data,
+  outcome_col_name = outcome_col_name,
+  trial_status_col_name = trial_status_col_name,
+  treatment_col_name = treatment_col_name,
+  covariates_col_name = covariates_col_name,
   model_form_piS = model_form_piS,
   model_form_mu0 = model_form_mu0,
-  wt = wt, 
+  wt = wt,
   optimal_weight_flag = optimal_weight_flag,
-  Bootstrap)
+  Bootstrap
+)
 }
 }

@@ -11,18 +11,18 @@ Simulation class
 \section{Slots}{
 
 \describe{
-\item{\code{method_description}}{}
+\item{\code{method_description}}{Character vector of method labels.}
 
-\item{\code{bias}}{}
+\item{\code{bias}}{Numeric vector of bias estimates.}
 
-\item{\code{variance}}{}
+\item{\code{variance}}{Numeric vector of variance estimates.}
 
-\item{\code{mse}}{}
+\item{\code{mse}}{Numeric vector of MSE estimates.}
 
-\item{\code{coverage}}{}
+\item{\code{coverage}}{Numeric vector of coverage probabilities.}
 
-\item{\code{type_I_error}}{}
+\item{\code{type_I_error}}{Numeric vector of type I error rates.}
 
-\item{\code{power}}{}
+\item{\code{power}}{Numeric vector of power estimates.}
 }}
 

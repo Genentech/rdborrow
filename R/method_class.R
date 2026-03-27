@@ -1,8 +1,8 @@
 #' method class
 #'
 #' @slot method_name character.
-#' @slot bootstrap_flag
-#' @slot bootstrap_obj
+#' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
+#' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
 #'
 #' @include bootstrap_class.R
 #' @export setup_method

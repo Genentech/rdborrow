@@ -1,12 +1,12 @@
 #' Analysis class
 #'
 #' @slot method_obj Method.
-#' @slot data
-#' @slot covariates_col_name
-#' @slot outcome_col_name
-#' @slot treatment_col_name
-#' @slot trial_status_col_name
-#' @slot alpha
+#' @slot data Data frame of subject-level data.
+#' @slot covariates_col_name Character vector of covariate column names.
+#' @slot outcome_col_name Character vector of outcome column names.
+#' @slot treatment_col_name Name of the treatment column.
+#' @slot trial_status_col_name Name of the trial status column.
+#' @slot alpha Significance level.
 #'
 #' @include method_class.R
 #' @export setup_analysis

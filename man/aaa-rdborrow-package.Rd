@@ -5,7 +5,7 @@
 \alias{rdborrow}
 \title{The rdborrow package}
 \description{
-rdborrow is a package that implements causal inference methods for 
+rdborrow is a package that implements causal inference methods for
 analyzing and designing clinical trials with external controls.
 }
 \section{Authors}{
@@ -22,7 +22,7 @@ The following authors contribute to the development and maintainance of the pack
 }
 
 \section{See Also}{
- 
+
 
 Useful links:
 

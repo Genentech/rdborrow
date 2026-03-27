@@ -1,12 +1,12 @@
 #' Simulation class
 #'
-#' @slot covariates_col_name
-#' @slot outcome_col_name
-#' @slot treatment_col_name
-#' @slot trial_status_col_name
-#' @slot alpha
-#' @slot method_obj_list
-#' @slot method_description
+#' @slot covariates_col_name Character vector of covariate column names.
+#' @slot outcome_col_name Character vector of outcome column names.
+#' @slot treatment_col_name Name of the treatment column.
+#' @slot trial_status_col_name Name of the trial status column.
+#' @slot alpha Significance level.
+#' @slot method_obj_list List of method objects to evaluate.
+#' @slot method_description Character vector of method labels.
 #'
 #' @include method_class.R
 #' @export setup_simulation
@@ -33,10 +33,10 @@
 
 #' Simulation for primary analysis
 #'
-#' @slot data_matrix_list_null
-#' @slot data_matrix_list_alt
-#' @slot true_effect
-#' @slot alt_effect
+#' @slot data_matrix_list_null List of data frames simulated under the null.
+#' @slot data_matrix_list_alt List of data frames simulated under the alternative.
+#' @slot true_effect Numeric vector of true treatment effects.
+#' @slot alt_effect Numeric vector of alternative treatment effects.
 #'
 #' @return a simulation object
 #' @export

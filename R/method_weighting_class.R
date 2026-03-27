@@ -2,11 +2,11 @@
 #'
 #' @slot optimal_weight_flag logical.
 #' @slot wt numeric.
-#' @slot model_form_mu0_ext
-#' @slot model_form_mu0_rct
-#' @slot model_form_mu1_rct
-#' @slot model_form_piS character.
-#' @slot model_form_piA
+#' @slot model_form_mu0_ext Formula string for external control outcome model.
+#' @slot model_form_mu0_rct Formula string for RCT control outcome model.
+#' @slot model_form_mu1_rct Formula string for RCT treatment outcome model.
+#' @slot model_form_piS Formula string for trial participation model.
+#' @slot model_form_piA Formula string for treatment assignment model.
 #'
 #' @include method_class.R
 #' @include bootstrap_class.R

@@ -34,11 +34,12 @@ Simulate trials
 }
 \examples{
 \dontrun{
-Data = simulate_trial(X_int, 
- X_ext, 
- num_treated = 150, 
- OLE_flag = T, 
- T_cross = 2,  
- outcome_model_specs) 
+Data <- simulate_trial(X_int,
+  X_ext,
+  num_treated = 150,
+  OLE_flag = T,
+  T_cross = 2,
+  outcome_model_specs
+)
 }
 }

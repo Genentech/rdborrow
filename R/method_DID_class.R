@@ -1,12 +1,12 @@
 #' method class
 #'
-#' @slot model_form_mu0_ext
-#' @slot model_form_mu0_rct
-#' @slot model_form_mu1_rct
-#' @slot model_form_piS character.
-#' @slot bootstrap_flag
-#' @slot model_form_piA
-#' @slot bootstrap_obj
+#' @slot model_form_mu0_ext Formula string for external control outcome model.
+#' @slot model_form_mu0_rct Formula string for RCT control outcome model.
+#' @slot model_form_mu1_rct Formula string for RCT treatment outcome model.
+#' @slot model_form_piS Formula string for trial participation model.
+#' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
+#' @slot model_form_piA Formula string for treatment assignment model.
+#' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
 #'
 #' @include method_class.R
 #' @include bootstrap_class.R

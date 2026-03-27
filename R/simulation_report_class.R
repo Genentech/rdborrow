@@ -1,12 +1,12 @@
 #' Simulation class
 #'
-#' @slot method_description
-#' @slot bias
-#' @slot variance
-#' @slot mse
-#' @slot coverage
-#' @slot type_I_error
-#' @slot power
+#' @slot method_description Character vector of method labels.
+#' @slot bias Numeric vector of bias estimates.
+#' @slot variance Numeric vector of variance estimates.
+#' @slot mse Numeric vector of MSE estimates.
+#' @slot coverage Numeric vector of coverage probabilities.
+#' @slot type_I_error Numeric vector of type I error rates.
+#' @slot power Numeric vector of power estimates.
 #'
 #' @include method_class.R
 #' @export setup_simulation

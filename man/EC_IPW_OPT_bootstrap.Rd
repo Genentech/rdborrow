@@ -43,13 +43,15 @@ Using IPW with external borrowing
 }
 \examples{
 \dontrun{
-EC_IPW_OPT(outcome = outcome, 
-   trial_status = trial_status, 
-   treatment = treatment, 
-   covariates = covariates, 
-   model_form_piS = model_form_piS,
-   wt = wt, 
-   optimal_weight_flag = optimal_weight_flag,
-   Bootstrap)
+EC_IPW_OPT(
+  outcome = outcome,
+  trial_status = trial_status,
+  treatment = treatment,
+  covariates = covariates,
+  model_form_piS = model_form_piS,
+  wt = wt,
+  optimal_weight_flag = optimal_weight_flag,
+  Bootstrap
+)
 }
 }

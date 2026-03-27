@@ -14,12 +14,12 @@ Simulation for primary analysis
 \section{Slots}{
 
 \describe{
-\item{\code{data_matrix_list_null}}{}
+\item{\code{data_matrix_list_null}}{List of data frames simulated under the null.}
 
-\item{\code{data_matrix_list_alt}}{}
+\item{\code{data_matrix_list_alt}}{List of data frames simulated under the alternative.}
 
-\item{\code{true_effect}}{}
+\item{\code{true_effect}}{Numeric vector of true treatment effects.}
 
-\item{\code{alt_effect}}{}
+\item{\code{alt_effect}}{Numeric vector of alternative treatment effects.}
 }}
 

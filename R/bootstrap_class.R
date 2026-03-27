@@ -1,7 +1,7 @@
 #' Bootstrap class
 #'
-#' @slot replicates
-#' @slot bootstrap_CI_type
+#' @slot replicates Number of bootstrap replicates.
+#' @slot bootstrap_CI_type Type of bootstrap confidence interval.
 #'
 #' @include method_class.R
 #' @export setup_analysis
