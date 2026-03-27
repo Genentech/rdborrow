@@ -5,12 +5,14 @@
 #' @param model_form_mu0_ext character. The model formula for the outcome model in the external data (mu0_ext).
 #' @param data data.frame. The input data containing the outcome, trial status, treatment, and covariates.
 #' @param outcome_col_name character. The column name for the outcome variable in the data.
-#' @param trial_status_col_name character. The column name for the trial status variable in the data (indicating RCT vs external control).
+#' @param trial_status_col_name character. The column name for the trial
+#'   status variable in the data (indicating RCT vs external control).
 #' @param treatment_col_name character. The column name for the treatment variable in the data.
 #' @param covariates_col_name character vector. The column names for the covariates in the data.
 #' @param Bootstrap logical. Whether to use bootstrap for inference.
 #' @param R numeric. The number of bootstrap replications.
-#' @param bootstrap_CI_type character. The type of bootstrap confidence interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").
+#' @param bootstrap_CI_type character. The type of bootstrap confidence
+#'   interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").
 #' @param alpha numeric. The significance level for confidence intervals.
 #' @param T_cross numeric. The time point that separates the placebo-control period and the follow-up period.
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
@@ -78,13 +80,12 @@ DID_EC_AIPW <- function(data,
   Yr <- Y - Y0
   colnames(Yr) <- paste0("y", 1:T_follow, "_r")
 
-  temp <- df %>%
-    cbind(., Y0, Yr) %>%
+  temp <- cbind(df, Y0, Yr) |>
     mutate(
-      piAX = piAX, # sum(A)/sum(S)
+      piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
-    ) %>%
+    ) |>
     mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
   # create outcomes
@@ -109,8 +110,8 @@ DID_EC_AIPW <- function(data,
   cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
-    Group_ID <- df %>%
-      group_by(S, A) %>%
+    Group_ID <- df |>
+      group_by(S, A) |>
       mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
@@ -160,7 +161,7 @@ DID_EC_AIPW <- function(data,
       lower_CI_boot = lower_CI_boot,
       upper_CI_boot = upper_CI_boot
     )
-    return(results)
+    results
   } else {
     stop("No other inference methods defined!")
   }
