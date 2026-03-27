@@ -59,7 +59,8 @@
 #' @param model_form_mu0_ext character. The model formula for the outcome model in the external data (mu0_ext).
 #' @param model_form_piA character. The model formula for the treatment model (A).
 #' @param model_form_mu0_rct character. The model formula for the outcome model in the RCT data under control (mu0_rct).
-#' @param model_form_mu1_rct character. The model formula for the outcome model in the RCT data under treatment (mu1_rct).
+#' @param model_form_mu1_rct character. The model formula for the outcome
+#'   model in the RCT data under treatment (mu1_rct).
 #'
 #' @return An object of class `method_weighting_obj`.
 setup_method_weighting <- function(method_name = "IPW",
