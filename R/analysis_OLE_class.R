@@ -79,8 +79,11 @@ setMethod(
 #' )
 #' }
 #'
-setup_analysis_OLE <- function(data, trial_status_col_name, treatment_col_name,
-                               outcome_col_name, covariates_col_name, method_OLE_obj,
+setup_analysis_OLE <- function(data, trial_status_col_name,
+                               treatment_col_name,
+                               outcome_col_name,
+                               covariates_col_name,
+                               method_OLE_obj,
                                T_cross, alpha = 0.05) {
   # TODO: sanity check
   # correct initialization of objects
@@ -89,7 +92,7 @@ setup_analysis_OLE <- function(data, trial_status_col_name, treatment_col_name,
   # length of long_term_marker the same as outcome dimension
   # if long_term_flag = FALSE, then long_term_marker should all be F
 
-  analysis_OLE_obj <- .analysis_OLE_obj(
+  .analysis_OLE_obj(
     data = data,
     covariates_col_name = covariates_col_name,
     outcome_col_name = outcome_col_name,

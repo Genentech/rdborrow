@@ -1,0 +1,18 @@
+linters: linters_with_defaults(
+    # Suppress: domain acronyms (OLE, AIPW, IPW, DID, SCM) and
+    # math/stats variables (X, Y, T, S, A) are not snake_case
+    object_name_linter = NULL,
+    # Suppress: S4 constructors (new(), setClass()) trigger false positives
+    object_usage_linter = NULL,
+    # Suppress: math formulas need tight spacing (e.g. x1*1, n-1)
+    infix_spaces_linter = NULL,
+    # Suppress: legacy commented-out code is kept intentionally for now
+    commented_code_linter = NULL,
+    # Suppress: continuation-line indentation style is consistent as-is
+    indentation_linter = NULL,
+    # 120 chars is a reasonable limit for this codebase
+    line_length_linter(120)
+  )
+exclusions: list(
+    "inst/" = Inf
+  )
