@@ -55,8 +55,6 @@ DID_EC_OR_bootstrap <- function(data = data,
   m <- sum(1 - df$S) # external control sample size
   pi.S <- n / N
 
-  #  print(paste("S==0: ", sum(df$S==0), "S == 1 & A == 0:", sum((df$S == 1) & (df$A == 0)), "S == 1 & A == 1:", sum((df$S == 1) & (df$A == 1))))
-
   # external outcome model
   model_list_ext <- lapply(1:T_follow, function(x) {
     assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S == 0)))
@@ -118,5 +116,5 @@ DID_EC_OR_bootstrap <- function(data = data,
   names(tau) <- paste0("tau", (T_pc + 1):T_follow)
 
 
-  return(tau)
+  tau
 }

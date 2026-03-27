@@ -127,8 +127,8 @@ DID_EC_OR <- function(data,
   cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap) {
-    Group_ID <- df %>%
-      group_by(S, A) %>%
+    Group_ID <- df |>
+      group_by(S, A) |>
       mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
@@ -182,5 +182,5 @@ DID_EC_OR <- function(data,
     stop("No other inference methods defined!")
   }
 
-  return(results)
+  results
 }
