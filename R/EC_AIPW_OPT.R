@@ -72,9 +72,9 @@ EC_AIPW_OPT <- function(data,
   # if((!optimal_weight_flag) && wt == 0){
   #   # estimate ATE
   #   ## TODO: why do use the true propensity score?
-  #   temp = df %>%
-  #     filter(S==1) %>%
-  #     mutate(`piA`=sum(A)/n) %>%
+  #   temp = df |>
+  #     filter(S==1) |>
+  #     mutate(`piA`=sum(A)/n) |>
   #     mutate(w11 = `piA`, w10 = 1 - `piA`)
   #
   #   ### create outcomes: obs by T
@@ -101,7 +101,7 @@ EC_AIPW_OPT <- function(data,
   #   sd.tau = sqrt(diag(coef.mat %*% B %*% t(coef.mat)/(n)))
   #
   # }else
-  {
+  # {
     # propensity score model
     piS.model <- glm(model_form_piS, data = df, family = "binomial")
     # outcome regression model
@@ -122,14 +122,14 @@ EC_AIPW_OPT <- function(data,
     colnames(Yr) <- paste0("y", 1:T_follow, "_r")
 
     # estimate ATE
-    temp <- df %>%
-      cbind(., Y0, Yr) %>%
+    temp <- df |>
+      cbind(Y0, Yr) |>
       mutate(
         piA = sum(A[S == 1]) / n,
         piS = sum(S) / (n + m),
         piSX = predict(piS.model, newdata = df, type = "response"),
         rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
-      ) %>%
+      ) |>
       mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
 
     ### create outcomes: obs * T
@@ -148,8 +148,12 @@ EC_AIPW_OPT <- function(data,
     A11 <- diag(rep(-1, T_follow), nrow = T_follow)
     A22 <- diag(rep(-1, T_follow), nrow = T_follow)
     A33 <- diag(rep(-mean((1 - temp$S) * temp$w00 / (1 - temp$piS)), T_follow), nrow = T_follow)
-    A34 <- t((as.vector((1 - temp$S) * temp$`piSX` / (temp$`piS` * (1 - temp$`piSX`))) * sweep(Ys, 2, mu00))) %*% model.matrix(piS.model) / (n + m)
-    piS.beta <- t(model.matrix(piS.model)) %*% diag(-temp$`piSX` * (1 - temp$`piSX`)) %*% model.matrix(piS.model) / (n + m)
+    A34 <- t((as.vector((1 - temp$S) * temp$`piSX` /
+      (temp$`piS` * (1 - temp$`piSX`))) *
+      sweep(Ys, 2, mu00))) %*% model.matrix(piS.model) / (n + m)
+    piS.beta <- t(model.matrix(piS.model)) %*%
+      diag(-temp$`piSX` * (1 - temp$`piSX`)) %*%
+      model.matrix(piS.model) / (n + m)
     A44 <- piS.beta
 
     n1 <- dim(A11)[1]
@@ -199,7 +203,9 @@ EC_AIPW_OPT <- function(data,
     Y0.gamma.list <- lapply(
       1:T_follow,
       function(x) {
-        -t(model.matrix(Y0.model.dummy[[x]])) %*% diag((1 - temp$A) / (1 - mean(temp$A))) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
+        -t(model.matrix(Y0.model.dummy[[x]])) %*%
+          diag((1 - temp$A) / (1 - mean(temp$A))) %*%
+          model.matrix(Y0.model.dummy[[x]]) / (n + m)
       }
     )
     Y0.gamma <- as.matrix(do.call(bdiag, Y0.gamma.list))
@@ -235,7 +241,9 @@ EC_AIPW_OPT <- function(data,
     # sigma10 = (summary(fit1)$sigma)**2
     num <- sum(temp$S * (1 - temp$A) / temp$w10^2 / (sum(temp$S * (1 - temp$A) / temp$w10))^2)
 
-    #+ sum(temp$S*(1-temp$A))*var(temp$S*(1-temp$A)*predict(fit1,newdata =temp)/temp$w10/sum(temp$S*(1-temp$A)/temp$w10))
+    #+ sum(temp$S*(1-temp$A))*var(
+    #+   temp$S*(1-temp$A)*predict(fit1,newdata=temp)/temp$w10/
+    #+   sum(temp$S*(1-temp$A)/temp$w10))
 
     # fit0=lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==0) )
     # sigma00=(summary(fit0)$sigma)**2
@@ -264,13 +272,12 @@ EC_AIPW_OPT <- function(data,
     sd.tau <- sqrt(diag(coef.mat %*% sigma %*% t(coef.mat) / (n + m)))
 
     names(sd.tau) <- paste0("sd.tau", 1:T_follow)
-  }
 
   cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
   if (Bootstrap == TRUE) {
-    Group_ID <- df %>%
-      group_by(S, A) %>%
+    Group_ID <- df |>
+      group_by(S, A) |>
       mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
@@ -320,7 +327,7 @@ EC_AIPW_OPT <- function(data,
       lower_CI_boot = lower_CI_boot,
       upper_CI_boot = upper_CI_boot
     )
-    return(list(results = results, borrow_weight = wt))
+    list(results = results, borrow_weight = wt)
   } else {
     results <- data.frame(
       point_estimates = tau,
@@ -328,6 +335,6 @@ EC_AIPW_OPT <- function(data,
       lower_CI_normal = tau - sd.tau * cutoff,
       upper_CI_normal = tau + sd.tau * cutoff
     )
-    return(list(results = results, borrow_weight = wt))
+    list(results = results, borrow_weight = wt)
   }
 }

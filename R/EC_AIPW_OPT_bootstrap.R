@@ -61,9 +61,9 @@ EC_AIPW_OPT_bootstrap <- function(data,
   if ((!optimal_weight_flag) && wt == 0) {
     # estimate ATE
     ## TODO: why do use the true propensity score?
-    temp <- df %>%
-      filter(S == 1) %>%
-      mutate(`piA` = sum(A) / n) %>%
+    temp <- df |>
+      filter(S == 1) |>
+      mutate(`piA` = sum(A) / n) |>
       mutate(w11 = `piA`, w10 = 1 - `piA`)
 
     ### create outcomes: obs by T
@@ -112,14 +112,13 @@ EC_AIPW_OPT_bootstrap <- function(data,
 
     # estimate ATE
     suppressWarnings({
-      temp <- df %>%
-        cbind(., Y0, Yr) %>%
+      temp <- cbind(df, Y0, Yr) |>
         mutate(
           piA = sum(A[S == 1]) / n,
           piS = sum(S) / (n + m),
           piSX = predict(piS.model, newdata = df, type = "response"),
           rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
-        ) %>%
+        ) |>
         mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
     })
     ### create outcomes: obs * T
@@ -136,7 +135,9 @@ EC_AIPW_OPT_bootstrap <- function(data,
     # sigma10 = (summary(fit1)$sigma)**2
     num <- sum(temp$S * (1 - temp$A) / temp$w10^2 / (sum(temp$S * (1 - temp$A) / temp$w10))^2)
 
-    #+ sum(temp$S*(1-temp$A))*var(temp$S*(1-temp$A)*predict(fit1,newdata =temp)/temp$w10/sum(temp$S*(1-temp$A)/temp$w10))
+    #+ sum(temp$S*(1-temp$A))*var(
+    #+   temp$S*(1-temp$A)*predict(fit1,newdata=temp)/temp$w10/
+    #+   sum(temp$S*(1-temp$A)/temp$w10))
 
     # fit0=lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==0) )
     # sigma00=(summary(fit0)$sigma)**2
@@ -154,5 +155,5 @@ EC_AIPW_OPT_bootstrap <- function(data,
     names(tau) <- paste0("tau", 1:T_follow)
   }
 
-  return(tau)
+  tau
 }
