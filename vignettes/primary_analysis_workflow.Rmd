@@ -31,41 +31,45 @@ head(SyntheticData)
 ```{r}
 # test: within trial
 ## Data argument + column names (coxph, glm)
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = F, 
+  optimal_weight_flag = F,
   wt = 0,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 res
 ```
 
 2) IPW with data-adaptive weight:
 ```{r}
 # test: within trial
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
   optimal_weight_flag = T,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 
 res$borrow_weight
 res$results
@@ -78,23 +82,27 @@ The second approach is AIPW, which also accommodates two external borrowing stra
 1) AIPW with zero weight (wt = 0):
 ```{r}
 # test: AIPW with 0 weight, should be same as IPW with 0 weight
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = F, 
+  optimal_weight_flag = F,
   wt = 0,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
-                         "y2 ~ x1 + x2 + x3 + x4 + x5"))
+  model_form_mu0_ext = c(
+    "y1 ~ x1 + x2 + x3 + x4 + x5",
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
+  )
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 ```
 
 
@@ -103,22 +111,26 @@ res = run_analysis(analysis_primary_obj)
 ```{r}
 # test: AIPW with given weight
 # bootstrap as part of the method and analysis
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
   optimal_weight_flag = T,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
-                         "y2 ~ x1 + x2 + x3 + x4 + x5"))
+  model_form_mu0_ext = c(
+    "y1 ~ x1 + x2 + x3 + x4 + x5",
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
+  )
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 ```
 
 
@@ -132,30 +144,31 @@ In this section we present Bootstrap inference results. We report Bootstrap conf
 # test: within trial
 ## Data argument + column names (coxph, glm)
 ## having a bootstrap_flag outside the class
-bootstrap_obj = setup_bootstrap(
+bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
 )
 
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
-  optimal_weight_flag = T, 
+  optimal_weight_flag = T,
   bootstrap_flag = T,
   bootstrap_obj = bootstrap_obj,
   wt = 0,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status_col_name = "S", 
-  treatment_col_name = "A", 
-  outcome_col_name = c("y1", "y2"), 
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 res
-
 ```
 
 2) AIPW with bootstrap CI
@@ -163,34 +176,38 @@ res
 ```{r}
 # test: with optimal weight
 ## Data argument + column names (coxph, glm)
-bootstrap_obj = setup_bootstrap(
+bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
 )
 
-method_weighting_obj = setup_method_weighting(
+method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
-  optimal_weight_flag = T, 
+  optimal_weight_flag = T,
   wt = 0,
   bootstrap_flag = T,
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
-                         "y2 ~ x1 + x2 + x3 + x4 + x5"))
+  model_form_mu0_ext = c(
+    "y1 ~ x1 + x2 + x3 + x4 + x5",
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
+  )
+)
 
-analysis_primary_obj = setup_analysis_primary(
+analysis_primary_obj <- setup_analysis_primary(
   data = SyntheticData,
-  trial_status = "S", 
-  treatment = "A", 
-  outcome = c("y1", "y2"), 
-  covariates = c("x1", "x2", "x3", "x4", "x5"), 
-  method_weighting_obj = method_weighting_obj)
+  trial_status = "S",
+  treatment = "A",
+  outcome = c("y1", "y2"),
+  covariates = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method_weighting_obj
+)
 
 
-res = run_analysis(analysis_primary_obj)
+res <- run_analysis(analysis_primary_obj)
 
 ## best to just do the last one, but also have options
-## time dependent way of effects and modeling 
+## time dependent way of effects and modeling
 ```
 
 ### 4 Notes
