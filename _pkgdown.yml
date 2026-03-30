@@ -1,0 +1,120 @@
+url: https://genentech.github.io/rdborrow/
+
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      href: https://github.com/Genentech/rdborrow
+      aria-label: GitHub
+
+articles:
+  - title: Primary Analysis
+    contents:
+      - primary_analysis_workflow
+      - primary_simulation_workflow
+  - title: Open-Label Extension (OLE)
+    contents:
+      - OLE_analysis_workflow
+      - OLE_simulation_workflow
+  - title: Data Generation Examples
+    contents:
+      - simulate_func_test/simulate_covariates
+      - simulate_func_test/simulate_outcome
+
+reference:
+  - title: Package Overview
+    contents:
+      - rdborrow-package
+
+  - title: Analysis
+    desc: Set up and run analyses
+    contents:
+      - setup_analysis
+      - setup_analysis_primary
+      - setup_analysis_OLE
+      - run_analysis
+
+  - title: Simulation
+    desc: Set up and run simulations
+    contents:
+      - setup_simulation
+      - setup_simulation_primary
+      - setup_simulation_OLE
+      - run_simulation
+      - setup_simulation_report
+
+  - title: Method Configuration
+    desc: Configure estimation methods
+    contents:
+      - setup_method
+      - setup_method_weighting
+      - setup_method_DID
+      - setup_method_SCM
+      - setup_bootstrap
+
+  - title: Weighting Estimators
+    desc: IPW and AIPW methods for primary analysis
+    contents:
+      - EC_IPW_OPT
+      - EC_IPW_OPT_bootstrap
+      - EC_AIPW_OPT
+      - EC_AIPW_OPT_bootstrap
+
+  - title: Difference-in-Differences Estimators
+    desc: DID methods for OLE analysis
+    contents:
+      - DID_EC_IPW
+      - DID_EC_IPW_bootstrap
+      - DID_EC_AIPW
+      - DID_EC_AIPW_bootstrap
+      - DID_EC_OR
+      - DID_EC_OR_bootstrap
+
+  - title: Synthetic Control Method
+    desc: SCM estimator and helpers
+    contents:
+      - SCM
+      - subject_SC
+      - lambdacv
+
+  - title: Data Generation
+    desc: Simulate trial data
+    contents:
+      - simulate_trial
+      - simulate_X_copula
+      - simulate_X_dct_mvnorm
+      - simulate_X_mixture
+      - simulate_trt_assign
+      - simulate_trial_status
+      - simulate_outcome_from_model
+
+  - title: Classes
+    desc: S4 class documentation
+    contents:
+      - analysis_obj-class
+      - analysis_primary_obj-class
+      - analysis_OLE_obj-class
+      - bootstrap_obj-class
+      - method_obj-class
+      - method_weighting_obj-class
+      - method_DID_obj-class
+      - method_SCM_obj-class
+      - simulation_obj-class
+      - simulation_primary_obj-class
+      - simulation_OLE_obj-class
+      - simulation_report_obj-class
+
+  - title: Data
+    desc: Example datasets
+    contents:
+      - SyntheticData

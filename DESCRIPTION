@@ -61,8 +61,10 @@ Imports:
     utils,
     methods
 Suggests: 
+    covr,
     ECOSolveR,
     knitr,
+    pkgdown,
     rmarkdown,
     lintr,
     spelling,
@@ -104,7 +106,7 @@ Collate:
     'simulate_trt_assign.R'
     'simulation_class.R'
     'simulation_report_class.R'
-URL: https://github.com/Genentech/rdborrow
+URL: https://genentech.github.io/rdborrow/, https://github.com/Genentech/rdborrow
 BugReports: https://github.com/Genentech/rdborrow/issues
 VignetteBuilder: knitr
 LazyData: true
