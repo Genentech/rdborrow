@@ -36,7 +36,8 @@ setup_method_weighting(
 
 \item{model_form_mu0_rct}{character. The model formula for the outcome model in the RCT data under control (mu0_rct).}
 
-\item{model_form_mu1_rct}{character. The model formula for the outcome model in the RCT data under treatment (mu1_rct).}
+\item{model_form_mu1_rct}{character. The model formula for the outcome
+model in the RCT data under treatment (mu1_rct).}
 }
 \value{
 An object of class `method_weighting_obj`.

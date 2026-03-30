@@ -188,5 +188,5 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
     stop("No such method type is defined!")
   }
 
-  return(res)
+  res
 }
