@@ -37,8 +37,8 @@ simulate_X_mixture <- function(n, p_cat, p_cont, cat_level_list, cat_comb_prob, 
     num_comb <- length(cat_comb_prob)
 
     covariate_cat <- expand.grid(cat_level_list)
-    covariate_cat <- covariate_cat %>%
-      mutate(count = N) %>%
+    covariate_cat <- covariate_cat |>
+      mutate(count = N) |>
       uncount(count)
     # flog.debug(paste("User chose to simulate continuous covariate. \n"))
 
