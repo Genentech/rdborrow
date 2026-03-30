@@ -13,7 +13,7 @@ DID_EC_IPW(
   T_cross,
   model_form_piS = "",
   model_form_piA = "",
-  Bootstrap = F,
+  Bootstrap = FALSE,
   R = 500,
   bootstrap_CI_type = "bca",
   alpha = 0.05,

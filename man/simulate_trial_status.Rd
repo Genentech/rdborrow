@@ -19,9 +19,9 @@ Simulate trial status indicator
 }
 \examples{
 \dontrun{
-S = simulate_trial_status(X, model_specs = list(
+S <- simulate_trial_status(X, model_specs = list(
   family = "binomial",
-  coef = c(1,2,3)
-  ))
+  coef = c(1, 2, 3)
+))
 }
 }

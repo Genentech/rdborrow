@@ -6,7 +6,7 @@
 \usage{
 setup_method_SCM(
   method_name = "SCM",
-  bootstrap_flag = F,
+  bootstrap_flag = FALSE,
   bootstrap_obj = .bootstrap_obj(),
   lambda.min,
   lambda.max,

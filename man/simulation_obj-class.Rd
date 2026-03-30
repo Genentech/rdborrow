@@ -11,18 +11,18 @@ Simulation class
 \section{Slots}{
 
 \describe{
-\item{\code{covariates_col_name}}{}
+\item{\code{covariates_col_name}}{Character vector of covariate column names.}
 
-\item{\code{outcome_col_name}}{}
+\item{\code{outcome_col_name}}{Character vector of outcome column names.}
 
-\item{\code{treatment_col_name}}{}
+\item{\code{treatment_col_name}}{Name of the treatment column.}
 
-\item{\code{trial_status_col_name}}{}
+\item{\code{trial_status_col_name}}{Name of the trial status column.}
 
-\item{\code{alpha}}{}
+\item{\code{alpha}}{Significance level.}
 
-\item{\code{method_obj_list}}{}
+\item{\code{method_obj_list}}{List of method objects to evaluate.}
 
-\item{\code{method_description}}{}
+\item{\code{method_description}}{Character vector of method labels.}
 }}
 

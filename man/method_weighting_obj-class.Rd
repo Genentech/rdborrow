@@ -15,23 +15,25 @@ method weighting class
 
 \item{\code{wt}}{numeric.}
 
-\item{\code{model_form_mu0_ext}}{}
+\item{\code{model_form_mu0_ext}}{Formula string for external control outcome model.}
 
-\item{\code{model_form_mu0_rct}}{}
+\item{\code{model_form_mu0_rct}}{Formula string for RCT control outcome model.}
 
-\item{\code{model_form_mu1_rct}}{}
+\item{\code{model_form_mu1_rct}}{Formula string for RCT treatment outcome model.}
 
-\item{\code{model_form_piS}}{character.}
+\item{\code{model_form_piS}}{Formula string for trial participation model.}
 
-\item{\code{model_form_piA}}{}
+\item{\code{model_form_piA}}{Formula string for treatment assignment model.}
 }}
 
 \examples{
 \dontrun{
-method_IPW_optimal_weight = setup_method_weighting(method_name = "IPW",
-                                                   optimal_weight_flag = T,
-                                                   bootstrap_flag = T,
-                                                   bootstrap_obj = bootstrap_obj,
-                                                   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5")
+method_IPW_optimal_weight <- setup_method_weighting(
+  method_name = "IPW",
+  optimal_weight_flag = TRUE,
+  bootstrap_flag = TRUE,
+  bootstrap_obj = bootstrap_obj,
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
 }
 }

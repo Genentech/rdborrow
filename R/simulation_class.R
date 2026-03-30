@@ -1,20 +1,20 @@
 #' Simulation class
 #'
-#' @slot covariates_col_name 
-#' @slot outcome_col_name 
-#' @slot treatment_col_name 
-#' @slot trial_status_col_name 
-#' @slot alpha 
-#' @slot method_obj_list 
-#' @slot method_description 
+#' @slot covariates_col_name Character vector of covariate column names.
+#' @slot outcome_col_name Character vector of outcome column names.
+#' @slot treatment_col_name Name of the treatment column.
+#' @slot trial_status_col_name Name of the trial status column.
+#' @slot alpha Significance level.
+#' @slot method_obj_list List of method objects to evaluate.
+#' @slot method_description Character vector of method labels.
 #'
 #' @include method_class.R
 #' @export setup_simulation
 #'
-#' 
+#'
 
- 
-.simulation_obj = setClass(
+
+.simulation_obj <- setClass(
   "simulation_obj",
   slots = c(
     covariates_col_name = "character",
@@ -31,19 +31,18 @@
 )
 
 
-
 #' Simulation for primary analysis
 #'
-#' @slot data_matrix_list_null 
-#' @slot data_matrix_list_alt 
-#' @slot true_effect 
-#' @slot alt_effect 
+#' @slot data_matrix_list_null List of data frames simulated under the null.
+#' @slot data_matrix_list_alt List of data frames simulated under the alternative.
+#' @slot true_effect Numeric vector of true treatment effects.
+#' @slot alt_effect Numeric vector of alternative treatment effects.
 #'
 #' @return a simulation object
 #' @export
 #'
 
-.simulation_primary_obj = setClass(
+.simulation_primary_obj <- setClass(
   "simulation_primary_obj",
   contains = "simulation_obj",
   slots = c(
@@ -59,7 +58,6 @@
 )
 
 
-
 #' Simulation for OLE study
 #'
 #' @slot data_matrix_list List of simulated data matrices.
@@ -69,9 +67,9 @@
 #' @return a simulation object for OLE phase
 #' @export
 #'
-#' 
-#' 
-.simulation_OLE_obj = setClass(
+#'
+#'
+.simulation_OLE_obj <- setClass(
   "simulation_OLE_obj",
   contains = "simulation_obj",
   slots = c(
@@ -106,40 +104,41 @@
 #' @param method_description Character vector of method labels.
 #' @param alpha Significance level.
 #'
-#' @return An simulation object 
+#' @return An simulation object
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' analysis_obj = setup_analysis(trial_status_col_name = S, 
-#'    treatment_col_name = A, 
-#'    outcome_col_name = Y, 
-#'    covariates_col_name = X, 
-#'    method = method_obj)
+#' analysis_obj <- setup_analysis(
+#'   trial_status_col_name = S,
+#'   treatment_col_name = A,
+#'   outcome_col_name = Y,
+#'   covariates_col_name = X,
+#'   method = method_obj
+#' )
 #' }
-#' 
-setup_simulation = function(trial_status_col_name, 
-                            treatment_col_name, 
-                            outcome_col_name, 
-                            covariates_col_name, 
-                            method_obj_list,
-                            method_description,
-                            alpha = 0.05){
+#'
+setup_simulation <- function(trial_status_col_name,
+                             treatment_col_name,
+                             outcome_col_name,
+                             covariates_col_name,
+                             method_obj_list,
+                             method_description,
+                             alpha = 0.05) {
   # TODO: sanity check
   # correct initialization of objects
   # correct dimension compatible
   # validity
-  
-  simulation_obj = .simulation_obj(
+
+  simulation_obj <- .simulation_obj(
     covariates_col_name = covariates_col_name,
-    outcome_col_name = outcome_col_name, 
-    treatment_col_name = treatment_col_name, 
+    outcome_col_name = outcome_col_name,
+    treatment_col_name = treatment_col_name,
     trial_status_col_name = trial_status_col_name,
     method_obj_list = method_obj_list,
     alpha = alpha,
     method_description = method_description
   )
-  
 }
 
 
@@ -162,44 +161,47 @@ setup_simulation = function(trial_status_col_name,
 #'
 #' @examples
 #' \dontrun{
-#' simulation_primary_obj = setup_simulation_primary(
-#'  data_matrix_list_null = data_matrix_list_null,  # two scenarios
-#'  data_matrix_list_alt = data_matrix_list_alt,
-#'  trial_status_col_name = trial_status_col_name, 
-#'  treatment_col_name = treatment_col_name, 
-#'  outcome_col_name = outcome_col_name, 
-#'  covariates_col_name = covariates_col_name, 
-#'  method_obj_list = method_obj_list, 
-#'  true_effect = true_effect,  
-#'  alt_effect = alt_effect,
-#'  alpha = alpha,
-#'  method_description = c("IPW, optimal weight", 
-#'                         "AIPW, optimal weight", 
-#'                         "IPW, zero weight",
-#'                         "AIPW, zero weight"))
+#' simulation_primary_obj <- setup_simulation_primary(
+#'   data_matrix_list_null = data_matrix_list_null, # two scenarios
+#'   data_matrix_list_alt = data_matrix_list_alt,
+#'   trial_status_col_name = trial_status_col_name,
+#'   treatment_col_name = treatment_col_name,
+#'   outcome_col_name = outcome_col_name,
+#'   covariates_col_name = covariates_col_name,
+#'   method_obj_list = method_obj_list,
+#'   true_effect = true_effect,
+#'   alt_effect = alt_effect,
+#'   alpha = alpha,
+#'   method_description = c(
+#'     "IPW, optimal weight",
+#'     "AIPW, optimal weight",
+#'     "IPW, zero weight",
+#'     "AIPW, zero weight"
+#'   )
+#' )
 #' }
-setup_simulation_primary = function(data_matrix_list_null, 
-                                    trial_status_col_name,
-                                    treatment_col_name, 
-                                    outcome_col_name, 
-                                    covariates_col_name, 
-                                    method_obj_list, 
-                                    true_effect, 
-                                    method_description,
-                                    data_matrix_list_alt = list(),
-                                    alt_effect = numeric(0),
-                                    alpha = 0.05){
+setup_simulation_primary <- function(data_matrix_list_null,
+                                     trial_status_col_name,
+                                     treatment_col_name,
+                                     outcome_col_name,
+                                     covariates_col_name,
+                                     method_obj_list,
+                                     true_effect,
+                                     method_description,
+                                     data_matrix_list_alt = list(),
+                                     alt_effect = numeric(0),
+                                     alpha = 0.05) {
   # TODO: sanity check
   # correct initialization of objects
   # correct dimension compatible
   # validity
-  
-  simulation_primary_obj = .simulation_primary_obj(
+
+  simulation_primary_obj <- .simulation_primary_obj(
     data_matrix_list_null = data_matrix_list_null,
     data_matrix_list_alt = data_matrix_list_alt,
     covariates_col_name = covariates_col_name,
-    outcome_col_name = outcome_col_name, 
-    treatment_col_name = treatment_col_name, 
+    outcome_col_name = outcome_col_name,
+    treatment_col_name = treatment_col_name,
     trial_status_col_name = trial_status_col_name,
     method_obj_list = method_obj_list,
     alpha = alpha,
@@ -207,7 +209,6 @@ setup_simulation_primary = function(data_matrix_list_null,
     alt_effect = alt_effect,
     method_description = method_description
   )
-  
 }
 
 
@@ -229,48 +230,49 @@ setup_simulation_primary = function(data_matrix_list_null,
 #'
 #' @examples
 #' \dontrun{
-#' simulation_OLE_obj = setup_simulation_OLE(
-#'   data_matrix_list = data_matrix_list,  # two scenarios
-#'   trial_status_col_name = trial_status_col_name, 
-#'   treatment_col_name = treatment_col_name, 
-#'   outcome_col_name = outcome_col_name, 
-#'   covariates_col_name = covariates_col_name, 
-#'   method_obj_list = method_obj_list, 
-#'   true_effect = true_effect_long,  
+#' simulation_OLE_obj <- setup_simulation_OLE(
+#'   data_matrix_list = data_matrix_list, # two scenarios
+#'   trial_status_col_name = trial_status_col_name,
+#'   treatment_col_name = treatment_col_name,
+#'   outcome_col_name = outcome_col_name,
+#'   covariates_col_name = covariates_col_name,
+#'   method_obj_list = method_obj_list,
+#'   true_effect = true_effect_long,
 #'   T_cross = 2,
 #'   alpha = alpha,
-#'   method_description = c("IPW, DID", 
-#'                          "AIPW, DID", 
-#'                          "OR, DID"))
+#'   method_description = c(
+#'     "IPW, DID",
+#'     "AIPW, DID",
+#'     "OR, DID"
+#'   )
+#' )
 #' }
-#' 
-setup_simulation_OLE = function(data_matrix_list, 
-                                      trial_status_col_name, 
-                                      treatment_col_name, 
-                                      outcome_col_name, 
-                                      covariates_col_name, 
-                                      method_obj_list, 
-                                      T_cross, 
-                                      true_effect, 
-                                      method_description,
-                                      alpha = 0.05){
+#'
+setup_simulation_OLE <- function(data_matrix_list,
+                                 trial_status_col_name,
+                                 treatment_col_name,
+                                 outcome_col_name,
+                                 covariates_col_name,
+                                 method_obj_list,
+                                 T_cross,
+                                 true_effect,
+                                 method_description,
+                                 alpha = 0.05) {
   # TODO: sanity check
   # correct initialization of objects
   # correct dimension compatible
   # validity
-  
-  simulation_OLE_obj = .simulation_OLE_obj(
-    data_matrix_list = data_matrix_list, 
-    covariates_col_name = covariates_col_name, 
-    outcome_col_name = outcome_col_name, 
-    treatment_col_name = treatment_col_name, 
-    trial_status_col_name = trial_status_col_name, 
-    method_obj_list = method_obj_list, 
-    alpha = alpha, 
+
+  simulation_OLE_obj <- .simulation_OLE_obj(
+    data_matrix_list = data_matrix_list,
+    covariates_col_name = covariates_col_name,
+    outcome_col_name = outcome_col_name,
+    treatment_col_name = treatment_col_name,
+    trial_status_col_name = trial_status_col_name,
+    method_obj_list = method_obj_list,
+    alpha = alpha,
     T_cross = T_cross,
     true_effect = true_effect,
     method_description = method_description
   )
-  
 }
-

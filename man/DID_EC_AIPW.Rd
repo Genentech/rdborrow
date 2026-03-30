@@ -14,7 +14,7 @@ DID_EC_AIPW(
   model_form_piS = "",
   model_form_piA = "",
   model_form_mu0_ext = "",
-  Bootstrap = F,
+  Bootstrap = FALSE,
   R = 500,
   bootstrap_CI_type = "bca",
   alpha = 0.05,
@@ -26,7 +26,8 @@ DID_EC_AIPW(
 
 \item{outcome_col_name}{character. The column name for the outcome variable in the data.}
 
-\item{trial_status_col_name}{character. The column name for the trial status variable in the data (indicating RCT vs external control).}
+\item{trial_status_col_name}{character. The column name for the trial
+status variable in the data (indicating RCT vs external control).}
 
 \item{treatment_col_name}{character. The column name for the treatment variable in the data.}
 
@@ -44,7 +45,8 @@ DID_EC_AIPW(
 
 \item{R}{numeric. The number of bootstrap replications.}
 
-\item{bootstrap_CI_type}{character. The type of bootstrap confidence interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").}
+\item{bootstrap_CI_type}{character. The type of bootstrap confidence
+interval to compute (e.g., "bca", "norm", "perc", "basic", "stud").}
 
 \item{alpha}{numeric. The significance level for confidence intervals.}
 

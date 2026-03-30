@@ -20,6 +20,6 @@ run analysis
 }
 \examples{
 \dontrun{
-run_analysis(analysis_obj, Bootstrap = F)
+run_analysis(analysis_obj, Bootstrap = FALSE)
 }
 }

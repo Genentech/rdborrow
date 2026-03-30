@@ -6,7 +6,7 @@
 \usage{
 setup_method_DID(
   method_name = "IPW",
-  bootstrap_flag = F,
+  bootstrap_flag = FALSE,
   bootstrap_obj = .bootstrap_obj(),
   model_form_piS = "",
   model_form_mu0_ext = "",
@@ -30,7 +30,8 @@ setup_method_DID(
 
 \item{model_form_mu0_rct}{character. The model formula for the outcome model in the RCT data under control (mu0_rct).}
 
-\item{model_form_mu1_rct}{character. The model formula for the outcome model in the RCT data under treatment (mu1_rct).}
+\item{model_form_mu1_rct}{character. The model formula for the outcome
+model in the RCT data under treatment (mu1_rct).}
 }
 \value{
 An object of class `method_DID_obj`.

@@ -12,7 +12,7 @@ EC_IPW_OPT_bootstrap(
   treatment_col_name,
   covariates_col_name,
   model_form_piS = "",
-  optimal_weight_flag = F,
+  optimal_weight_flag = FALSE,
   wt = 0
 )
 }
@@ -43,13 +43,15 @@ Using IPW with external borrowing
 }
 \examples{
 \dontrun{
-EC_IPW_OPT(outcome = outcome, 
-   trial_status = trial_status, 
-   treatment = treatment, 
-   covariates = covariates, 
-   model_form_piS = model_form_piS,
-   wt = wt, 
-   optimal_weight_flag = optimal_weight_flag,
-   Bootstrap)
+EC_IPW_OPT(
+  outcome = outcome,
+  trial_status = trial_status,
+  treatment = treatment,
+  covariates = covariates,
+  model_form_piS = model_form_piS,
+  wt = wt,
+  optimal_weight_flag = optimal_weight_flag,
+  Bootstrap
+)
 }
 }

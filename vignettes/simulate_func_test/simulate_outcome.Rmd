@@ -48,22 +48,24 @@ The first step is to simulate covariate $X$ for both the internal group $S = 0$ 
 # TODO: checking the same number of dimension
 
 # S = 1
-X_int = simulate_X_dct_mvnorm(n = 200,   # number of units
-                              p = 4,    # dimension of variables
-                              mu = rep(1, 4),  # population mean of multivariate normal
-                              sig = diag(4),   # population covariance matrix of mv normal
-                              cat_cols = c(1, 2), # which columns are categorical
-                              cat_prob = list(c(0.3, 0.7), c(0.4, 0.6)) # the pdf of categorical variables 
-                              )
+X_int <- simulate_X_dct_mvnorm(
+  n = 200, # number of units
+  p = 4, # dimension of variables
+  mu = rep(1, 4), # population mean of multivariate normal
+  sig = diag(4), # population covariance matrix of mv normal
+  cat_cols = c(1, 2), # which columns are categorical
+  cat_prob = list(c(0.3, 0.7), c(0.4, 0.6)) # the pdf of categorical variables
+)
 
 # S = 0
-X_ext = simulate_X_dct_mvnorm(n = 100,   # number of units
-                              p = 4,    # dimension of variables
-                              mu = rep(0, 4),  # population mean of multivariate normal
-                              sig = diag(4),   # population covariance matrix of mv normal
-                              cat_cols = c(1, 2), # which columns are categorical
-                              cat_prob = list(c(0.3, 0.7), c(0.4, 0.6)) # the pdf of categorical variables 
-                              )
+X_ext <- simulate_X_dct_mvnorm(
+  n = 100, # number of units
+  p = 4, # dimension of variables
+  mu = rep(0, 4), # population mean of multivariate normal
+  sig = diag(4), # population covariance matrix of mv normal
+  cat_cols = c(1, 2), # which columns are categorical
+  cat_prob = list(c(0.3, 0.7), c(0.4, 0.6)) # the pdf of categorical variables
+)
 ```
 
 Display the first 10 rows of the covariate matrices:
@@ -75,20 +77,28 @@ head(X_ext, 10)
 ### Simulate trial
 ```{r}
 # Specify outcome models
-model_form_x_t1 = "x1*1 + x2*1 + x3*1 + x4*1"
-model_form_x_t2 = "x1*1 + x2*(-1) + x3*(-1) + x4*1"
+model_form_x_t1 <- "x1*1 + x2*1 + x3*1 + x4*1"
+model_form_x_t2 <- "x1*1 + x2*(-1) + x3*(-1) + x4*1"
 
-outcome_model_specs = list(
-  list(effect = 3, model_form_x = model_form_x_t1, noise_mean = 0, noise_sd = 0.5),  # model form for the first time point, given by model_form1
-  list(effect = 0, model_form_x = model_form_x_t2, noise_mean = 0, noise_sd = 0.5)  # model form for the second time point, given by model_form2
+outcome_model_specs <- list(
+  list(effect = 3, model_form_x = model_form_x_t1,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 0, model_form_x = model_form_x_t2,
+    noise_mean = 0, noise_sd = 0.5)
 )
 
-Data = simulate_trial(X_int, X_ext, prob_treated = 2/3, OLE_flag = F, T_cross = 0, outcome_model_specs)
+data_sim <- simulate_trial(
+  X_int, X_ext,
+  prob_treated = 2 / 3,
+  OLE_flag = FALSE,
+  T_cross = 0,
+  outcome_model_specs
+)
 ```
 
 Display the first 10 rows of the dataset:
 ```{r}
-head(Data, 10)
+head(data_sim, 10)
 ```
 
 
@@ -108,32 +118,37 @@ Here, besides the aforementioned setup, we further consider two more additional 
 ```{r}
 # Specify outcome models after OLE
 # clarify certain format of the dataset
-model_form_x_t1 = "x1*1 + x2*1 + x3*1 + x4*1"
-model_form_x_t2 = "x1*1 + x2*(-1) + x3*(-1) + x4*1"
-model_form_x_t3 = "x1*1 + x2*1 + x3*1 + x4*1"
-model_form_x_t4 = "x1*1 + x2*(-1) + x3*(-1) + x4*1"
+model_form_x_t1 <- "x1*1 + x2*1 + x3*1 + x4*1"
+model_form_x_t2 <- "x1*1 + x2*(-1) + x3*(-1) + x4*1"
+model_form_x_t3 <- "x1*1 + x2*1 + x3*1 + x4*1"
+model_form_x_t4 <- "x1*1 + x2*(-1) + x3*(-1) + x4*1"
 
-outcome_model_specs = list(
-  list(effect = 3, model_form_x = model_form_x_t1, noise_mean = 0, noise_sd = 0.5),  # model form for the first time point, given by model_form1
-  list(effect = 0, model_form_x = model_form_x_t2, noise_mean = 0, noise_sd = 0.5),  # model form for the second time point, given by model_form2
-  list(effect = 5, model_form_x = model_form_x_t3, noise_mean = 0, noise_sd = 0.5),  # model form for the third time point, given by model_form3
-  list(effect = 5, model_form_x = model_form_x_t4, noise_mean = 0, noise_sd = 0.5)   # model form for the fourth time point, given by model_form4
+outcome_model_specs <- list(
+  list(effect = 3, model_form_x = model_form_x_t1,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 0, model_form_x = model_form_x_t2,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 5, model_form_x = model_form_x_t3,
+    noise_mean = 0, noise_sd = 0.5),
+  list(effect = 5, model_form_x = model_form_x_t4,
+    noise_mean = 0, noise_sd = 0.5)
 )
 
 
-Data = simulate_trial(X_int,   # simulated covariates for internal study
-                      X_ext,   # simulated covariates for external study
-                      prob_treated = 2/3, # treatment probability for two periods
-                      OLE_flag = T,
-                      T_cross = 2,  # follow up time within each phases
-                      outcome_model_specs)  # outcome models
-
+data_sim <- simulate_trial(
+  X_int,
+  X_ext,
+  prob_treated = 2 / 3,
+  OLE_flag = TRUE,
+  T_cross = 2,
+  outcome_model_specs
+)
 ```
 
 
 Display the first 10 rows of the dataset:
 ```{r}
-head(Data, 10)
+head(data_sim, 10)
 ```
 
 putting some instruction here...

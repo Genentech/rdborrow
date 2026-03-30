@@ -46,14 +46,18 @@ Difference in difference + outcome regression + external control borrowing
 }
 \examples{
 \dontrun{
-model_form_mu = c("y1 ~ x1 + x2", 
-"y2 ~ x1 + x2",
-"y3 ~ x1 + x2",
-"y4 ~ x1 + x2")
-res1 = DID_EC_OR(outcome = Y, trial_status = S, treatment = A, covariates = X,
-                 long_term_marker = c(F, T, T, T), 
-                 model_form_mu0_ext = model_form_mu, 
-                 model_form_mu0_rct = model_form_mu, 
-                 model_form_mu1_rct = model_form_mu)
+model_form_mu <- c(
+  "y1 ~ x1 + x2",
+  "y2 ~ x1 + x2",
+  "y3 ~ x1 + x2",
+  "y4 ~ x1 + x2"
+)
+res1 <- DID_EC_OR(
+  outcome = Y, trial_status = S, treatment = A, covariates = X,
+  long_term_marker = c(F, T, T, T),
+  model_form_mu0_ext = model_form_mu,
+  model_form_mu0_rct = model_form_mu,
+  model_form_mu1_rct = model_form_mu
+)
 }
 }

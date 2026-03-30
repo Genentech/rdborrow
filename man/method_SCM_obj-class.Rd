@@ -11,27 +11,28 @@ method class
 \section{Slots}{
 
 \describe{
-\item{\code{parallel}}{}
+\item{\code{parallel}}{Parallelization type for boot.}
 
-\item{\code{ncpus}}{}
+\item{\code{ncpus}}{Number of CPUs for parallel bootstrap.}
 
-\item{\code{lambda.min}}{}
+\item{\code{lambda.min}}{Minimum penalty parameter.}
 
-\item{\code{lambda.max}}{}
+\item{\code{lambda.max}}{Maximum penalty parameter.}
 
-\item{\code{nlambda}}{}
+\item{\code{nlambda}}{Number of lambda values for cross-validation.}
 }}
 
 \examples{
 \dontrun{
-method_SCM_obj = setup_method_SCM(
-  method_name = "SCM", 
-  bootstrap_flag = T, 
-  bootstrap_obj = bootstrap_obj, 
-  lambda.min = 0, 
-  lambda.max = 1e-3, 
-  nlambda = 10, 
-  parallel = "multicore", 
-  ncpus = 4) 
+method_SCM_obj <- setup_method_SCM(
+  method_name = "SCM",
+  bootstrap_flag = TRUE,
+  bootstrap_obj = bootstrap_obj,
+  lambda.min = 0,
+  lambda.max = 1e-3,
+  nlambda = 10,
+  parallel = "multicore",
+  ncpus = 4
+)
 }
 }

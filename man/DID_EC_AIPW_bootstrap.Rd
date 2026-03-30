@@ -46,16 +46,14 @@ Difference in difference + AIPW + external control borrowing
 }
 \examples{
 \dontrun{
-DID_EC_AIPW_bootstrap = function(data,
-  indices,
-  outcome_col_name, 
-  trial_status_col_name, 
-  treatment_col_name, 
-  covariates_col_name,
-  T_cross,
-  model_form_piS = "",
-  model_form_piA = "",
-  model_form_mu0_ext = ""
+DID_EC_AIPW_bootstrap(
+  data = my_data,
+  indices = seq_len(nrow(my_data)),
+  outcome_col_name = c("y1", "y2"),
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  covariates_col_name = c("x1", "x2"),
+  T_cross = 1
 )
 }
 }
