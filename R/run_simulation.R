@@ -62,20 +62,22 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
     }
 
     method_description <- simulation_obj@method_description
-    bias <- sapply(1:length(method_obj_list), function(x) {
+    bias <- sapply(seq_along(method_obj_list), function(x) {
       mean(record[[x]]$point_estimates - true_effect)
     })
-    variance <- sapply(1:length(method_obj_list), function(x) {
+    variance <- sapply(seq_along(method_obj_list), function(x) {
       var(record[[x]]$point_estimates)
     })
     mse <- variance + bias^2
     coverage <- sapply(
-      1:length(method_obj_list),
+      seq_along(method_obj_list),
       function(x) {
         if (("lower_CI_boot" %in% colnames(record[[x]])) & ("upper_CI_boot" %in% colnames(record[[x]]))) {
-          return(sum((true_effect > record[[x]]$lower_CI_boot) & (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list_null))
+          sum((true_effect > record[[x]]$lower_CI_boot) &
+            (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list_null)
         } else {
-          return(sum((true_effect > record[[x]]$lower_CI_normal) & (true_effect < record[[x]]$upper_CI_normal)) / length(data_matrix_list_null))
+          sum((true_effect > record[[x]]$lower_CI_normal) &
+            (true_effect < record[[x]]$upper_CI_normal)) / length(data_matrix_list_null)
         }
       }
     )
@@ -114,18 +116,20 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
       }
 
 
-      names(record_alt) <- paste0("method_candidate_", 1:length(method_obj_list))
+      names(record_alt) <- paste0("method_candidate_", seq_along(method_obj_list))
       method_description <- simulation_obj@method_description
       # bias = sapply(1:length(method_obj_list), function(x) { mean(record[[x]]$point_estimates - true_effect) })
       # variance = sapply(1:length(method_obj_list), function(x) { var(record[[x]]$point_estimates) })
       # mse = variance + bias^2
       power <- 1 - sapply(
-        1:length(method_obj_list),
+        seq_along(method_obj_list),
         function(x) {
           if (("lower_CI_boot" %in% colnames(record_alt[[x]])) & ("upper_CI_boot" %in% colnames(record_alt[[x]]))) {
-            return(sum((true_effect > record_alt[[x]]$lower_CI_boot) & (true_effect < record_alt[[x]]$upper_CI_boot)) / length(data_matrix_list_alt))
+            sum((true_effect > record_alt[[x]]$lower_CI_boot) &
+              (true_effect < record_alt[[x]]$upper_CI_boot)) / length(data_matrix_list_alt)
           } else {
-            return(sum((true_effect > record_alt[[x]]$lower_CI_normal) & (true_effect < record_alt[[x]]$upper_CI_normal)) / length(data_matrix_list_alt))
+            sum((true_effect > record_alt[[x]]$lower_CI_normal) &
+              (true_effect < record_alt[[x]]$upper_CI_normal)) / length(data_matrix_list_alt)
           }
         }
       )
@@ -166,20 +170,22 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
     }
 
     method_description <- simulation_obj@method_description
-    bias <- sapply(1:length(method_obj_list), function(x) {
+    bias <- sapply(seq_along(method_obj_list), function(x) {
       mean(record[[x]]$point_estimates - true_effect)
     })
-    variance <- sapply(1:length(method_obj_list), function(x) {
+    variance <- sapply(seq_along(method_obj_list), function(x) {
       var(record[[x]]$point_estimates)
     })
     mse <- variance + bias^2
     coverage <- sapply(
-      1:length(method_obj_list),
+      seq_along(method_obj_list),
       function(x) {
         if (("lower_CI_boot" %in% colnames(record[[x]])) & ("upper_CI_boot" %in% colnames(record[[x]]))) {
-          return(sum((true_effect > record[[x]]$lower_CI_boot) & (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list))
+          sum((true_effect > record[[x]]$lower_CI_boot) &
+            (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list)
         } else {
-          return(sum((true_effect > record[[x]]$lower_CI_normal) & (true_effect < record[[x]]$upper_CI_normal)) / length(data_matrix_list))
+          sum((true_effect > record[[x]]$lower_CI_normal) &
+            (true_effect < record[[x]]$upper_CI_normal)) / length(data_matrix_list)
         }
       }
     )
@@ -189,7 +195,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
   }
 
   # summary
-  names(record) <- paste0("method_candidate_", 1:length(method_obj_list))
+  names(record) <- paste0("method_candidate_", seq_along(method_obj_list))
 
 
   setup_simulation_report(
