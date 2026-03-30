@@ -1,6 +1,7 @@
 #' Implement the Synthetic Control Method
 #'
-#' SCM() is the main function calculates the estimated ATE by SC method and Bootstrap CI, it calls subject_SC() and lambdacv().
+#' SCM() is the main function that calculates the estimated ATE by SC method
+#' and Bootstrap CI. It calls subject_SC() and lambdacv().
 #'
 #' @param data A data frame containing all subject-level data.
 #' @param outcome_col_name Character vector of outcome column names.
@@ -20,7 +21,9 @@
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
 #' @include SCMboot.R
-#' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confidence interval for primary endpoint (only when Bootstrap=TRUE)
+#' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap
+#'   and a 95% confidence interval for primary endpoint (only when
+#'   Bootstrap=TRUE)
 #'
 SCM <- function(data,
                 outcome_col_name,
@@ -62,8 +65,16 @@ SCM <- function(data,
   long_term_col_name <- outcome_col_name[(T_cross + 1):length(outcome_col_name)]
 
   # create df matrices: attributes by row and subject by column
-  X10 <- t(as.matrix(df %>% filter(S == 1 & A == 0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
-  X00 <- t(as.matrix(df %>% filter(S == 0) %>% dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))))
+  X10 <- t(as.matrix(
+    df |>
+      filter(S == 1 & A == 0) |>
+      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
+  ))
+  X00 <- t(as.matrix(
+    df |>
+      filter(S == 0) |>
+      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
+  ))
 
   # remove colnames of X10 and X00
   colnames(X00) <- NULL
@@ -92,7 +103,9 @@ SCM <- function(data,
   )
 
   cat("Constructing pseudo controls for internal data...\n")
-  # For each rct control subject, find the synthetic control weight and estimate for all time points, return is a list: each element is a list (weight vector and estimated outcome vector)
+  # For each rct control subject, find the synthetic control weight and
+  # estimate for all time points, return is a list: each element is a list
+  # (weight vector and estimated outcome vector)
   res <- lapply(1:n10,
     subject_SC,
     X10 = X10,
@@ -108,9 +121,9 @@ SCM <- function(data,
   y.est.mat <- do.call(rbind, lapply(res, function(x) as.vector(x[[2]])))
 
   # Aggregate group level synthetic control estiamte
-  Y.trt <- df %>%
-    filter(S == 1 & A == 1) %>%
-    dplyr::select(all_of(long_term_col_name)) %>%
+  Y.trt <- df |>
+    filter(S == 1 & A == 1) |>
+    dplyr::select(all_of(long_term_col_name)) |>
     colMeans()
 
   tau <- Y.trt - colMeans(y.est.mat)
@@ -119,8 +132,8 @@ SCM <- function(data,
   ####### Use Bootstrap for standard error and confidence intervals
   cat("Performing bootstrap inference with SCM estimates...\n")
 
-  Group_ID <- df %>%
-    group_by(S, A) %>%
+  Group_ID <- df |>
+    group_by(S, A) |>
     mutate(group_id = cur_group_id())
   Group_ID <- Group_ID$group_id
 
@@ -183,7 +196,7 @@ SCM <- function(data,
     upper_CI_boot = upper_CI_boot
   )
 
-  return(results)
+  results
 }
 
 
@@ -215,7 +228,7 @@ subject_SC <- function(subject, X10, X00, long_term_col_name, lambda) {
   # sc estimate for all time points for this subject
   y.est <- X00[long_term_col_name, ] %*% wt.est
 
-  return(list(wt.est, y.est))
+  list(wt.est, y.est)
 }
 
 #' Find the optimal lambda via LOOCV
@@ -241,7 +254,7 @@ lambdacv <- function(ec,
     lambda_vals,
     function(lambda) {
       pb$tick()
-      res <- lapply(1:dim(ec)[2], function(loocv) {
+      res <- lapply(seq_len(dim(ec)[2]), function(loocv) {
         # subset to only the intersted subject and matching vars
         x1 <- ec[-which(row.names(ec) %in% long_term_col_name), loocv]
         X0 <- ec[-which(row.names(ec) %in% long_term_col_name), -loocv]
@@ -261,7 +274,7 @@ lambdacv <- function(ec,
         # sc estimate for all time points for this subject
         y.est <- ec[long_term_col_name, -loocv] %*% wt.est
 
-        return(list(wt.est, y.est))
+        list(wt.est, y.est)
       })
       # estimated outcome matrix: n0*T (combining by rows)
       y.est.mat <- do.call(rbind, lapply(res, function(x) as.vector(x[[2]])))
@@ -271,5 +284,5 @@ lambdacv <- function(ec,
     }
   )
 
-  return(lambda_vals[which.min(mse_vals)])
+  lambda_vals[which.min(mse_vals)]
 }
