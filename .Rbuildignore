@@ -4,3 +4,5 @@
 ^NOTES\.md$
 ^\.github$
 ^\.lintr$
+^_pkgdown\.yml$
+^docs$
