@@ -222,7 +222,7 @@ subject_SC <- function(subject, X10, X00, long_term_col_name, lambda) {
   obj <- loss + penal(w = w, x1 = x1, X0 = X0, lambda = lambda)
   constr <- list(sum(w) == 1, w >= 0)
   prob <- Problem(Minimize(obj), constr)
-  result <- solve(prob, solver = "ECOS") # OSQP, SCS, ECOS
+  result <- CVXR::solve(prob, solver = "ECOS")
   # estimated weight for this subject
   wt.est <- result$getValue(w)
   # sc estimate for all time points for this subject
@@ -268,7 +268,7 @@ lambdacv <- function(ec,
         obj <- loss + penal(w = w, x1 = x1, X0 = X0, lambda = lambda)
         constr <- list(sum(w) == 1, w >= 0)
         prob <- Problem(Minimize(obj), constr)
-        result <- solve(prob, solver = "ECOS") # OSQP, SCS, ECOS
+        result <- CVXR::solve(prob, solver = "ECOS")
         # estimated weight for this subject
         wt.est <- result$getValue(w)
         # sc estimate for all time points for this subject
