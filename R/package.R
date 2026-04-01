@@ -3,6 +3,7 @@
 #' @import futile.logger
 #' @import mvtnorm
 #' @import dplyr
+#' @import tidyr
 #' @import boot
 #' @importFrom CVXR Variable Minimize Problem
 #' @import progress
@@ -13,4 +14,4 @@
 #' @importFrom Matrix bdiag
 NULL
 
-utils::globalVariables(c(".", "rx", "piA", "piS", "piSX", "uncount"))
+utils::globalVariables(c(".", "rx", "piA", "piS", "piSX"))

@@ -57,8 +57,11 @@ SCM(
 \item{quiet}{Logical. If \code{TRUE}, suppress printed output.}
 }
 \value{
-A list contains: estimated ATE, SE, weight used, SE by Bootstrap and a 95% confidence interval for primary endpoint (only when Bootstrap=TRUE)
+A list contains: estimated ATE, SE, weight used, SE by Bootstrap
+  and a 95% confidence interval for primary endpoint (only when
+  Bootstrap=TRUE)
 }
 \description{
-SCM() is the main function calculates the estimated ATE by SC method and Bootstrap CI, it calls subject_SC() and lambdacv().
+SCM() is the main function that calculates the estimated ATE by SC method
+and Bootstrap CI. It calls subject_SC() and lambdacv().
 }
