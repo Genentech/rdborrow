@@ -131,18 +131,20 @@ test_that("OLE DID-OR point estimates match vignette", {
 # =============================================================================
 # Section 2  SCM – Synthetic Control Method
 # =============================================================================
-test_that("OLE SCM point estimates match vignette", {
-  skip_on_cran() # SCM cross-validation is computationally expensive (~3 min)
+test_that("OLE SCM point estimates match with fixed lambda", {
+  skip_on_cran() # scm is computationally expensive (~1 min)
 
   bootstrap_obj_scm <- setup_bootstrap(replicates = 5, bootstrap_CI_type = "perc")
 
+  # fix lambda to a single value to bypass cross-validation ----
+  # cv lambda selection uses ecos optimizer which is platform-dependent
   method_obj <- setup_method_SCM(
     method_name    = "SCM",
     bootstrap_flag = TRUE,
     bootstrap_obj  = bootstrap_obj_scm,
-    lambda.min     = 0,
-    lambda.max     = 1e-3,
-    nlambda        = 10,
+    lambda.min     = 0.0005,
+    lambda.max     = 0.0005,
+    nlambda        = 1,
     parallel       = "no",
     ncpus          = 1
   )
@@ -158,8 +160,9 @@ test_that("OLE SCM point estimates match vignette", {
 
   expect_s3_class(res, "data.frame")
   expect_equal(nrow(res), 2)
+  expect_true(all(c("point_estimates", "lower_CI_boot", "upper_CI_boot") %in% names(res)))
 
-  # point estimates (deterministic, seed-independent) ----
-  expect_equal(res$point_estimates[1], 2.1340818140, tolerance = tol)
-  expect_equal(res$point_estimates[2], 3.9507833419, tolerance = tol)
+  # point estimates with fixed lambda (deterministic, platform-independent) ----
+  expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
+  expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
 })
