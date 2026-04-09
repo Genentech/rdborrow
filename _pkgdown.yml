@@ -26,10 +26,6 @@ articles:
     contents:
       - OLE_analysis_workflow
       - OLE_simulation_workflow
-  - title: Data Generation Examples
-    contents:
-      - simulate_func_test/simulate_covariates
-      - simulate_func_test/simulate_outcome
 
 reference:
   - title: Package Overview
