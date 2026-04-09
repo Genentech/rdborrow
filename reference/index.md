@@ -1,0 +1,161 @@
+# Package index
+
+## Package Overview
+
+- [`rdborrow-package`](https://genentech.github.io/rdborrow/reference/aaa-rdborrow-package.md)
+  [`rdborrow`](https://genentech.github.io/rdborrow/reference/aaa-rdborrow-package.md)
+  : The rdborrow package
+
+## Analysis
+
+Set up and run analyses
+
+- [`setup_analysis()`](https://genentech.github.io/rdborrow/reference/setup_analysis.md)
+  : Construct an analysis object
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  : Construct an analysis_OLE object
+- [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  : Construct an analysis_OLE object
+- [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+  : run analysis
+
+## Simulation
+
+Set up and run simulations
+
+- [`setup_simulation()`](https://genentech.github.io/rdborrow/reference/setup_simulation.md)
+  : Construct an simulation object
+- [`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
+  : Construct a simulation object for primary analysis
+- [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
+  : Construct a simulation object for OLE analysis
+- [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+  : Run simulation from a simualtion_obj
+- [`setup_simulation_report()`](https://genentech.github.io/rdborrow/reference/setup_simulation_report.md)
+  : setup_simulation_report
+
+## Method Configuration
+
+Configure estimation methods
+
+- [`setup_method()`](https://genentech.github.io/rdborrow/reference/setup_method.md)
+  : Construct a method object
+- [`setup_method_weighting()`](https://genentech.github.io/rdborrow/reference/setup_method_weighting.md)
+  : Construct a method_weighting object
+- [`setup_method_DID()`](https://genentech.github.io/rdborrow/reference/setup_method_DID.md)
+  : Construct a method_DID object
+- [`setup_method_SCM()`](https://genentech.github.io/rdborrow/reference/setup_method_SCM.md)
+  : Construct a method_SCM object
+- [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
+  : Construct a bootstrap object
+
+## Weighting Estimators
+
+IPW and AIPW methods for primary analysis
+
+- [`EC_IPW_OPT()`](https://genentech.github.io/rdborrow/reference/EC_IPW_OPT.md)
+  : Using IPW with external borrowing
+- [`EC_IPW_OPT_bootstrap()`](https://genentech.github.io/rdborrow/reference/EC_IPW_OPT_bootstrap.md)
+  : Using IPW with external borrowing
+- [`EC_AIPW_OPT()`](https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT.md)
+  : Using AIPW with external borrowing
+- [`EC_AIPW_OPT_bootstrap()`](https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT_bootstrap.md)
+  : Using AIPW with external borrowing
+
+## Difference-in-Differences Estimators
+
+DID methods for OLE analysis
+
+- [`DID_EC_IPW()`](https://genentech.github.io/rdborrow/reference/DID_EC_IPW.md)
+  : Difference in difference + IPW + external control borrowing
+- [`DID_EC_IPW_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_IPW_bootstrap.md)
+  : Bootstrap statistic for DID + IPW
+- [`DID_EC_AIPW()`](https://genentech.github.io/rdborrow/reference/DID_EC_AIPW.md)
+  : Difference in difference + AIPW + external control borrowing
+- [`DID_EC_AIPW_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_AIPW_bootstrap.md)
+  : Difference in difference + AIPW + external control borrowing
+- [`DID_EC_OR()`](https://genentech.github.io/rdborrow/reference/DID_EC_OR.md)
+  : Difference in difference + outcome regression + external control
+  borrowing
+- [`DID_EC_OR_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_OR_bootstrap.md)
+  : Difference in difference + outcome regression + external control
+  borrowing
+
+## Synthetic Control Method
+
+SCM estimator and helpers
+
+- [`SCM()`](https://genentech.github.io/rdborrow/reference/SCM.md) :
+  Implement the Synthetic Control Method
+- [`subject_SC()`](https://genentech.github.io/rdborrow/reference/subject_SC.md)
+  : Find synthetic control for one specific subject
+- [`lambdacv()`](https://genentech.github.io/rdborrow/reference/lambdacv.md)
+  : Find the optimal lambda via LOOCV
+
+## Data Generation
+
+Simulate trial data
+
+- [`simulate_trial()`](https://genentech.github.io/rdborrow/reference/simulate_trial.md)
+  : Simulate trials
+- [`simulate_X_copula()`](https://genentech.github.io/rdborrow/reference/simulate_X_copula.md)
+  : simulate X by coupling several marginal distributions using copula
+- [`simulate_X_dct_mvnorm()`](https://genentech.github.io/rdborrow/reference/simulate_X_dct_mvnorm.md)
+  : simulate X by discretizing a multivariate normal distribution pkg:
+  futile.logger, mvtnorm
+- [`simulate_X_mixture()`](https://genentech.github.io/rdborrow/reference/simulate_X_mixture.md)
+  : Simulate X from a mixture model
+- [`simulate_trt_assign()`](https://genentech.github.io/rdborrow/reference/simulate_trt_assign.md)
+  : Title
+- [`simulate_trial_status()`](https://genentech.github.io/rdborrow/reference/simulate_trial_status.md)
+  : Simulate trial status indicator
+- [`simulate_outcome_from_model()`](https://genentech.github.io/rdborrow/reference/simulate_outcome_from_model.md)
+  : Simulate outcome from given effect additive models
+
+## Classes
+
+S4 class documentation
+
+- [`analysis_obj-class`](https://genentech.github.io/rdborrow/reference/analysis_obj-class.md)
+  [`.analysis_obj`](https://genentech.github.io/rdborrow/reference/analysis_obj-class.md)
+  : Analysis class
+- [`analysis_primary_obj-class`](https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.md)
+  [`.analysis_primary_obj`](https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.md)
+  : Analysis class
+- [`analysis_OLE_obj-class`](https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.md)
+  [`.analysis_OLE_obj`](https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.md)
+  : Analysis OLE class
+- [`bootstrap_obj-class`](https://genentech.github.io/rdborrow/reference/bootstrap_obj-class.md)
+  [`.bootstrap_obj`](https://genentech.github.io/rdborrow/reference/bootstrap_obj-class.md)
+  : Bootstrap class
+- [`method_obj-class`](https://genentech.github.io/rdborrow/reference/method_obj-class.md)
+  [`.method_obj`](https://genentech.github.io/rdborrow/reference/method_obj-class.md)
+  : method class
+- [`method_weighting_obj-class`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
+  [`.method_weighting_obj`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
+  : method weighting class
+- [`method_DID_obj-class`](https://genentech.github.io/rdborrow/reference/method_DID_obj-class.md)
+  [`.method_DID_obj`](https://genentech.github.io/rdborrow/reference/method_DID_obj-class.md)
+  : method class
+- [`method_SCM_obj-class`](https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.md)
+  [`.method_SCM_obj`](https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.md)
+  : method class
+- [`simulation_obj-class`](https://genentech.github.io/rdborrow/reference/simulation_obj-class.md)
+  [`.simulation_obj`](https://genentech.github.io/rdborrow/reference/simulation_obj-class.md)
+  : Simulation class
+- [`simulation_primary_obj-class`](https://genentech.github.io/rdborrow/reference/simulation_primary_obj-class.md)
+  [`.simulation_primary_obj`](https://genentech.github.io/rdborrow/reference/simulation_primary_obj-class.md)
+  : Simulation for primary analysis
+- [`simulation_OLE_obj-class`](https://genentech.github.io/rdborrow/reference/simulation_OLE_obj-class.md)
+  [`.simulation_OLE_obj`](https://genentech.github.io/rdborrow/reference/simulation_OLE_obj-class.md)
+  : Simulation for OLE study
+- [`simulation_report_obj-class`](https://genentech.github.io/rdborrow/reference/simulation_report_obj-class.md)
+  [`.simulation_report_obj`](https://genentech.github.io/rdborrow/reference/simulation_report_obj-class.md)
+  : Simulation class
+
+## Data
+
+Example datasets
+
+- [`SyntheticData`](https://genentech.github.io/rdborrow/reference/SyntheticData.md)
+  : Synthetic example dataset for rdborrow
