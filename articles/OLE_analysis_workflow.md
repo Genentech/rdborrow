@@ -177,7 +177,7 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  8.89
+    ## time elapsed for bootstrap:  8.11
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.6776431      4.008635
@@ -228,7 +228,7 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  9.89
+    ## time elapsed for bootstrap:  8.32
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.5584951      3.910489
