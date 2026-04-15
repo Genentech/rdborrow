@@ -4,12 +4,16 @@
 \alias{setup_bootstrap}
 \title{Construct a bootstrap object}
 \usage{
-setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
+setup_bootstrap(
+  replicates = 500,
+  bootstrap_CI_type = c("bca", "norm", "basic", "stud", "perc")
+)
 }
 \arguments{
 \item{replicates}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
+\item{bootstrap_CI_type}{Type of bootstrap CI. One of \code{"bca"},
+\code{"norm"}, \code{"basic"}, \code{"stud"}, or \code{"perc"}.}
 }
 \value{
 A bootstrap object.

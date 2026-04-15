@@ -20,24 +20,24 @@ setMethod(
   f = "show",
   signature = "bootstrap_obj",
   definition = function(object) {
-    # "norm","basic", "stud", "perc", "bca"
-    boot.ci.type <- switch(object@bootstrap_CI_type,
-      norm = "normal approximation",
-      bca = "bias-corrected",
-      stud = "studentized",
-      perc = "percentile",
-      basic = "basic"
+    ci_type <- switch(object@bootstrap_CI_type,
+      norm = "Normal approximation",
+      bca = "Bias-corrected accelerated (BCa)",
+      stud = "Studentized",
+      perc = "Percentile",
+      basic = "Basic"
     )
-    cat("Running Bootstrap: ", ifelse(object@bootstrap_flag, "Yes", "No"), "\n")
-    cat("Number of Replicates: ", as.character(object@replicates), "\n")
-    cat("Type of bootstrap confidence interval: ", boot.ci.type)
+    cat("<bootstrap_obj>\n")
+    cat("  Replicates:", object@replicates, "\n")
+    cat("  CI type:", ci_type, "\n")
   }
 )
 
 #' Construct a bootstrap object
 #'
 #' @param replicates Number of bootstrap replicates.
-#' @param bootstrap_CI_type Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).
+#' @param bootstrap_CI_type Type of bootstrap CI. One of \code{"bca"},
+#'   \code{"norm"}, \code{"basic"}, \code{"stud"}, or \code{"perc"}.
 #'
 #' @return A bootstrap object.
 #' @export
@@ -48,14 +48,16 @@ setMethod(
 #'   bootstrap_CI_type = "perc"
 #' )
 setup_bootstrap <- function(replicates = 5e2,
-                            bootstrap_CI_type = "bca") {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
-  # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = FALSE, then long_term_marker should all be F
+                            bootstrap_CI_type = c("bca", "norm", "basic", "stud", "perc")) {
 
+  # validity check----
+  if (!is.numeric(replicates) || length(replicates) != 1 || is.na(replicates) ||
+    replicates < 1 || replicates != as.integer(replicates)) {
+    stop("`replicates` must be a single positive integer.", call. = FALSE)
+  }
+  bootstrap_CI_type <- match.arg(bootstrap_CI_type)
+
+  # constructor----
   bootstrap_obj <- .bootstrap_obj(
     replicates = replicates,
     bootstrap_CI_type = bootstrap_CI_type
