@@ -4,10 +4,7 @@
 \alias{setup_bootstrap}
 \title{Construct a bootstrap object}
 \usage{
-setup_bootstrap(
-  replicates = 500,
-  bootstrap_CI_type = c("bca", "norm", "basic", "stud", "perc")
-)
+setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
 }
 \arguments{
 \item{replicates}{Number of bootstrap replicates.}

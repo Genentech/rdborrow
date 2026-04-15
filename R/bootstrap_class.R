@@ -48,14 +48,13 @@ setMethod(
 #'   bootstrap_CI_type = "perc"
 #' )
 setup_bootstrap <- function(replicates = 5e2,
-                            bootstrap_CI_type = c("bca", "norm", "basic", "stud", "perc")) {
+                            bootstrap_CI_type = "bca") {
 
-  # validity check----
-  if (!is.numeric(replicates) || length(replicates) != 1 || is.na(replicates) ||
-    replicates < 1 || replicates != as.integer(replicates)) {
-    stop("`replicates` must be a single positive integer.", call. = FALSE)
-  }
-  bootstrap_CI_type <- match.arg(bootstrap_CI_type)
+  # validity----
+  checkmate::assert_count(replicates, positive = TRUE)
+  checkmate::assert_choice(bootstrap_CI_type,
+    choices = c("bca", "norm", "basic", "stud", "perc")
+  )
 
   # constructor----
   bootstrap_obj <- .bootstrap_obj(
