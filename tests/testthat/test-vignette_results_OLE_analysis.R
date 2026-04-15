@@ -59,9 +59,9 @@ test_that("OLE DID-IPW point estimates match vignette", {
 
   # Bootstrap CIs (seed=42, replicates=50)
   expect_equal(res$lower_CI_boot[1], -0.1985438132, tolerance = tol)
-  expect_equal(res$lower_CI_boot[2],  1.7688904174, tolerance = tol)
-  expect_equal(res$upper_CI_boot[1],  4.0048311338, tolerance = tol)
-  expect_equal(res$upper_CI_boot[2],  8.2132873144, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 1.7688904174, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 4.0048311338, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 8.2132873144, tolerance = tol)
 })
 
 # =============================================================================
@@ -69,11 +69,11 @@ test_that("OLE DID-IPW point estimates match vignette", {
 # =============================================================================
 test_that("OLE DID-AIPW point estimates match vignette", {
   method_obj <- setup_method_DID(
-    method_name      = "AIPW",
-    bootstrap_flag   = TRUE,
-    bootstrap_obj    = bootstrap_obj_ole,
-    model_form_piS   = "S ~ x1 + x2 + x3 + x4 + x5",
-    model_form_piA   = "A ~ x1 + x2 + x3 + x4 + x5",
+    method_name = "AIPW",
+    bootstrap_flag = TRUE,
+    bootstrap_obj = bootstrap_obj_ole,
+    model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
+    model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5",
     model_form_mu0_ext = model_form_mu_ole
   )
 
@@ -91,9 +91,9 @@ test_that("OLE DID-AIPW point estimates match vignette", {
 
   # Bootstrap CIs (seed=42, replicates=50)
   expect_equal(res$lower_CI_boot[1], -0.2867417425, tolerance = tol)
-  expect_equal(res$lower_CI_boot[2],  1.8145638636, tolerance = tol)
-  expect_equal(res$upper_CI_boot[1],  4.0728301932, tolerance = tol)
-  expect_equal(res$upper_CI_boot[2],  8.6316113430, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 1.8145638636, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 4.0728301932, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 8.6316113430, tolerance = tol)
 })
 
 # =============================================================================
@@ -123,9 +123,9 @@ test_that("OLE DID-OR point estimates match vignette", {
 
   # Bootstrap CIs (seed=42, replicates=50)
   expect_equal(res$lower_CI_boot[1], -0.5122539446, tolerance = tol)
-  expect_equal(res$lower_CI_boot[2],  2.7815366451, tolerance = tol)
-  expect_equal(res$upper_CI_boot[1],  3.1261896871, tolerance = tol)
-  expect_equal(res$upper_CI_boot[2],  7.9430452413, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 2.7815366451, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 3.1261896871, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 7.9430452413, tolerance = tol)
 })
 
 # =============================================================================

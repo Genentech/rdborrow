@@ -9,10 +9,10 @@ generate_primary_sim_data <- function() {
   set.seed(2023)
 
   data_matrix_list_null <- list()
-  data_matrix_list_alt  <- list()
+  data_matrix_list_alt <- list()
   ntrial <- 3
   true_effect <- 0
-  alt_effect  <- 2.0
+  alt_effect <- 2.0
 
   for (trial_iter in 1:ntrial) {
     normal <- copula::normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
@@ -46,14 +46,19 @@ generate_primary_sim_data <- function() {
     model_form_x_t2 <- setNames(c(6.0, 0.5, -0.5, -1.0, -0.3, -0.06), varnames)
 
     outcome_model_specs <- list(
-      list(effect = 0, model_form_x = model_form_x_t1,
-           noise_mean = 0, noise_sd = 4),
-      list(effect = true_effect, model_form_x = model_form_x_t2,
-           noise_mean = 0, noise_sd = 4)
+      list(
+        effect = 0, model_form_x = model_form_x_t1,
+        noise_mean = 0, noise_sd = 4
+      ),
+      list(
+        effect = true_effect, model_form_x = model_form_x_t2,
+        noise_mean = 0, noise_sd = 4
+      )
     )
 
     data_matrix_list_null[[trial_iter]] <- simulate_trial(
-      X_int, X_ext, num_treated = 100, OLE_flag = FALSE,
+      X_int, X_ext,
+      num_treated = 100, OLE_flag = FALSE,
       T_cross = 2, outcome_model_specs
     )
   }
@@ -90,14 +95,19 @@ generate_primary_sim_data <- function() {
     model_form_x_t2 <- setNames(c(6.0, 0.5, -0.5, -1.0, -0.3, -0.06), varnames)
 
     outcome_model_specs <- list(
-      list(effect = 0, model_form_x = model_form_x_t1,
-           noise_mean = 0, noise_sd = 4),
-      list(effect = alt_effect, model_form_x = model_form_x_t2,
-           noise_mean = 0, noise_sd = 4)
+      list(
+        effect = 0, model_form_x = model_form_x_t1,
+        noise_mean = 0, noise_sd = 4
+      ),
+      list(
+        effect = alt_effect, model_form_x = model_form_x_t2,
+        noise_mean = 0, noise_sd = 4
+      )
     )
 
     data_matrix_list_alt[[trial_iter]] <- simulate_trial(
-      X_int, X_ext, num_treated = 100, OLE_flag = FALSE,
+      X_int, X_ext,
+      num_treated = 100, OLE_flag = FALSE,
       T_cross = 2, outcome_model_specs
     )
   }
@@ -119,8 +129,10 @@ test_that("Primary simulation (parametric) report matches vignette", {
     setup_method_weighting(
       method_name = "AIPW", optimal_weight_flag = TRUE,
       model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
-                              "y2 ~ x1 + x2 + x3 + x4 + x5")
+      model_form_mu0_ext = c(
+        "y1 ~ x1 + x2 + x3 + x4 + x5",
+        "y2 ~ x1 + x2 + x3 + x4 + x5"
+      )
     ),
     setup_method_weighting(
       method_name = "IPW", wt = 0, optimal_weight_flag = FALSE,
@@ -129,24 +141,28 @@ test_that("Primary simulation (parametric) report matches vignette", {
     setup_method_weighting(
       method_name = "AIPW", wt = 0, optimal_weight_flag = FALSE,
       model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_mu0_ext = c("y1 ~ x1 + x2 + x3 + x4 + x5",
-                              "y2 ~ x1 + x2 + x3 + x4 + x5")
+      model_form_mu0_ext = c(
+        "y1 ~ x1 + x2 + x3 + x4 + x5",
+        "y2 ~ x1 + x2 + x3 + x4 + x5"
+      )
     )
   )
 
   sim_obj <- setup_simulation_primary(
     data_matrix_list_null = sim_data$null,
-    data_matrix_list_alt  = sim_data$alt,
+    data_matrix_list_alt = sim_data$alt,
     trial_status_col_name = "S",
-    treatment_col_name    = "A",
-    outcome_col_name      = c("y1", "y2"),
-    covariates_col_name   = c("x1", "x2", "x3", "x4", "x5"),
-    method_obj_list       = method_obj_list,
-    true_effect           = 0,
-    alt_effect            = 2.0,
-    alpha                 = 0.05,
-    method_description    = c("IPW, optimal weight", "AIPW, optimal weight",
-                              "IPW, zero weight", "AIPW, zero weight")
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_obj_list = method_obj_list,
+    true_effect = 0,
+    alt_effect = 2.0,
+    alpha = 0.05,
+    method_description = c(
+      "IPW, optimal weight", "AIPW, optimal weight",
+      "IPW, zero weight", "AIPW, zero weight"
+    )
   )
 
   report <- run_simulation(sim_obj, quiet = TRUE)
@@ -159,8 +175,10 @@ test_that("Primary simulation (parametric) report matches vignette", {
   # Method descriptions
   expect_equal(
     slot(report, "method_description"),
-    c("IPW, optimal weight", "AIPW, optimal weight",
-      "IPW, zero weight", "AIPW, zero weight")
+    c(
+      "IPW, optimal weight", "AIPW, optimal weight",
+      "IPW, zero weight", "AIPW, zero weight"
+    )
   )
 
   # Bias
@@ -182,7 +200,7 @@ test_that("Primary simulation (parametric) report matches vignette", {
   expect_equal(slot(report, "mse")[4], 0.1429174, tolerance = tol)
 
   # Coverage, Type I error, Power
-  expect_equal(slot(report, "coverage"),     c(1, 1, 1, 1))
+  expect_equal(slot(report, "coverage"), c(1, 1, 1, 1))
   expect_equal(slot(report, "type_I_error"), c(0, 0, 0, 0))
-  expect_equal(slot(report, "power"),        c(1, 1, 1, 1))
+  expect_equal(slot(report, "power"), c(1, 1, 1, 1))
 })

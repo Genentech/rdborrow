@@ -41,23 +41,32 @@ generate_OLE_sim_data <- function() {
 
     varnames <- c("1", paste0("x", 1:5))
     model_form_x_t1 <- setNames(c(10.0, 0.05, -1.5, -1.0, -0.2, -0.1), varnames)
-    model_form_x_t2 <- setNames(c(6.0,  0.5,  -0.5, -1.0, -0.3, -0.06), varnames)
-    model_form_x_t3 <- setNames(c(5.0,  1.9,   1.4, -1.3, -0.4, -0.15), varnames)
-    model_form_x_t4 <- setNames(c(1.2,  1.0,   2.0, -0.5, -0.4, -0.10), varnames)
+    model_form_x_t2 <- setNames(c(6.0, 0.5, -0.5, -1.0, -0.3, -0.06), varnames)
+    model_form_x_t3 <- setNames(c(5.0, 1.9, 1.4, -1.3, -0.4, -0.15), varnames)
+    model_form_x_t4 <- setNames(c(1.2, 1.0, 2.0, -0.5, -0.4, -0.10), varnames)
 
     outcome_model_specs <- list(
-      list(effect = 0, model_form_x = model_form_x_t1,
-           noise_mean = 0, noise_sd = 4),
-      list(effect = 0, model_form_x = model_form_x_t2,
-           noise_mean = 0, noise_sd = 4),
-      list(effect = 0, model_form_x = model_form_x_t3,
-           noise_mean = 0, noise_sd = 4),
-      list(effect = true_effect_long, model_form_x = model_form_x_t4,
-           noise_mean = 0, noise_sd = 4)
+      list(
+        effect = 0, model_form_x = model_form_x_t1,
+        noise_mean = 0, noise_sd = 4
+      ),
+      list(
+        effect = 0, model_form_x = model_form_x_t2,
+        noise_mean = 0, noise_sd = 4
+      ),
+      list(
+        effect = 0, model_form_x = model_form_x_t3,
+        noise_mean = 0, noise_sd = 4
+      ),
+      list(
+        effect = true_effect_long, model_form_x = model_form_x_t4,
+        noise_mean = 0, noise_sd = 4
+      )
     )
 
     data_matrix_list[[trial_iter]] <- simulate_trial(
-      X_int, X_ext, num_treated = 150, OLE_flag = TRUE,
+      X_int, X_ext,
+      num_treated = 150, OLE_flag = TRUE,
       T_cross = 2, outcome_model_specs
     )
   }
@@ -142,7 +151,7 @@ test_that("OLE simulation report matches vignette", {
   expect_equal(slot(report, "mse")[3], 1.204747, tolerance = tol)
 
   # Coverage and Type I error
-  expect_equal(slot(report, "coverage"),     c(1, 1, 1))
+  expect_equal(slot(report, "coverage"), c(1, 1, 1))
   expect_equal(slot(report, "type_I_error"), c(0, 0, 0))
 
   # Power (OLE simulation has no alt hypothesis, so power slot is empty)

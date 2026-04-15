@@ -102,176 +102,176 @@ EC_AIPW_OPT <- function(data,
   #
   # }else
   # {
-    # propensity score model
-    piS.model <- glm(model_form_piS, data = df, family = "binomial")
-    # outcome regression model
-    Y0.model <- lapply(model_form_mu0_ext, function(x) {
-      lm(as.formula(x), data = filter(df, A == 0))
-    })
-    Y0.model.dummy <- lapply(model_form_mu0_ext, function(x) {
-      lm(as.formula(x), data = filter(df))
-    })
+  # propensity score model
+  piS.model <- glm(model_form_piS, data = df, family = "binomial")
+  # outcome regression model
+  Y0.model <- lapply(model_form_mu0_ext, function(x) {
+    lm(as.formula(x), data = filter(df, A == 0))
+  })
+  Y0.model.dummy <- lapply(model_form_mu0_ext, function(x) {
+    lm(as.formula(x), data = filter(df))
+  })
 
-    # predict Y0 from outcome regression models
-    Y0 <- data.frame(sapply(1:T_follow, function(x) {
-      predict(Y0.model[[x]], newdata = df)
-    }))
-    colnames(Y0) <- paste0("y", 1:T_follow, "_0")
-    # for residual
-    Yr <- Y - Y0
-    colnames(Yr) <- paste0("y", 1:T_follow, "_r")
+  # predict Y0 from outcome regression models
+  Y0 <- data.frame(sapply(1:T_follow, function(x) {
+    predict(Y0.model[[x]], newdata = df)
+  }))
+  colnames(Y0) <- paste0("y", 1:T_follow, "_0")
+  # for residual
+  Yr <- Y - Y0
+  colnames(Yr) <- paste0("y", 1:T_follow, "_r")
 
-    # estimate ATE
-    temp <- df |>
-      cbind(Y0, Yr) |>
-      mutate(
-        piA = sum(A[S == 1]) / n,
-        piS = sum(S) / (n + m),
-        piSX = predict(piS.model, newdata = df, type = "response"),
-        rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
-      ) |>
-      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+  # estimate ATE
+  temp <- df |>
+    cbind(Y0, Yr) |>
+    mutate(
+      piA = sum(A[S == 1]) / n,
+      piS = sum(S) / (n + m),
+      piSX = predict(piS.model, newdata = df, type = "response"),
+      rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
+    ) |>
+    mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
 
-    ### create outcomes: obs * T
-    Ys <- as.matrix(Yr)
-
-
-    potential <- (temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys
-    mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / n
-    mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / n
-    mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
+  ### create outcomes: obs * T
+  Ys <- as.matrix(Yr)
 
 
-    # variance
-
-    ## bread
-    A11 <- diag(rep(-1, T_follow), nrow = T_follow)
-    A22 <- diag(rep(-1, T_follow), nrow = T_follow)
-    A33 <- diag(rep(-mean((1 - temp$S) * temp$w00 / (1 - temp$piS)), T_follow), nrow = T_follow)
-    A34 <- t((as.vector((1 - temp$S) * temp$`piSX` /
-      (temp$`piS` * (1 - temp$`piSX`))) *
-      sweep(Ys, 2, mu00))) %*% model.matrix(piS.model) / (n + m)
-    piS.beta <- t(model.matrix(piS.model)) %*%
-      diag(-temp$`piSX` * (1 - temp$`piSX`)) %*%
-      model.matrix(piS.model) / (n + m)
-    A44 <- piS.beta
-
-    n1 <- dim(A11)[1]
-    n2 <- dim(A22)[1]
-    n3 <- dim(A33)[1]
-    n4 <- dim(A44)[1]
-
-    A0 <- as.matrix(bdiag(A11, A22, A33, A44))
-    A0[(n1 + n2 + 1):(n1 + n2 + n3), (n1 + n2 + n3 + 1):(n1 + n2 + n3 + n4)] <- A34
+  potential <- (temp$S * temp$A / temp$w11 + temp$S * (1 - temp$A) / temp$w10 + (1 - temp$S) * temp$w00) * Ys
+  mu1 <- colSums(potential[temp$S == 1 & temp$A == 1, , drop = FALSE]) / n
+  mu10 <- colSums(potential[temp$S == 1 & temp$A == 0, , drop = FALSE]) / n
+  mu00 <- colSums(potential[temp$S == 0, , drop = FALSE]) / (sum((1 - temp$S) * temp$w00))
 
 
-    Y0.model.dim <- sapply(1:T_follow, function(x) {
-      dim(model.matrix(Y0.model.dummy[[x]]))[2]
-    })
-    n5 <- sum(Y0.model.dim)
+  # variance
 
-    A45 <- matrix(0, nrow = n4, ncol = n5)
-    A51 <- matrix(0, nrow = n5, ncol = n1 + n2 + n3 + n4)
+  ## bread
+  A11 <- diag(rep(-1, T_follow), nrow = T_follow)
+  A22 <- diag(rep(-1, T_follow), nrow = T_follow)
+  A33 <- diag(rep(-mean((1 - temp$S) * temp$w00 / (1 - temp$piS)), T_follow), nrow = T_follow)
+  A34 <- t((as.vector((1 - temp$S) * temp$`piSX` /
+    (temp$`piS` * (1 - temp$`piSX`))) *
+    sweep(Ys, 2, mu00))) %*% model.matrix(piS.model) / (n + m)
+  piS.beta <- t(model.matrix(piS.model)) %*%
+    diag(-temp$`piSX` * (1 - temp$`piSX`)) %*%
+    model.matrix(piS.model) / (n + m)
+  A44 <- piS.beta
 
-    # cat(length(as.vector(-temp$S*temp$A/(temp$piS*(temp$piA)))))
-    # cat(dim(model.matrix(Y0.model.dummy[[1]])))
+  n1 <- dim(A11)[1]
+  n2 <- dim(A22)[1]
+  n3 <- dim(A33)[1]
+  n4 <- dim(A44)[1]
 
-    Phi1.gamma.list <- lapply(
-      1:T_follow,
-      function(x) {
-        as.vector(-temp$S * temp$A / (temp$piS * (temp$piA))) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
-      }
-    )
-    Phi1.gamma <- as.matrix(do.call(bdiag, Phi1.gamma.list))
-
-    Phi2.gamma.list <- lapply(
-      1:T_follow,
-      function(x) {
-        as.vector(-temp$S * (1 - temp$A) / (temp$piS * (1 - temp$piA))) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
-      }
-    )
-    Phi2.gamma <- as.matrix(do.call(bdiag, Phi2.gamma.list))
-
-    Phi3.gamma.list <- lapply(
-      1:T_follow,
-      function(x) {
-        as.vector(-(1 - temp$S) * temp$rx / (1 - temp$piS)) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
-      }
-    )
-    Phi3.gamma <- as.matrix(do.call(bdiag, Phi3.gamma.list))
-
-    Y0.gamma.list <- lapply(
-      1:T_follow,
-      function(x) {
-        -t(model.matrix(Y0.model.dummy[[x]])) %*%
-          diag((1 - temp$A) / (1 - mean(temp$A))) %*%
-          model.matrix(Y0.model.dummy[[x]]) / (n + m)
-      }
-    )
-    Y0.gamma <- as.matrix(do.call(bdiag, Y0.gamma.list))
+  A0 <- as.matrix(bdiag(A11, A22, A33, A44))
+  A0[(n1 + n2 + 1):(n1 + n2 + n3), (n1 + n2 + n3 + 1):(n1 + n2 + n3 + n4)] <- A34
 
 
-    # cat(c(n1, n2, n3, n4, n5))
-    A.left <- rbind(A0, A51)
-    A.right <- rbind(Phi1.gamma, Phi2.gamma, Phi3.gamma, A45, Y0.gamma)
-    A <- cbind(A.left, A.right)
+  Y0.model.dim <- sapply(1:T_follow, function(x) {
+    dim(model.matrix(Y0.model.dummy[[x]]))[2]
+  })
+  n5 <- sum(Y0.model.dim)
 
-    ## meat
-    phi1 <- temp$S * temp$A * sweep(Ys, 2, mu1) / temp$`piA` / temp$piS # influence from rct treated
-    phi2 <- temp$S * (1 - temp$A) * sweep(Ys, 2, mu10) / (1 - temp$`piA`) / temp$piS # influence from rct control
-    phi3 <- (1 - temp$S) * sweep(Ys, 2, mu00) * temp$w00 / (1 - temp$piS)
-    phi.piS <- (temp$S - temp$`piSX`) * model.matrix(piS.model)
-    phi.Y0 <- do.call(cbind,
-      args = lapply(1:T_follow, function(x) {
-        ((1 - temp$A) / (1 - mean(temp$A))) * (Ys[, x] * model.matrix(Y0.model.dummy[[x]]))
-      })
-    )
+  A45 <- matrix(0, nrow = n4, ncol = n5)
+  A51 <- matrix(0, nrow = n5, ncol = n1 + n2 + n3 + n4)
 
-    ## big Phi should be n by 4+2+p, observations of same phi in the same column
-    Phi <- cbind(phi1, phi2, phi3, phi.piS, phi.Y0)
+  # cat(length(as.vector(-temp$S*temp$A/(temp$piS*(temp$piA)))))
+  # cat(dim(model.matrix(Y0.model.dummy[[1]])))
 
-    B <- (t(Phi) %*% Phi) / (n + m)
-
-
-    ## sandwich
-    sigma <- solve(A) %*% B %*% t(solve(A))
-
-    ## Optimal weight as proposed in manuscript
-    # fit1 = lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==1&A==0) )
-    # sigma10 = (summary(fit1)$sigma)**2
-    num <- sum(temp$S * (1 - temp$A) / temp$w10^2 / (sum(temp$S * (1 - temp$A) / temp$w10))^2)
-
-    #+ sum(temp$S*(1-temp$A))*var(
-    #+   temp$S*(1-temp$A)*predict(fit1,newdata=temp)/temp$w10/
-    #+   sum(temp$S*(1-temp$A)/temp$w10))
-
-    # fit0=lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==0) )
-    # sigma00=(summary(fit0)$sigma)**2
-    denom <- sum((1 - temp$S) * temp$w00^2 / (sum((1 - temp$S) * temp$w00))^2)
-    #+ sum((1-temp$S))*var((1-temp$S)*predict(fit0,newdata =temp)*temp$w00/sum((1-temp$S)*temp$w00))
-    w.opt <- num / (num + denom)
-    if (optimal_weight_flag) {
-      wt <- w.opt
+  Phi1.gamma.list <- lapply(
+    1:T_follow,
+    function(x) {
+      as.vector(-temp$S * temp$A / (temp$piS * (temp$piA))) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
     }
+  )
+  Phi1.gamma <- as.matrix(do.call(bdiag, Phi1.gamma.list))
 
-    # final hybrid estimate as combination of RCT control and external control
-    mu0 <- (1 - wt) * mu10 + wt * mu00
-    tau <- mu1 - mu0
+  Phi2.gamma.list <- lapply(
+    1:T_follow,
+    function(x) {
+      as.vector(-temp$S * (1 - temp$A) / (temp$piS * (1 - temp$piA))) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
+    }
+  )
+  Phi2.gamma <- as.matrix(do.call(bdiag, Phi2.gamma.list))
 
-    names(tau) <- paste0("tau", 1:T_follow)
+  Phi3.gamma.list <- lapply(
+    1:T_follow,
+    function(x) {
+      as.vector(-(1 - temp$S) * temp$rx / (1 - temp$piS)) %*% model.matrix(Y0.model.dummy[[x]]) / (n + m)
+    }
+  )
+  Phi3.gamma <- as.matrix(do.call(bdiag, Phi3.gamma.list))
 
-    # ATE as linear comb of parameters
-    ## TODO: too many zeros; maybe can be improved?
-    coef.mat <- cbind(
-      diag(T_follow),
-      -(1 - wt) * diag(T_follow),
-      -wt * diag(T_follow),
-      matrix(0, nrow = T_follow, ncol = dim(piS.beta)[2] + n5)
-    )
-    # get standard error using the linear comb of var-cov matrix
-    sd.tau <- sqrt(diag(coef.mat %*% sigma %*% t(coef.mat) / (n + m)))
+  Y0.gamma.list <- lapply(
+    1:T_follow,
+    function(x) {
+      -t(model.matrix(Y0.model.dummy[[x]])) %*%
+        diag((1 - temp$A) / (1 - mean(temp$A))) %*%
+        model.matrix(Y0.model.dummy[[x]]) / (n + m)
+    }
+  )
+  Y0.gamma <- as.matrix(do.call(bdiag, Y0.gamma.list))
 
-    names(sd.tau) <- paste0("sd.tau", 1:T_follow)
+
+  # cat(c(n1, n2, n3, n4, n5))
+  A.left <- rbind(A0, A51)
+  A.right <- rbind(Phi1.gamma, Phi2.gamma, Phi3.gamma, A45, Y0.gamma)
+  A <- cbind(A.left, A.right)
+
+  ## meat
+  phi1 <- temp$S * temp$A * sweep(Ys, 2, mu1) / temp$`piA` / temp$piS # influence from rct treated
+  phi2 <- temp$S * (1 - temp$A) * sweep(Ys, 2, mu10) / (1 - temp$`piA`) / temp$piS # influence from rct control
+  phi3 <- (1 - temp$S) * sweep(Ys, 2, mu00) * temp$w00 / (1 - temp$piS)
+  phi.piS <- (temp$S - temp$`piSX`) * model.matrix(piS.model)
+  phi.Y0 <- do.call(cbind,
+    args = lapply(1:T_follow, function(x) {
+      ((1 - temp$A) / (1 - mean(temp$A))) * (Ys[, x] * model.matrix(Y0.model.dummy[[x]]))
+    })
+  )
+
+  ## big Phi should be n by 4+2+p, observations of same phi in the same column
+  Phi <- cbind(phi1, phi2, phi3, phi.piS, phi.Y0)
+
+  B <- (t(Phi) %*% Phi) / (n + m)
+
+
+  ## sandwich
+  sigma <- solve(A) %*% B %*% t(solve(A))
+
+  ## Optimal weight as proposed in manuscript
+  # fit1 = lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==1&A==0) )
+  # sigma10 = (summary(fit1)$sigma)**2
+  num <- sum(temp$S * (1 - temp$A) / temp$w10^2 / (sum(temp$S * (1 - temp$A) / temp$w10))^2)
+
+  #+ sum(temp$S*(1-temp$A))*var(
+  #+   temp$S*(1-temp$A)*predict(fit1,newdata=temp)/temp$w10/
+  #+   sum(temp$S*(1-temp$A)/temp$w10))
+
+  # fit0=lm(as.formula(paste("Y2","~",form_x)), data = filter(temp,S==0) )
+  # sigma00=(summary(fit0)$sigma)**2
+  denom <- sum((1 - temp$S) * temp$w00^2 / (sum((1 - temp$S) * temp$w00))^2)
+  #+ sum((1-temp$S))*var((1-temp$S)*predict(fit0,newdata =temp)*temp$w00/sum((1-temp$S)*temp$w00))
+  w.opt <- num / (num + denom)
+  if (optimal_weight_flag) {
+    wt <- w.opt
+  }
+
+  # final hybrid estimate as combination of RCT control and external control
+  mu0 <- (1 - wt) * mu10 + wt * mu00
+  tau <- mu1 - mu0
+
+  names(tau) <- paste0("tau", 1:T_follow)
+
+  # ATE as linear comb of parameters
+  ## TODO: too many zeros; maybe can be improved?
+  coef.mat <- cbind(
+    diag(T_follow),
+    -(1 - wt) * diag(T_follow),
+    -wt * diag(T_follow),
+    matrix(0, nrow = T_follow, ncol = dim(piS.beta)[2] + n5)
+  )
+  # get standard error using the linear comb of var-cov matrix
+  sd.tau <- sqrt(diag(coef.mat %*% sigma %*% t(coef.mat) / (n + m)))
+
+  names(sd.tau) <- paste0("sd.tau", 1:T_follow)
 
   cutoff <- qnorm(1 - alpha / 2, lower.tail = TRUE)
 
