@@ -98,13 +98,9 @@ setMethod(
 #'   method_obj_list = list(setup_method(method_name = "AIPW")),
 #'   method_description = "AIPW"
 #' )
-setup_simulation <- function(trial_status_col_name,
-                             treatment_col_name,
-                             outcome_col_name,
-                             covariates_col_name,
-                             method_obj_list,
-                             method_description,
-                             alpha = 0.05) {
+.validate_simulation_base <- function(trial_status_col_name, treatment_col_name,
+                                      outcome_col_name, covariates_col_name,
+                                      method_obj_list, method_description, alpha) {
   checkmate::assert_string(trial_status_col_name)
   checkmate::assert_string(treatment_col_name)
   checkmate::assert_character(outcome_col_name, min.len = 1)
@@ -115,6 +111,19 @@ setup_simulation <- function(trial_status_col_name,
   }
   checkmate::assert_character(method_description, len = length(method_obj_list))
   checkmate::assert_number(alpha, lower = 0, upper = 1)
+}
+
+setup_simulation <- function(trial_status_col_name,
+                             treatment_col_name,
+                             outcome_col_name,
+                             covariates_col_name,
+                             method_obj_list,
+                             method_description,
+                             alpha = 0.05) {
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
 
   simulation_obj <- .simulation_obj(
     covariates_col_name = covariates_col_name,
@@ -170,26 +179,20 @@ setup_simulation_primary <- function(data_matrix_list_null,
                                      data_matrix_list_alt = list(),
                                      alt_effect = numeric(0),
                                      alpha = 0.05) {
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
   checkmate::assert_list(data_matrix_list_null, min.len = 1)
   for (i in seq_along(data_matrix_list_null)) {
     checkmate::assert_data_frame(data_matrix_list_null[[i]])
   }
-  checkmate::assert_string(trial_status_col_name)
-  checkmate::assert_string(treatment_col_name)
-  checkmate::assert_character(outcome_col_name, min.len = 1)
-  checkmate::assert_character(covariates_col_name, min.len = 1)
-  checkmate::assert_list(method_obj_list, min.len = 1)
-  for (i in seq_along(method_obj_list)) {
-    checkmate::assert_class(method_obj_list[[i]], "method_obj")
-  }
   checkmate::assert_numeric(true_effect, min.len = 1)
-  checkmate::assert_character(method_description, len = length(method_obj_list))
   checkmate::assert_list(data_matrix_list_alt)
   for (i in seq_along(data_matrix_list_alt)) {
     checkmate::assert_data_frame(data_matrix_list_alt[[i]])
   }
   checkmate::assert_numeric(alt_effect)
-  checkmate::assert_number(alpha, lower = 0, upper = 1)
 
   simulation_primary_obj <- .simulation_primary_obj(
     data_matrix_list_null = data_matrix_list_null,
@@ -247,22 +250,16 @@ setup_simulation_OLE <- function(data_matrix_list,
                                  true_effect,
                                  method_description,
                                  alpha = 0.05) {
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
   checkmate::assert_list(data_matrix_list, min.len = 1)
   for (i in seq_along(data_matrix_list)) {
     checkmate::assert_data_frame(data_matrix_list[[i]])
   }
-  checkmate::assert_string(trial_status_col_name)
-  checkmate::assert_string(treatment_col_name)
-  checkmate::assert_character(outcome_col_name, min.len = 1)
-  checkmate::assert_character(covariates_col_name, min.len = 1)
-  checkmate::assert_list(method_obj_list, min.len = 1)
-  for (i in seq_along(method_obj_list)) {
-    checkmate::assert_class(method_obj_list[[i]], "method_obj")
-  }
   checkmate::assert_number(T_cross, lower = 0)
   checkmate::assert_numeric(true_effect, min.len = 1)
-  checkmate::assert_character(method_description, len = length(method_obj_list))
-  checkmate::assert_number(alpha, lower = 0, upper = 1)
 
   simulation_OLE_obj <- .simulation_OLE_obj(
     data_matrix_list = data_matrix_list,

@@ -40,12 +40,16 @@
 #'   bootstrap_flag = TRUE,
 #'   bootstrap_obj = setup_bootstrap()
 #' )
-setup_method <- function(method_name = "",
-                         bootstrap_flag = FALSE,
-                         bootstrap_obj = .bootstrap_obj()) {
+.validate_method_base <- function(method_name, bootstrap_flag, bootstrap_obj) {
   checkmate::assert_string(method_name)
   checkmate::assert_flag(bootstrap_flag)
   checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
+}
+
+setup_method <- function(method_name = "",
+                         bootstrap_flag = FALSE,
+                         bootstrap_obj = .bootstrap_obj()) {
+  .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
 
   method_obj <- .method_obj(
     method_name = method_name,

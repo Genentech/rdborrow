@@ -1,4 +1,4 @@
-#' method class
+#' Method SCM class
 #'
 #' @slot parallel Parallelization type for boot.
 #' @slot ncpus Number of CPUs for parallel bootstrap.
@@ -8,28 +8,13 @@
 #'
 #' @include method_class.R
 #' @include bootstrap_class.R
-#' @export setup_method_SCM
-#'
-#' @examples
-#' \dontrun{
-#' method_SCM_obj <- setup_method_SCM(
-#'   method_name = "SCM",
-#'   bootstrap_flag = TRUE,
-#'   bootstrap_obj = bootstrap_obj,
-#'   lambda.min = 0,
-#'   lambda.max = 1e-3,
-#'   nlambda = 10,
-#'   parallel = "multicore",
-#'   ncpus = 4
-#' )
-#' }
 .method_SCM_obj <- setClass(
   "method_SCM_obj",
   contains = "method_OLE_obj",
   slots = c(
-    lambda.min = "numeric", # minimum value
+    lambda.min = "numeric",
     lambda.max = "numeric",
-    nlambda = "numeric", # nfolds
+    nlambda = "numeric",
     parallel = "character",
     ncpus = "numeric"
   ),
@@ -44,14 +29,23 @@
 #'
 #' @param method_name character. Name of the method.
 #' @param bootstrap_flag logical. Whether to use bootstrap for inference.
-#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.
-#' @param lambda.min numeric. The minimum value of the regularization parameter lambda for SCM.
-#' @param lambda.max numeric. The maximum value of the regularization parameter lambda for SCM.
-#' @param nlambda numeric. The number of lambda values to consider for SCM.
-#' @param parallel character. The type of parallelization to use for SCM (e.g., "no", "multicore", "snow").
-#' @param ncpus numeric. The number of CPU cores to use for parallelization in SCM.
+#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj`
+#'   containing bootstrap settings.
+#' @param lambda.min numeric. Minimum value of the regularization parameter.
+#' @param lambda.max numeric. Maximum value of the regularization parameter.
+#' @param nlambda numeric. Number of lambda values for cross-validation.
+#' @param parallel character. Parallelization type (`"no"`, `"multicore"`, or
+#'   `"snow"`).
+#' @param ncpus numeric. Number of CPU cores to use for parallelization.
 #'
 #' @return An object of class `method_SCM_obj`.
+#' @export
+#'
+#' @examples
+#' setup_method_SCM(
+#'   lambda.min = 0,
+#'   lambda.max = 1e-3
+#' )
 setup_method_SCM <- function(method_name = "SCM",
                              bootstrap_flag = FALSE,
                              bootstrap_obj = .bootstrap_obj(),
@@ -60,11 +54,15 @@ setup_method_SCM <- function(method_name = "SCM",
                              nlambda = 10,
                              parallel = "no",
                              ncpus = 1) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
-  # model_form_mu0 and the dimension of the random vector
+  .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
+  checkmate::assert_number(lambda.min)
+  checkmate::assert_number(lambda.max)
+  if (lambda.max < lambda.min) {
+    stop("lambda.max must be greater than or equal to lambda.min")
+  }
+  checkmate::assert_count(nlambda, positive = TRUE)
+  checkmate::assert_choice(parallel, choices = c("no", "multicore", "snow"))
+  checkmate::assert_count(ncpus, positive = TRUE)
 
   method_SCM_obj <- .method_SCM_obj(
     method_name = method_name,

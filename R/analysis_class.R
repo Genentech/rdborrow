@@ -62,15 +62,14 @@ setMethod(
 #'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
 #'   method_obj = setup_method(method_name = "AIPW")
 #' )
-setup_analysis <- function(data, trial_status_col_name, treatment_col_name,
-                           outcome_col_name, covariates_col_name, method_obj,
-                           alpha = 0.05) {
+.validate_analysis_base <- function(data, trial_status_col_name,
+                                    treatment_col_name, outcome_col_name,
+                                    covariates_col_name, alpha) {
   checkmate::assert_data_frame(data)
   checkmate::assert_string(trial_status_col_name)
   checkmate::assert_string(treatment_col_name)
   checkmate::assert_character(outcome_col_name, min.len = 1)
   checkmate::assert_character(covariates_col_name, min.len = 1)
-  checkmate::assert_class(method_obj, "method_obj")
   checkmate::assert_number(alpha, lower = 0, upper = 1)
   checkmate::assert_subset(
     c(
@@ -79,6 +78,16 @@ setup_analysis <- function(data, trial_status_col_name, treatment_col_name,
     ),
     choices = names(data)
   )
+}
+
+setup_analysis <- function(data, trial_status_col_name, treatment_col_name,
+                           outcome_col_name, covariates_col_name, method_obj,
+                           alpha = 0.05) {
+  .validate_analysis_base(
+    data, trial_status_col_name, treatment_col_name,
+    outcome_col_name, covariates_col_name, alpha
+  )
+  checkmate::assert_class(method_obj, "method_obj")
 
   analysis_obj <- .analysis_obj(
     data = data,
