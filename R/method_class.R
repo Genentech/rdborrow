@@ -5,27 +5,10 @@
 #' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
 #'
 #' @include bootstrap_class.R
-#' @export setup_method
-#'
-#' @examples
-#' \dontrun{
-#' method_weighting_obj <- setup_method_weighting(
-#'   method_name = "AIPW",
-#'   optimal_weight_flag = TRUE,
-#'   wt = 0,
-#'   bootstrap_flag = TRUE,
-#'   bootstrap_obj = bootstrap_obj,
-#'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-#'   model_form_mu0_ext = c(
-#'     "y1 ~ x1 + x2 + x3 + x4 + x5",
-#'     "y2 ~ x1 + x2 + x3 + x4 + x5"
-#'   )
-#' )
-#' }
 .method_obj <- setClass(
   "method_obj",
   slots = c(
-    method_name = "character", # method_name
+    method_name = "character",
     bootstrap_flag = "logical",
     bootstrap_obj = "bootstrap_obj"
   )
@@ -45,17 +28,24 @@
 #'
 #' @param method_name character. Name of the method.
 #' @param bootstrap_flag logical. Whether to use bootstrap for inference.
-#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.
+#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj`
+#'   containing bootstrap settings.
 #'
 #' @return An object of class `method_obj`.
+#' @export
+#'
+#' @examples
+#' setup_method(
+#'   method_name = "AIPW",
+#'   bootstrap_flag = TRUE,
+#'   bootstrap_obj = setup_bootstrap()
+#' )
 setup_method <- function(method_name = "",
                          bootstrap_flag = FALSE,
                          bootstrap_obj = .bootstrap_obj()) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
-  # model_form_mu0 and the dimension of the random vector
+  checkmate::assert_string(method_name)
+  checkmate::assert_flag(bootstrap_flag)
+  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
 
   method_obj <- .method_obj(
     method_name = method_name,
