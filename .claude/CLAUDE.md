@@ -27,13 +27,10 @@ Rscript -e "pkgdown::check_pkgdown()"
 # To check the package with R CMD check
 Rscript -e "devtools::check()"
 
-# To format code
-air format .
 ```
 
 ### Coding
 
-* Always run `air format .` after generating code
 * Use the base pipe operator (`|>`) not the magrittr pipe (`%>%`)
 * Don't use `_$x` or `_$[["x"]]` since this package must work on R 4.1.
 * Use `\() ...` for single-line anonymous functions. For all other cases, use `function() {...}`

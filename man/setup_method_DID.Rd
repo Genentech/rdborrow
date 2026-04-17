@@ -20,22 +20,32 @@ setup_method_DID(
 
 \item{bootstrap_flag}{logical. Whether to use bootstrap for inference.}
 
-\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.}
+\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj`
+containing bootstrap settings.}
 
-\item{model_form_piS}{character. The model formula for the selection model (S).}
+\item{model_form_piS}{character. Model formula for the selection model (S).}
 
-\item{model_form_mu0_ext}{character. The model formula for the outcome model in the external data (mu0_ext).}
+\item{model_form_mu0_ext}{character. Model formula for the outcome model in
+the external data (mu0_ext).}
 
-\item{model_form_piA}{character. The model formula for the treatment model (A).}
+\item{model_form_piA}{character. Model formula for the treatment model (A).}
 
-\item{model_form_mu0_rct}{character. The model formula for the outcome model in the RCT data under control (mu0_rct).}
+\item{model_form_mu0_rct}{character. Model formula for the outcome model in
+the RCT data under control (mu0_rct).}
 
-\item{model_form_mu1_rct}{character. The model formula for the outcome
-model in the RCT data under treatment (mu1_rct).}
+\item{model_form_mu1_rct}{character. Model formula for the outcome model in
+the RCT data under treatment (mu1_rct).}
 }
 \value{
 An object of class `method_DID_obj`.
 }
 \description{
 Construct a method_DID object
+}
+\examples{
+setup_method_DID(
+  method_name = "IPW",
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
+  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
+)
 }
