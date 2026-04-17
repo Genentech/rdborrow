@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulation_class.R
 \name{setup_simulation}
 \alias{setup_simulation}
-\title{Construct an simulation object}
+\title{Construct a simulation object}
 \usage{
 setup_simulation(
   trial_status_col_name,
@@ -25,25 +25,24 @@ setup_simulation(
 
 \item{method_obj_list}{List of method objects to evaluate.}
 
-\item{method_description}{Character vector of method labels.}
+\item{method_description}{Character vector of method labels, one per method
+in `method_obj_list`.}
 
 \item{alpha}{Significance level.}
 }
 \value{
-An simulation object
+An object of class `simulation_obj`.
 }
 \description{
-Construct an simulation object
+Construct a simulation object
 }
 \examples{
-\dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+setup_simulation(
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_obj_list = list(setup_method(method_name = "AIPW")),
+  method_description = "AIPW"
 )
-}
-
 }

@@ -75,6 +75,21 @@ setMethod(
   }
 )
 
+.validate_simulation_base <- function(trial_status_col_name, treatment_col_name,
+                                      outcome_col_name, covariates_col_name,
+                                      method_obj_list, method_description, alpha) {
+  checkmate::assert_string(trial_status_col_name)
+  checkmate::assert_string(treatment_col_name)
+  checkmate::assert_character(outcome_col_name, min.len = 1)
+  checkmate::assert_character(covariates_col_name, min.len = 1)
+  checkmate::assert_list(method_obj_list, min.len = 1)
+  for (i in seq_along(method_obj_list)) {
+    checkmate::assert_class(method_obj_list[[i]], "method_obj")
+  }
+  checkmate::assert_character(method_description, len = length(method_obj_list))
+  checkmate::assert_number(alpha, lower = 0, upper = 1)
+}
+
 #' Construct a simulation object
 #'
 #' @param trial_status_col_name Name of the trial status column.
@@ -98,21 +113,6 @@ setMethod(
 #'   method_obj_list = list(setup_method(method_name = "AIPW")),
 #'   method_description = "AIPW"
 #' )
-.validate_simulation_base <- function(trial_status_col_name, treatment_col_name,
-                                      outcome_col_name, covariates_col_name,
-                                      method_obj_list, method_description, alpha) {
-  checkmate::assert_string(trial_status_col_name)
-  checkmate::assert_string(treatment_col_name)
-  checkmate::assert_character(outcome_col_name, min.len = 1)
-  checkmate::assert_character(covariates_col_name, min.len = 1)
-  checkmate::assert_list(method_obj_list, min.len = 1)
-  for (i in seq_along(method_obj_list)) {
-    checkmate::assert_class(method_obj_list[[i]], "method_obj")
-  }
-  checkmate::assert_character(method_description, len = length(method_obj_list))
-  checkmate::assert_number(alpha, lower = 0, upper = 1)
-}
-
 setup_simulation <- function(trial_status_col_name,
                              treatment_col_name,
                              outcome_col_name,

@@ -30,20 +30,18 @@ setup_analysis(
 \item{alpha}{Significance level (default 0.05).}
 }
 \value{
-An analysis object [`Analysis`][Analysis-class]
+An object of class `analysis_obj`.
 }
 \description{
 Construct an analysis object
 }
 \examples{
-\dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+setup_analysis(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_obj = setup_method(method_name = "AIPW")
 )
-}
-
 }

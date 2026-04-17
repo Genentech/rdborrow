@@ -33,39 +33,33 @@ setup_simulation_primary(
 
 \item{true_effect}{Numeric vector of true treatment effects.}
 
-\item{method_description}{Character vector of method labels.}
+\item{method_description}{Character vector of method labels, one per method
+in `method_obj_list`.}
 
-\item{data_matrix_list_alt}{List of data frames simulated under the alternative.}
+\item{data_matrix_list_alt}{List of data frames simulated under the
+alternative.}
 
 \item{alt_effect}{Numeric vector of alternative treatment effects.}
 
 \item{alpha}{Significance level.}
 }
 \value{
-return a simulation object for primary analysis
+An object of class `simulation_primary_obj`.
 }
 \description{
 Construct a simulation object for primary analysis
 }
 \examples{
 \dontrun{
-simulation_primary_obj <- setup_simulation_primary(
-  data_matrix_list_null = data_matrix_list_null, # two scenarios
-  data_matrix_list_alt = data_matrix_list_alt,
-  trial_status_col_name = trial_status_col_name,
-  treatment_col_name = treatment_col_name,
-  outcome_col_name = outcome_col_name,
-  covariates_col_name = covariates_col_name,
-  method_obj_list = method_obj_list,
-  true_effect = true_effect,
-  alt_effect = alt_effect,
-  alpha = alpha,
-  method_description = c(
-    "IPW, optimal weight",
-    "AIPW, optimal weight",
-    "IPW, zero weight",
-    "AIPW, zero weight"
-  )
+setup_simulation_primary(
+  data_matrix_list_null = data_matrix_list_null,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_obj_list = list(setup_method(method_name = "AIPW")),
+  true_effect = c(0, 0),
+  method_description = "AIPW"
 )
 }
 }
