@@ -4,39 +4,6 @@
 #' @slot bootstrap_CI_type Type of bootstrap confidence interval.
 #'
 #' @include method_class.R
-#' @export setup_analysis
-#'
-#' @examples
-#' \dontrun{
-#' bootstrap_obj <- setup_bootstrap(
-#'   replicates = 2e3,
-#'   bootstrap_CI_type = "perc"
-#' )
-#'
-#' method_weighting_obj <- setup_method_weighting(
-#'   method_name = "AIPW",
-#'   optimal_weight_flag = TRUE,
-#'   wt = 0,
-#'   bootstrap_flag = TRUE,
-#'   bootstrap_obj = bootstrap_obj,
-#'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-#'   model_form_mu0_ext = c(
-#'     "y1 ~ x1 + x2 + x3 + x4 + x5",
-#'     "y2 ~ x1 + x2 + x3 + x4 + x5"
-#'   )
-#' )
-#'
-#' analysis_primary_obj <- setup_analysis_primary(
-#'   data = SyntheticData,
-#'   trial_status = "S",
-#'   treatment = "A",
-#'   outcome = c("y1", "y2"),
-#'   covariates = c("x1", "x2", "x3", "x4", "x5"),
-#'   method_weighting_obj = method_weighting_obj
-#' )
-#'
-#' res <- run_analysis(analysis_primary_obj)
-#' }
 .bootstrap_obj <- setClass(
   "bootstrap_obj",
   slots = c(
@@ -49,55 +16,47 @@
   )
 )
 
-## TODO: modify the show method
 setMethod(
   f = "show",
   signature = "bootstrap_obj",
   definition = function(object) {
-    #    full_data = data
-    #    print(full_data)
-    # "norm","basic", "stud", "perc", "bca"
-    boot.ci.type <- switch(object@bootstrap_CI_type,
-      norm = "normal approximation",
-      bca = "bias-corrected",
-      stud = "studentized",
-      perc = "percentile",
-      basic = "basic"
+    ci_type <- switch(object@bootstrap_CI_type,
+      norm = "Normal approximation",
+      bca = "Bias-corrected accelerated (BCa)",
+      stud = "Studentized",
+      perc = "Percentile",
+      basic = "Basic"
     )
-    cat("Running Bootstrap: ", ifelse(object@bootstrap_flag, "Yes", "No"), "\n")
-    cat("Number of Replicates: ", as.character(object@replicates), "\n")
-    cat("Type of bootstrap confidence interval: ", boot.ci.type)
+    cat("<bootstrap_obj>\n")
+    cat("  Replicates:", object@replicates, "\n")
+    cat("  CI type:", ci_type, "\n")
   }
 )
 
 #' Construct a bootstrap object
 #'
 #' @param replicates Number of bootstrap replicates.
-#' @param bootstrap_CI_type Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).
+#' @param bootstrap_CI_type Type of bootstrap CI. One of \code{"bca"},
+#'   \code{"norm"}, \code{"basic"}, \code{"stud"}, or \code{"perc"}.
 #'
-#' @return An bootstrap object
+#' @return A bootstrap object.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' analysis_obj <- setup_analysis(
-#'   trial_status_col_name = S,
-#'   treatment_col_name = A,
-#'   outcome_col_name = Y,
-#'   covariates_col_name = X,
-#'   method = method_obj
+#' bootstrap_obj <- setup_bootstrap(
+#'   replicates = 2e3,
+#'   bootstrap_CI_type = "perc"
 #' )
-#' }
-#'
 setup_bootstrap <- function(replicates = 5e2,
                             bootstrap_CI_type = "bca") {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
-  # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = FALSE, then long_term_marker should all be F
 
+  # validity----
+  checkmate::assert_count(replicates, positive = TRUE)
+  checkmate::assert_choice(bootstrap_CI_type,
+    choices = c("bca", "norm", "basic", "stud", "perc")
+  )
+
+  # constructor----
   bootstrap_obj <- .bootstrap_obj(
     replicates = replicates,
     bootstrap_CI_type = bootstrap_CI_type

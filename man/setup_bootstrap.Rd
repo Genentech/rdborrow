@@ -9,23 +9,18 @@ setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
 \arguments{
 \item{replicates}{Number of bootstrap replicates.}
 
-\item{bootstrap_CI_type}{Type of bootstrap CI (e.g. \code{"bca"}, \code{"perc"}).}
+\item{bootstrap_CI_type}{Type of bootstrap CI. One of \code{"bca"},
+\code{"norm"}, \code{"basic"}, \code{"stud"}, or \code{"perc"}.}
 }
 \value{
-An bootstrap object
+A bootstrap object.
 }
 \description{
 Construct a bootstrap object
 }
 \examples{
-\dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+bootstrap_obj <- setup_bootstrap(
+  replicates = 2e3,
+  bootstrap_CI_type = "perc"
 )
-}
-
 }

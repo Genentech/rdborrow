@@ -1,39 +1,12 @@
 #' Analysis OLE class
 #'
-#' @slot method_obj method_OLE_obj
-#' @slot T_cross
+#' @slot method_obj A `method_OLE_obj` specifying the estimation method.
+#' @slot T_cross Numeric crossover time point.
 #'
 #' @include method_DID_class.R
 #' @include method_SCM_class.R
 #' @include method_class.R
 #' @include analysis_class.R
-#' @export setup_analysis_OLE
-#'
-#' @examples
-#' \dontrun{
-#' bootstrap_obj <- setup_bootstrap(
-#'   replicates = 2e3,
-#'   bootstrap_CI_type = "perc"
-#' )
-#'
-#' method_DID_obj <- setup_method_DID(
-#'   method_name = "IPW",
-#'   bootstrap_flag = TRUE,
-#'   bootstrap_obj = bootstrap_obj,
-#'   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-#'   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
-#' )
-#'
-#' analysis_OLE_obj <- setup_analysis_OLE(
-#'   data = SyntheticData,
-#'   trial_status_col_name = "S",
-#'   treatment_col_name = "A",
-#'   outcome_col_name = c("y1", "y2", "y3", "y4"),
-#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-#'   T_cross = 2,
-#'   method_OLE_obj = method_DID_obj
-#' )
-#' }
 .analysis_OLE_obj <- setClass(
   "analysis_OLE_obj",
   contains = "analysis_obj",
@@ -43,14 +16,19 @@
   )
 )
 
-## TODO: modify the show method
 setMethod(
   f = "show",
   signature = "analysis_OLE_obj",
   definition = function(object) {
-    full_data <- object@data
-    print(full_data)
-    cat("Using method: ", object@method_obj@method_name)
+    cat("<analysis_OLE_obj>\n")
+    cat("  Observations:", nrow(object@data), "\n")
+    cat("  Trial status:", object@trial_status_col_name, "\n")
+    cat("  Treatment:", object@treatment_col_name, "\n")
+    cat("  Outcomes:", paste(object@outcome_col_name, collapse = ", "), "\n")
+    cat("  Covariates:", paste(object@covariates_col_name, collapse = ", "), "\n")
+    cat("  Method:", object@method_obj@method_name, "\n")
+    cat("  T_cross:", object@T_cross, "\n")
+    cat("  Alpha:", object@alpha, "\n")
   }
 )
 
@@ -61,36 +39,36 @@ setMethod(
 #' @param treatment_col_name Name of the treatment column.
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
-#' @param method_OLE_obj A method object for OLE analysis.
-#' @param T_cross Integer crossover time point.
+#' @param method_OLE_obj A method object of class `method_OLE_obj` for OLE
+#'   analysis.
+#' @param T_cross Numeric crossover time point.
 #' @param alpha Significance level (default 0.05).
 #'
-#' @return An analysis object [`Analysis`][Analysis-class]
+#' @return An object of class `analysis_OLE_obj`.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' analysis_obj <- setup_analysis(
-#'   trial_status_col_name = S,
-#'   treatment_col_name = A,
-#'   outcome_col_name = Y,
-#'   covariates_col_name = X,
-#'   method = method_obj
+#' setup_analysis_OLE(
+#'   data = SyntheticData,
+#'   trial_status_col_name = "S",
+#'   treatment_col_name = "A",
+#'   outcome_col_name = c("y1", "y2", "y3", "y4"),
+#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+#'   method_OLE_obj = setup_method_DID(method_name = "IPW"),
+#'   T_cross = 2
 #' )
-#' }
-#'
 setup_analysis_OLE <- function(data, trial_status_col_name,
                                treatment_col_name,
                                outcome_col_name,
                                covariates_col_name,
                                method_OLE_obj,
                                T_cross, alpha = 0.05) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
-  # length of long_term_marker the same as outcome dimension
-  # if long_term_flag = FALSE, then long_term_marker should all be F
+  .validate_analysis_base(
+    data, trial_status_col_name, treatment_col_name,
+    outcome_col_name, covariates_col_name, alpha
+  )
+  checkmate::assert_class(method_OLE_obj, "method_OLE_obj")
+  checkmate::assert_number(T_cross, lower = 0)
 
   .analysis_OLE_obj(
     data = data,

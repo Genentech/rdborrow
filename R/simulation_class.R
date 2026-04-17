@@ -9,11 +9,6 @@
 #' @slot method_description Character vector of method labels.
 #'
 #' @include method_class.R
-#' @export setup_simulation
-#'
-#'
-
-
 .simulation_obj <- setClass(
   "simulation_obj",
   slots = c(
@@ -21,7 +16,7 @@
     outcome_col_name = "character",
     treatment_col_name = "character",
     trial_status_col_name = "character",
-    method_obj_list = "list", # should be a list of method_obj object
+    method_obj_list = "list",
     alpha = "numeric",
     method_description = "character"
   ),
@@ -30,18 +25,12 @@
   )
 )
 
-
 #' Simulation for primary analysis
 #'
 #' @slot data_matrix_list_null List of data frames simulated under the null.
 #' @slot data_matrix_list_alt List of data frames simulated under the alternative.
 #' @slot true_effect Numeric vector of true treatment effects.
 #' @slot alt_effect Numeric vector of alternative treatment effects.
-#'
-#' @return a simulation object
-#' @export
-#'
-
 .simulation_primary_obj <- setClass(
   "simulation_primary_obj",
   contains = "simulation_obj",
@@ -57,18 +46,11 @@
   )
 )
 
-
 #' Simulation for OLE study
 #'
 #' @slot data_matrix_list List of simulated data matrices.
 #' @slot true_effect True treatment effect for evaluating estimator performance.
 #' @slot T_cross Numeric crossover time point for the OLE phase.
-#'
-#' @return a simulation object for OLE phase
-#' @export
-#'
-#'
-#'
 .simulation_OLE_obj <- setClass(
   "simulation_OLE_obj",
   contains = "simulation_obj",
@@ -79,45 +61,58 @@
   )
 )
 
-## to be prepared for sanity check:
-# data list: should be a list of data frames
-# method_obj_list: should be a list of method_obj objects
+setMethod(
+  f = "show",
+  signature = "simulation_obj",
+  definition = function(object) {
+    cat("<simulation_obj>\n")
+    cat("  Trial status:", object@trial_status_col_name, "\n")
+    cat("  Treatment:", object@treatment_col_name, "\n")
+    cat("  Outcomes:", paste(object@outcome_col_name, collapse = ", "), "\n")
+    cat("  Covariates:", paste(object@covariates_col_name, collapse = ", "), "\n")
+    cat("  Methods:", paste(object@method_description, collapse = ", "), "\n")
+    cat("  Alpha:", object@alpha, "\n")
+  }
+)
 
-## TODO: modify the show method
-# setMethod(
-#   f = "show",
-#   signature = "simulation_obj",
-#   definition = function(object) {
-#     full_data = data
-#     print(full_data)
-#     cat("Using method: ", object@method)
-#   }
-# )
-
-#' Construct an simulation object
+#' Construct a simulation object
 #'
 #' @param trial_status_col_name Name of the trial status column.
 #' @param treatment_col_name Name of the treatment column.
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
-#' @param method_description Character vector of method labels.
+#' @param method_description Character vector of method labels, one per method
+#'   in `method_obj_list`.
 #' @param alpha Significance level.
 #'
-#' @return An simulation object
+#' @return An object of class `simulation_obj`.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' analysis_obj <- setup_analysis(
-#'   trial_status_col_name = S,
-#'   treatment_col_name = A,
-#'   outcome_col_name = Y,
-#'   covariates_col_name = X,
-#'   method = method_obj
+#' setup_simulation(
+#'   trial_status_col_name = "S",
+#'   treatment_col_name = "A",
+#'   outcome_col_name = c("y1", "y2"),
+#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+#'   method_obj_list = list(setup_method(method_name = "AIPW")),
+#'   method_description = "AIPW"
 #' )
-#' }
-#'
+.validate_simulation_base <- function(trial_status_col_name, treatment_col_name,
+                                      outcome_col_name, covariates_col_name,
+                                      method_obj_list, method_description, alpha) {
+  checkmate::assert_string(trial_status_col_name)
+  checkmate::assert_string(treatment_col_name)
+  checkmate::assert_character(outcome_col_name, min.len = 1)
+  checkmate::assert_character(covariates_col_name, min.len = 1)
+  checkmate::assert_list(method_obj_list, min.len = 1)
+  for (i in seq_along(method_obj_list)) {
+    checkmate::assert_class(method_obj_list[[i]], "method_obj")
+  }
+  checkmate::assert_character(method_description, len = length(method_obj_list))
+  checkmate::assert_number(alpha, lower = 0, upper = 1)
+}
+
 setup_simulation <- function(trial_status_col_name,
                              treatment_col_name,
                              outcome_col_name,
@@ -125,10 +120,10 @@ setup_simulation <- function(trial_status_col_name,
                              method_obj_list,
                              method_description,
                              alpha = 0.05) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
 
   simulation_obj <- .simulation_obj(
     covariates_col_name = covariates_col_name,
@@ -141,7 +136,6 @@ setup_simulation <- function(trial_status_col_name,
   )
 }
 
-
 #' Construct a simulation object for primary analysis
 #'
 #' @param data_matrix_list_null List of data frames simulated under the null.
@@ -151,33 +145,27 @@ setup_simulation <- function(trial_status_col_name,
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
 #' @param true_effect Numeric vector of true treatment effects.
-#' @param method_description Character vector of method labels.
-#' @param data_matrix_list_alt List of data frames simulated under the alternative.
+#' @param method_description Character vector of method labels, one per method
+#'   in `method_obj_list`.
+#' @param data_matrix_list_alt List of data frames simulated under the
+#'   alternative.
 #' @param alt_effect Numeric vector of alternative treatment effects.
 #' @param alpha Significance level.
 #'
-#' @return return a simulation object for primary analysis
+#' @return An object of class `simulation_primary_obj`.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' simulation_primary_obj <- setup_simulation_primary(
-#'   data_matrix_list_null = data_matrix_list_null, # two scenarios
-#'   data_matrix_list_alt = data_matrix_list_alt,
-#'   trial_status_col_name = trial_status_col_name,
-#'   treatment_col_name = treatment_col_name,
-#'   outcome_col_name = outcome_col_name,
-#'   covariates_col_name = covariates_col_name,
-#'   method_obj_list = method_obj_list,
-#'   true_effect = true_effect,
-#'   alt_effect = alt_effect,
-#'   alpha = alpha,
-#'   method_description = c(
-#'     "IPW, optimal weight",
-#'     "AIPW, optimal weight",
-#'     "IPW, zero weight",
-#'     "AIPW, zero weight"
-#'   )
+#' setup_simulation_primary(
+#'   data_matrix_list_null = data_matrix_list_null,
+#'   trial_status_col_name = "S",
+#'   treatment_col_name = "A",
+#'   outcome_col_name = c("y1", "y2"),
+#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+#'   method_obj_list = list(setup_method(method_name = "AIPW")),
+#'   true_effect = c(0, 0),
+#'   method_description = "AIPW"
 #' )
 #' }
 setup_simulation_primary <- function(data_matrix_list_null,
@@ -191,10 +179,20 @@ setup_simulation_primary <- function(data_matrix_list_null,
                                      data_matrix_list_alt = list(),
                                      alt_effect = numeric(0),
                                      alpha = 0.05) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
+  checkmate::assert_list(data_matrix_list_null, min.len = 1)
+  for (i in seq_along(data_matrix_list_null)) {
+    checkmate::assert_data_frame(data_matrix_list_null[[i]])
+  }
+  checkmate::assert_numeric(true_effect, min.len = 1)
+  checkmate::assert_list(data_matrix_list_alt)
+  for (i in seq_along(data_matrix_list_alt)) {
+    checkmate::assert_data_frame(data_matrix_list_alt[[i]])
+  }
+  checkmate::assert_numeric(alt_effect)
 
   simulation_primary_obj <- .simulation_primary_obj(
     data_matrix_list_null = data_matrix_list_null,
@@ -211,7 +209,6 @@ setup_simulation_primary <- function(data_matrix_list_null,
   )
 }
 
-
 #' Construct a simulation object for OLE analysis
 #'
 #' @param data_matrix_list List of simulated data frames.
@@ -220,34 +217,29 @@ setup_simulation_primary <- function(data_matrix_list_null,
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
-#' @param T_cross Integer crossover time point.
+#' @param T_cross Numeric crossover time point.
 #' @param true_effect Numeric vector of true treatment effects.
-#' @param method_description Character vector of method labels.
+#' @param method_description Character vector of method labels, one per method
+#'   in `method_obj_list`.
 #' @param alpha Significance level.
 #'
-#' @return a simulation object for OLE phase
+#' @return An object of class `simulation_OLE_obj`.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' simulation_OLE_obj <- setup_simulation_OLE(
-#'   data_matrix_list = data_matrix_list, # two scenarios
-#'   trial_status_col_name = trial_status_col_name,
-#'   treatment_col_name = treatment_col_name,
-#'   outcome_col_name = outcome_col_name,
-#'   covariates_col_name = covariates_col_name,
-#'   method_obj_list = method_obj_list,
-#'   true_effect = true_effect_long,
+#' setup_simulation_OLE(
+#'   data_matrix_list = data_matrix_list,
+#'   trial_status_col_name = "S",
+#'   treatment_col_name = "A",
+#'   outcome_col_name = c("y1", "y2"),
+#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+#'   method_obj_list = list(setup_method(method_name = "AIPW")),
 #'   T_cross = 2,
-#'   alpha = alpha,
-#'   method_description = c(
-#'     "IPW, DID",
-#'     "AIPW, DID",
-#'     "OR, DID"
-#'   )
+#'   true_effect = c(0, 0),
+#'   method_description = "AIPW"
 #' )
 #' }
-#'
 setup_simulation_OLE <- function(data_matrix_list,
                                  trial_status_col_name,
                                  treatment_col_name,
@@ -258,10 +250,16 @@ setup_simulation_OLE <- function(data_matrix_list,
                                  true_effect,
                                  method_description,
                                  alpha = 0.05) {
-  # TODO: sanity check
-  # correct initialization of objects
-  # correct dimension compatible
-  # validity
+  .validate_simulation_base(
+    trial_status_col_name, treatment_col_name, outcome_col_name,
+    covariates_col_name, method_obj_list, method_description, alpha
+  )
+  checkmate::assert_list(data_matrix_list, min.len = 1)
+  for (i in seq_along(data_matrix_list)) {
+    checkmate::assert_data_frame(data_matrix_list[[i]])
+  }
+  checkmate::assert_number(T_cross, lower = 0)
+  checkmate::assert_numeric(true_effect, min.len = 1)
 
   simulation_OLE_obj <- .simulation_OLE_obj(
     data_matrix_list = data_matrix_list,

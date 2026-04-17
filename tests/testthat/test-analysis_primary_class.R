@@ -1,0 +1,56 @@
+test_that("setup_analysis_primary returns valid object", {
+  obj <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = setup_method_weighting(method_name = "IPW")
+  )
+  expect_s4_class(obj, "analysis_primary_obj")
+  expect_identical(obj@method_obj@method_name, "IPW")
+  expect_identical(obj@alpha, 0.05)
+})
+
+test_that("setup_analysis_primary inherits base validation", {
+  expect_error(setup_analysis_primary(
+    data = list(),
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = "y1",
+    covariates_col_name = "x1",
+    method_weighting_obj = setup_method_weighting()
+  ))
+  expect_error(setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "not_a_col",
+    treatment_col_name = "A",
+    outcome_col_name = "y1",
+    covariates_col_name = "x1",
+    method_weighting_obj = setup_method_weighting()
+  ))
+})
+
+test_that("setup_analysis_primary validates method type", {
+  expect_error(setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = "y1",
+    covariates_col_name = "x1",
+    method_weighting_obj = setup_method_DID()
+  ))
+})
+
+test_that("show method prints without error", {
+  obj <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = setup_method_weighting(method_name = "IPW")
+  )
+  expect_output(show(obj), "analysis_primary_obj")
+  expect_output(show(obj), "IPW")
+})
