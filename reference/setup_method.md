@@ -30,3 +30,13 @@ setup_method(
 ## Value
 
 An object of class \`method_obj\`.
+
+## Examples
+
+``` r
+setup_method(
+  method_name = "AIPW",
+  bootstrap_flag = TRUE,
+  bootstrap_obj = setup_bootstrap()
+)
+```

@@ -16,22 +16,18 @@ setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
 
 - bootstrap_CI_type:
 
-  Type of bootstrap CI (e.g. `"bca"`, `"perc"`).
+  Type of bootstrap CI. One of `"bca"`, `"norm"`, `"basic"`, `"stud"`,
+  or `"perc"`.
 
 ## Value
 
-An bootstrap object
+A bootstrap object.
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+bootstrap_obj <- setup_bootstrap(
+  replicates = 2e3,
+  bootstrap_CI_type = "perc"
 )
-} # }
 ```
