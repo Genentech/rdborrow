@@ -29,6 +29,7 @@
 #' )
 #' cor(X, method = "spearman")
 simulate_X_copula <- function(n, p, cp, margins, paramMargins) {
+  # validate inputs----
   checkmate::assert_count(n, positive = TRUE)
   checkmate::assert_count(p, positive = TRUE)
   checkmate::assert_class(cp, "copula")
@@ -40,6 +41,7 @@ simulate_X_copula <- function(n, p, cp, margins, paramMargins) {
     ))
   }
 
+  # build multivariate distribution and sample----
   multivariate_dist <- mvdc(
     copula = cp,
     margins = margins,

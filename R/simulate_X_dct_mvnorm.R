@@ -36,6 +36,7 @@
 #' )
 simulate_X_dct_mvnorm <- function(n, p, mu = rep(0, p), sig = diag(p),
                                    cat_cols = c(), cat_prob = list()) {
+  # validate inputs----
   checkmate::assert_count(n, positive = TRUE)
   checkmate::assert_count(p, positive = TRUE)
   checkmate::assert_numeric(mu, len = p)
@@ -44,9 +45,12 @@ simulate_X_dct_mvnorm <- function(n, p, mu = rep(0, p), sig = diag(p),
                                null.ok = TRUE)
   checkmate::assert_list(cat_prob, len = length(cat_cols))
 
+  # draw from multivariate normal----
   p_cat <- length(cat_cols)
   covariate <- rmvnorm(n, mean = mu, sigma = sig)
 
+  # discretize selected columns----
+  # uses normal quantiles from cat_prob as cutpoints to bin into 0, 1, ..., K-1
   if (p_cat > 0) {
     covariate[, cat_cols] <- sapply(1:p_cat, function(k) {
       cut_val <- qnorm(
