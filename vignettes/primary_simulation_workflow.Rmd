@@ -1,6 +1,6 @@
 ---
 title: "Simulation Workflow for Primary Analysis"
-author: "Lei"
+author: "Lei Shi"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -23,6 +23,12 @@ library(rdborrow)
 
 
 ## Primary analysis
+
+This vignette demonstrates Monte Carlo simulation for evaluating the
+EC-IPW and EC-AIPW weighting estimators proposed in
+[Zhou et al. (2024)](https://doi.org/10.1093/jrsssa/qnae075)
+for the primary (placebo-controlled) phase.
+
 ### 1 Simulate a list of datasets for primary analysis
 
 #### 1.1 Create basic setup
@@ -388,3 +394,8 @@ simulation_report_bs
 
 
 The above code generates a report for the simulation results.
+
+## References
+
+- Zhou X, Zhu J, Drake C, Pang H (2024). "Causal estimators for incorporating external controls in randomized trials with longitudinal outcomes." *Journal of the Royal Statistical Society Series A: Statistics in Society*. doi: [10.1093/jrsssa/qnae075](https://doi.org/10.1093/jrsssa/qnae075).
+- Shi L, Pang H, Chen C, Zhu J (2025). "rdborrow: an R package for causal inference incorporating external controls in randomized controlled trials with longitudinal outcomes." *Journal of Biopharmaceutical Statistics*, 35(6), 1043-1066. doi: [10.1080/10543406.2025.2489283](https://doi.org/10.1080/10543406.2025.2489283).
