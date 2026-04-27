@@ -5,9 +5,6 @@
 \alias{simulation_OLE_obj-class}
 \alias{.simulation_OLE_obj}
 \title{Simulation for OLE study}
-\value{
-a simulation object for OLE phase
-}
 \description{
 Simulation for OLE study
 }

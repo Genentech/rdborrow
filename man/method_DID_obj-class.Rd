@@ -4,9 +4,9 @@
 \name{method_DID_obj-class}
 \alias{method_DID_obj-class}
 \alias{.method_DID_obj}
-\title{method class}
+\title{Method DID class}
 \description{
-method class
+Method DID class
 }
 \section{Slots}{
 
@@ -19,21 +19,6 @@ method class
 
 \item{\code{model_form_piS}}{Formula string for trial participation model.}
 
-\item{\code{bootstrap_flag}}{Logical indicating whether bootstrap inference is used.}
-
 \item{\code{model_form_piA}}{Formula string for treatment assignment model.}
-
-\item{\code{bootstrap_obj}}{A bootstrap_obj with bootstrap settings.}
 }}
 
-\examples{
-\dontrun{
-method_DID_obj <- setup_method_DID(
-  method_name = "IPW",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
-)
-}
-}

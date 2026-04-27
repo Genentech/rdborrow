@@ -1,15 +1,23 @@
-#' simulate X by coupling several marginal distributions using copula
-#' @param n total number of units simulated
-#' @param p dimension of the parameters
-#' @param cp copula
-#' @param margins marginal distributions
-#' @param paramMargins parameters for the marginal distributions
-#' @return a list contains simulated data and true ATE
+#' Simulate covariates using a copula
+#'
+#' Couples several marginal distributions using a copula to generate
+#' correlated multivariate covariates.
+#'
+#' @param n Positive integer. Number of units to simulate.
+#' @param p Positive integer. Number of covariates. Must equal the
+#'   dimension of `cp`.
+#' @param cp A copula object (from the `copula` package).
+#' @param margins Character vector of length `p`. Names of marginal
+#'   distributions (e.g. `"norm"`, `"binom"`).
+#' @param paramMargins List of length `p`. Each element is a named list
+#'   of parameters for the corresponding marginal distribution.
+#'
+#' @return A data frame with `n` rows and `p` columns named `x1`,
+#'   ..., `xp`.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' normal <- normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
+#' normal <- copula::normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
 #' X <- simulate_X_copula(1000, 4, normal,
 #'   margins = c("norm", "t", "norm", "binom"),
 #'   paramMargins = list(
@@ -20,10 +28,17 @@
 #'   )
 #' )
 #' cor(X, method = "spearman")
-#' }
 simulate_X_copula <- function(n, p, cp, margins, paramMargins) {
-  # TODO: sanity check
-  # p and cp
+  checkmate::assert_count(n, positive = TRUE)
+  checkmate::assert_count(p, positive = TRUE)
+  checkmate::assert_class(cp, "copula")
+  checkmate::assert_character(margins, len = p)
+  checkmate::assert_list(paramMargins, len = p)
+  if (cp@dimension != p) {
+    stop(paste0(
+      "`p` must equal the dimension of `cp` (", cp@dimension, "), not ", p, "."
+    ))
+  }
 
   multivariate_dist <- mvdc(
     copula = cp,
@@ -31,13 +46,7 @@ simulate_X_copula <- function(n, p, cp, margins, paramMargins) {
     paramMargins = paramMargins
   )
 
-
-  # flog.debug(paste("trial has sample size =", n, "\n"))
-  # print(multivariate_dist)
-
   covariate <- rMvdc(n, multivariate_dist)
-  # flog.debug(paste("User chose to simulate continuous covariate. \n"))
-
   colnames(covariate) <- paste0("x", 1:p)
   data.frame(covariate)
 }

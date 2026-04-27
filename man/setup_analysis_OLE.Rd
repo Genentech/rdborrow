@@ -26,27 +26,27 @@ setup_analysis_OLE(
 
 \item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_OLE_obj}{A method object for OLE analysis.}
+\item{method_OLE_obj}{A method object of class `method_OLE_obj` for OLE
+analysis.}
 
-\item{T_cross}{Integer crossover time point.}
+\item{T_cross}{Numeric crossover time point.}
 
 \item{alpha}{Significance level (default 0.05).}
 }
 \value{
-An analysis object [`Analysis`][Analysis-class]
+An object of class `analysis_OLE_obj`.
 }
 \description{
 Construct an analysis_OLE object
 }
 \examples{
-\dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+setup_analysis_OLE(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2", "y3", "y4"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_OLE_obj = setup_method_DID(method_name = "IPW"),
+  T_cross = 2
 )
-}
-
 }

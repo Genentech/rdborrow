@@ -20,21 +20,29 @@ setup_method_SCM(
 
 \item{bootstrap_flag}{logical. Whether to use bootstrap for inference.}
 
-\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.}
+\item{bootstrap_obj}{bootstrap_obj. An object of class `bootstrap_obj`
+containing bootstrap settings.}
 
-\item{lambda.min}{numeric. The minimum value of the regularization parameter lambda for SCM.}
+\item{lambda.min}{numeric. Minimum value of the regularization parameter.}
 
-\item{lambda.max}{numeric. The maximum value of the regularization parameter lambda for SCM.}
+\item{lambda.max}{numeric. Maximum value of the regularization parameter.}
 
-\item{nlambda}{numeric. The number of lambda values to consider for SCM.}
+\item{nlambda}{numeric. Number of lambda values for cross-validation.}
 
-\item{parallel}{character. The type of parallelization to use for SCM (e.g., "no", "multicore", "snow").}
+\item{parallel}{character. Parallelization type (`"no"`, `"multicore"`, or
+`"snow"`).}
 
-\item{ncpus}{numeric. The number of CPU cores to use for parallelization in SCM.}
+\item{ncpus}{numeric. Number of CPU cores to use for parallelization.}
 }
 \value{
 An object of class `method_SCM_obj`.
 }
 \description{
 Construct a method_SCM object
+}
+\examples{
+setup_method_SCM(
+  lambda.min = 0,
+  lambda.max = 1e-3
+)
 }
