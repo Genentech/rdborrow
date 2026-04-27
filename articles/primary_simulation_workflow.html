@@ -50,7 +50,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simulation Workflow for Primary Analysis</h1>
-                        <h4 data-toc-skip class="author">Lei</h4>
+                        <h4 data-toc-skip class="author">Lei Shi</h4>
             
             <h4 data-toc-skip class="date">2026-04-27</h4>
       
@@ -63,6 +63,9 @@
 <div class="section level2">
 <h2 id="primary-analysis">Primary analysis<a class="anchor" aria-label="anchor" href="#primary-analysis"></a>
 </h2>
+<p>This vignette demonstrates Monte Carlo simulation for evaluating the
+EC-IPW and EC-AIPW weighting estimators proposed in <a href="https://doi.org/10.1093/jrsssa/qnae075" class="external-link">Zhou et al. (2024)</a> for
+the primary (placebo-controlled) phase.</p>
 <div class="section level3">
 <h3 id="simulate-a-list-of-datasets-for-primary-analysis">1 Simulate a list of datasets for primary analysis<a class="anchor" aria-label="anchor" href="#simulate-a-list-of-datasets-for-primary-analysis"></a>
 </h3>
@@ -1082,6 +1085,20 @@
 <span><span class="co">#&gt; 4            0 1.0000000</span></span></code></pre></div>
 <p>The above code generates a report for the simulation results.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li>Zhou X, Zhu J, Drake C, Pang H (2024). “Causal estimators for
+incorporating external controls in randomized trials with longitudinal
+outcomes.” <em>Journal of the Royal Statistical Society Series A:
+Statistics in Society</em>. doi: <a href="https://doi.org/10.1093/jrsssa/qnae075" class="external-link">10.1093/jrsssa/qnae075</a>.</li>
+<li>Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
+causal inference incorporating external controls in randomized
+controlled trials with longitudinal outcomes.” <em>Journal of
+Biopharmaceutical Statistics</em>, 35(6), 1043-1066. doi: <a href="https://doi.org/10.1080/10543406.2025.2489283" class="external-link">10.1080/10543406.2025.2489283</a>.</li>
+</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

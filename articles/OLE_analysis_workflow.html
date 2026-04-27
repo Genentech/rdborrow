@@ -50,7 +50,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>OLE Analysis Workflow</h1>
-                        <h4 data-toc-skip class="author">Lei</h4>
+                        <h4 data-toc-skip class="author">Lei Shi</h4>
             
             <h4 data-toc-skip class="date">2026-04-27</h4>
       
@@ -63,6 +63,11 @@
 <div class="section level2">
 <h2 id="ole-phase">OLE phase<a class="anchor" aria-label="anchor" href="#ole-phase"></a>
 </h2>
+<p>This vignette demonstrates the open-label extension (OLE) phase
+analysis workflow using the difference-in-differences (DID) and
+synthetic control method (SCM) estimators proposed in <a href="https://doi.org/10.1080/10543406.2024.2444222" class="external-link">Zhou et
+al. (2024)</a> for estimating long-term treatment effects when the
+control group switches to treatment.</p>
 <div class="section level3">
 <h3 id="did-methods">1 DID methods<a class="anchor" aria-label="anchor" href="#did-methods"></a>
 </h3>
@@ -232,7 +237,7 @@
 <span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span>
 <span><span class="co">## Solution may be inaccurate. Try another solver, adjusting the solver settings,</span></span>
 <span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span></code></pre>
-<pre><code><span><span class="co">## time elapsed for bootstrap:  9.41</span></span></code></pre>
+<pre><code><span><span class="co">## time elapsed for bootstrap:  8.95</span></span></code></pre>
 <pre><code><span><span class="co">##      point_estimates lower_CI_boot upper_CI_boot</span></span>
 <span><span class="co">## tau3        2.134082     0.6776431      4.008635</span></span>
 <span><span class="co">## tau4        3.950783     1.3126432      6.895732</span></span></code></pre>
@@ -279,11 +284,25 @@
 <span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span>
 <span><span class="co">## Solution may be inaccurate. Try another solver, adjusting the solver settings,</span></span>
 <span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span></code></pre>
-<pre><code><span><span class="co">## time elapsed for bootstrap:  9.72</span></span></code></pre>
+<pre><code><span><span class="co">## time elapsed for bootstrap:  9.52</span></span></code></pre>
 <pre><code><span><span class="co">##      point_estimates lower_CI_boot upper_CI_boot</span></span>
 <span><span class="co">## tau3        2.134082     0.5584951      3.910489</span></span>
 <span><span class="co">## tau4        3.950783     1.1203356      7.356058</span></span></code></pre>
 </div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li>Zhou X, Pang H, Drake C, Burger HU, Zhu J (2024). “Estimating
+treatment effect in randomized trial after control to treatment
+crossover using external controls.” <em>Journal of Biopharmaceutical
+Statistics</em>. doi: <a href="https://doi.org/10.1080/10543406.2024.2444222" class="external-link">10.1080/10543406.2024.2444222</a>.</li>
+<li>Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
+causal inference incorporating external controls in randomized
+controlled trials with longitudinal outcomes.” <em>Journal of
+Biopharmaceutical Statistics</em>, 35(6), 1043-1066. doi: <a href="https://doi.org/10.1080/10543406.2025.2489283" class="external-link">10.1080/10543406.2025.2489283</a>.</li>
+</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

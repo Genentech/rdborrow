@@ -2,6 +2,11 @@
 
 ## Primary analysis
 
+This vignette demonstrates the primary analysis workflow using the
+EC-IPW and EC-AIPW weighting estimators proposed in [Zhou et
+al. (2024)](https://doi.org/10.1093/jrsssa/qnae075) for incorporating
+external controls in randomized trials with longitudinal outcomes.
+
 ### 1 load and visualize data
 
 ``` r
@@ -239,3 +244,16 @@ res <- run_analysis(analysis_primary_obj)
     etc.) to obtain a dataset without missingness, then apply the
     package. For general methodology development regarding missing
     values, we save it for future research work.
+
+## References
+
+- Zhou X, Zhu J, Drake C, Pang H (2024). “Causal estimators for
+  incorporating external controls in randomized trials with longitudinal
+  outcomes.” *Journal of the Royal Statistical Society Series A:
+  Statistics in Society*. doi:
+  [10.1093/jrsssa/qnae075](https://doi.org/10.1093/jrsssa/qnae075).
+- Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
+  causal inference incorporating external controls in randomized
+  controlled trials with longitudinal outcomes.” *Journal of
+  Biopharmaceutical Statistics*, 35(6), 1043-1066. doi:
+  [10.1080/10543406.2025.2489283](https://doi.org/10.1080/10543406.2025.2489283).

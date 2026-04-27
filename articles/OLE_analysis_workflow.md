@@ -2,6 +2,13 @@
 
 ## OLE phase
 
+This vignette demonstrates the open-label extension (OLE) phase analysis
+workflow using the difference-in-differences (DID) and synthetic control
+method (SCM) estimators proposed in [Zhou et
+al. (2024)](https://doi.org/10.1080/10543406.2024.2444222) for
+estimating long-term treatment effects when the control group switches
+to treatment.
+
 ### 1 DID methods
 
 #### 1.1 IPW
@@ -177,7 +184,7 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  9.41
+    ## time elapsed for bootstrap:  8.95
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.6776431      4.008635
@@ -228,8 +235,21 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  9.72
+    ## time elapsed for bootstrap:  9.52
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.5584951      3.910489
     ## tau4        3.950783     1.1203356      7.356058
+
+## References
+
+- Zhou X, Pang H, Drake C, Burger HU, Zhu J (2024). “Estimating
+  treatment effect in randomized trial after control to treatment
+  crossover using external controls.” *Journal of Biopharmaceutical
+  Statistics*. doi:
+  [10.1080/10543406.2024.2444222](https://doi.org/10.1080/10543406.2024.2444222).
+- Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
+  causal inference incorporating external controls in randomized
+  controlled trials with longitudinal outcomes.” *Journal of
+  Biopharmaceutical Statistics*, 35(6), 1043-1066. doi:
+  [10.1080/10543406.2025.2489283](https://doi.org/10.1080/10543406.2025.2489283).
