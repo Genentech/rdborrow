@@ -1,28 +1,44 @@
-# trial participation status
-## TODO: generalize to incorporate other models
-#' Simulate trial status indicator
+#' Simulate trial participation status
 #'
-#' @param X Data frame of covariates.
-#' @param model_specs List with \code{family} and \code{coef} for the participation model.
+#' Simulates a binary trial participation indicator using a logistic
+#' model. The probability of participation is
+#' `inv.logit(X_intercept %*% coef)`, where `X_intercept` is the
+#' covariate matrix with an intercept column prepended.
 #'
-#' @return a data frame containing the trial status vector
+#' @param X Data frame of covariates. The number of columns must
+#'   equal `length(model_specs$coef) - 1` (the intercept is added
+#'   automatically).
+#' @param model_specs List with:
+#'   \describe{
+#'     \item{`family`}{Character string. Currently only `"binomial"`
+#'       is supported.}
+#'     \item{`coef`}{Numeric vector of length `ncol(X) + 1`.
+#'       Logistic regression coefficients (intercept first).}
+#'   }
+#'
+#' @return A single-column data frame with column `S` (1 = RCT
+#'   participant, 0 = external control).
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' X <- data.frame(x1 = rnorm(20), x2 = rnorm(20))
 #' S <- simulate_trial_status(X, model_specs = list(
 #'   family = "binomial",
-#'   coef = c(1, 2, 3)
+#'   coef = c(0, 0.5, -0.5)
 #' ))
-#' }
 simulate_trial_status <- function(X, model_specs) {
+  # validate inputs----
+  checkmate::assert_data_frame(X, min.rows = 1)
+  checkmate::assert_list(model_specs)
+  checkmate::assert_choice(model_specs$family, choices = "binomial")
+  checkmate::assert_numeric(model_specs$coef, len = ncol(X) + 1)
+
+  # compute participation probability and draw----
   n <- nrow(X)
   X_intercept <- cbind(intercept = 1, X)
-  if (model_specs$family == "binomial") {
-    beta <- model_specs$coef
-    piS <- inv.logit(as.matrix(X_intercept) %*% beta)
-    #    piS = exp(log(2)+beta.X*X+beta.U*U)/(1+exp(log(2)+beta.X*X+beta.U*U))
-  }
+  beta <- model_specs$coef
+  piS <- inv.logit(as.matrix(X_intercept) %*% beta)
+
   S <- rbinom(n, size = 1, prob = piS)
   data.frame(S = S)
 }
