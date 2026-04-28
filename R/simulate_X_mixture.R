@@ -49,7 +49,7 @@
 #'   )
 #' )
 simulate_X_mixture <- function(n, p_cat, p_cont, cat_level_list,
-                                cat_comb_prob, cont_para_list) {
+                               cat_comb_prob, cont_para_list) {
   # validate inputs----
   checkmate::assert_count(n, positive = TRUE)
   checkmate::assert_count(p_cat)

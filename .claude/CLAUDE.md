@@ -28,12 +28,18 @@ Rscript -e "pkgdown::check_pkgdown()"
 Rscript -e "devtools::check()"
 
 # To format code
-air format .
+Rscript -e "styler::style_pkg()"
+
+# To check spelling
+Rscript -e "spelling::spell_check_package()"
+
+# To lint the package
+Rscript -e "lintr::lint_package()"
 ```
 
 ### Coding
 
-* Always run `air format .` after generating code
+* Always run `Rscript -e "styler::style_pkg()"` after generating code
 * Use the base pipe operator (`|>`) not the magrittr pipe (`%>%`)
 * Don't use `_$x` or `_$[["x"]]` since this package must work on R 4.1.
 * Use `\() ...` for single-line anonymous functions. For all other cases, use `function() {...}`

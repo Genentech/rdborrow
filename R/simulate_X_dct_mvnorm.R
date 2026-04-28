@@ -35,14 +35,16 @@
 #'   cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7))
 #' )
 simulate_X_dct_mvnorm <- function(n, p, mu = rep(0, p), sig = diag(p),
-                                   cat_cols = c(), cat_prob = list()) {
+                                  cat_cols = c(), cat_prob = list()) {
   # validate inputs----
   checkmate::assert_count(n, positive = TRUE)
   checkmate::assert_count(p, positive = TRUE)
   checkmate::assert_numeric(mu, len = p)
   checkmate::assert_matrix(sig, nrows = p, ncols = p)
-  checkmate::assert_integerish(cat_cols, lower = 1, upper = p, any.missing = FALSE,
-                               null.ok = TRUE)
+  checkmate::assert_integerish(cat_cols,
+    lower = 1, upper = p, any.missing = FALSE,
+    null.ok = TRUE
+  )
   checkmate::assert_list(cat_prob, len = length(cat_cols))
 
   # draw from multivariate normal----

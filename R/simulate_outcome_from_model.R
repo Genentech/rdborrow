@@ -66,7 +66,7 @@ simulate_outcome_from_model <- function(X, A, outcome_model_specs, OLE_flag, T_c
   compute_outcome <- function(spec, trt_indicator) {
     coefs <- spec$model_form_x
     linear_pred <- trt_indicator * spec$effect + X_design[, names(coefs)] %*% coefs
-    as.numeric(linear_pred) + rnorm(n, mean = spec$noise_mean, sd = spec$noise_sd)
+    as.numeric(linear_pred) + stats::rnorm(n, mean = spec$noise_mean, sd = spec$noise_sd)
   }
 
   # simulate outcomes at each time point----
@@ -80,6 +80,6 @@ simulate_outcome_from_model <- function(X, A, outcome_model_specs, OLE_flag, T_c
 
   Y <- data.frame(Y_list)
   colnames(Y) <- paste0("y", seq_len(T_follow))
-  
+
   Y
 }
