@@ -75,29 +75,6 @@ setMethod(
   }
 )
 
-#' Construct a simulation object
-#'
-#' @param trial_status_col_name Name of the trial status column.
-#' @param treatment_col_name Name of the treatment column.
-#' @param outcome_col_name Character vector of outcome column names.
-#' @param covariates_col_name Character vector of covariate column names.
-#' @param method_obj_list List of method objects to evaluate.
-#' @param method_description Character vector of method labels, one per method
-#'   in `method_obj_list`.
-#' @param alpha Significance level.
-#'
-#' @return An object of class `simulation_obj`.
-#' @export
-#'
-#' @examples
-#' setup_simulation(
-#'   trial_status_col_name = "S",
-#'   treatment_col_name = "A",
-#'   outcome_col_name = c("y1", "y2"),
-#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-#'   method_obj_list = list(setup_method(method_name = "AIPW")),
-#'   method_description = "AIPW"
-#' )
 .validate_simulation_base <- function(trial_status_col_name, treatment_col_name,
                                       outcome_col_name, covariates_col_name,
                                       method_obj_list, method_description, alpha) {
@@ -113,6 +90,7 @@ setMethod(
   checkmate::assert_number(alpha, lower = 0, upper = 1)
 }
 
+#' @noRd
 setup_simulation <- function(trial_status_col_name,
                              treatment_col_name,
                              outcome_col_name,

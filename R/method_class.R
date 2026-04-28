@@ -24,22 +24,6 @@
   contains = "method_obj"
 )
 
-#' Construct a method object
-#'
-#' @param method_name character. Name of the method.
-#' @param bootstrap_flag logical. Whether to use bootstrap for inference.
-#' @param bootstrap_obj bootstrap_obj. An object of class `bootstrap_obj`
-#'   containing bootstrap settings.
-#'
-#' @return An object of class `method_obj`.
-#' @export
-#'
-#' @examples
-#' setup_method(
-#'   method_name = "AIPW",
-#'   bootstrap_flag = TRUE,
-#'   bootstrap_obj = setup_bootstrap()
-#' )
 .validate_method_base <- function(method_name, bootstrap_flag, bootstrap_obj) {
   checkmate::assert_string(method_name)
   checkmate::assert_flag(bootstrap_flag)
