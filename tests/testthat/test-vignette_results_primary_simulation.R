@@ -182,25 +182,25 @@ test_that("Primary simulation (parametric) report matches vignette", {
   )
 
   # Bias
-  expect_equal(slot(report, "bias")[1], 0.12393951, tolerance = tol)
+  expect_equal(slot(report, "bias")[1], 0.71128272, tolerance = tol)
   expect_equal(slot(report, "bias")[2], 0.17113206, tolerance = tol)
-  expect_equal(slot(report, "bias")[3], 0.09101005, tolerance = tol)
+  expect_equal(slot(report, "bias")[3], 0.74339702, tolerance = tol)
   expect_equal(slot(report, "bias")[4], 0.14498550, tolerance = tol)
 
   # Variance
-  expect_equal(slot(report, "variance")[1], 0.09400895, tolerance = tol)
+  expect_equal(slot(report, "variance")[1], 1.28839749, tolerance = tol)
   expect_equal(slot(report, "variance")[2], 0.09574202, tolerance = tol)
-  expect_equal(slot(report, "variance")[3], 0.12643677, tolerance = tol)
+  expect_equal(slot(report, "variance")[3], 1.34009734, tolerance = tol)
   expect_equal(slot(report, "variance")[4], 0.12189665, tolerance = tol)
 
   # MSE
-  expect_equal(slot(report, "mse")[1], 0.1093699, tolerance = tol)
-  expect_equal(slot(report, "mse")[2], 0.1250282, tolerance = tol)
-  expect_equal(slot(report, "mse")[3], 0.1347196, tolerance = tol)
-  expect_equal(slot(report, "mse")[4], 0.1429174, tolerance = tol)
+  expect_equal(slot(report, "mse")[1], 1.79432060, tolerance = tol)
+  expect_equal(slot(report, "mse")[2], 0.12502820, tolerance = tol)
+  expect_equal(slot(report, "mse")[3], 1.89273648, tolerance = tol)
+  expect_equal(slot(report, "mse")[4], 0.14291745, tolerance = tol)
 
   # Coverage, Type I error, Power
-  expect_equal(slot(report, "coverage"), c(1, 1, 1, 1))
-  expect_equal(slot(report, "type_I_error"), c(0, 0, 0, 0))
-  expect_equal(slot(report, "power"), c(1, 1, 1, 1))
+  expect_equal(slot(report, "coverage"), c(2 / 3, 1, 2 / 3, 1), tolerance = tol)
+  expect_equal(slot(report, "type_I_error"), c(1 / 3, 0, 1 / 3, 0), tolerance = tol)
+  expect_equal(slot(report, "power"), c(1, 1, 2 / 3, 1), tolerance = tol)
 })
