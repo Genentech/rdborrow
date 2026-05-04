@@ -46,17 +46,21 @@ An object of class `simulation_OLE_obj`.
 Construct a simulation object for OLE analysis
 }
 \examples{
-\dontrun{
 setup_simulation_OLE(
-  data_matrix_list = data_matrix_list,
+  data_matrix_list = list(SyntheticData),
   trial_status_col_name = "S",
   treatment_col_name = "A",
-  outcome_col_name = c("y1", "y2"),
+  outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-  method_obj_list = list(setup_method(method_name = "AIPW")),
+  method_obj_list = list(setup_method_DID(
+    method_name = "IPW",
+    bootstrap_flag = TRUE,
+    bootstrap_obj = setup_bootstrap(),
+    model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
+    model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
+  )),
   T_cross = 2,
   true_effect = c(0, 0),
-  method_description = "AIPW"
+  method_description = "IPW, DID"
 )
-}
 }
