@@ -104,19 +104,23 @@ in `method_obj_list`.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu">setup_simulation_OLE</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  data_matrix_list <span class="op">=</span> <span class="va">data_matrix_list</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">setup_simulation_OLE</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data_matrix_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">SyntheticData</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span></span>
 <span class="r-in"><span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span></span>
-<span class="r-in"><span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">setup_method</span><span class="op">(</span>method_name <span class="op">=</span> <span class="st">"AIPW"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="setup_method_DID.html">setup_method_DID</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span></span>
+<span class="r-in"><span>    bootstrap_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    bootstrap_obj <span class="op">=</span> <span class="fu"><a href="setup_bootstrap.html">setup_bootstrap</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span></span>
+<span class="r-in"><span>    model_form_piA <span class="op">=</span> <span class="st">"A ~ x1 + x2 + x3 + x4 + x5"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  T_cross <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"AIPW"</span></span></span>
+<span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"IPW, DID"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
