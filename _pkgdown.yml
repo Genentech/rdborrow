@@ -35,7 +35,6 @@ reference:
   - title: Analysis
     desc: Set up and run analyses
     contents:
-      - setup_analysis
       - setup_analysis_primary
       - setup_analysis_OLE
       - run_analysis
@@ -43,7 +42,6 @@ reference:
   - title: Simulation
     desc: Set up and run simulations
     contents:
-      - setup_simulation
       - setup_simulation_primary
       - setup_simulation_OLE
       - run_simulation
@@ -52,7 +50,6 @@ reference:
   - title: Method Configuration
     desc: Configure estimation methods
     contents:
-      - setup_method
       - setup_method_weighting
       - setup_method_DID
       - setup_method_SCM
