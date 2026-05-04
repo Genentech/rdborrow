@@ -101,3 +101,11 @@ We're attemping to refactor many issues with this repositroy. In general, let's:
 - replace "=" with "<-"
 - make sure every function is documented
 - add validation to function inputs
+
+## Before committing
+
+Run this one-liner to validate the package before committing:
+
+```
+Rscript -e "devtools::document()" && Rscript -e "styler::style_pkg()" && Rscript -e "spelling::spell_check_package()" && Rscript -e "lintr::lint_package()" && Rscript -e "devtools::check(vignettes = FALSE)"
+```
