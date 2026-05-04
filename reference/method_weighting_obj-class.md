@@ -1,6 +1,6 @@
-# method weighting class
+# Method weighting class
 
-method weighting class
+Method weighting class
 
 ## Slots
 
@@ -31,17 +31,3 @@ method weighting class
 - `model_form_piA`:
 
   Formula string for treatment assignment model.
-
-## Examples
-
-``` r
-if (FALSE) { # \dontrun{
-method_IPW_optimal_weight <- setup_method_weighting(
-  method_name = "IPW",
-  optimal_weight_flag = TRUE,
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-)
-} # }
-```

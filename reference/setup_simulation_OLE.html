@@ -81,7 +81,7 @@
 
 
 <dt id="arg-t-cross">T_cross<a class="anchor" aria-label="anchor" href="#arg-t-cross"></a></dt>
-<dd><p>Integer crossover time point.</p></dd>
+<dd><p>Numeric crossover time point.</p></dd>
 
 
 <dt id="arg-true-effect">true_effect<a class="anchor" aria-label="anchor" href="#arg-true-effect"></a></dt>
@@ -89,7 +89,8 @@
 
 
 <dt id="arg-method-description">method_description<a class="anchor" aria-label="anchor" href="#arg-method-description"></a></dt>
-<dd><p>Character vector of method labels.</p></dd>
+<dd><p>Character vector of method labels, one per method
+in `method_obj_list`.</p></dd>
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
@@ -98,30 +99,24 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a simulation object for OLE phase</p>
+    <p>An object of class `simulation_OLE_obj`.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">simulation_OLE_obj</span> <span class="op">&lt;-</span> <span class="fu">setup_simulation_OLE</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  data_matrix_list <span class="op">=</span> <span class="va">data_matrix_list</span>, <span class="co"># two scenarios</span></span></span>
-<span class="r-in"><span>  trial_status_col_name <span class="op">=</span> <span class="va">trial_status_col_name</span>,</span></span>
-<span class="r-in"><span>  treatment_col_name <span class="op">=</span> <span class="va">treatment_col_name</span>,</span></span>
-<span class="r-in"><span>  outcome_col_name <span class="op">=</span> <span class="va">outcome_col_name</span>,</span></span>
-<span class="r-in"><span>  covariates_col_name <span class="op">=</span> <span class="va">covariates_col_name</span>,</span></span>
-<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="va">method_obj_list</span>,</span></span>
-<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="va">true_effect_long</span>,</span></span>
+<span class="r-in"><span><span class="fu">setup_simulation_OLE</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data_matrix_list <span class="op">=</span> <span class="va">data_matrix_list</span>,</span></span>
+<span class="r-in"><span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span></span>
+<span class="r-in"><span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span></span>
+<span class="r-in"><span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">setup_method</span><span class="op">(</span>method_name <span class="op">=</span> <span class="st">"AIPW"</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  T_cross <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>  alpha <span class="op">=</span> <span class="va">alpha</span>,</span></span>
-<span class="r-in"><span>  method_description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"IPW, DID"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"AIPW, DID"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"OR, DID"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"AIPW"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

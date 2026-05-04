@@ -44,27 +44,36 @@ setup_method_weighting(
 
 - model_form_piS:
 
-  character. The model formula for the selection model (S).
+  character. Model formula for the selection model (S).
 
 - model_form_mu0_ext:
 
-  character. The model formula for the outcome model in the external
-  data (mu0_ext).
+  character. Model formula for the outcome model in the external data
+  (mu0_ext).
 
 - model_form_piA:
 
-  character. The model formula for the treatment model (A).
+  character. Model formula for the treatment model (A).
 
 - model_form_mu0_rct:
 
-  character. The model formula for the outcome model in the RCT data
-  under control (mu0_rct).
+  character. Model formula for the outcome model in the RCT data under
+  control (mu0_rct).
 
 - model_form_mu1_rct:
 
-  character. The model formula for the outcome model in the RCT data
-  under treatment (mu1_rct).
+  character. Model formula for the outcome model in the RCT data under
+  treatment (mu1_rct).
 
 ## Value
 
 An object of class \`method_weighting_obj\`.
+
+## Examples
+
+``` r
+setup_method_weighting(
+  method_name = "IPW",
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
+```

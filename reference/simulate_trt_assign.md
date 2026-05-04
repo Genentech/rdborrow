@@ -1,6 +1,8 @@
-# Title
+# Simulate treatment assignment
 
-Title
+Randomly assigns treatment to RCT patients (\`S = 1\`) with a given
+probability. External control patients (\`S = 0\`) always receive
+control (\`A = 0\`).
 
 ## Usage
 
@@ -12,28 +14,27 @@ simulate_trt_assign(X, S, prob)
 
 - X:
 
-  Data frame of covariates.
+  Data frame of covariates. Must have the same number of rows as \`S\`.
 
 - S:
 
-  Data frame with trial status indicator.
+  Data frame with a column \`S\` indicating trial status (1 = RCT, 0 =
+  external control).
 
 - prob:
 
-  Probability of treatment assignment.
+  Numeric scalar between 0 and 1. Probability of treatment assignment
+  for RCT patients.
 
 ## Value
 
-Vector A that indicates the treatment status
+A single-column data frame with column \`A\` indicating treatment status
+(1 = treated, 0 = control).
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-A <- simulate_trt_assign(
-  X = SyntheticData %>% select(x1, x2),
-  S = SyntheticData %>% select(S),
-  prob = 1 / 2
-)
-} # }
+X <- SyntheticData[c("x1", "x2")]
+S <- SyntheticData["S"]
+A <- simulate_trt_assign(X, S, prob = 1 / 2)
 ```

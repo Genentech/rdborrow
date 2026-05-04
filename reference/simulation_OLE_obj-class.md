@@ -2,10 +2,6 @@
 
 Simulation for OLE study
 
-## Value
-
-a simulation object for OLE phase
-
 ## Slots
 
 - `data_matrix_list`:

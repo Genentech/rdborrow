@@ -14,6 +14,7 @@ to treatment.
 #### 1.1 IPW
 
 ``` r
+
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
@@ -43,6 +44,7 @@ res <- run_analysis(analysis_OLE_obj)
 #### 1.2 AIPW
 
 ``` r
+
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
@@ -80,6 +82,7 @@ res <- run_analysis(analysis_OLE_obj)
 #### 1.3 OR
 
 ``` r
+
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
@@ -122,6 +125,7 @@ res
 ### 2 SCM method: with parallel computing
 
 ``` r
+
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
@@ -184,7 +188,7 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  8.95
+    ## time elapsed for bootstrap:  9.51
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.6776431      4.008635
@@ -193,6 +197,7 @@ run_analysis(analysis_OLE_obj)
 ### 3 SCM method: without parallel computing
 
 ``` r
+
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
   bootstrap_CI_type = "perc"
@@ -235,7 +240,7 @@ run_analysis(analysis_OLE_obj)
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  9.52
+    ## time elapsed for bootstrap:  9.8
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.134082     0.5584951      3.910489

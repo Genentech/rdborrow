@@ -73,28 +73,31 @@
 
 
 <dt id="arg-bootstrap-obj">bootstrap_obj<a class="anchor" aria-label="anchor" href="#arg-bootstrap-obj"></a></dt>
-<dd><p>bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.</p></dd>
+<dd><p>bootstrap_obj. An object of class `bootstrap_obj`
+containing bootstrap settings.</p></dd>
 
 
 <dt id="arg-model-form-pis">model_form_piS<a class="anchor" aria-label="anchor" href="#arg-model-form-pis"></a></dt>
-<dd><p>character. The model formula for the selection model (S).</p></dd>
+<dd><p>character. Model formula for the selection model (S).</p></dd>
 
 
 <dt id="arg-model-form-mu-ext">model_form_mu0_ext<a class="anchor" aria-label="anchor" href="#arg-model-form-mu-ext"></a></dt>
-<dd><p>character. The model formula for the outcome model in the external data (mu0_ext).</p></dd>
+<dd><p>character. Model formula for the outcome model in
+the external data (mu0_ext).</p></dd>
 
 
 <dt id="arg-model-form-pia">model_form_piA<a class="anchor" aria-label="anchor" href="#arg-model-form-pia"></a></dt>
-<dd><p>character. The model formula for the treatment model (A).</p></dd>
+<dd><p>character. Model formula for the treatment model (A).</p></dd>
 
 
 <dt id="arg-model-form-mu-rct">model_form_mu0_rct<a class="anchor" aria-label="anchor" href="#arg-model-form-mu-rct"></a></dt>
-<dd><p>character. The model formula for the outcome model in the RCT data under control (mu0_rct).</p></dd>
+<dd><p>character. Model formula for the outcome model in
+the RCT data under control (mu0_rct).</p></dd>
 
 
 <dt id="arg-model-form-mu-rct">model_form_mu1_rct<a class="anchor" aria-label="anchor" href="#arg-model-form-mu-rct"></a></dt>
-<dd><p>character. The model formula for the outcome
-model in the RCT data under treatment (mu1_rct).</p></dd>
+<dd><p>character. Model formula for the outcome model in
+the RCT data under treatment (mu1_rct).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,6 +105,14 @@ model in the RCT data under treatment (mu1_rct).</p></dd>
     <p>An object of class `method_weighting_obj`.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">setup_method_weighting</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span></span>
+<span class="r-in"><span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

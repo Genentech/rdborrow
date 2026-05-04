@@ -53,10 +53,8 @@ Trials with Longitudinal Outcomes. R package version 0.0.2.0,
 
 Set up and run analyses
 
-- [`setup_analysis()`](https://genentech.github.io/rdborrow/reference/setup_analysis.md)
-  : Construct an analysis object
 - [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
-  : Construct an analysis_OLE object
+  : Construct an analysis_primary object
 - [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
   : Construct an analysis_OLE object
 - [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
@@ -66,8 +64,6 @@ Set up and run analyses
 
 Set up and run simulations
 
-- [`setup_simulation()`](https://genentech.github.io/rdborrow/reference/setup_simulation.md)
-  : Construct an simulation object
 - [`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
   : Construct a simulation object for primary analysis
 - [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
@@ -81,8 +77,6 @@ Set up and run simulations
 
 Configure estimation methods
 
-- [`setup_method()`](https://genentech.github.io/rdborrow/reference/setup_method.md)
-  : Construct a method object
 - [`setup_method_weighting()`](https://genentech.github.io/rdborrow/reference/setup_method_weighting.md)
   : Construct a method_weighting object
 - [`setup_method_DID()`](https://genentech.github.io/rdborrow/reference/setup_method_DID.md)
@@ -142,18 +136,17 @@ Simulate trial data
 - [`simulate_trial()`](https://genentech.github.io/rdborrow/reference/simulate_trial.md)
   : Simulate trials
 - [`simulate_X_copula()`](https://genentech.github.io/rdborrow/reference/simulate_X_copula.md)
-  : simulate X by coupling several marginal distributions using copula
+  : Simulate covariates using a copula
 - [`simulate_X_dct_mvnorm()`](https://genentech.github.io/rdborrow/reference/simulate_X_dct_mvnorm.md)
-  : simulate X by discretizing a multivariate normal distribution pkg:
-  futile.logger, mvtnorm
+  : Simulate covariates by discretizing a multivariate normal
 - [`simulate_X_mixture()`](https://genentech.github.io/rdborrow/reference/simulate_X_mixture.md)
-  : Simulate X from a mixture model
+  : Simulate covariates from a Gaussian mixture model
 - [`simulate_trt_assign()`](https://genentech.github.io/rdborrow/reference/simulate_trt_assign.md)
-  : Title
+  : Simulate treatment assignment
 - [`simulate_trial_status()`](https://genentech.github.io/rdborrow/reference/simulate_trial_status.md)
-  : Simulate trial status indicator
+  : Simulate trial participation status
 - [`simulate_outcome_from_model()`](https://genentech.github.io/rdborrow/reference/simulate_outcome_from_model.md)
-  : Simulate outcome from given effect additive models
+  : Simulate outcomes from additive linear models
 
 ## Classes
 
@@ -164,7 +157,7 @@ S4 class documentation
   : Analysis class
 - [`analysis_primary_obj-class`](https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.md)
   [`.analysis_primary_obj`](https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.md)
-  : Analysis class
+  : Analysis primary class
 - [`analysis_OLE_obj-class`](https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.md)
   [`.analysis_OLE_obj`](https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.md)
   : Analysis OLE class
@@ -176,13 +169,13 @@ S4 class documentation
   : method class
 - [`method_weighting_obj-class`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
   [`.method_weighting_obj`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
-  : method weighting class
+  : Method weighting class
 - [`method_DID_obj-class`](https://genentech.github.io/rdborrow/reference/method_DID_obj-class.md)
   [`.method_DID_obj`](https://genentech.github.io/rdborrow/reference/method_DID_obj-class.md)
-  : method class
+  : Method DID class
 - [`method_SCM_obj-class`](https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.md)
   [`.method_SCM_obj`](https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.md)
-  : method class
+  : Method SCM class
 - [`simulation_obj-class`](https://genentech.github.io/rdborrow/reference/simulation_obj-class.md)
   [`.simulation_obj`](https://genentech.github.io/rdborrow/reference/simulation_obj-class.md)
   : Simulation class

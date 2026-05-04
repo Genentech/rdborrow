@@ -10,6 +10,7 @@ external controls in randomized trials with longitudinal outcomes.
 ### 1 load and visualize data
 
 ``` r
+
 # load the simulated dataset
 head(SyntheticData)
 ```
@@ -29,6 +30,7 @@ head(SyntheticData)
 1.  IPW with zero weight (wt = 0):
 
 ``` r
+
 # test: within trial
 ## Data argument + column names (coxph, glm)
 method_weighting_obj <- setup_method_weighting(
@@ -62,6 +64,7 @@ res
 2.  IPW with data-adaptive weight:
 
 ``` r
+
 # test: within trial
 method_weighting_obj <- setup_method_weighting(
   method_name = "IPW",
@@ -86,6 +89,7 @@ res$borrow_weight
     ## [1] 0.1475196
 
 ``` r
+
 res$results
 ```
 
@@ -101,6 +105,7 @@ borrowing strategies.
 1.  AIPW with zero weight (wt = 0):
 
 ``` r
+
 # test: AIPW with 0 weight, should be same as IPW with 0 weight
 method_weighting_obj <- setup_method_weighting(
   method_name = "AIPW",
@@ -128,6 +133,7 @@ res <- run_analysis(analysis_primary_obj)
 2.  AIPW with data adaptive weight:
 
 ``` r
+
 # test: AIPW with given weight
 # bootstrap as part of the method and analysis
 method_weighting_obj <- setup_method_weighting(
@@ -160,6 +166,7 @@ Bootstrap confidence intervals with adjusted quantile ranges.
 1.  IPW with bootstrap CI
 
 ``` r
+
 # test: within trial
 ## Data argument + column names (coxph, glm)
 ## having a bootstrap_flag outside the class
@@ -201,6 +208,7 @@ res
 2.  AIPW with bootstrap CI
 
 ``` r
+
 # test: with optimal weight
 ## Data argument + column names (coxph, glm)
 bootstrap_obj <- setup_bootstrap(

@@ -34,27 +34,34 @@ setup_method_SCM(
 
 - lambda.min:
 
-  numeric. The minimum value of the regularization parameter lambda for
-  SCM.
+  numeric. Minimum value of the regularization parameter.
 
 - lambda.max:
 
-  numeric. The maximum value of the regularization parameter lambda for
-  SCM.
+  numeric. Maximum value of the regularization parameter.
 
 - nlambda:
 
-  numeric. The number of lambda values to consider for SCM.
+  numeric. Number of lambda values for cross-validation.
 
 - parallel:
 
-  character. The type of parallelization to use for SCM (e.g., "no",
-  "multicore", "snow").
+  character. Parallelization type (\`"no"\`, \`"multicore"\`, or
+  \`"snow"\`).
 
 - ncpus:
 
-  numeric. The number of CPU cores to use for parallelization in SCM.
+  numeric. Number of CPU cores to use for parallelization.
 
 ## Value
 
 An object of class \`method_SCM_obj\`.
+
+## Examples
+
+``` r
+setup_method_SCM(
+  lambda.min = 0,
+  lambda.max = 1e-3
+)
+```

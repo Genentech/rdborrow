@@ -2,10 +2,6 @@
 
 Simulation for primary analysis
 
-## Value
-
-a simulation object
-
 ## Slots
 
 - `data_matrix_list_null`:

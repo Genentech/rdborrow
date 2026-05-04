@@ -63,27 +63,29 @@
 
 
 <dt id="arg-bootstrap-obj">bootstrap_obj<a class="anchor" aria-label="anchor" href="#arg-bootstrap-obj"></a></dt>
-<dd><p>bootstrap_obj. An object of class `bootstrap_obj` containing bootstrap settings.</p></dd>
+<dd><p>bootstrap_obj. An object of class `bootstrap_obj`
+containing bootstrap settings.</p></dd>
 
 
 <dt id="arg-lambda-min">lambda.min<a class="anchor" aria-label="anchor" href="#arg-lambda-min"></a></dt>
-<dd><p>numeric. The minimum value of the regularization parameter lambda for SCM.</p></dd>
+<dd><p>numeric. Minimum value of the regularization parameter.</p></dd>
 
 
 <dt id="arg-lambda-max">lambda.max<a class="anchor" aria-label="anchor" href="#arg-lambda-max"></a></dt>
-<dd><p>numeric. The maximum value of the regularization parameter lambda for SCM.</p></dd>
+<dd><p>numeric. Maximum value of the regularization parameter.</p></dd>
 
 
 <dt id="arg-nlambda">nlambda<a class="anchor" aria-label="anchor" href="#arg-nlambda"></a></dt>
-<dd><p>numeric. The number of lambda values to consider for SCM.</p></dd>
+<dd><p>numeric. Number of lambda values for cross-validation.</p></dd>
 
 
 <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
-<dd><p>character. The type of parallelization to use for SCM (e.g., "no", "multicore", "snow").</p></dd>
+<dd><p>character. Parallelization type (`"no"`, `"multicore"`, or
+`"snow"`).</p></dd>
 
 
 <dt id="arg-ncpus">ncpus<a class="anchor" aria-label="anchor" href="#arg-ncpus"></a></dt>
-<dd><p>numeric. The number of CPU cores to use for parallelization in SCM.</p></dd>
+<dd><p>numeric. Number of CPU cores to use for parallelization.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,6 +93,14 @@
     <p>An object of class `method_SCM_obj`.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">setup_method_SCM</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lambda.min <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  lambda.max <span class="op">=</span> <span class="fl">1e-3</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

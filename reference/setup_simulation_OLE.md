@@ -47,7 +47,7 @@ setup_simulation_OLE(
 
 - T_cross:
 
-  Integer crossover time point.
+  Numeric crossover time point.
 
 - true_effect:
 
@@ -55,7 +55,8 @@ setup_simulation_OLE(
 
 - method_description:
 
-  Character vector of method labels.
+  Character vector of method labels, one per method in
+  \`method_obj_list\`.
 
 - alpha:
 
@@ -63,27 +64,22 @@ setup_simulation_OLE(
 
 ## Value
 
-a simulation object for OLE phase
+An object of class \`simulation_OLE_obj\`.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-simulation_OLE_obj <- setup_simulation_OLE(
-  data_matrix_list = data_matrix_list, # two scenarios
-  trial_status_col_name = trial_status_col_name,
-  treatment_col_name = treatment_col_name,
-  outcome_col_name = outcome_col_name,
-  covariates_col_name = covariates_col_name,
-  method_obj_list = method_obj_list,
-  true_effect = true_effect_long,
+setup_simulation_OLE(
+  data_matrix_list = data_matrix_list,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_obj_list = list(setup_method(method_name = "AIPW")),
   T_cross = 2,
-  alpha = alpha,
-  method_description = c(
-    "IPW, DID",
-    "AIPW, DID",
-    "OR, DID"
-  )
+  true_effect = c(0, 0),
+  method_description = "AIPW"
 )
 } # }
 ```

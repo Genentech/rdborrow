@@ -1,6 +1,10 @@
-# Simulate X from a mixture model
+# Simulate covariates from a Gaussian mixture model
 
-Simulate X from a mixture model
+Generates covariates where categorical variables define mixture
+components and continuous variables are drawn from component-specific
+multivariate normal distributions. Each combination of categorical
+levels has its own probability and its own distribution for the
+continuous covariates.
 
 ## Usage
 
@@ -19,42 +23,60 @@ simulate_X_mixture(
 
 - n:
 
-  total number of units simulated
+  Positive integer. Number of units to simulate.
 
 - p_cat:
 
-  dimension of categorical covariates
+  Non-negative integer. Number of categorical covariates.
 
 - p_cont:
 
-  dimension of continuous covariates
+  Non-negative integer. Number of continuous covariates. At least one of
+  \`p_cat\` or \`p_cont\` must be positive.
 
 - cat_level_list:
 
-  a list describing the levels of categorical variables
+  List of length \`p_cat\`. Each element is a vector of possible levels
+  for that categorical variable. The total number of combinations is
+  \`prod(lengths(cat_level_list))\`.
 
 - cat_comb_prob:
 
-  probability of each combination of categorical variables
+  Numeric vector of probabilities, one per combination of categorical
+  levels (in the order produced by \[expand.grid()\]). Must sum to 1.
 
 - cont_para_list:
 
-  List of parameter lists for continuous covariates (each with `mean`
-  and `sigma`).
+  List of parameter lists for the continuous covariates. When \`p_cat \>
+  0\`, must have one element per combination of categorical levels; each
+  element is a list with \`mean\` (length \`p_cont\`) and \`sigma\`
+  (\`p_cont x p_cont\` matrix). When \`p_cat == 0\`, a single-element
+  list.
 
 ## Value
 
-a list contains simulated covariates
+A data frame with \`n\` rows and \`p_cat + p_cont\` columns named
+\`x1\`, ..., \`xp\`.
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# Continuous only
 X <- simulate_X_mixture(
   n = 100, p_cat = 0, p_cont = 2,
   cat_level_list = list(),
   cat_comb_prob = c(),
   cont_para_list = list(list(mean = c(0, 0), sigma = diag(2)))
 )
-} # }
+
+# Mixed categorical and continuous
+X <- simulate_X_mixture(
+  n = 100, p_cat = 1, p_cont = 2,
+  cat_level_list = list(c(0, 1)),
+  cat_comb_prob = c(0.4, 0.6),
+  cont_para_list = list(
+    list(mean = c(0, 0), sigma = diag(2)),
+    list(mean = c(2, 2), sigma = diag(2))
+  )
+)
 ```

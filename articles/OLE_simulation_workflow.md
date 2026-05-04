@@ -10,6 +10,7 @@ open-label extension (OLE) phase.
 ### 1. Simulate a dataset for OLE study
 
 ``` r
+
 # Initialize an empty data list
 set.seed(2023)
 
@@ -30,6 +31,7 @@ trial_status_col_name <- "S"
 ```
 
 ``` r
+
 # Sequentially adding in datasets
 for (trial_iter in 1:ntrial) {
   # simulate 300 sample
@@ -115,6 +117,7 @@ for (trial_iter in 1:ntrial) {
 ### 2 Bootstrap inference
 
 ``` r
+
 # Specify a list of methods to be tested
 bootstrap_obj <- setup_bootstrap(
   replicates = 50,
@@ -167,6 +170,7 @@ method_obj_list <- list(
 ```
 
 ``` r
+
 # create a simulation object for primary analysis
 simulation_OLE_obj <- setup_simulation_OLE(
   data_matrix_list = data_matrix_list, # two scenarios
@@ -187,6 +191,7 @@ simulation_OLE_obj <- setup_simulation_OLE(
 ```
 
 ``` r
+
 simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
 #> Null:  | method setting:  1 | data setting:  1 
 #> Null:  | method setting:  1 | data setting:  2 
@@ -200,9 +205,10 @@ simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
 ```
 
 ``` r
+
 simulation_report # Type I error and Power
 #>   method_description      bias  variance      mse coverage type_I_error
-#> 1           IPW, DID 1.1724755 3.2321870 4.606886        1            0
+#> 1           IPW, DID 0.7608010 2.8208371 3.399655        1            0
 #> 2          AIPW, DID 1.6168995 2.8917875 5.506151        1            0
 #> 3            OR, DID 0.7888743 0.5824244 1.204747        1            0
 # simulation hypo test

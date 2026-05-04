@@ -1,6 +1,7 @@
-# simulate X by coupling several marginal distributions using copula
+# Simulate covariates using a copula
 
-simulate X by coupling several marginal distributions using copula
+Couples several marginal distributions using a copula to generate
+correlated multivariate covariates.
 
 ## Usage
 
@@ -12,33 +13,36 @@ simulate_X_copula(n, p, cp, margins, paramMargins)
 
 - n:
 
-  total number of units simulated
+  Positive integer. Number of units to simulate.
 
 - p:
 
-  dimension of the parameters
+  Positive integer. Number of covariates. Must equal the dimension of
+  \`cp\`.
 
 - cp:
 
-  copula
+  A copula object (from the \`copula\` package).
 
 - margins:
 
-  marginal distributions
+  Character vector of length \`p\`. Names of marginal distributions
+  (e.g. \`"norm"\`, \`"binom"\`).
 
 - paramMargins:
 
-  parameters for the marginal distributions
+  List of length \`p\`. Each element is a named list of parameters for
+  the corresponding marginal distribution.
 
 ## Value
 
-a list contains simulated data and true ATE
+A data frame with \`n\` rows and \`p\` columns named \`x1\`, ...,
+\`xp\`.
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-normal <- normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
+normal <- copula::normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
 X <- simulate_X_copula(1000, 4, normal,
   margins = c("norm", "t", "norm", "binom"),
   paramMargins = list(
@@ -49,5 +53,9 @@ X <- simulate_X_copula(1000, 4, normal,
   )
 )
 cor(X, method = "spearman")
-} # }
+#>           x1        x2        x3        x4
+#> x1 1.0000000 0.7843630 0.6290593 0.4916759
+#> x2 0.7843630 1.0000000 0.7785835 0.6156791
+#> x3 0.6290593 0.7785835 1.0000000 0.7689832
+#> x4 0.4916759 0.6156791 0.7689832 1.0000000
 ```
