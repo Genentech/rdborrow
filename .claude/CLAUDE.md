@@ -90,3 +90,14 @@ Work paragraph by paragraph, always starting by making a TODO list that includes
 Fix spelling, grammar, and other minor problems without asking the user. Label any unclear, confusing, or ambiguous sentences with a FIXME comment.
 
 Only report what you have changed.
+
+## Refactor rules
+We're attemping to refactor many issues with this repositroy. In general, let's:
+- make sure all examples are functional and not wrapped in dontrun{}
+- make sure we have test cases for all functions
+- remove @TODO blocks and other ugly code
+- remove magrittr pipe and replace with base R pipe
+- remove tidyverse dependencies
+- replace "=" with "<-"
+- make sure every function is documented
+- add validation to function inputs
