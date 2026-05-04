@@ -5,9 +5,6 @@
 \alias{simulation_primary_obj-class}
 \alias{.simulation_primary_obj}
 \title{Simulation for primary analysis}
-\value{
-a simulation object
-}
 \description{
 Simulation for primary analysis
 }

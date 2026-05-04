@@ -2,30 +2,34 @@
 % Please edit documentation in R/simulate_X_copula.R
 \name{simulate_X_copula}
 \alias{simulate_X_copula}
-\title{simulate X by coupling several marginal distributions using copula}
+\title{Simulate covariates using a copula}
 \usage{
 simulate_X_copula(n, p, cp, margins, paramMargins)
 }
 \arguments{
-\item{n}{total number of units simulated}
+\item{n}{Positive integer. Number of units to simulate.}
 
-\item{p}{dimension of the parameters}
+\item{p}{Positive integer. Number of covariates. Must equal the
+dimension of `cp`.}
 
-\item{cp}{copula}
+\item{cp}{A copula object (from the `copula` package).}
 
-\item{margins}{marginal distributions}
+\item{margins}{Character vector of length `p`. Names of marginal
+distributions (e.g. `"norm"`, `"binom"`).}
 
-\item{paramMargins}{parameters for the marginal distributions}
+\item{paramMargins}{List of length `p`. Each element is a named list
+of parameters for the corresponding marginal distribution.}
 }
 \value{
-a list contains simulated data and true ATE
+A data frame with `n` rows and `p` columns named `x1`,
+  ..., `xp`.
 }
 \description{
-simulate X by coupling several marginal distributions using copula
+Couples several marginal distributions using a copula to generate
+correlated multivariate covariates.
 }
 \examples{
-\dontrun{
-normal <- normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
+normal <- copula::normalCopula(param = c(0.8), dim = 4, dispstr = "ar1")
 X <- simulate_X_copula(1000, 4, normal,
   margins = c("norm", "t", "norm", "binom"),
   paramMargins = list(
@@ -36,5 +40,4 @@ X <- simulate_X_copula(1000, 4, normal,
   )
 )
 cor(X, method = "spearman")
-}
 }

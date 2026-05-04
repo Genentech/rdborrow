@@ -49,7 +49,6 @@ setMethod(
 #' )
 setup_bootstrap <- function(replicates = 5e2,
                             bootstrap_CI_type = "bca") {
-
   # validity----
   checkmate::assert_count(replicates, positive = TRUE)
   checkmate::assert_choice(bootstrap_CI_type,

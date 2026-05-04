@@ -2,8 +2,7 @@
 % Please edit documentation in R/simulate_X_dct_mvnorm.R
 \name{simulate_X_dct_mvnorm}
 \alias{simulate_X_dct_mvnorm}
-\title{simulate X by discretizing a multivariate normal distribution
-pkg: futile.logger, mvtnorm}
+\title{Simulate covariates by discretizing a multivariate normal}
 \usage{
 simulate_X_dct_mvnorm(
   n,
@@ -15,27 +14,34 @@ simulate_X_dct_mvnorm(
 )
 }
 \arguments{
-\item{n}{total number of units simulated}
+\item{n}{Positive integer. Number of units to simulate.}
 
-\item{p}{dimension of the parameters}
+\item{p}{Positive integer. Number of covariates.}
 
-\item{mu}{mean for mvnorm}
+\item{mu}{Numeric vector of length `p`. Mean of the multivariate
+normal. Defaults to a zero vector.}
 
-\item{sig}{cov of mvnorm}
+\item{sig}{Numeric matrix of dimension `p x p`. Covariance matrix.
+Defaults to the identity matrix.}
 
-\item{cat_cols}{columns with categorical variables}
+\item{cat_cols}{Integer vector. Column indices to discretize into
+categorical variables. Each index must be between 1 and `p`.}
 
-\item{cat_prob}{list}
+\item{cat_prob}{List of numeric vectors, one per element of
+`cat_cols`. Each vector gives the category probabilities (must
+sum to 1). The number of categories equals the length of the
+vector, and the resulting values are 0-indexed (0, 1, ..., K-1).}
 }
 \value{
-a list contains simulated data and true ATE
+A data frame with `n` rows and `p` columns named `x1`,
+  ..., `xp`.
 }
 \description{
-simulate X by discretizing a multivariate normal distribution
-pkg: futile.logger, mvtnorm
+Draws from a multivariate normal distribution and optionally
+discretizes selected columns into categorical variables based on
+specified probability cutpoints.
 }
 \examples{
-\dontrun{
 simulate_X_dct_mvnorm(
   20, 3,
   mu = rep(0, 3), sig = diag(3),
@@ -48,5 +54,4 @@ simulate_X_dct_mvnorm(
   cat_cols = c(1, 3),
   cat_prob = list(c(0.2, 0.6, 0.2), c(0.3, 0.7))
 )
-}
 }

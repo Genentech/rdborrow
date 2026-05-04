@@ -4,9 +4,9 @@
 \name{method_weighting_obj-class}
 \alias{method_weighting_obj-class}
 \alias{.method_weighting_obj}
-\title{method weighting class}
+\title{Method weighting class}
 \description{
-method weighting class
+Method weighting class
 }
 \section{Slots}{
 
@@ -26,14 +26,3 @@ method weighting class
 \item{\code{model_form_piA}}{Formula string for treatment assignment model.}
 }}
 
-\examples{
-\dontrun{
-method_IPW_optimal_weight <- setup_method_weighting(
-  method_name = "IPW",
-  optimal_weight_flag = TRUE,
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-)
-}
-}

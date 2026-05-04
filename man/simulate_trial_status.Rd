@@ -2,26 +2,37 @@
 % Please edit documentation in R/simulate_trial_status.R
 \name{simulate_trial_status}
 \alias{simulate_trial_status}
-\title{Simulate trial status indicator}
+\title{Simulate trial participation status}
 \usage{
 simulate_trial_status(X, model_specs)
 }
 \arguments{
-\item{X}{Data frame of covariates.}
+\item{X}{Data frame of covariates. The number of columns must
+equal `length(model_specs$coef) - 1` (the intercept is added
+automatically).}
 
-\item{model_specs}{List with \code{family} and \code{coef} for the participation model.}
+\item{model_specs}{List with:
+\describe{
+  \item{`family`}{Character string. Currently only `"binomial"`
+    is supported.}
+  \item{`coef`}{Numeric vector of length `ncol(X) + 1`.
+    Logistic regression coefficients (intercept first).}
+}}
 }
 \value{
-a data frame containing the trial status vector
+A single-column data frame with column `S` (1 = RCT
+  participant, 0 = external control).
 }
 \description{
-Simulate trial status indicator
+Simulates a binary trial participation indicator using a logistic
+model. The probability of participation is
+`inv.logit(X_intercept %*% coef)`, where `X_intercept` is the
+covariate matrix with an intercept column prepended.
 }
 \examples{
-\dontrun{
+X <- data.frame(x1 = rnorm(20), x2 = rnorm(20))
 S <- simulate_trial_status(X, model_specs = list(
   family = "binomial",
-  coef = c(1, 2, 3)
+  coef = c(0, 0.5, -0.5)
 ))
-}
 }

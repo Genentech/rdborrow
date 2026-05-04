@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis_primary_class.R
 \name{setup_analysis_primary}
 \alias{setup_analysis_primary}
-\title{Construct an analysis_OLE object}
+\title{Construct an analysis_primary object}
 \usage{
 setup_analysis_primary(
   data,
@@ -25,25 +25,24 @@ setup_analysis_primary(
 
 \item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_weighting_obj}{A weighting method object.}
+\item{method_weighting_obj}{A weighting method object of class
+`method_primary_obj`.}
 
 \item{alpha}{Significance level (default 0.05).}
 }
 \value{
-An analysis object [`Analysis`][Analysis-class]
+An object of class `analysis_primary_obj`.
 }
 \description{
-Construct an analysis_OLE object
+Construct an analysis_primary object
 }
 \examples{
-\dontrun{
-analysis_obj <- setup_analysis(
-  trial_status_col_name = S,
-  treatment_col_name = A,
-  outcome_col_name = Y,
-  covariates_col_name = X,
-  method = method_obj
+setup_analysis_primary(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = setup_method_weighting(method_name = "IPW")
 )
-}
-
 }

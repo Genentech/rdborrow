@@ -2,29 +2,31 @@
 % Please edit documentation in R/simulate_trt_assign.R
 \name{simulate_trt_assign}
 \alias{simulate_trt_assign}
-\title{Title}
+\title{Simulate treatment assignment}
 \usage{
 simulate_trt_assign(X, S, prob)
 }
 \arguments{
-\item{X}{Data frame of covariates.}
+\item{X}{Data frame of covariates. Must have the same number of
+rows as `S`.}
 
-\item{S}{Data frame with trial status indicator.}
+\item{S}{Data frame with a column `S` indicating trial status
+(1 = RCT, 0 = external control).}
 
-\item{prob}{Probability of treatment assignment.}
+\item{prob}{Numeric scalar between 0 and 1. Probability of
+treatment assignment for RCT patients.}
 }
 \value{
-Vector A that indicates the treatment status
+A single-column data frame with column `A` indicating
+  treatment status (1 = treated, 0 = control).
 }
 \description{
-Title
+Randomly assigns treatment to RCT patients (`S = 1`) with a given
+probability. External control patients (`S = 0`) always receive
+control (`A = 0`).
 }
 \examples{
-\dontrun{
-A <- simulate_trt_assign(
-  X = SyntheticData \%>\% select(x1, x2),
-  S = SyntheticData \%>\% select(S),
-  prob = 1 / 2
-)
-}
+X <- SyntheticData[c("x1", "x2")]
+S <- SyntheticData["S"]
+A <- simulate_trt_assign(X, S, prob = 1 / 2)
 }

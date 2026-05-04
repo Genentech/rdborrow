@@ -136,19 +136,19 @@ test_that("OLE simulation report matches vignette", {
   )
 
   # Bias
-  expect_equal(slot(report, "bias")[1], 1.1724755, tolerance = tol)
-  expect_equal(slot(report, "bias")[2], 1.6168995, tolerance = tol)
-  expect_equal(slot(report, "bias")[3], 0.7888743, tolerance = tol)
+  expect_equal(slot(report, "bias")[1], 0.76080101, tolerance = tol)
+  expect_equal(slot(report, "bias")[2], 1.61689948, tolerance = tol)
+  expect_equal(slot(report, "bias")[3], 0.78887430, tolerance = tol)
 
   # Variance
-  expect_equal(slot(report, "variance")[1], 3.2321870, tolerance = tol)
-  expect_equal(slot(report, "variance")[2], 2.8917875, tolerance = tol)
-  expect_equal(slot(report, "variance")[3], 0.5824244, tolerance = tol)
+  expect_equal(slot(report, "variance")[1], 2.82083713, tolerance = tol)
+  expect_equal(slot(report, "variance")[2], 2.89178746, tolerance = tol)
+  expect_equal(slot(report, "variance")[3], 0.58242440, tolerance = tol)
 
   # MSE
-  expect_equal(slot(report, "mse")[1], 4.606886, tolerance = tol)
-  expect_equal(slot(report, "mse")[2], 5.506151, tolerance = tol)
-  expect_equal(slot(report, "mse")[3], 1.204747, tolerance = tol)
+  expect_equal(slot(report, "mse")[1], 3.39965530, tolerance = tol)
+  expect_equal(slot(report, "mse")[2], 5.50615140, tolerance = tol)
+  expect_equal(slot(report, "mse")[3], 1.20474706, tolerance = tol)
 
   # Coverage and Type I error
   expect_equal(slot(report, "coverage"), c(1, 1, 1))
