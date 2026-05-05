@@ -58,6 +58,7 @@ reference:
   - title: Weighting Estimators
     desc: IPW and AIPW methods for primary analysis
     contents:
+      - ec_ipw
       - EC_IPW_OPT
       - EC_IPW_OPT_bootstrap
       - EC_AIPW_OPT

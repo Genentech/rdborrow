@@ -46,6 +46,7 @@ EC_IPW_OPT <- function(data,
                        bootstrap_CI_type = "bca",
                        alpha = 0.05,
                        quiet = TRUE) {
+  .Deprecated("ec_ipw")
   Y <- subset(data, select = outcome_col_name)
   S <- subset(data, select = trial_status_col_name)
   A <- subset(data, select = treatment_col_name)

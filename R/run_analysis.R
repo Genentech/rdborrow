@@ -5,7 +5,7 @@
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
 #' @return  a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
-#' @include EC_IPW_OPT.R
+#' @include ec_ipw.R
 #' @include EC_AIPW_OPT.R
 #' @include DID_EC_IPW.R
 #' @include DID_EC_AIPW.R
@@ -60,16 +60,17 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
 
 
     if (name == "IPW") {
-      res <- EC_IPW_OPT(
+      bootstrap_obj <- if (bootstrap_flag) method@bootstrap_obj else NULL
+      res <- ec_ipw(
         data = data,
-        outcome_col_name = outcome_col_name,
-        trial_status_col_name = trial_status_col_name,
-        treatment_col_name = treatment_col_name,
-        covariates_col_name = covariates_col_name,
-        model_form_piS = model_form_piS,
-        wt = wt,
-        optimal_weight_flag = optimal_weight_flag,
-        bootstrap_flag, R, bootstrap_CI_type, alpha = alpha, quiet = quiet
+        outcomes = outcome_col_name,
+        trial_status = trial_status_col_name,
+        treatment = treatment_col_name,
+        covariates = covariates_col_name,
+        ps_formula = model_form_piS,
+        weight = if (optimal_weight_flag) "optimal" else wt,
+        alpha = alpha,
+        bootstrap = bootstrap_obj
       )
     } else if (name == "AIPW") {
       res <- EC_AIPW_OPT(
