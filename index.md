@@ -1,5 +1,13 @@
 # rdborrow
 
+## Installation
+
+``` r
+
+# install.packages("pak")
+pak::pak("Genentech/rdborrow")
+```
+
 ## Documentation
 
 - [Package website](https://genentech.github.io/rdborrow/)
