@@ -5,6 +5,13 @@
 [![Codecov test coverage](https://codecov.io/gh/Genentech/rdborrow/graph/badge.svg)](https://app.codecov.io/gh/Genentech/rdborrow)
 <!-- badges: end -->
 
+## Installation
+
+```r
+# install.packages("pak")
+pak::pak("Genentech/rdborrow")
+```
+
 ## Documentation
 
 - [Package website](https://genentech.github.io/rdborrow/)
