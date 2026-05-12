@@ -38,7 +38,7 @@ set.seed(2023)
 
 data_matrix_list_null <- list()
 data_matrix_list_alt <- list()
-ntrial <- 3
+ntrial <- 2000
 
 # Specify the significance level alpha
 alpha <- 0.05
