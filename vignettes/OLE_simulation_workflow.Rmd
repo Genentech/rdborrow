@@ -36,7 +36,7 @@ for the open-label extension (OLE) phase.
 set.seed(2023)
 
 data_matrix_list <- list()
-ntrial <- 2000
+ntrial <- 500
 
 # Specify the significance level alpha
 alpha <- 0.05
