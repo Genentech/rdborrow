@@ -9,17 +9,6 @@
 <url><loc>https://genentech.github.io/rdborrow/articles/primary_simulation_workflow.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/authors.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/index.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_AIPW.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_AIPW_bootstrap.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_IPW.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_IPW_bootstrap.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_OR.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/DID_EC_OR_bootstrap.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT_bootstrap.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/EC_IPW_OPT.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/EC_IPW_OPT_bootstrap.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/SCM.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/SyntheticData.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/aaa-rdborrow-package.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.html</loc></url>
@@ -27,7 +16,6 @@
 <url><loc>https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/bootstrap_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/index.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/lambdacv.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/method_DID_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/method_obj-class.html</loc></url>
@@ -54,6 +42,5 @@
 <url><loc>https://genentech.github.io/rdborrow/reference/simulation_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/simulation_primary_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/simulation_report_obj-class.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/reference/subject_SC.html</loc></url>
 </urlset>
 

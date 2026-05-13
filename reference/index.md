@@ -43,49 +43,6 @@ Configure estimation methods
 - [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
   : Construct a bootstrap object
 
-## Weighting Estimators
-
-IPW and AIPW methods for primary analysis
-
-- [`EC_IPW_OPT()`](https://genentech.github.io/rdborrow/reference/EC_IPW_OPT.md)
-  : Using IPW with external borrowing
-- [`EC_IPW_OPT_bootstrap()`](https://genentech.github.io/rdborrow/reference/EC_IPW_OPT_bootstrap.md)
-  : Using IPW with external borrowing
-- [`EC_AIPW_OPT()`](https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT.md)
-  : Using AIPW with external borrowing
-- [`EC_AIPW_OPT_bootstrap()`](https://genentech.github.io/rdborrow/reference/EC_AIPW_OPT_bootstrap.md)
-  : Using AIPW with external borrowing
-
-## Difference-in-Differences Estimators
-
-DID methods for OLE analysis
-
-- [`DID_EC_IPW()`](https://genentech.github.io/rdborrow/reference/DID_EC_IPW.md)
-  : Difference in difference + IPW + external control borrowing
-- [`DID_EC_IPW_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_IPW_bootstrap.md)
-  : Bootstrap statistic for DID + IPW
-- [`DID_EC_AIPW()`](https://genentech.github.io/rdborrow/reference/DID_EC_AIPW.md)
-  : Difference in difference + AIPW + external control borrowing
-- [`DID_EC_AIPW_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_AIPW_bootstrap.md)
-  : Difference in difference + AIPW + external control borrowing
-- [`DID_EC_OR()`](https://genentech.github.io/rdborrow/reference/DID_EC_OR.md)
-  : Difference in difference + outcome regression + external control
-  borrowing
-- [`DID_EC_OR_bootstrap()`](https://genentech.github.io/rdborrow/reference/DID_EC_OR_bootstrap.md)
-  : Difference in difference + outcome regression + external control
-  borrowing
-
-## Synthetic Control Method
-
-SCM estimator and helpers
-
-- [`SCM()`](https://genentech.github.io/rdborrow/reference/SCM.md) :
-  Implement the Synthetic Control Method
-- [`subject_SC()`](https://genentech.github.io/rdborrow/reference/subject_SC.md)
-  : Find synthetic control for one specific subject
-- [`lambdacv()`](https://genentech.github.io/rdborrow/reference/lambdacv.md)
-  : Find the optimal lambda via LOOCV
-
 ## Data Generation
 
 Simulate trial data
