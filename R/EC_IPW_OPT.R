@@ -17,7 +17,7 @@
 #'
 #' @include EC_IPW_OPT_bootstrap.R
 #' @return a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{

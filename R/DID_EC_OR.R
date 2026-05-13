@@ -17,7 +17,7 @@
 #'
 #' @include DID_EC_OR_bootstrap.R
 #' @return tau and standard deviation
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{

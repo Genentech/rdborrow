@@ -24,7 +24,7 @@
 #' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap
 #'   and a 95% confidence interval for primary endpoint (only when
 #'   Bootstrap=TRUE)
-#'
+#' @noRd
 SCM <- function(data,
                 outcome_col_name,
                 trial_status_col_name,
@@ -207,7 +207,7 @@ SCM <- function(data,
 #' @param X00 Matrix of external control subjects (attributes by columns).
 #' @param long_term_col_name Character vector of long-term outcome column names.
 #' @param lambda Numeric penalty parameter.
-
+#' @noRd
 subject_SC <- function(subject, X10, X00, long_term_col_name, lambda) {
   # subset to only the intersted subject and matching vars
   x1 <- X10[-which(row.names(X10) %in% long_term_col_name), subject]
@@ -239,7 +239,7 @@ subject_SC <- function(subject, X10, X00, long_term_col_name, lambda) {
 #' @param lambda.max Numeric. Maximum penalty parameter.
 #' @param nlambda Integer. Number of lambda values to evaluate.
 #' @param pb A progress bar object or \code{NULL}.
-
+#' @noRd
 lambdacv <- function(ec,
                      long_term_col_name,
                      lambda.min = 0,

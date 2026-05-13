@@ -16,7 +16,7 @@
 #'
 #' @include DID_EC_IPW_bootstrap.R
 #' @return tau and standard deviation
-#' @export
+#' @noRd
 #'
 DID_EC_IPW <- function(data,
                        outcome_col_name,

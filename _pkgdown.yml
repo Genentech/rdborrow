@@ -55,31 +55,6 @@ reference:
       - setup_method_SCM
       - setup_bootstrap
 
-  - title: Weighting Estimators
-    desc: IPW and AIPW methods for primary analysis
-    contents:
-      - EC_IPW_OPT
-      - EC_IPW_OPT_bootstrap
-      - EC_AIPW_OPT
-      - EC_AIPW_OPT_bootstrap
-
-  - title: Difference-in-Differences Estimators
-    desc: DID methods for OLE analysis
-    contents:
-      - DID_EC_IPW
-      - DID_EC_IPW_bootstrap
-      - DID_EC_AIPW
-      - DID_EC_AIPW_bootstrap
-      - DID_EC_OR
-      - DID_EC_OR_bootstrap
-
-  - title: Synthetic Control Method
-    desc: SCM estimator and helpers
-    contents:
-      - SCM
-      - subject_SC
-      - lambdacv
-
   - title: Data Generation
     desc: Simulate trial data
     contents:

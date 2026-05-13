@@ -12,7 +12,7 @@
 #' @param model_form_mu1_rct Formula string(s) for the RCT treatment outcome model.
 #'
 #' @return tau and standard deviation
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{

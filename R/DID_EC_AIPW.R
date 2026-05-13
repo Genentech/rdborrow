@@ -19,7 +19,7 @@
 #'
 #' @include DID_EC_AIPW_bootstrap.R
 #' @return tau and standard deviation
-#' @export
+#' @noRd
 #'
 DID_EC_AIPW <- function(data,
                         outcome_col_name,
