@@ -12,7 +12,7 @@
 #' @param model_form_mu0_ext Formula string(s) for the external control outcome model.
 #'
 #' @return tau and standard deviation
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{

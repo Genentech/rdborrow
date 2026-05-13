@@ -11,7 +11,7 @@
 #' @param model_form_piA Formula string for the treatment assignment model.
 #'
 #' @return Named numeric vector of treatment effect estimates.
-#' @export
+#' @noRd
 #'
 DID_EC_IPW_bootstrap <- function(data,
                                  indices,
