@@ -42,7 +42,7 @@ test_that("setup_analysis_OLE validates method type", {
     treatment_col_name = "A",
     outcome_col_name = "y1",
     covariates_col_name = "x1",
-    method_OLE_obj = setup_method_weighting(),
+    method_OLE_obj = suppressWarnings(setup_method_weighting()),
     T_cross = 2
   ))
 })

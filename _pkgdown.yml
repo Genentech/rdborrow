@@ -51,6 +51,7 @@ reference:
     desc: Method constructors for estimation
     contents:
       - ec_ipw
+      - ec_aipw
       - estimate
 
   - title: Method Configuration (legacy)

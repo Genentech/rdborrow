@@ -121,7 +121,7 @@ generate_primary_sim_data <- function() {
 test_that("Primary simulation (parametric) report matches vignette", {
   sim_data <- generate_primary_sim_data()
 
-  method_obj_list <- list(
+  method_obj_list <- suppressWarnings(list(
     setup_method_weighting(
       method_name = "IPW", optimal_weight_flag = TRUE,
       model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
@@ -146,7 +146,7 @@ test_that("Primary simulation (parametric) report matches vignette", {
         "y2 ~ x1 + x2 + x3 + x4 + x5"
       )
     )
-  )
+  ))
 
   sim_obj <- setup_simulation_primary(
     data_matrix_list_null = sim_data$null,

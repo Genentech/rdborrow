@@ -131,3 +131,109 @@ test_that("EC-AIPW bootstrap preserves point estimates", {
     c("point_estimates", "standard_deviation", "lower_CI_boot", "upper_CI_boot")
   )
 })
+
+# new API----
+
+test_that("ec_aipw() optimal weight matches old API", {
+  method <- ec_aipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    outcome_formula = c(
+      "y1 ~ x1 + x2 + x3 + x4 + x5",
+      "y2 ~ x1 + x2 + x3 + x4 + x5"
+    )
+  )
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
+  expect_equal(res$results$point_estimates[1], -0.5463256250, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.5401749583, tolerance = tol)
+  expect_equal(res$results$standard_deviation[1], 0.5305614087, tolerance = tol)
+  expect_equal(res$results$standard_deviation[2], 0.5543275065, tolerance = tol)
+})
+
+test_that("ec_aipw() weight=0 matches old API", {
+  method <- ec_aipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    outcome_formula = c(
+      "y1 ~ x1 + x2 + x3 + x4 + x5",
+      "y2 ~ x1 + x2 + x3 + x4 + x5"
+    ),
+    weight = 0
+  )
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0)
+  expect_equal(res$results$point_estimates[1], -0.4361151144, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.4422248202, tolerance = tol)
+})
+
+test_that("ec_aipw() weight=0.3 matches old API", {
+  method <- ec_aipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    outcome_formula = c(
+      "y1 ~ x1 + x2 + x3 + x4 + x5",
+      "y2 ~ x1 + x2 + x3 + x4 + x5"
+    ),
+    weight = 0.3
+  )
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0.3)
+  expect_equal(res$results$point_estimates[1], -0.6602422289, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.6414189052, tolerance = tol)
+})
+
+test_that("ec_aipw() with bootstrap", {
+  method <- ec_aipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    outcome_formula = c(
+      "y1 ~ x1 + x2 + x3 + x4 + x5",
+      "y2 ~ x1 + x2 + x3 + x4 + x5"
+    ),
+    bootstrap = 50,
+    bootstrap_ci_type = "perc"
+  )
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+
+  set.seed(42)
+  res <- run_analysis(analysis)
+
+  expect_equal(res$results$point_estimates[1], -0.5463256250, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.5401749583, tolerance = tol)
+  expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
+  expect_named(
+    res$results,
+    c("point_estimates", "standard_deviation", "lower_CI_boot", "upper_CI_boot")
+  )
+})

@@ -95,6 +95,7 @@ Collate:
     'analysis_primary_class.R'
     'data.R'
     'ec_ipw.R'
+    'ec_aipw.R'
     'package.R'
     'rdborrow-package.R'
     'run_analysis.R'

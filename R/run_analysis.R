@@ -184,7 +184,7 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
     } else {
       stop("No such method is defined!")
     }
-  } else if (is(method, "ec_ipw_method")) {
+  } else if (is(method, "ec_ipw_method") || is(method, "ec_aipw_method")) {
     res <- estimate(method,
       data = data,
       outcomes = outcome_col_name,
