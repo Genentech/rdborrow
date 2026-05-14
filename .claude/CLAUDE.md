@@ -109,3 +109,100 @@ Run this one-liner to validate the package before committing:
 ```
 Rscript -e "devtools::document()" && Rscript -e "styler::style_pkg()" && Rscript -e "spelling::spell_check_package()" && Rscript -e "lintr::lint_package()" && Rscript -e "devtools::check(vignettes = FALSE)"
 ```
+
+## Changing the API
+
+### Goals
+
+1. **Better method constructors** — replace `setup_method_weighting(method_name="IPW", ...)` with `ec_ipw()`, etc. Each constructor carries its own estimation logic.
+2. **Polymorphic dispatch** — `run_analysis()` calls a generic on the method object instead of an if/else tree. Adding a new method = writing one constructor.
+3. **Merge bootstrap** — bootstrap is an inference option on the method, not a separate code path.
+4. **(Future) Model formula interface** — `outcome ~ treatment | covariates` instead of column name args.
+
+### Current workflow (to deprecate)
+
+```r
+method <- setup_method_weighting(
+  method_name = "IPW",
+  optimal_weight_flag = FALSE,
+  wt = 0,
+  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+)
+
+analysis <- setup_analysis_primary(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = method
+)
+
+res <- run_analysis(analysis)
+```
+
+### Desired workflow
+
+```r
+method <- ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  weight = NULL,          # NULL = optimal, 0 = no borrowing, 0.3 = fixed
+  bootstrap = 500,        # NULL = sandwich SE only
+  bootstrap_ci_type = NULL  # NULL defaults to "perc" when bootstrap is set
+)
+
+analysis <- setup_analysis(
+  data = SyntheticData,
+  outcomes = c("y1", "y2"),
+  treatment = "A",
+  trial_status = "S",
+  covariates = c("x1", "x2", "x3", "x4", "x5"),
+  method = method
+)
+
+res <- run_analysis(analysis)
+```
+
+### Method constructors
+
+| Constructor | Replaces | Phase |
+|---|---|---|
+| `ec_ipw()` | `setup_method_weighting(method_name="IPW", ...)` | Primary |
+| `ec_aipw()` | `setup_method_weighting(method_name="AIPW", ...)` | Primary |
+| `did_ec_ipw()` | `setup_method_DID(method_name="IPW", ...)` | OLE |
+| `did_ec_aipw()` | `setup_method_DID(method_name="AIPW", ...)` | OLE |
+| `did_ec_or()` | `setup_method_DID(method_name="OR", ...)` | OLE |
+| `scm()` | `setup_method_SCM(...)` | OLE |
+
+Each constructor returns an S4 method object. The S4 class defines a generic `estimate()` that `run_analysis()` dispatches on — no if/else.
+
+### How dispatch works
+
+```r
+# S4 generic
+setGeneric("estimate", function(method, data, ...) standardGeneric("estimate"))
+
+# Each method class implements estimate()
+setMethod("estimate", "ec_ipw_method", function(method, data, ...) {
+  # IPW estimation logic lives here
+})
+
+# run_analysis() becomes:
+run_analysis <- function(analysis_obj) {
+  estimate(analysis_obj@method, data = analysis_obj@data, ...)
+}
+```
+
+### Implementation order
+
+1. Create all 6 method constructors (start with `ec_ipw()`)
+2. Each constructor returns an S4 object with estimation logic via `estimate()` generic
+3. Refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
+4. Refactor `run_analysis()` to use S4 dispatch
+5. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
+
+### Design decisions
+
+- **S4 classes for method objects** — keeps rigorous type definitions, consistent with existing package patterns.
+- **`T_cross` goes in `setup_analysis()`** — it's a property of the study design, not the method.
+- **`bootstrap_ci_type` is nullable** — defaults to `"perc"` when `bootstrap` is non-NULL, ignored otherwise.
