@@ -92,13 +92,25 @@ Fix spelling, grammar, and other minor problems without asking the user. Label a
 Only report what you have changed.
 
 ## Refactor rules
-We're attemping to refactor many issues with this repositroy. In general, let's:
-- make sure all examples are functional and not wrapped in dontrun{}
+
+### Per-function checklist
+
+When refactoring any estimator or internal function, apply all of these:
+
+1. Make runnable examples (no `\dontrun{}`)
+2. Remove commented-out code
+3. Remove TODOs
+4. Add type checks (checkmate)
+5. Factor out tidyverse (`filter` → `df[cond, ]`, `mutate` → direct assignment)
+6. `<-` for assignment (not `=`)
+7. Drop debug prints (`cat`, `print`, commented `# print(...)`)
+8. Consistent variable naming without periods (e.g. `pi_S` not `pi.S`)
+9. Drop backtick column access (`temp$\`piA\`` → `temp$piA`)
+
+### General rules
+
 - make sure we have test cases for all functions
-- remove @TODO blocks and other ugly code
 - remove magrittr pipe and replace with base R pipe
-- remove tidyverse dependencies
-- replace "=" with "<-"
 - make sure every function is documented
 - add validation to function inputs
 
@@ -195,14 +207,40 @@ run_analysis <- function(analysis_obj) {
 
 ### Implementation order
 
-1. Create all 6 method constructors (start with `ec_ipw()`)
-2. Each constructor returns an S4 object with estimation logic via `estimate()` generic
-3. Refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
-4. Refactor `run_analysis()` to use S4 dispatch
-5. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
+1. Create full-pipeline regression tests for all 6 methods (old API, locked numerical values)
+2. Create all 6 method constructors (start with `ec_ipw()`)
+3. Each constructor returns an S4 object with estimation logic via `estimate()` generic
+4. Add new-API tests to each pipeline test file (same expected values)
+5. Refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
+6. Refactor `run_analysis()` to use S4 dispatch
+7. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
 
 ### Design decisions
 
 - **S4 classes for method objects** — keeps rigorous type definitions, consistent with existing package patterns.
 - **`T_cross` goes in `setup_analysis()`** — it's a property of the study design, not the method.
 - **`bootstrap_ci_type` is nullable** — defaults to `"perc"` when `bootstrap` is non-NULL, ignored otherwise.
+
+### Full-pipeline regression tests
+
+Before refactoring any estimator, we lock in its numerical outputs on `SyntheticData` so any code change that alters results is caught. Tests use the old API (setup_method → setup_analysis → run_analysis) with exact values at `tolerance = 1e-6`. As new API constructors are added, we add parallel assertions against the same expected values.
+
+Rename existing `test-vignette_results_*` files and split by method:
+
+| Test file | Method | Covers |
+|---|---|---|
+| `test-full_pipeline_ec_ipw.R` | EC-IPW | weight=0, optimal, fixed (0.3), bootstrap point estimates |
+| `test-full_pipeline_ec_aipw.R` | EC-AIPW | weight=0, optimal, fixed (0.3), bootstrap point estimates |
+| `test-full_pipeline_did_ec_ipw.R` | DID-EC-IPW | bootstrap CIs, point estimates |
+| `test-full_pipeline_did_ec_aipw.R` | DID-EC-AIPW | bootstrap CIs, point estimates |
+| `test-full_pipeline_did_ec_or.R` | DID-EC-OR | bootstrap CIs, point estimates |
+| `test-full_pipeline_scm.R` | SCM | bootstrap CIs, point estimates |
+
+Each test file asserts:
+- Point estimates (exact values)
+- Standard errors / standard deviations (exact values)
+- CI bounds for non-bootstrap (exact values)
+- Bootstrap point estimates match non-bootstrap
+- Borrow weight (where applicable)
+
+Simulation tests (`test-vignette_results_*_simulation.R`) stay separate — they test Monte Carlo properties, not individual estimator outputs.
