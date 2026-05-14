@@ -1,12 +1,22 @@
 tol <- 1e-6
 
+test_that("setup_method_weighting emits deprecation warning", {
+  expect_warning(
+    setup_method_weighting(
+      method_name = "IPW",
+      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+    ),
+    "deprecated"
+  )
+})
+
 test_that("EC-IPW zero weight (no borrowing)", {
-  method <- setup_method_weighting(
+  method <- suppressWarnings(setup_method_weighting(
     method_name = "IPW",
     optimal_weight_flag = FALSE,
     wt = 0,
     model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-  )
+  ))
   analysis <- setup_analysis_primary(
     data = SyntheticData,
     trial_status_col_name = "S",
@@ -31,11 +41,11 @@ test_that("EC-IPW zero weight (no borrowing)", {
 })
 
 test_that("EC-IPW optimal weight", {
-  method <- setup_method_weighting(
+  method <- suppressWarnings(setup_method_weighting(
     method_name = "IPW",
     optimal_weight_flag = TRUE,
     model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-  )
+  ))
   analysis <- setup_analysis_primary(
     data = SyntheticData,
     trial_status_col_name = "S",
@@ -58,12 +68,12 @@ test_that("EC-IPW optimal weight", {
 })
 
 test_that("EC-IPW fixed weight 0.3", {
-  method <- setup_method_weighting(
+  method <- suppressWarnings(setup_method_weighting(
     method_name = "IPW",
     optimal_weight_flag = FALSE,
     wt = 0.3,
     model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-  )
+  ))
   analysis <- setup_analysis_primary(
     data = SyntheticData,
     trial_status_col_name = "S",
@@ -87,14 +97,14 @@ test_that("EC-IPW fixed weight 0.3", {
 
 test_that("EC-IPW bootstrap preserves point estimates", {
   bootstrap_obj <- setup_bootstrap(replicates = 50, bootstrap_CI_type = "perc")
-  method <- setup_method_weighting(
+  method <- suppressWarnings(setup_method_weighting(
     method_name = "IPW",
     optimal_weight_flag = TRUE,
     bootstrap_flag = TRUE,
     bootstrap_obj = bootstrap_obj,
     wt = 0,
     model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-  )
+  ))
   analysis <- setup_analysis_primary(
     data = SyntheticData,
     trial_status_col_name = "S",
@@ -111,6 +121,88 @@ test_that("EC-IPW bootstrap preserves point estimates", {
   expect_equal(res$results$point_estimates[2], 0.4697208867, tolerance = tol)
   expect_equal(res$results$standard_deviation[1], 0.5134017502, tolerance = tol)
   expect_equal(res$results$standard_deviation[2], 0.5410007056, tolerance = tol)
+  expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
+  expect_named(
+    res$results,
+    c("point_estimates", "standard_deviation", "lower_CI_boot", "upper_CI_boot")
+  )
+})
+
+# new API----
+
+test_that("ec_ipw() optimal weight matches old API", {
+  method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
+  expect_equal(res$results$point_estimates[1], -0.1971968926, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.4697208867, tolerance = tol)
+  expect_equal(res$results$standard_deviation[1], 0.5134017502, tolerance = tol)
+  expect_equal(res$results$standard_deviation[2], 0.5410007056, tolerance = tol)
+})
+
+test_that("ec_ipw() weight=0 matches old API", {
+  method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0)
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0)
+  expect_equal(res$results$point_estimates[1], -0.0280870419, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.4095955812, tolerance = tol)
+})
+
+test_that("ec_ipw() weight=0.3 matches old API", {
+  method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0.3)
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+  res <- run_analysis(analysis)
+
+  expect_equal(res$borrow_weight, 0.3)
+  expect_equal(res$results$point_estimates[1], -0.3719934684, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.5318680501, tolerance = tol)
+})
+
+test_that("ec_ipw() with bootstrap", {
+  method <- ec_ipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    bootstrap = 50,
+    bootstrap_ci_type = "perc"
+  )
+  analysis <- setup_analysis_primary(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_weighting_obj = method
+  )
+
+  set.seed(42)
+  res <- run_analysis(analysis)
+
+  expect_equal(res$results$point_estimates[1], -0.1971968926, tolerance = tol)
+  expect_equal(res$results$point_estimates[2], 0.4697208867, tolerance = tol)
   expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
   expect_named(
     res$results,

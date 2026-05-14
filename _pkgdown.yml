@@ -47,8 +47,14 @@ reference:
       - run_simulation
       - setup_simulation_report
 
-  - title: Method Configuration
-    desc: Configure estimation methods
+  - title: Estimators
+    desc: Method constructors for estimation
+    contents:
+      - ec_ipw
+      - estimate
+
+  - title: Method Configuration (legacy)
+    desc: Configure estimation methods (deprecated)
     contents:
       - setup_method_weighting
       - setup_method_DID

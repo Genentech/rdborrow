@@ -71,6 +71,7 @@ setup_method_weighting <- function(method_name = "IPW",
                                    model_form_piA = "",
                                    model_form_mu0_rct = "",
                                    model_form_mu1_rct = "") {
+  .Deprecated("ec_ipw")
   .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
   checkmate::assert_flag(optimal_weight_flag)
   checkmate::assert_number(wt)

@@ -91,6 +91,18 @@ Fix spelling, grammar, and other minor problems without asking the user. Label a
 
 Only report what you have changed.
 
+## Programming rules for LLMs
+1. mostly lower-case comments
+2. no in-line comments
+3. don't number comments
+4. comments are followed by '----', such as "# dependencies----". nothing that takes a full line.
+5. no unnecessary code changes beyond what is already done
+6. unless I ask, don't print too much code at once 
+7. don't do unnecessary print statements within the code.
+8. don't add unnecessary try/catch statements or make unnecessary validation checks. i'm working by myself, no need for these things -- I want to see the errors!
+9. NO EMOJIS
+10. in R code, 2 spaces per tab and base R pipe
+
 ## Refactor rules
 
 ### Per-function checklist
@@ -205,15 +217,39 @@ run_analysis <- function(analysis_obj) {
 }
 ```
 
+### Interim dispatch (during migration)
+
+While new method constructors coexist with the old if/else tree in `run_analysis()`, each new class gets an `else if` block at the end of `run_analysis()` that calls `estimate()`:
+
+```r
+# In run_analysis.R, BEFORE the final } else { stop(...) }:
+} else if (is(method, "ec_ipw_method")) {
+  res <- estimate(method,
+    data = data,
+    outcomes = outcome_col_name,
+    treatment = treatment_col_name,
+    trial_status = trial_status_col_name,
+    covariates = covariates_col_name,
+    alpha = alpha,
+    quiet = quiet
+  )
+}
+```
+
+This pattern is repeated for each new method class as it's created. The old if/else branches for the legacy classes remain untouched. Once all 6 methods are migrated, the entire if/else tree is replaced with a single `estimate()` call.
+
+New method objects inherit from `method_primary_obj` or `method_OLE_obj`, so they pass the existing `checkmate::assert_class(method, "method_primary_obj")` validation in `setup_analysis_primary()`.
+
 ### Implementation order
 
-1. Create full-pipeline regression tests for all 6 methods (old API, locked numerical values)
+1. Create full-pipeline regression tests for all 6 methods (old API, locked numerical values) ✓
 2. Create all 6 method constructors (start with `ec_ipw()`)
 3. Each constructor returns an S4 object with estimation logic via `estimate()` generic
-4. Add new-API tests to each pipeline test file (same expected values)
-5. Refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
-6. Refactor `run_analysis()` to use S4 dispatch
-7. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
+4. For each new method, add an `else if (is(method, "xxx_method"))` to `run_analysis()`
+5. Add new-API tests to each pipeline test file (same expected values)
+6. Once all 6 are done: refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
+7. Once all 6 are done: replace the entire if/else in `run_analysis()` with one `estimate()` call
+8. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
 
 ### Design decisions
 

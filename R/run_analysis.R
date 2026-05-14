@@ -184,6 +184,16 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
     } else {
       stop("No such method is defined!")
     }
+  } else if (is(method, "ec_ipw_method")) {
+    res <- estimate(method,
+      data = data,
+      outcomes = outcome_col_name,
+      treatment = treatment_col_name,
+      trial_status = trial_status_col_name,
+      covariates = covariates_col_name,
+      alpha = alpha,
+      quiet = quiet
+    )
   } else {
     stop("No such method type is defined!")
   }
