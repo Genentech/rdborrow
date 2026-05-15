@@ -2,7 +2,7 @@
 % Please edit documentation in R/ec_aipw.R
 \name{ec_aipw}
 \alias{ec_aipw}
-\title{EC-AIPW method constructor}
+\title{EC-AIPW method}
 \usage{
 ec_aipw(
   ps_formula,
