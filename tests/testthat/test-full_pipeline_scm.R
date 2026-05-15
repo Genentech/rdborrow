@@ -4,7 +4,7 @@ test_that("SCM runs and returns valid structure", {
   skip_on_cran()
 
   bootstrap_obj <- setup_bootstrap(replicates = 5, bootstrap_CI_type = "perc")
-  method <- setup_method_SCM(
+  method <- suppressWarnings(setup_method_SCM(
     method_name = "SCM",
     bootstrap_flag = TRUE,
     bootstrap_obj = bootstrap_obj,
@@ -13,7 +13,7 @@ test_that("SCM runs and returns valid structure", {
     nlambda = 1,
     parallel = "no",
     ncpus = 1
-  )
+  ))
   analysis <- setup_analysis_OLE(
     data = SyntheticData,
     trial_status_col_name = "S",

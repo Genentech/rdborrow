@@ -2,13 +2,13 @@ tol <- 1e-6
 
 test_that("DID-EC-IPW point estimates and bootstrap CIs", {
   bootstrap_obj <- setup_bootstrap(replicates = 50, bootstrap_CI_type = "perc")
-  method <- setup_method_DID(
+  method <- suppressWarnings(setup_method_DID(
     method_name = "IPW",
     bootstrap_flag = TRUE,
     bootstrap_obj = bootstrap_obj,
     model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
     model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
-  )
+  ))
   analysis <- setup_analysis_OLE(
     data = SyntheticData,
     trial_status_col_name = "S",

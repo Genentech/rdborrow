@@ -8,14 +8,14 @@ test_that("DID-EC-OR point estimates and bootstrap CIs", {
     "y3 ~ x1 + x2 + x3 + x4 + x5",
     "y4 ~ x1 + x2 + x3 + x4 + x5"
   )
-  method <- setup_method_DID(
+  method <- suppressWarnings(setup_method_DID(
     method_name = "OR",
     bootstrap_flag = TRUE,
     bootstrap_obj = bootstrap_obj,
     model_form_mu0_ext = model_forms,
     model_form_mu0_rct = model_forms,
     model_form_mu1_rct = model_forms
-  )
+  ))
   analysis <- setup_analysis_OLE(
     data = SyntheticData,
     trial_status_col_name = "S",

@@ -54,6 +54,7 @@ setup_method_SCM <- function(method_name = "SCM",
                              nlambda = 10,
                              parallel = "no",
                              ncpus = 1) {
+  .Deprecated("scm")
   checkmate::assert_string(method_name)
   checkmate::assert_flag(bootstrap_flag)
   checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
