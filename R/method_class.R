@@ -1,4 +1,4 @@
-#' method class
+#' method classes
 #'
 #' @slot method_name character.
 #' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
@@ -24,12 +24,12 @@
   contains = "method_obj"
 )
 
-# estimate() generic----
-
 #' Run estimation for a method object
 #'
 #' S4 generic that dispatches to the appropriate estimation logic
-#' based on the method class.
+#' based on the method class. Each method subclass (e.g.,
+#' \code{ec_ipw_method}, \code{did_ec_ipw_method}) implements its own
+#' \code{estimate()} method containing the full estimation pipeline.
 #'
 #' @param method An S4 method object (e.g., from \code{\link{ec_ipw}}).
 #' @param data Data frame with all subjects (RCT + external controls).
@@ -46,21 +46,31 @@
 #' @export
 setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 
-# bootstrap helpers----
-
-#' @noRd
-.boot_ci_type_long <- function(short) {
-  switch(short,
-    norm = "normal", bca = "bca", stud = "student",
-    perc = "percent", basic = "basic"
-  )
-}
-
+#' Run stratified bootstrap and extract confidence intervals.
+#' Shared by all method classes that support bootstrap inference.
+#' Stratifies by interaction(S, A) to preserve group proportions.
+#' @param df data frame with columns S (trial status) and A (treatment).
+#' @param statistic function with signature (data, indices, ...) returning
+#'   a numeric vector of point estimates.
+#' @param n_estimates number of estimates returned by statistic (length of tau).
+#' @param bootstrap number of bootstrap replicates.
+#' @param bootstrap_ci_type short CI type name ("perc", "bca", etc.).
+#' @param alpha significance level for CIs.
+#' @param ... additional arguments passed through to statistic.
+#' @return list with lower_ci, upper_ci (vectors), and sd_boot (vector).
 #' @noRd
 .run_bootstrap <- function(df, statistic, n_estimates, bootstrap,
                            bootstrap_ci_type, alpha, ...) {
   group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
-  ci_type_long <- .boot_ci_type_long(bootstrap_ci_type)
+
+  ci_type_long <- switch(
+    bootstrap_ci_type,
+    norm = "normal", 
+    bca = "bca", 
+    stud = "student",
+    perc = "percent",
+    basic = "basic"
+  )
 
   boot_out <- boot::boot(
     data = df,
@@ -70,37 +80,25 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     ...
   )
 
-  lower_ci <- vapply(seq_len(n_estimates), \(i) {
+  ci_bounds <- vapply(seq_len(n_estimates), \(i) {
     ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
                         type = bootstrap_ci_type, index = i)
-    ci[[ci_type_long]][4]
-  }, numeric(1))
-
-  upper_ci <- vapply(seq_len(n_estimates), \(i) {
-    ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
-                        type = bootstrap_ci_type, index = i)
-    ci[[ci_type_long]][5]
-  }, numeric(1))
+    ci[[ci_type_long]][4:5]
+  }, numeric(2))
 
   sd_boot <- sqrt(diag(var(boot_out$t)))
 
-  list(lower_ci = lower_ci, upper_ci = upper_ci, sd_boot = sd_boot)
-}
-
-# validation----
-
-.validate_method_base <- function(method_name, bootstrap_flag, bootstrap_obj) {
-  checkmate::assert_string(method_name)
-  checkmate::assert_flag(bootstrap_flag)
-  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
+  list(lower_ci = ci_bounds[1, ], upper_ci = ci_bounds[2, ], sd_boot = sd_boot)
 }
 
 setup_method <- function(method_name = "",
                          bootstrap_flag = FALSE,
                          bootstrap_obj = .bootstrap_obj()) {
-  .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
+  checkmate::assert_string(method_name)
+  checkmate::assert_flag(bootstrap_flag)
+  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
 
-  method_obj <- .method_obj(
+  .method_obj(
     method_name = method_name,
     bootstrap_flag = bootstrap_flag,
     bootstrap_obj = bootstrap_obj

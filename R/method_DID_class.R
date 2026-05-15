@@ -63,7 +63,9 @@ setup_method_DID <- function(method_name = "IPW",
                              model_form_piA = "",
                              model_form_mu0_rct = "",
                              model_form_mu1_rct = "") {
-  .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
+  checkmate::assert_string(method_name)
+  checkmate::assert_flag(bootstrap_flag)
+  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
   checkmate::assert_string(model_form_piS)
   checkmate::assert_string(model_form_piA)
   checkmate::assert_character(model_form_mu0_ext)

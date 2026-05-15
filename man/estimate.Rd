@@ -109,5 +109,7 @@ A list with estimation results.
 }
 \description{
 S4 generic that dispatches to the appropriate estimation logic
-based on the method class.
+based on the method class. Each method subclass (e.g.,
+\code{ec_ipw_method}, \code{did_ec_ipw_method}) implements its own
+\code{estimate()} method containing the full estimation pipeline.
 }
