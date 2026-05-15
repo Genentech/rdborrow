@@ -36,9 +36,9 @@ An S4 object of class \code{scm_method}.
 \description{
 Creates a method object for synthetic control estimation with
 external control borrowing for the open-label extension phase
-(Zhou et al., 2024). The SCM method constructs a weighted
-combination of external controls that matches each RCT control
-subject on covariates and pre-crossover outcomes.
+(Zhou et al., 2024). Constructs a weighted combination of external
+controls matching each RCT control subject on covariates and
+pre-crossover outcomes.
 }
 \examples{
 scm(lambda_min = 0, lambda_max = 0.001, nlambda = 2, bootstrap = 50)
