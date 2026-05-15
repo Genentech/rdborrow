@@ -1,4 +1,4 @@
-#' method classes
+#' Method classes
 #'
 #' @slot method_name character.
 #' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
@@ -91,6 +91,13 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   list(lower_ci = ci_bounds[1, ], upper_ci = ci_bounds[2, ], sd_boot = sd_boot)
 }
 
+#' Create a base method_obj (internal, used only in tests).
+#' Users should call ec_ipw(), ec_aipw(), did_ec_ipw(), etc. instead.
+#' @param method_name character identifier for the method.
+#' @param bootstrap_flag logical whether bootstrap is used.
+#' @param bootstrap_obj bootstrap_obj with replicates and CI type.
+#' @return a method_obj S4 instance.
+#' @noRd
 setup_method <- function(method_name = "",
                          bootstrap_flag = FALSE,
                          bootstrap_obj = .bootstrap_obj()) {

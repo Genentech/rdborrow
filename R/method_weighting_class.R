@@ -97,9 +97,15 @@ setup_method_weighting <- function(method_name = "IPW",
   )
 }
 
-# shared helpers for weighting methods----
-
-# prepares the internal data frame used by weighting estimators----
+#' Build the internal data frame for primary weighting estimators.
+#' Combines outcome matrix Y, trial status S, treatment A, and covariates
+#' into a single data frame used by all ec_ipw/ec_aipw internals.
+#' @param data user-supplied data frame.
+#' @param outcomes character vector of outcome column names.
+#' @param treatment name of the treatment column.
+#' @param trial_status name of the trial participation column.
+#' @param covariates character vector of covariate column names.
+#' @return data frame with columns: outcome cols, S, A, covariate cols.
 #' @noRd
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates) {
@@ -108,7 +114,20 @@ setup_method_weighting <- function(method_name = "IPW",
              data[, covariates, drop = FALSE])
 }
 
-# formats results and optionally runs bootstrap for weighting methods----
+#' Format estimation results for primary weighting methods.
+#' If bootstrap is requested, runs .run_bootstrap and returns boot CIs.
+#' Otherwise returns sandwich SE with normal CIs.
+#' @param tau numeric vector of point estimates.
+#' @param sd_tau numeric vector of sandwich standard errors.
+#' @param borrow_weight numeric borrowing weight used.
+#' @param n_time number of time points (length of tau).
+#' @param alpha significance level.
+#' @param method S4 method object (checked for bootstrap slot).
+#' @param df internal data frame (passed to bootstrap statistic).
+#' @param quiet logical suppress output.
+#' @param statistic bootstrap statistic function.
+#' @param ... additional args passed to statistic via .run_bootstrap.
+#' @return list with results (data.frame) and borrow_weight.
 #' @noRd
 .format_primary_results <- function(tau, sd_tau, borrow_weight, n_time,
                                     alpha, method, df, quiet, statistic,
