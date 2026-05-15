@@ -52,6 +52,10 @@ reference:
     contents:
       - ec_ipw
       - ec_aipw
+      - did_ec_ipw
+      - did_ec_aipw
+      - did_ec_or
+      - scm
       - estimate
 
   - title: Method Configuration (legacy)

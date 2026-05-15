@@ -97,22 +97,15 @@ ec_ipw <- function(ps_formula,
 
 #' Run estimation for a method object
 #'
+#' S4 generic that dispatches to the appropriate estimation logic
+#' based on the method class. Each method defines its own arguments.
+#'
 #' @param method An S4 method object (e.g., from \code{\link{ec_ipw}}).
-#' @param data Data frame with all subjects.
-#' @param outcomes Character vector of outcome column names.
-#' @param treatment Name of the treatment column.
-#' @param trial_status Name of the trial participation column.
-#' @param covariates Character vector of covariate column names.
-#' @param alpha Significance level.
-#' @param quiet Logical. Suppress output.
+#' @param ... Method-specific arguments (data, outcomes, etc.).
 #'
 #' @return A list with estimation results.
 #' @export
-setGeneric("estimate", function(method, data, outcomes, treatment,
-                                trial_status, covariates, alpha = 0.05,
-                                quiet = TRUE) {
-  standardGeneric("estimate")
-})
+setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 
 #' @rdname estimate
 setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,

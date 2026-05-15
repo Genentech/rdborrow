@@ -194,6 +194,20 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
       alpha = alpha,
       quiet = quiet
     )
+  } else if (is(method, "did_ec_ipw_method") ||
+    is(method, "did_ec_aipw_method") ||
+    is(method, "did_ec_or_method") ||
+    is(method, "scm_method")) {
+    res <- estimate(method,
+      data = data,
+      outcomes = outcome_col_name,
+      treatment = treatment_col_name,
+      trial_status = trial_status_col_name,
+      covariates = covariates_col_name,
+      alpha = alpha,
+      quiet = quiet,
+      T_cross = T_cross
+    )
   } else {
     stop("No such method type is defined!")
   }
