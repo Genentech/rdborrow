@@ -17,9 +17,10 @@ optimal weight, \code{0} for RCT-only, or a value in (0, 1].}
 \item{bootstrap}{Number of bootstrap replicates, or \code{NULL}
 (default) for sandwich variance with normal CIs.}
 
-\item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}
-when \code{bootstrap} is non-NULL. One of \code{"perc"}, \code{"bca"},
-\code{"norm"}, \code{"basic"}, or \code{"stud"}.}
+\item{bootstrap_ci_type}{Bootstrap CI type, or \code{NULL} (default)
+which resolves to \code{"perc"} when \code{bootstrap} is set. One of
+\code{"perc"}, \code{"bca"}, \code{"norm"}, \code{"basic"}, or
+\code{"stud"}.}
 }
 \value{
 An S4 object of class \code{ec_ipw_method}.
@@ -30,13 +31,13 @@ borrowing (Zhou et al., 2024). Pass to \code{\link{setup_analysis_primary}}
 and \code{\link{run_analysis}}.
 }
 \examples{
-# Optimal weight, sandwich SE
+# optimal weight, sandwich SE
 ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 
-# No borrowing
+# no borrowing
 ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0)
 
-# Fixed weight with bootstrap
+# fixed weight with bootstrap
 ec_ipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
   weight = 0.3,

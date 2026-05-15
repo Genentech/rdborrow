@@ -3,8 +3,9 @@ NULL
 
 # class unions----
 setClassUnion("numericOrNULL", c("numeric", "NULL"))
+setClassUnion("characterOrNULL", c("character", "NULL"))
 
-# S4 class definition----
+# s4 class definition----
 .ec_ipw_method <- setClass(
   "ec_ipw_method",
   contains = "method_weighting_obj",
@@ -12,14 +13,14 @@ setClassUnion("numericOrNULL", c("numeric", "NULL"))
     ps_formula = "character",
     weight = "numericOrNULL",
     bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    bootstrap_ci_type = "characterOrNULL"
   ),
   prototype = list(
     method_name = "EC-IPW",
     ps_formula = "",
     weight = NULL,
     bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    bootstrap_ci_type = NULL
   )
 )
 
@@ -38,9 +39,10 @@ setClassUnion("numericOrNULL", c("numeric", "NULL"))
 #'   optimal weight, \code{0} for RCT-only, or a value in (0, 1].
 #' @param bootstrap Number of bootstrap replicates, or \code{NULL}
 #'   (default) for sandwich variance with normal CIs.
-#' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}
-#'   when \code{bootstrap} is non-NULL. One of \code{"perc"}, \code{"bca"},
-#'   \code{"norm"}, \code{"basic"}, or \code{"stud"}.
+#' @param bootstrap_ci_type Bootstrap CI type, or \code{NULL} (default)
+#'   which resolves to \code{"perc"} when \code{bootstrap} is set. One of
+#'   \code{"perc"}, \code{"bca"}, \code{"norm"}, \code{"basic"}, or
+#'   \code{"stud"}.
 #'
 #' @return An S4 object of class \code{ec_ipw_method}.
 #'
@@ -52,13 +54,13 @@ setClassUnion("numericOrNULL", c("numeric", "NULL"))
 #' @export
 #'
 #' @examples
-#' # Optimal weight, sandwich SE
+#' # optimal weight, sandwich SE
 #' ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 #'
-#' # No borrowing
+#' # no borrowing
 #' ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0)
 #'
-#' # Fixed weight with bootstrap
+#' # fixed weight with bootstrap
 #' ec_ipw(
 #'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
 #'   weight = 0.3,
@@ -72,12 +74,15 @@ ec_ipw <- function(ps_formula,
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
   checkmate::assert_count(bootstrap, positive = TRUE, null.ok = TRUE)
 
-  if (is.null(bootstrap_ci_type)) {
-    bootstrap_ci_type <- if (!is.null(bootstrap)) "perc" else "perc"
+  # resolve ci type only when bootstrap is requested
+  if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    bootstrap_ci_type <- "perc"
   }
-  checkmate::assert_choice(
-    bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
-  )
+  if (!is.null(bootstrap_ci_type)) {
+    checkmate::assert_choice(
+      bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+    )
+  }
 
   .ec_ipw_method(
     ps_formula = ps_formula,
@@ -88,30 +93,19 @@ ec_ipw <- function(ps_formula,
     bootstrap_flag = !is.null(bootstrap),
     bootstrap_obj = .bootstrap_obj(
       replicates = bootstrap %||% 500L,
-      bootstrap_CI_type = bootstrap_ci_type
+      bootstrap_CI_type = bootstrap_ci_type %||% "perc"
     )
   )
 }
 
-# estimate() generic and method----
-
-#' Run estimation for a method object
-#'
-#' S4 generic that dispatches to the appropriate estimation logic
-#' based on the method class. Each method defines its own arguments.
-#'
-#' @param method An S4 method object (e.g., from \code{\link{ec_ipw}}).
-#' @param ... Method-specific arguments (data, outcomes, etc.).
-#'
-#' @return A list with estimation results.
-#' @export
-setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
+# estimate() method----
 
 #' @rdname estimate
 setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 treatment, trial_status,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
+  # replace formula LHS with the actual trial status column name
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   n_time <- length(outcomes)
@@ -121,19 +115,24 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   weight <- method@weight
   use_borrowing <- is.null(weight) || weight > 0
 
+  # weight=0 uses rct-only path (no PS model needed)
   if (!use_borrowing) {
     Y <- as.matrix(df[, outcomes, drop = FALSE])
     result <- .ec_ipw_no_borrow(df, Y, df$S, df$A, sum(df$S), n_time)
     borrow_weight <- 0
   } else {
-    core <- .ec_ipw_borrow_core(df, as.matrix(df[, outcomes, drop = FALSE]),
-                                df$S, df$A, sum(df$S), nrow(df),
-                                sum(df$S) / nrow(df), n_time,
-                                ps_formula, weight)
+    # weight>0 or NULL: fit PS model, compute borrowing weight, sandwich SE
+    core <- .ec_ipw_borrow_core(
+      df, as.matrix(df[, outcomes, drop = FALSE]),
+      df$S, df$A, sum(df$S), nrow(df),
+      sum(df$S) / nrow(df), n_time,
+      ps_formula, weight
+    )
     result <- .ec_ipw_sandwich(df, core, n_time)
     borrow_weight <- core$borrow_weight
   }
 
+  # format output and optionally run bootstrap
   .format_primary_results(
     tau = result$tau, sd_tau = result$sd_tau,
     borrow_weight = borrow_weight,
@@ -147,69 +146,87 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
 # internal helpers----
 
-# point estimate for weight=0 (rct-only, no PS model)----
+# rct-only point estimate (no PS model, Hajek estimator)----
 #' @noRd
 .ec_ipw_no_borrow_core <- function(df, Y, S, A, n, n_time) {
   rct <- df[df$S == 1, , drop = FALSE]
   Y_rct <- Y[S == 1, , drop = FALSE]
   pi_A <- sum(rct$A) / n
 
+  # normalized IPTW (Hajek estimator) -- Def 1 with w=0
   potential <- (rct$A / pi_A + (1 - rct$A) / (1 - pi_A)) * Y_rct
   mu1 <- colSums(potential[rct$A == 1, , drop = FALSE]) / n
   mu0 <- colSums(potential[rct$A == 0, , drop = FALSE]) / n
 
-  list(tau = mu1 - mu0, pi_A = pi_A, mu1 = mu1, mu0 = mu0,
-       Y_rct = Y_rct, rct = rct)
+  list(
+    tau = mu1 - mu0, pi_A = pi_A,
+    mu1 = mu1, mu0 = mu0,
+    Y_rct = Y_rct, rct = rct
+  )
 }
 
-# sandwich variance for weight=0 case----
+# rct-only sandwich variance (Theorem 3 with w=0)----
 #' @noRd
 .ec_ipw_no_borrow <- function(df, Y, S, A, n, n_time) {
   core <- .ec_ipw_no_borrow_core(df, Y, S, A, n, n_time)
 
+  # influence functions for treated and control
   phi1 <- core$rct$A * sweep(core$Y_rct, 2, core$mu1) / core$pi_A
   phi0 <- (1 - core$rct$A) * sweep(core$Y_rct, 2, core$mu0) / (1 - core$pi_A)
   B <- crossprod(cbind(phi1, phi0)) / n
 
+  # tau = mu1 - mu0, so coef_mat = [I, -I]
   coef_mat <- cbind(diag(n_time), -diag(n_time))
   sd_tau <- sqrt(diag(coef_mat %*% B %*% t(coef_mat) / n))
 
   list(tau = core$tau, sd_tau = sd_tau)
 }
 
-# point estimate with borrowing (shared by estimate and bootstrap)----
+# point estimate with borrowing (Def 1, shared by estimate and bootstrap)----
+# fits PS model, computes density ratio weights W00 (Eq 4), mu11/mu10/mu00,
+# and optimal weight (Eq 11). returns intermediates for sandwich variance.
 #' @noRd
 .ec_ipw_borrow_core <- function(df, Y, S, A, n, N, pi_S, n_time,
                                 ps_formula, weight) {
+  # propensity score model for trial participation
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
   pi_A <- sum(A[S == 1]) / n
+
+  # density ratio weights W00 = pi_S(X)(1-pi_S) / (1-pi_S(X))pi_S (Eq 4)
   rx <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
 
   w11 <- pi_A
   w10 <- 1 - pi_A
   w00 <- rx
 
+  # normalized weighted outcomes (Def 1, Eq 6)
   potential <- (S * A / w11 + S * (1 - A) / w10 + (1 - S) * w00) * Y
   mu1 <- colSums(potential[S == 1 & A == 1, , drop = FALSE]) / sum(S * A / w11)
   mu10 <- colSums(potential[S == 1 & A == 0, , drop = FALSE]) / sum(S * (1 - A) / w10)
   mu00 <- colSums(potential[S == 0, , drop = FALSE]) / sum((1 - S) * w00)
 
-  # optimal weight (Eq. 11 from Zhou et al. 2024)
+  # data-adaptive optimal weight (Eq 11, variance ratio approximation)
   num <- sum(S * (1 - A) / w10^2 / (sum(S * (1 - A) / w10))^2)
   denom <- sum((1 - S) * w00^2 / (sum((1 - S) * w00))^2)
   w_opt <- num / (num + denom)
   borrow_weight <- if (is.null(weight)) w_opt else weight
 
+  # hybrid control: convex combination of trial and external controls
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 
-  list(tau = tau, borrow_weight = borrow_weight, ps_model = ps_model,
-       pi_SX = pi_SX, pi_A = pi_A, w00 = w00, w10 = w10,
-       mu1 = mu1, mu10 = mu10, mu00 = mu00)
+  list(
+    tau = tau, borrow_weight = borrow_weight,
+    ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
+    w00 = w00, w10 = w10,
+    mu1 = mu1, mu10 = mu10, mu00 = mu00
+  )
 }
 
-# sandwich variance with borrowing (uses intermediates from _core)----
+# sandwich variance with borrowing (Theorem 3, Eq 12-13)----
+# constructs the M-estimator bread matrix A (block diagonal with PS block)
+# and the meat matrix B (outer product of influence functions).
 #' @noRd
 .ec_ipw_sandwich <- function(df, core, n_time) {
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
@@ -221,7 +238,11 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   X_model <- model.matrix(core$ps_model)
   n_ps <- ncol(X_model)
 
-  # bread matrix blocks
+  # bread: A matrix blocks (Eq 12)
+  # A11 = -I_T, A22 = -I_T (for mu1, mu10)
+  # A33 = external control block
+  # A34 = cross-term linking mu00 to PS params
+  # A44 = PS model Hessian
   A33 <- diag(rep(-mean((1 - S) * core$w00 / (1 - pi_S)), n_time), nrow = n_time)
   A34 <- t((1 - S) * core$pi_SX / (pi_S * (1 - core$pi_SX)) *
     sweep(Y, 2, core$mu00)) %*% X_model / N
@@ -235,17 +256,18 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   A_mat[(3 * n_time + 1):block_dim, (3 * n_time + 1):block_dim] <- A44
   A_mat[(2 * n_time + 1):(3 * n_time), (3 * n_time + 1):block_dim] <- A34
 
-  # meat: influence functions
+  # meat: influence functions (Psi_1 through Psi_4 in Theorem 3)
   phi1 <- S * A * sweep(Y, 2, core$mu1) / core$pi_A / pi_S
   phi2 <- S * (1 - A) * sweep(Y, 2, core$mu10) / (1 - core$pi_A) / pi_S
   phi3 <- (1 - S) * sweep(Y, 2, core$mu00) * core$w00 / (1 - pi_S)
   phi_ps <- (S - core$pi_SX) * X_model
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps)) / N
 
-  # sandwich
+  # sandwich: Sigma = A^{-1} B A^{-T} (Eq 13)
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
+  # tau = mu1 - (1-w)*mu10 - w*mu00, extract variance via linear combination
   coef_mat <- cbind(
     diag(n_time),
     -(1 - core$borrow_weight) * diag(n_time),

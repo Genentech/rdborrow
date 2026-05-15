@@ -24,6 +24,20 @@
   contains = "method_obj"
 )
 
+# estimate() generic----
+
+#' Run estimation for a method object
+#'
+#' S4 generic that dispatches to the appropriate estimation logic
+#' based on the method class.
+#'
+#' @param method An S4 method object (e.g., from \code{\link{ec_ipw}}).
+#' @param ... Method-specific arguments (data, outcomes, etc.).
+#'
+#' @return A list with estimation results.
+#' @export
+setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
+
 # bootstrap helpers----
 
 #' @noRd

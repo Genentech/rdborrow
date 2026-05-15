@@ -10,7 +10,7 @@ NULL
     outcome_formula = "character",
     weight = "numericOrNULL",
     bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    bootstrap_ci_type = "characterOrNULL"
   ),
   prototype = list(
     method_name = "EC-AIPW",
@@ -18,7 +18,7 @@ NULL
     outcome_formula = "",
     weight = NULL,
     bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    bootstrap_ci_type = NULL
   )
 )
 
@@ -68,12 +68,14 @@ ec_aipw <- function(ps_formula,
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
   checkmate::assert_count(bootstrap, positive = TRUE, null.ok = TRUE)
 
-  if (is.null(bootstrap_ci_type)) {
+  if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"
   }
-  checkmate::assert_choice(
-    bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
-  )
+  if (!is.null(bootstrap_ci_type)) {
+    checkmate::assert_choice(
+      bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+    )
+  }
 
   .ec_aipw_method(
     ps_formula = ps_formula,
@@ -85,7 +87,7 @@ ec_aipw <- function(ps_formula,
     bootstrap_flag = !is.null(bootstrap),
     bootstrap_obj = .bootstrap_obj(
       replicates = bootstrap %||% 500L,
-      bootstrap_CI_type = bootstrap_ci_type
+      bootstrap_CI_type = bootstrap_ci_type %||% "perc"
     )
   )
 }
