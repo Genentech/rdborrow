@@ -73,12 +73,6 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Collate: 
-    'DID_EC_AIPW_bootstrap.R'
-    'DID_EC_AIPW.R'
-    'DID_EC_IPW_bootstrap.R'
-    'DID_EC_IPW.R'
-    'DID_EC_OR_bootstrap.R'
-    'DID_EC_OR.R'
     'EC_AIPW_OPT_bootstrap.R'
     'EC_AIPW_OPT.R'
     'EC_IPW_OPT_bootstrap.R'
@@ -99,6 +93,12 @@ Collate:
     'did_ec_aipw.R'
     'did_ec_or.R'
     'ec_aipw.R'
+    'legacy_DID_EC_AIPW_bootstrap.R'
+    'legacy_DID_EC_AIPW.R'
+    'legacy_DID_EC_IPW_bootstrap.R'
+    'legacy_DID_EC_IPW.R'
+    'legacy_DID_EC_OR_bootstrap.R'
+    'legacy_DID_EC_OR.R'
     'package.R'
     'rdborrow-package.R'
     'run_analysis.R'

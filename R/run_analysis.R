@@ -7,9 +7,9 @@
 #' @return  a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @include EC_IPW_OPT.R
 #' @include EC_AIPW_OPT.R
-#' @include DID_EC_IPW.R
-#' @include DID_EC_AIPW.R
-#' @include DID_EC_OR.R
+#' @include legacy_DID_EC_IPW.R
+#' @include legacy_DID_EC_AIPW.R
+#' @include legacy_DID_EC_OR.R
 #' @include SCM.R
 #'
 #' @export
