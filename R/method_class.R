@@ -32,7 +32,15 @@
 #' based on the method class.
 #'
 #' @param method An S4 method object (e.g., from \code{\link{ec_ipw}}).
-#' @param ... Method-specific arguments (data, outcomes, etc.).
+#' @param data Data frame with all subjects (RCT + external controls).
+#' @param outcomes Character vector of outcome column names.
+#' @param treatment Name of the treatment column.
+#' @param trial_status Name of the trial participation column.
+#' @param covariates Character vector of covariate column names.
+#' @param alpha Significance level (default 0.05).
+#' @param quiet Logical. Suppress output (default TRUE).
+#' @param T_cross Integer crossover time point (OLE methods only).
+#' @param ... Additional method-specific arguments.
 #'
 #' @return A list with estimation results.
 #' @export

@@ -86,7 +86,23 @@ estimate(method, ...)
 \arguments{
 \item{method}{An S4 method object (e.g., from \code{\link{ec_ipw}}).}
 
-\item{...}{Method-specific arguments (data, outcomes, etc.).}
+\item{...}{Additional method-specific arguments.}
+
+\item{data}{Data frame with all subjects (RCT + external controls).}
+
+\item{outcomes}{Character vector of outcome column names.}
+
+\item{treatment}{Name of the treatment column.}
+
+\item{trial_status}{Name of the trial participation column.}
+
+\item{covariates}{Character vector of covariate column names.}
+
+\item{alpha}{Significance level (default 0.05).}
+
+\item{quiet}{Logical. Suppress output (default TRUE).}
+
+\item{T_cross}{Integer crossover time point (OLE methods only).}
 }
 \value{
 A list with estimation results.
