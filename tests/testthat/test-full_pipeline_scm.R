@@ -1,6 +1,6 @@
 tol <- 1e-6
 
-test_that("SCM runs and returns valid structure", {
+test_that("SCM point estimates match expected values", {
   skip_on_cran()
 
   bootstrap_obj <- setup_bootstrap(replicates = 5, bootstrap_CI_type = "perc")
@@ -30,13 +30,14 @@ test_that("SCM runs and returns valid structure", {
   expect_s3_class(res, "data.frame")
   expect_equal(nrow(res), 2)
   expect_named(res, c("point_estimates", "lower_CI_boot", "upper_CI_boot"))
-  expect_all_true(is.finite(res$point_estimates))
+  expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
+  expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
   expect_all_true(res$lower_CI_boot <= res$upper_CI_boot)
 })
 
 # new API----
 
-test_that("scm() matches old API structure", {
+test_that("scm() matches old API point estimates", {
   skip_on_cran()
 
   method <- scm(
@@ -61,6 +62,6 @@ test_that("scm() matches old API structure", {
 
   expect_s3_class(res, "data.frame")
   expect_equal(nrow(res), 2)
-  expect_all_true(is.finite(res$point_estimates))
-  expect_all_true(res$lower_CI_boot <= res$upper_CI_boot)
+  expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
+  expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
 })
