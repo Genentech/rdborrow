@@ -146,50 +146,21 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
   if (!is.null(method@bootstrap)) {
     if (!quiet) cat("Running bootstrap inference...\n")
-    group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
-    boot_ci_type_long <- switch(method@bootstrap_ci_type,
-      norm = "normal",
-      bca = "bca",
-      stud = "student",
-      perc = "percent",
-      basic = "basic"
+    boot_res <- .run_bootstrap(
+      df = df, statistic = .ec_ipw_statistic,
+      n_estimates = n_time, bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      outcomes = outcomes, covariates = covariates,
+      ps_formula = ps_formula, borrow_wt = borrow_weight
     )
-
-    boot_out <- boot::boot(
-      data = df,
-      statistic = .ec_ipw_statistic,
-      outcomes = outcomes,
-      covariates = covariates,
-      ps_formula = ps_formula,
-      borrow_wt = borrow_weight,
-      R = method@bootstrap,
-      strata = group_id
-    )
-
-    lower_ci <- vapply(seq_len(n_time), \(i) {
-      ci <- boot::boot.ci(boot_out,
-        conf = 1 - alpha,
-        type = method@bootstrap_ci_type, index = i
-      )
-      ci[[boot_ci_type_long]][4]
-    }, numeric(1))
-
-    upper_ci <- vapply(seq_len(n_time), \(i) {
-      ci <- boot::boot.ci(boot_out,
-        conf = 1 - alpha,
-        type = method@bootstrap_ci_type, index = i
-      )
-      ci[[boot_ci_type_long]][5]
-    }, numeric(1))
-
-    sd_tau <- sqrt(diag(var(boot_out$t)))
+    sd_tau <- boot_res$sd_boot
 
     results <- data.frame(
       point_estimates = tau,
       standard_deviation = sd_tau,
-      lower_CI_boot = lower_ci,
-      upper_CI_boot = upper_ci,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
       row.names = paste0("tau", seq_len(n_time))
     )
   } else {

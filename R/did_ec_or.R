@@ -122,50 +122,23 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   tau <- result$tau
 
   if (!quiet) cat("Running bootstrap inference...\n")
-  group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
-  boot_ci_type_long <- switch(method@bootstrap_ci_type,
-    norm = "normal",
-    bca = "bca",
-    stud = "student",
-    perc = "percent",
-    basic = "basic"
-  )
-
-  boot_out <- boot::boot(
-    data = df,
-    statistic = .did_ec_or_statistic,
+  n_ole <- n_time - T_cross
+  boot_res <- .run_bootstrap(
+    df = df, statistic = .did_ec_or_statistic,
+    n_estimates = n_ole, bootstrap = method@bootstrap,
+    bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes,
     outcome_formula_ext = method@outcome_formula_ext,
     outcome_formula_rct_ctrl = method@outcome_formula_rct_ctrl,
     outcome_formula_rct_trt = method@outcome_formula_rct_trt,
-    T_cross = T_cross,
-    R = method@bootstrap,
-    strata = group_id
+    T_cross = T_cross
   )
-
-  n_ole <- n_time - T_cross
-
-  lower_ci <- vapply(seq_len(n_ole), \(i) {
-    ci <- boot::boot.ci(boot_out,
-      conf = 1 - alpha,
-      type = method@bootstrap_ci_type, index = i
-    )
-    ci[[boot_ci_type_long]][4]
-  }, numeric(1))
-
-  upper_ci <- vapply(seq_len(n_ole), \(i) {
-    ci <- boot::boot.ci(boot_out,
-      conf = 1 - alpha,
-      type = method@bootstrap_ci_type, index = i
-    )
-    ci[[boot_ci_type_long]][5]
-  }, numeric(1))
 
   data.frame(
     point_estimates = tau,
-    lower_CI_boot = lower_ci,
-    upper_CI_boot = upper_ci,
+    lower_CI_boot = boot_res$lower_ci,
+    upper_CI_boot = boot_res$upper_ci,
     row.names = paste0("tau", (T_cross + 1):n_time)
   )
 })

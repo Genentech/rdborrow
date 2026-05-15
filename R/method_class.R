@@ -24,6 +24,49 @@
   contains = "method_obj"
 )
 
+# bootstrap helpers----
+
+#' @noRd
+.boot_ci_type_long <- function(short) {
+  switch(short,
+    norm = "normal", bca = "bca", stud = "student",
+    perc = "percent", basic = "basic"
+  )
+}
+
+#' @noRd
+.run_bootstrap <- function(df, statistic, n_estimates, bootstrap,
+                           bootstrap_ci_type, alpha, ...) {
+  group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
+  ci_type_long <- .boot_ci_type_long(bootstrap_ci_type)
+
+  boot_out <- boot::boot(
+    data = df,
+    statistic = statistic,
+    R = bootstrap,
+    strata = group_id,
+    ...
+  )
+
+  lower_ci <- vapply(seq_len(n_estimates), \(i) {
+    ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
+                        type = bootstrap_ci_type, index = i)
+    ci[[ci_type_long]][4]
+  }, numeric(1))
+
+  upper_ci <- vapply(seq_len(n_estimates), \(i) {
+    ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
+                        type = bootstrap_ci_type, index = i)
+    ci[[ci_type_long]][5]
+  }, numeric(1))
+
+  sd_boot <- sqrt(diag(var(boot_out$t)))
+
+  list(lower_ci = lower_ci, upper_ci = upper_ci, sd_boot = sd_boot)
+}
+
+# validation----
+
 .validate_method_base <- function(method_name, bootstrap_flag, bootstrap_obj) {
   checkmate::assert_string(method_name)
   checkmate::assert_flag(bootstrap_flag)
