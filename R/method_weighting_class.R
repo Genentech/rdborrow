@@ -161,3 +161,8 @@ setup_method_weighting <- function(method_name = "IPW",
 
   list(results = results, borrow_weight = borrow_weight)
 }
+
+# class unions----
+setClassUnion("numericOrNULL", c("numeric", "NULL"))
+setClassUnion("characterOrNULL", c("character", "NULL"))
+

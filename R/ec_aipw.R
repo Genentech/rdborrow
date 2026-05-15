@@ -1,7 +1,7 @@
 #' @include ec_ipw.R
 NULL
 
-# s4 class definition----
+# S4 class definition----
 .ec_aipw_method <- setClass(
   "ec_aipw_method",
   contains = "method_weighting_obj",
@@ -21,8 +21,6 @@ NULL
     bootstrap_ci_type = NULL
   )
 )
-
-# constructor----
 
 #' EC-AIPW method
 #'
@@ -51,12 +49,34 @@ NULL
 #' @export
 #'
 #' @examples
+#' # optimal weight, sandwich SE
 #' ec_aipw(
 #'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
 #'   outcome_formula = c(
 #'     "y1 ~ x1 + x2 + x3 + x4 + x5",
 #'     "y2 ~ x1 + x2 + x3 + x4 + x5"
 #'   )
+#' )
+#'
+#' # no borrowing
+#' ec_aipw(
+#'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+#'   outcome_formula = c(
+#'     "y1 ~ x1 + x2 + x3 + x4 + x5",
+#'     "y2 ~ x1 + x2 + x3 + x4 + x5"
+#'   ),
+#'   weight = 0
+#' )
+#'
+#' # fixed weight with bootstrap
+#' ec_aipw(
+#'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+#'   outcome_formula = c(
+#'     "y1 ~ x1 + x2 + x3 + x4 + x5",
+#'     "y2 ~ x1 + x2 + x3 + x4 + x5"
+#'   ),
+#'   weight = 0.3,
+#'   bootstrap = 500
 #' )
 ec_aipw <- function(ps_formula,
                     outcome_formula,
@@ -68,6 +88,7 @@ ec_aipw <- function(ps_formula,
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
   checkmate::assert_count(bootstrap, positive = TRUE, null.ok = TRUE)
 
+  # bootstrap type
   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"
   }
@@ -92,13 +113,13 @@ ec_aipw <- function(ps_formula,
   )
 }
 
-# estimate() dispatch----
-
 #' @rdname estimate
 setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
+
+  # unwrap formula                                            
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
 
@@ -121,10 +142,16 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   )
 })
 
-# core estimation----
-
-# fits ps + outcome models, computes weighted residual potentials, returns
-# point estimate tau and all intermediates needed for sandwich variance----
+#' EC-AIPW point estimate (Def 2, Eq 7).
+#' fits PS + outcome models, uses residuals Y-mu(X) in place of Y,
+#' computes mu11/mu10/mu00 and optimal weight.
+#' shared by estimate() and bootstrap statistic.
+#' @param df internal data frame.
+#' @param outcomes outcome column names.
+#' @param ps_formula propensity score formula string.
+#' @param outcome_formula character vector of outcome model formulas.
+#' @param weight fixed weight or NULL for optimal.
+#' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
   Y <- as.matrix(df[, outcomes, drop = FALSE])
@@ -174,11 +201,13 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
        Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00)
 }
 
-# sandwich variance----
-
-# constructs the M-estimator sandwich variance from the core intermediates.
-# the bread matrix has blocks for: mu1, mu10, mu00, ps params, outcome params.
-# the meat is the outer product of the stacked influence functions.----
+#' sandwich variance for EC-AIPW (Theorem 4, Eq 15-16).
+#' extends the IPW sandwich with outcome model parameter blocks.
+#' @param df internal data frame.
+#' @param core output from .ec_aipw_core.
+#' @param n_time number of time points.
+#' @param outcome_formula character vector of outcome model formulas.
+#' @return numeric vector of standard errors (length n_time).
 #' @noRd
 .ec_aipw_sandwich <- function(df, core, n_time, outcome_formula) {
   S <- df$S
@@ -263,7 +292,16 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   sqrt(diag(coef_mat %*% sigma %*% t(coef_mat) / N))
 }
 
-# bootstrap statistic (calls _core, returns tau only)----
+#' bootstrap statistic for EC-AIPW. called by boot::boot on each resample.
+#' refits both PS and outcome models on the resampled data.
+#' @param data internal data frame.
+#' @param indices bootstrap sample indices.
+#' @param outcomes outcome column names.
+#' @param covariates covariate column names.
+#' @param ps_formula propensity score formula.
+#' @param outcome_formula outcome model formulas.
+#' @param borrow_wt pre-computed borrowing weight.
+#' @return numeric vector of tau estimates.
 #' @noRd
 .ec_aipw_statistic <- function(data, indices, outcomes, covariates,
                                ps_formula, outcome_formula, borrow_wt) {

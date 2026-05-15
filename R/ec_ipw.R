@@ -1,11 +1,7 @@
 #' @include method_class.R
 NULL
 
-# class unions----
-setClassUnion("numericOrNULL", c("numeric", "NULL"))
-setClassUnion("characterOrNULL", c("character", "NULL"))
-
-# s4 class definition----
+# S4 class definition----
 .ec_ipw_method <- setClass(
   "ec_ipw_method",
   contains = "method_weighting_obj",
@@ -23,8 +19,6 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
     bootstrap_ci_type = NULL
   )
 )
-
-# constructor----
 
 #' EC-IPW method constructor
 #'
@@ -74,7 +68,7 @@ ec_ipw <- function(ps_formula,
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
   checkmate::assert_count(bootstrap, positive = TRUE, null.ok = TRUE)
 
-  # resolve ci type only when bootstrap is requested
+  # bootstrap type
   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"
   }
@@ -98,14 +92,13 @@ ec_ipw <- function(ps_formula,
   )
 }
 
-# estimate() method----
-
 #' @rdname estimate
 setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 treatment, trial_status,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
-  # replace formula LHS with the actual trial status column name
+                                                  
+  # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   n_time <- length(outcomes)
@@ -144,9 +137,14 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
 })
 
-# internal helpers----
-
-# rct-only point estimate (no PS model, Hajek estimator)----
+#' compute Hajek ATE using only RCT subjects (w=0, no PS model).
+#' @param df internal data frame with S, A, outcome columns.
+#' @param Y outcome matrix (N x T).
+#' @param S trial participation vector.
+#' @param A treatment vector.
+#' @param n number of RCT subjects.
+#' @param n_time number of time points.
+#' @return list with tau and intermediates for sandwich.
 #' @noRd
 .ec_ipw_no_borrow_core <- function(df, Y, S, A, n, n_time) {
   rct <- df[df$S == 1, , drop = FALSE]
@@ -165,7 +163,14 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
 }
 
-# rct-only sandwich variance (Theorem 3 with w=0)----
+#' sandwich SE for the rct-only case (Theorem 3 with w=0).
+#' @param df internal data frame.
+#' @param Y outcome matrix.
+#' @param S trial participation vector.
+#' @param A treatment vector.
+#' @param n number of RCT subjects.
+#' @param n_time number of time points.
+#' @return list with tau and sd_tau.
 #' @noRd
 .ec_ipw_no_borrow <- function(df, Y, S, A, n, n_time) {
   core <- .ec_ipw_no_borrow_core(df, Y, S, A, n, n_time)
@@ -182,9 +187,21 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   list(tau = core$tau, sd_tau = sd_tau)
 }
 
-# point estimate with borrowing (Def 1, shared by estimate and bootstrap)----
-# fits PS model, computes density ratio weights W00 (Eq 4), mu11/mu10/mu00,
-# and optimal weight (Eq 11). returns intermediates for sandwich variance.
+#' EC-IPW point estimate with borrowing (Def 1, Eq 6).
+#' fits PS model, computes density ratio weights W00 (Eq 4),
+#' mu11/mu10/mu00, and optimal weight (Eq 11).
+#' shared by estimate() and bootstrap statistic.
+#' @param df internal data frame.
+#' @param Y outcome matrix (N x T).
+#' @param S trial participation vector.
+#' @param A treatment vector.
+#' @param n number of RCT subjects.
+#' @param N total sample size.
+#' @param pi_S marginal trial participation probability.
+#' @param n_time number of time points.
+#' @param ps_formula propensity score formula string.
+#' @param weight fixed weight or NULL for optimal.
+#' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_ipw_borrow_core <- function(df, Y, S, A, n, N, pi_S, n_time,
                                 ps_formula, weight) {
@@ -224,9 +241,12 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
 }
 
-# sandwich variance with borrowing (Theorem 3, Eq 12-13)----
-# constructs the M-estimator bread matrix A (block diagonal with PS block)
-# and the meat matrix B (outer product of influence functions).
+#' sandwich variance for EC-IPW with borrowing (Theorem 3, Eq 12-13).
+#' constructs bread matrix A and meat matrix B from core intermediates.
+#' @param df internal data frame.
+#' @param core output from .ec_ipw_borrow_core.
+#' @param n_time number of time points.
+#' @return list with tau and sd_tau.
 #' @noRd
 .ec_ipw_sandwich <- function(df, core, n_time) {
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
@@ -279,7 +299,14 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   list(tau = core$tau, sd_tau = sd_tau)
 }
 
-# bootstrap statistic (calls _core, returns tau only)----
+#' bootstrap statistic for EC-IPW. called by boot::boot on each resample.
+#' @param data internal data frame.
+#' @param indices bootstrap sample indices.
+#' @param outcomes outcome column names.
+#' @param covariates covariate column names.
+#' @param ps_formula propensity score formula.
+#' @param borrow_wt pre-computed borrowing weight.
+#' @return numeric vector of tau estimates.
 #' @noRd
 .ec_ipw_statistic <- function(data, indices, outcomes, covariates,
                               ps_formula, borrow_wt) {
