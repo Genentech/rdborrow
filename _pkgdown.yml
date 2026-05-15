@@ -18,6 +18,9 @@ navbar:
       aria-label: GitHub
 
 articles:
+  - title: Getting Started
+    contents:
+      - introduction
   - title: Primary Analysis
     contents:
       - primary_analysis_workflow
