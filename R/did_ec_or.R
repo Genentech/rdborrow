@@ -4,7 +4,7 @@ NULL
 # s4 class definition----
 .did_ec_or_method <- setClass(
   "did_ec_or_method",
-  contains = "method_OLE_obj",
+  contains = "method_DID_obj",
   slots = c(
     outcome_formula_ext = "character",
     outcome_formula_rct_ctrl = "character",

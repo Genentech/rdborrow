@@ -1,10 +1,10 @@
 #' @include ec_ipw.R
 NULL
 
-# S4 class definition----
+# s4 class definition----
 .ec_aipw_method <- setClass(
   "ec_aipw_method",
-  contains = "method_primary_obj",
+  contains = "method_weighting_obj",
   slots = c(
     ps_formula = "character",
     outcome_formula = "character",
@@ -90,81 +90,56 @@ ec_aipw <- function(ps_formula,
   )
 }
 
-# estimate() method----
+# estimate() dispatch----
 
 #' @rdname estimate
 setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
-  n_time <- ncol(Y)
-  N <- nrow(data)
-  n <- sum(S)
-  m <- N - n
-  pi_S <- n / N
-
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
 
   if (!quiet) cat("Running EC-AIPW estimator...\n")
 
-  result <- .ec_aipw_estimate(
-    df, Y, S, A, n, m, N, pi_S, n_time,
-    ps_formula, method@outcome_formula, method@weight
+  core <- .ec_aipw_core(df, outcomes, ps_formula,
+                        method@outcome_formula, method@weight)
+  sd_tau <- .ec_aipw_sandwich(df, core, length(outcomes),
+                              method@outcome_formula)
+
+  .format_primary_results(
+    tau = core$tau, sd_tau = sd_tau,
+    borrow_weight = core$borrow_weight,
+    n_time = length(core$tau), alpha = alpha,
+    method = method, df = df, quiet = quiet,
+    statistic = .ec_aipw_statistic,
+    outcomes = outcomes, covariates = covariates,
+    ps_formula = ps_formula,
+    outcome_formula = method@outcome_formula
   )
-
-  tau <- result$tau
-  sd_tau <- result$sd_tau
-  borrow_weight <- result$borrow_weight
-  cutoff <- qnorm(1 - alpha / 2)
-
-  if (!is.null(method@bootstrap)) {
-    if (!quiet) cat("Running bootstrap inference...\n")
-
-    boot_res <- .run_bootstrap(
-      df = df, statistic = .ec_aipw_statistic,
-      n_estimates = n_time, bootstrap = method@bootstrap,
-      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
-      outcomes = outcomes, covariates = covariates,
-      ps_formula = ps_formula, outcome_formula = method@outcome_formula,
-      borrow_wt = borrow_weight
-    )
-    sd_tau <- boot_res$sd_boot
-
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = sd_tau,
-      lower_CI_boot = boot_res$lower_ci,
-      upper_CI_boot = boot_res$upper_ci,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  } else {
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = sd_tau,
-      lower_CI_normal = tau - sd_tau * cutoff,
-      upper_CI_normal = tau + sd_tau * cutoff,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  }
-
-  list(results = results, borrow_weight = borrow_weight)
 })
 
-# internal helpers----
+# core estimation----
 
-# point estimate (shared by estimate and bootstrap)----
+# fits ps + outcome models, computes weighted residual potentials, returns
+# point estimate tau and all intermediates needed for sandwich variance----
 #' @noRd
-.ec_aipw_core <- function(df, Y, S, A, n, N, pi_S, n_time,
-                          ps_formula, outcome_formula, weight) {
+.ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  S <- df$S
+  A <- df$A
+  N <- nrow(df)
+  n <- sum(S)
+  n_time <- ncol(Y)
+  pi_S <- n / N
+
+  # propensity score model
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
   pi_A <- sum(A[S == 1]) / n
   rx <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
 
+  # outcome regression on controls, predict for all subjects
   Y0_models <- lapply(outcome_formula, \(f) {
     lm(as.formula(f), data = df[A == 0, , drop = FALSE])
   })
@@ -173,96 +148,107 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   }, numeric(N))
   Yr <- Y - Y0
 
-  w11 <- pi_A
-  w10 <- 1 - pi_A
+  # weighted potential outcomes using residuals
   w00 <- rx
-
-  potential <- (S * A / w11 + S * (1 - A) / w10 + (1 - S) * w00) * Yr
+  potential <- (S * A / pi_A + S * (1 - A) / (1 - pi_A) +
+    (1 - S) * w00) * Yr
   mu1 <- colSums(potential[S == 1 & A == 1, , drop = FALSE]) / n
   mu10 <- colSums(potential[S == 1 & A == 0, , drop = FALSE]) / n
   mu00 <- colSums(potential[S == 0, , drop = FALSE]) / sum((1 - S) * w00)
 
-  # optimal weight
-  num <- sum(S * (1 - A) / w10^2 / (sum(S * (1 - A) / w10))^2)
+  # optimal borrowing weight
+  num <- sum(S * (1 - A) / (1 - pi_A)^2 / (sum(S * (1 - A) / (1 - pi_A)))^2)
   denom <- sum((1 - S) * w00^2 / (sum((1 - S) * w00))^2)
   w_opt <- num / (num + denom)
   borrow_weight <- if (is.null(weight)) w_opt else weight
 
+  # combine rct control and external control
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 
-  list(tau = tau, borrow_weight = borrow_weight, ps_model = ps_model,
-       pi_SX = pi_SX, pi_A = pi_A, rx = rx, w00 = w00, w10 = w10,
+  list(tau = tau, borrow_weight = borrow_weight,
+       ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
+       pi_S = pi_S, rx = rx, w00 = w00,
        Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00)
 }
 
-# sandwich variance (uses intermediates from _core)----
+# sandwich variance----
+
+# constructs the M-estimator sandwich variance from the core intermediates.
+# the bread matrix has blocks for: mu1, mu10, mu00, ps params, outcome params.
+# the meat is the outer product of the stacked influence functions.----
 #' @noRd
-.ec_aipw_estimate <- function(df, Y, S, A, n, m, N, pi_S, n_time,
-                              ps_formula, outcome_formula, weight) {
-  core <- .ec_aipw_core(df, Y, S, A, n, N, pi_S, n_time,
-                        ps_formula, outcome_formula, weight)
+.ec_aipw_sandwich <- function(df, core, n_time, outcome_formula) {
+  S <- df$S
+  A <- df$A
+  N <- nrow(df)
 
   X_ps <- model.matrix(core$ps_model)
   n_ps <- ncol(X_ps)
 
-  # outcome model matrices (fit on full data for sandwich)
-  Y0_models_full <- lapply(outcome_formula, \(f) lm(as.formula(f), data = df))
-  Y0_model_dims <- vapply(Y0_models_full, \(m) ncol(model.matrix(m)), integer(1))
-  n_outcome <- sum(Y0_model_dims)
+  # refit outcome models on full data (needed for sandwich, not for tau)
+  Y0_models_full <- lapply(outcome_formula, \(f) {
+    lm(as.formula(f), data = df)
+  })
 
-  A33 <- diag(rep(-mean((1 - S) * core$w00 / (1 - pi_S)), n_time), nrow = n_time)
-  A34 <- t((1 - S) * core$pi_SX / (pi_S * (1 - core$pi_SX)) *
+  # bread: ps block----
+  A33 <- diag(
+    rep(-mean((1 - S) * core$w00 / (1 - core$pi_S)), n_time),
+    nrow = n_time
+  )
+  A34 <- t((1 - S) * core$pi_SX / (core$pi_S * (1 - core$pi_SX)) *
     sweep(core$Yr, 2, core$mu00)) %*% X_ps / N
   A44 <- t(X_ps) %*% diag(-core$pi_SX * (1 - core$pi_SX)) %*% X_ps / N
 
   A0 <- as.matrix(Matrix::bdiag(
     diag(-1, n_time), diag(-1, n_time), A33, A44
   ))
-  A0[
-    (2 * n_time + 1):(3 * n_time),
-    (3 * n_time + 1):(3 * n_time + n_ps)
-  ] <- A34
+  A0[(2 * n_time + 1):(3 * n_time),
+     (3 * n_time + 1):(3 * n_time + n_ps)] <- A34
 
-  Phi1_gamma_list <- lapply(seq_len(n_time), \(t) {
-    Xm <- model.matrix(Y0_models_full[[t]])
-    as.vector(-S * A / (pi_S * core$pi_A)) %*% Xm / N
-  })
-  Phi2_gamma_list <- lapply(seq_len(n_time), \(t) {
-    Xm <- model.matrix(Y0_models_full[[t]])
-    as.vector(-S * (1 - A) / (pi_S * (1 - core$pi_A))) %*% Xm / N
-  })
-  Phi3_gamma_list <- lapply(seq_len(n_time), \(t) {
-    Xm <- model.matrix(Y0_models_full[[t]])
-    as.vector(-(1 - S) * core$rx / (1 - pi_S)) %*% Xm / N
-  })
-  Y0_gamma_list <- lapply(seq_len(n_time), \(t) {
-    Xm <- model.matrix(Y0_models_full[[t]])
-    -t(Xm) %*% diag((1 - A) / (1 - mean(A))) %*% Xm / N
-  })
+  # bread: outcome model blocks----
+  Y0_model_mats <- lapply(Y0_models_full, model.matrix)
+  n_outcome <- sum(vapply(Y0_model_mats, ncol, integer(1)))
 
-  A45 <- matrix(0, nrow = n_ps, ncol = n_outcome)
-  A51 <- matrix(0, nrow = n_outcome, ncol = 3 * n_time + n_ps)
-  A_left <- rbind(A0, A51)
+  Phi1_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
+    as.vector(-S * A / (core$pi_S * core$pi_A)) %*% Y0_model_mats[[t]] / N
+  })))
+  Phi2_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
+    as.vector(-S * (1 - A) / (core$pi_S * (1 - core$pi_A))) %*%
+      Y0_model_mats[[t]] / N
+  })))
+  Phi3_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
+    as.vector(-(1 - S) * core$rx / (1 - core$pi_S)) %*%
+      Y0_model_mats[[t]] / N
+  })))
+  Y0_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
+    -t(Y0_model_mats[[t]]) %*%
+      diag((1 - A) / (1 - mean(A))) %*% Y0_model_mats[[t]] / N
+  })))
+
+  # assemble full bread matrix----
+  A_left <- rbind(A0, matrix(0, nrow = n_outcome, ncol = 3 * n_time + n_ps))
   A_right <- rbind(
-    as.matrix(Matrix::bdiag(Phi1_gamma_list)),
-    as.matrix(Matrix::bdiag(Phi2_gamma_list)),
-    as.matrix(Matrix::bdiag(Phi3_gamma_list)),
-    A45,
-    as.matrix(Matrix::bdiag(Y0_gamma_list))
+    Phi1_gamma, Phi2_gamma, Phi3_gamma,
+    matrix(0, nrow = n_ps, ncol = n_outcome),
+    Y0_gamma
   )
   A_mat <- cbind(A_left, A_right)
 
-  phi1 <- S * A * sweep(core$Yr, 2, core$mu1) / core$pi_A / pi_S
-  phi2 <- S * (1 - A) * sweep(core$Yr, 2, core$mu10) / (1 - core$pi_A) / pi_S
-  phi3 <- (1 - S) * sweep(core$Yr, 2, core$mu00) * core$w00 / (1 - pi_S)
+  # meat: influence functions----
+  phi1 <- S * A * sweep(core$Yr, 2, core$mu1) / core$pi_A / core$pi_S
+  phi2 <- S * (1 - A) * sweep(core$Yr, 2, core$mu10) /
+    (1 - core$pi_A) / core$pi_S
+  phi3 <- (1 - S) * sweep(core$Yr, 2, core$mu00) *
+    core$w00 / (1 - core$pi_S)
   phi_ps <- (S - core$pi_SX) * X_ps
   phi_Y0 <- do.call(cbind, lapply(seq_len(n_time), \(t) {
-    Xm <- model.matrix(Y0_models_full[[t]])
-    ((1 - A) / (1 - mean(A))) * (core$Yr[, t] * Xm)
+    ((1 - A) / (1 - mean(A))) * (core$Yr[, t] * Y0_model_mats[[t]])
   }))
 
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps, phi_Y0)) / N
+
+  # sandwich: A^{-1} B A^{-T}, then extract tau variance----
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
@@ -272,9 +258,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
     -core$borrow_weight * diag(n_time),
     matrix(0, nrow = n_time, ncol = n_ps + n_outcome)
   )
-  sd_tau <- sqrt(diag(coef_mat %*% sigma %*% t(coef_mat) / N))
-
-  list(tau = core$tau, sd_tau = sd_tau, borrow_weight = core$borrow_weight)
+  sqrt(diag(coef_mat %*% sigma %*% t(coef_mat) / N))
 }
 
 # bootstrap statistic (calls _core, returns tau only)----
@@ -282,15 +266,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 .ec_aipw_statistic <- function(data, indices, outcomes, covariates,
                                ps_formula, outcome_formula, borrow_wt) {
   d <- data[indices, , drop = FALSE]
-  Y <- as.matrix(d[, outcomes, drop = FALSE])
-  S <- d$S
-  A <- d$A
-  n <- sum(S)
-  N <- nrow(d)
-  n_time <- ncol(Y)
-  pi_S <- n / N
-
-  core <- .ec_aipw_core(d, Y, S, A, n, N, pi_S, n_time,
-                        ps_formula, outcome_formula, borrow_wt)
+  core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, borrow_wt)
   core$tau
 }

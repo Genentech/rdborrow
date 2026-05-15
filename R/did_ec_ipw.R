@@ -4,7 +4,7 @@ NULL
 # s4 class definition----
 .did_ec_ipw_method <- setClass(
   "did_ec_ipw_method",
-  contains = "method_OLE_obj",
+  contains = "method_DID_obj",
   slots = c(
     ps_formula = "character",
     trt_formula = "character",

@@ -4,7 +4,7 @@ NULL
 # s4 class definition----
 .scm_method <- setClass(
   "scm_method",
-  contains = "method_OLE_obj",
+  contains = "method_SCM_obj",
   slots = c(
     lambda_min = "numeric",
     lambda_max = "numeric",

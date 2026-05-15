@@ -4,10 +4,10 @@ NULL
 # class unions----
 setClassUnion("numericOrNULL", c("numeric", "NULL"))
 
-# s4 class definition----
+# S4 class definition----
 .ec_ipw_method <- setClass(
   "ec_ipw_method",
-  contains = "method_primary_obj",
+  contains = "method_weighting_obj",
   slots = c(
     ps_formula = "character",
     weight = "numericOrNULL",
@@ -112,17 +112,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 treatment, trial_status,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
-  n_time <- ncol(Y)
-  N <- nrow(data)
-  n <- sum(S)
-  m <- N - n
-  pi_S <- n / N
-
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  n_time <- length(outcomes)
 
   if (!quiet) cat("Running EC-IPW estimator...\n")
 
@@ -130,50 +122,27 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   use_borrowing <- is.null(weight) || weight > 0
 
   if (!use_borrowing) {
-    result <- .ec_ipw_no_borrow(df, Y, S, A, n, n_time)
+    Y <- as.matrix(df[, outcomes, drop = FALSE])
+    result <- .ec_ipw_no_borrow(df, Y, df$S, df$A, sum(df$S), n_time)
     borrow_weight <- 0
   } else {
-    result <- .ec_ipw_borrow(
-      df, Y, S, A, n, m, N, pi_S, n_time,
-      ps_formula, weight
-    )
-    borrow_weight <- result$borrow_weight
+    core <- .ec_ipw_borrow_core(df, as.matrix(df[, outcomes, drop = FALSE]),
+                                df$S, df$A, sum(df$S), nrow(df),
+                                sum(df$S) / nrow(df), n_time,
+                                ps_formula, weight)
+    result <- .ec_ipw_sandwich(df, core, n_time)
+    borrow_weight <- core$borrow_weight
   }
 
-  tau <- result$tau
-  sd_tau <- result$sd_tau
-  cutoff <- qnorm(1 - alpha / 2)
-
-  if (!is.null(method@bootstrap)) {
-    if (!quiet) cat("Running bootstrap inference...\n")
-
-    boot_res <- .run_bootstrap(
-      df = df, statistic = .ec_ipw_statistic,
-      n_estimates = n_time, bootstrap = method@bootstrap,
-      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
-      outcomes = outcomes, covariates = covariates,
-      ps_formula = ps_formula, borrow_wt = borrow_weight
-    )
-    sd_tau <- boot_res$sd_boot
-
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = sd_tau,
-      lower_CI_boot = boot_res$lower_ci,
-      upper_CI_boot = boot_res$upper_ci,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  } else {
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = sd_tau,
-      lower_CI_normal = tau - sd_tau * cutoff,
-      upper_CI_normal = tau + sd_tau * cutoff,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  }
-
-  list(results = results, borrow_weight = borrow_weight)
+  .format_primary_results(
+    tau = result$tau, sd_tau = result$sd_tau,
+    borrow_weight = borrow_weight,
+    n_time = n_time, alpha = alpha,
+    method = method, df = df, quiet = quiet,
+    statistic = .ec_ipw_statistic,
+    outcomes = outcomes, covariates = covariates,
+    ps_formula = ps_formula
+  )
 })
 
 # internal helpers----
@@ -240,38 +209,40 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
        mu1 = mu1, mu10 = mu10, mu00 = mu00)
 }
 
-# sandwich variance with borrowing----
+# sandwich variance with borrowing (uses intermediates from _core)----
 #' @noRd
-.ec_ipw_borrow <- function(df, Y, S, A, n, m, N, pi_S, n_time,
-                           ps_formula, weight) {
-  core <- .ec_ipw_borrow_core(df, Y, S, A, n, N, pi_S, n_time,
-                              ps_formula, weight)
+.ec_ipw_sandwich <- function(df, core, n_time) {
+  Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
+  S <- df$S
+  A <- df$A
+  N <- nrow(df)
+  pi_S <- sum(S) / N
 
   X_model <- model.matrix(core$ps_model)
   n_ps <- ncol(X_model)
 
+  # bread matrix blocks
   A33 <- diag(rep(-mean((1 - S) * core$w00 / (1 - pi_S)), n_time), nrow = n_time)
   A34 <- t((1 - S) * core$pi_SX / (pi_S * (1 - core$pi_SX)) *
     sweep(Y, 2, core$mu00)) %*% X_model / N
   A44 <- t(X_model) %*% diag(-core$pi_SX * (1 - core$pi_SX)) %*% X_model / N
 
-  block_dim <- n_time + n_time + n_time + n_ps
+  block_dim <- 3 * n_time + n_ps
   A_mat <- matrix(0, nrow = block_dim, ncol = block_dim)
   A_mat[1:n_time, 1:n_time] <- diag(-1, n_time)
-  idx2 <- (n_time + 1):(2 * n_time)
-  A_mat[idx2, idx2] <- diag(-1, n_time)
-  idx3 <- (2 * n_time + 1):(3 * n_time)
-  A_mat[idx3, idx3] <- A33
-  idx4 <- (3 * n_time + 1):block_dim
-  A_mat[idx4, idx4] <- A44
-  A_mat[idx3, idx4] <- A34
+  A_mat[(n_time + 1):(2 * n_time), (n_time + 1):(2 * n_time)] <- diag(-1, n_time)
+  A_mat[(2 * n_time + 1):(3 * n_time), (2 * n_time + 1):(3 * n_time)] <- A33
+  A_mat[(3 * n_time + 1):block_dim, (3 * n_time + 1):block_dim] <- A44
+  A_mat[(2 * n_time + 1):(3 * n_time), (3 * n_time + 1):block_dim] <- A34
 
+  # meat: influence functions
   phi1 <- S * A * sweep(Y, 2, core$mu1) / core$pi_A / pi_S
   phi2 <- S * (1 - A) * sweep(Y, 2, core$mu10) / (1 - core$pi_A) / pi_S
   phi3 <- (1 - S) * sweep(Y, 2, core$mu00) * core$w00 / (1 - pi_S)
   phi_ps <- (S - core$pi_SX) * X_model
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps)) / N
 
+  # sandwich
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
@@ -283,7 +254,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
   sd_tau <- sqrt(diag(coef_mat %*% sigma %*% t(coef_mat) / N))
 
-  list(tau = core$tau, sd_tau = sd_tau, borrow_weight = core$borrow_weight)
+  list(tau = core$tau, sd_tau = sd_tau)
 }
 
 # bootstrap statistic (calls _core, returns tau only)----

@@ -94,3 +94,49 @@ setup_method_weighting <- function(method_name = "IPW",
     model_form_mu1_rct = model_form_mu1_rct
   )
 }
+
+# shared helpers for weighting methods----
+
+# prepares the internal data frame used by weighting estimators----
+#' @noRd
+.build_analysis_df <- function(data, outcomes, treatment, trial_status,
+                               covariates) {
+  Y <- as.matrix(data[, outcomes, drop = FALSE])
+  data.frame(Y, S = data[[trial_status]], A = data[[treatment]],
+             data[, covariates, drop = FALSE])
+}
+
+# formats results and optionally runs bootstrap for weighting methods----
+#' @noRd
+.format_primary_results <- function(tau, sd_tau, borrow_weight, n_time,
+                                    alpha, method, df, quiet, statistic,
+                                    ...) {
+  cutoff <- qnorm(1 - alpha / 2)
+
+  if (!is.null(method@bootstrap)) {
+    if (!quiet) cat("Running bootstrap inference...\n")
+    boot_res <- .run_bootstrap(
+      df = df, statistic = statistic,
+      n_estimates = n_time, bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      borrow_wt = borrow_weight, ...
+    )
+    results <- data.frame(
+      point_estimates = tau,
+      standard_deviation = boot_res$sd_boot,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
+      row.names = paste0("tau", seq_len(n_time))
+    )
+  } else {
+    results <- data.frame(
+      point_estimates = tau,
+      standard_deviation = sd_tau,
+      lower_CI_normal = tau - sd_tau * cutoff,
+      upper_CI_normal = tau + sd_tau * cutoff,
+      row.names = paste0("tau", seq_len(n_time))
+    )
+  }
+
+  list(results = results, borrow_weight = borrow_weight)
+}
