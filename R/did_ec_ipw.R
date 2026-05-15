@@ -1,7 +1,7 @@
 #' @include ec_ipw.R
 NULL
 
-# s4 class definition----
+# S4 class definition----
 .did_ec_ipw_method <- setClass(
   "did_ec_ipw_method",
   contains = "method_DID_obj",
@@ -20,9 +20,7 @@ NULL
   )
 )
 
-# constructor----
-
-#' DID-EC-IPW method constructor
+#' DID-EC-IPW method
 #'
 #' Creates a method object for difference-in-differences IPW estimation
 #' with external control borrowing for the open-label extension phase
@@ -81,8 +79,6 @@ did_ec_ipw <- function(ps_formula,
   )
 }
 
-# estimate() method----
-
 #' @rdname estimate
 setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
                                                     treatment, trial_status,
@@ -132,8 +128,22 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   )
 })
 
-# internal helpers----
-
+#' DID-EC-IPW point estimate.
+#' fits PS and treatment models, computes DID estimator:
+#' tau = (treated OLE) - (EC OLE) - bias, where bias is the
+#' pre-crossover difference between RCT control and EC.
+#' @param df internal data frame.
+#' @param Y outcome matrix (N x T).
+#' @param S trial participation vector.
+#' @param A treatment vector.
+#' @param n number of RCT subjects.
+#' @param N total sample size.
+#' @param pi_S marginal trial participation probability.
+#' @param n_time number of time points.
+#' @param T_cross crossover time point.
+#' @param ps_formula propensity score formula.
+#' @param trt_formula treatment assignment formula.
+#' @return list with tau vector.
 #' @noRd
 .did_ec_ipw_estimate <- function(df, Y, S, A, n, N, pi_S, n_time,
                                  T_cross, ps_formula, trt_formula) {
@@ -177,6 +187,14 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   list(tau = tau)
 }
 
+#' bootstrap statistic for DID-EC-IPW.
+#' @param data internal data frame.
+#' @param indices bootstrap sample indices.
+#' @param outcomes outcome column names.
+#' @param ps_formula propensity score formula.
+#' @param trt_formula treatment assignment formula.
+#' @param T_cross crossover time point.
+#' @return numeric vector of tau estimates.
 #' @noRd
 .did_ec_ipw_statistic <- function(data, indices, outcomes, ps_formula,
                                   trt_formula, T_cross) {

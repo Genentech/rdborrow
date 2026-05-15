@@ -37,12 +37,34 @@ with an outcome regression model for improved efficiency. Pass to
 \code{\link{setup_analysis_primary}} and \code{\link{run_analysis}}.
 }
 \examples{
+# optimal weight, sandwich SE
 ec_aipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
   outcome_formula = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
     "y2 ~ x1 + x2 + x3 + x4 + x5"
   )
+)
+
+# no borrowing
+ec_aipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  outcome_formula = c(
+    "y1 ~ x1 + x2 + x3 + x4 + x5",
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
+  ),
+  weight = 0
+)
+
+# fixed weight with bootstrap
+ec_aipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  outcome_formula = c(
+    "y1 ~ x1 + x2 + x3 + x4 + x5",
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
+  ),
+  weight = 0.3,
+  bootstrap = 500
 )
 }
 \references{

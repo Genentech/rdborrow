@@ -2,7 +2,7 @@
 % Please edit documentation in R/did_ec_ipw.R
 \name{did_ec_ipw}
 \alias{did_ec_ipw}
-\title{DID-EC-IPW method constructor}
+\title{DID-EC-IPW method}
 \usage{
 did_ec_ipw(
   ps_formula,

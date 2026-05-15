@@ -32,10 +32,10 @@ randomized data to improve statistical efficiency.
 These methods estimate the average treatment effect (ATE) during the
 placebo-controlled phase by borrowing from external controls.
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| EC-IPW | `ec_ipw()` | Inverse probability weighting with external control borrowing |
-| EC-AIPW | `ec_aipw()` | Augmented IPW (doubly robust) |
+| Method | Function | Reference | Description |
+|--------|----------|-----------|-------------|
+| EC-IPW | `ec_ipw()` | Zhou et al. (2024b) | Inverse probability weighting with external control borrowing |
+| EC-AIPW | `ec_aipw()` | Zhou et al. (2024b) | Augmented IPW (doubly robust) |
 
 Both methods support:
 
@@ -52,12 +52,12 @@ After the placebo-controlled phase, control subjects cross over to
 treatment. These methods estimate the long-term treatment effect using
 external controls who remain untreated.
 
-| Method | Function | Description |
-|--------|----------|-------------|
-| DID-EC-IPW | `did_ec_ipw()` | Difference-in-differences with IPW |
-| DID-EC-AIPW | `did_ec_aipw()` | DID with augmented IPW |
-| DID-EC-OR | `did_ec_or()` | DID with outcome regression |
-| SCM | `scm()` | Synthetic control method |
+| Method | Function | Reference | Description |
+|--------|----------|-----------|-------------|
+| DID-EC-IPW | `did_ec_ipw()` | Zhou et al. (2024a) | Difference-in-differences with IPW |
+| DID-EC-AIPW | `did_ec_aipw()` | Zhou et al. (2024a) | DID with augmented IPW |
+| DID-EC-OR | `did_ec_or()` | Zhou et al. (2024a) | DID with outcome regression |
+| SCM | `scm()` | Zhou et al. (2024a) | Synthetic control method |
 
 All OLE methods use bootstrap for inference.
 

@@ -145,6 +145,20 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 
 # internal helpers----
 
+#' DID-EC-OR point estimate.
+#' uses outcome regression only (no PS model). fits separate models for
+#' external controls, RCT controls (pre-crossover), and RCT treated (OLE).
+#' DID logic: tau = (RCT model OLE - RCT model pre) - (EC model OLE - EC model pre).
+#' @param df internal data frame.
+#' @param S trial participation vector.
+#' @param A treatment vector.
+#' @param n number of RCT subjects.
+#' @param n_time number of time points.
+#' @param T_cross crossover time point.
+#' @param outcome_formula_ext formulas for external control outcome models.
+#' @param outcome_formula_rct_ctrl formulas for RCT control outcome models.
+#' @param outcome_formula_rct_trt formulas for RCT treated outcome models.
+#' @return list with tau vector.
 #' @noRd
 .did_ec_or_estimate <- function(df, S, A, n, n_time, T_cross,
                                 outcome_formula_ext,
@@ -190,6 +204,16 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   list(tau = tau)
 }
 
+#' bootstrap statistic for DID-EC-OR.
+#' refits all outcome models on each resample.
+#' @param data internal data frame.
+#' @param indices bootstrap sample indices.
+#' @param outcomes outcome column names.
+#' @param outcome_formula_ext external control outcome formulas.
+#' @param outcome_formula_rct_ctrl RCT control outcome formulas.
+#' @param outcome_formula_rct_trt RCT treated outcome formulas.
+#' @param T_cross crossover time point.
+#' @return numeric vector of tau estimates.
 #' @noRd
 .did_ec_or_statistic <- function(data, indices, outcomes,
                                  outcome_formula_ext,
