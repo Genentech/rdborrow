@@ -10,7 +10,7 @@
 #' @include legacy_DID_EC_IPW.R
 #' @include legacy_DID_EC_AIPW.R
 #' @include legacy_DID_EC_OR.R
-#' @include SCM.R
+#' @include legacy_SCM.R
 #'
 #' @export
 #'
