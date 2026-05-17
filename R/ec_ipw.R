@@ -54,6 +54,12 @@ NULL
 #' # no borrowing
 #' ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0)
 #'
+#' # optimal weight with bootstrap
+#' ec_ipw(
+#'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+#'   bootstrap = 500
+#' )
+#'
 #' # fixed weight with bootstrap
 #' ec_ipw(
 #'   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",

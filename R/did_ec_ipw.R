@@ -103,7 +103,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 
   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
 
-  result <- .did_ec_ipw_estimate(
+  result <- .did_ec_ipw_core(
     df, Y, S, A, n, N, pi_S, n_time,
     T_cross, ps_formula, trt_formula
   )
@@ -145,7 +145,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 #' @param trt_formula treatment assignment formula.
 #' @return list with tau vector.
 #' @noRd
-.did_ec_ipw_estimate <- function(df, Y, S, A, n, N, pi_S, n_time,
+.did_ec_ipw_core <- function(df, Y, S, A, n, N, pi_S, n_time,
                                  T_cross, ps_formula, trt_formula) {
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")

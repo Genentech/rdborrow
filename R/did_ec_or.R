@@ -113,7 +113,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 
   if (!quiet) cat("Running DID-EC-OR estimator...\n")
 
-  result <- .did_ec_or_estimate(
+  result <- .did_ec_or_core(
     df, S, A, n, n_time, T_cross,
     method@outcome_formula_ext,
     method@outcome_formula_rct_ctrl,
@@ -160,7 +160,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 #' @param outcome_formula_rct_trt formulas for RCT treated outcome models.
 #' @return list with tau vector.
 #' @noRd
-.did_ec_or_estimate <- function(df, S, A, n, n_time, T_cross,
+.did_ec_or_core <- function(df, S, A, n, n_time, T_cross,
                                 outcome_formula_ext,
                                 outcome_formula_rct_ctrl,
                                 outcome_formula_rct_trt) {
