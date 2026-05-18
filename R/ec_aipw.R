@@ -118,17 +118,20 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
-
-  # unwrap formula                                            
+  # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
 
   if (!quiet) cat("Running EC-AIPW estimator...\n")
 
-  core <- .ec_aipw_core(df, outcomes, ps_formula,
-                        method@outcome_formula, method@weight)
-  sd_tau <- .ec_aipw_sandwich(df, core, length(outcomes),
-                              method@outcome_formula)
+  core <- .ec_aipw_core(
+    df, outcomes, ps_formula,
+    method@outcome_formula, method@weight
+  )
+  sd_tau <- .ec_aipw_sandwich(
+    df, core, length(outcomes),
+    method@outcome_formula
+  )
 
   .format_primary_results(
     tau = core$tau, sd_tau = sd_tau,
@@ -195,10 +198,12 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 
-  list(tau = tau, borrow_weight = borrow_weight,
-       ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
-       pi_S = pi_S, rx = rx, w00 = w00,
-       Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00)
+  list(
+    tau = tau, borrow_weight = borrow_weight,
+    ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
+    pi_S = pi_S, rx = rx, w00 = w00,
+    Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00
+  )
 }
 
 #' sandwich variance for EC-AIPW (Theorem 4, Eq 15-16).
@@ -234,8 +239,10 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   A0 <- as.matrix(Matrix::bdiag(
     diag(-1, n_time), diag(-1, n_time), A33, A44
   ))
-  A0[(2 * n_time + 1):(3 * n_time),
-     (3 * n_time + 1):(3 * n_time + n_ps)] <- A34
+  A0[
+    (2 * n_time + 1):(3 * n_time),
+    (3 * n_time + 1):(3 * n_time + n_ps)
+  ] <- A34
 
   # bread: outcome model blocks----
   Y0_model_mats <- lapply(Y0_models_full, model.matrix)

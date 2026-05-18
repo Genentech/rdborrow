@@ -110,8 +110,8 @@ run_analysis(analysis)
 method <- scm(
   lambda_min = 0,
   lambda_max = 1e-3,
-  nlambda = 10,
-  bootstrap = 50,
+  nlambda = 2,
+  bootstrap = 10,
   bootstrap_ci_type = "perc"
 )
 

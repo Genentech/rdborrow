@@ -161,9 +161,9 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 #' @return list with tau vector.
 #' @noRd
 .did_ec_or_core <- function(df, S, A, n, n_time, T_cross,
-                                outcome_formula_ext,
-                                outcome_formula_rct_ctrl,
-                                outcome_formula_rct_trt) {
+                            outcome_formula_ext,
+                            outcome_formula_rct_ctrl,
+                            outcome_formula_rct_trt) {
   T_pc <- T_cross
 
   # external outcome models

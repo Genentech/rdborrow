@@ -149,8 +149,11 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
   ci_type_long <- switch(method@bootstrap_ci_type,
-    norm = "normal", bca = "bca", stud = "student",
-    perc = "percent", basic = "basic"
+    norm = "normal",
+    bca = "bca",
+    stud = "student",
+    perc = "percent",
+    basic = "basic"
   )
 
   boot_out <- boot::boot(
@@ -168,8 +171,10 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 
   n_ole <- n_time - T_cross
   ci_bounds <- vapply(seq_len(n_ole), \(i) {
-    ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
-                        type = method@bootstrap_ci_type, index = i)
+    ci <- boot::boot.ci(boot_out,
+      conf = 1 - alpha,
+      type = method@bootstrap_ci_type, index = i
+    )
     ci[[ci_type_long]][4:5]
   }, numeric(2))
 

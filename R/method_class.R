@@ -63,10 +63,9 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
                            bootstrap_ci_type, alpha, ...) {
   group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
-  ci_type_long <- switch(
-    bootstrap_ci_type,
-    norm = "normal", 
-    bca = "bca", 
+  ci_type_long <- switch(bootstrap_ci_type,
+    norm = "normal",
+    bca = "bca",
     stud = "student",
     perc = "percent",
     basic = "basic"
@@ -81,8 +80,10 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   )
 
   ci_bounds <- vapply(seq_len(n_estimates), \(i) {
-    ci <- boot::boot.ci(boot_out, conf = 1 - alpha,
-                        type = bootstrap_ci_type, index = i)
+    ci <- boot::boot.ci(boot_out,
+      conf = 1 - alpha,
+      type = bootstrap_ci_type, index = i
+    )
     ci[[ci_type_long]][4:5]
   }, numeric(2))
 

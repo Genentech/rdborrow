@@ -110,8 +110,10 @@ setup_method_weighting <- function(method_name = "IPW",
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates) {
   Y <- as.matrix(data[, outcomes, drop = FALSE])
-  data.frame(Y, S = data[[trial_status]], A = data[[treatment]],
-             data[, covariates, drop = FALSE])
+  data.frame(Y,
+    S = data[[trial_status]], A = data[[treatment]],
+    data[, covariates, drop = FALSE]
+  )
 }
 
 #' Format estimation results for primary weighting methods.
@@ -165,4 +167,3 @@ setup_method_weighting <- function(method_name = "IPW",
 # class unions----
 setClassUnion("numericOrNULL", c("numeric", "NULL"))
 setClassUnion("characterOrNULL", c("character", "NULL"))
-

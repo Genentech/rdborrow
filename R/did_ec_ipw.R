@@ -146,7 +146,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau vector.
 #' @noRd
 .did_ec_ipw_core <- function(df, Y, S, A, n, N, pi_S, n_time,
-                                 T_cross, ps_formula, trt_formula) {
+                             T_cross, ps_formula, trt_formula) {
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
 

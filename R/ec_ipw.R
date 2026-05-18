@@ -103,7 +103,6 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 treatment, trial_status,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
-                                                  
   # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
@@ -329,7 +328,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   }
 
   pi_S <- n / N
-  core <- .ec_ipw_borrow_core(d, Y, S, A, n, N, pi_S, n_time,
-                              ps_formula, borrow_wt)
+  core <- .ec_ipw_borrow_core(
+    d, Y, S, A, n, N, pi_S, n_time,
+    ps_formula, borrow_wt
+  )
   core$tau
 }
