@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,17 @@
       <small>Source: <a href="https://github.com/Genentech/rdborrow/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.3.0" id="rdborrow-0030">rdborrow 0.0.3.0<a class="anchor" aria-label="anchor" href="#rdborrow-0030"></a></h2>
+<div class="section level3">
+<h3 id="changes-0-0-3-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-0-3-0"></a></h3>
+<ul><li>New API introduced: eg <code><a href="../reference/ec_ipw.html">ec_ipw()</a></code> and <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code> replace <code><a href="../reference/setup_method_weighting.html">setup_method_weighting()</a></code>.</li>
+<li>Internally, core functions such as <code>EC_IPW_OPT()</code> are further broken down into atomic functions.</li>
+<li>Bootstrapping functions now call atomic functions (instead of similar, duplicated code).</li>
+<li>Additional test cases in preparation of deprecating legacy_ functions such as <code>EC_IPW_OPT()</code>.</li>
+<li>Bug fixes (AIPW called the IPW bootstrapping function)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.2.0" id="rdborrow-0020">rdborrow 0.0.2.0<a class="anchor" aria-label="anchor" href="#rdborrow-0020"></a></h2>
 <div class="section level3">

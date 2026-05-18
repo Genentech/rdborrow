@@ -38,13 +38,13 @@ PMID: [40296214](https://pubmed.ncbi.nlm.nih.gov/40296214/).
 
 Shi L, Secrest MH, Pang H, Chen C, Zhu J (2026). rdborrow: An R package
 for Causal Inference Incorporating External Controls in Randomized
-Trials with Longitudinal Outcomes. R package version 0.0.2.0,
+Trials with Longitudinal Outcomes. R package version 0.0.3.0,
 <https://genentech.github.io/rdborrow/>.
 
     @Manual{,
       title = {rdborrow: An R package for Causal Inference Incorporating External Controls in Randomized Trials with Longitudinal Outcomes},
       author = {Lei Shi and Matthew H Secrest and Herbert Pang and Chen Chen and Jiawen Zhu},
       year = {2026},
-      note = {R package version 0.0.2.0},
+      note = {R package version 0.0.3.0},
       url = {https://genentech.github.io/rdborrow/}
     }
