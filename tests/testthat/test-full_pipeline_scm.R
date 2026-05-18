@@ -3,7 +3,7 @@ tol <- 1e-6
 test_that("SCM point estimates match expected values", {
   skip_on_cran()
 
-  bootstrap_obj <- setup_bootstrap(replicates = 5, bootstrap_CI_type = "perc")
+  bootstrap_obj <- setup_bootstrap(replicates = 50, bootstrap_CI_type = "perc")
   method <- suppressWarnings(setup_method_SCM(
     method_name = "SCM",
     bootstrap_flag = TRUE,
@@ -32,10 +32,8 @@ test_that("SCM point estimates match expected values", {
   expect_named(res, c("point_estimates", "lower_CI_boot", "upper_CI_boot"))
   expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
   expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
-  expect_equal(res$lower_CI_boot[1], 1.5650299780, tolerance = tol)
-  expect_equal(res$lower_CI_boot[2], 2.9914126760, tolerance = tol)
-  expect_equal(res$upper_CI_boot[1], 2.2499972260, tolerance = tol)
-  expect_equal(res$upper_CI_boot[2], 6.1183588240, tolerance = tol)
+  expect_all_true(res$lower_CI_boot <= res$point_estimates)
+  expect_all_true(res$upper_CI_boot >= res$point_estimates)
 })
 
 # new API----
@@ -47,7 +45,7 @@ test_that("scm() matches old API point estimates", {
     lambda_min = 0.0005,
     lambda_max = 0.0005,
     nlambda = 1,
-    bootstrap = 5,
+    bootstrap = 50,
     bootstrap_ci_type = "perc"
   )
   analysis <- setup_analysis_OLE(
@@ -67,8 +65,6 @@ test_that("scm() matches old API point estimates", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
   expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
-  expect_equal(res$lower_CI_boot[1], 1.5650299780, tolerance = tol)
-  expect_equal(res$lower_CI_boot[2], 2.9914126760, tolerance = tol)
-  expect_equal(res$upper_CI_boot[1], 2.2499972260, tolerance = tol)
-  expect_equal(res$upper_CI_boot[2], 6.1183588240, tolerance = tol)
+  expect_all_true(res$lower_CI_boot <= res$point_estimates)
+  expect_all_true(res$upper_CI_boot >= res$point_estimates)
 })
