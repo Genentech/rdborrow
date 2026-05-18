@@ -106,10 +106,10 @@ EC_AIPW_OPT <- function(data,
   piS.model <- glm(model_form_piS, data = df, family = "binomial")
   # outcome regression model
   Y0.model <- lapply(model_form_mu0_ext, function(x) {
-    lm(as.formula(x), data = dplyr::filter(df, A == 0))
+    lm(as.formula(x), data = filter(df, A == 0))
   })
   Y0.model.dummy <- lapply(model_form_mu0_ext, function(x) {
-    lm(as.formula(x), data = dplyr::filter(df))
+    lm(as.formula(x), data = filter(df))
   })
 
   # predict Y0 from outcome regression models
@@ -124,13 +124,13 @@ EC_AIPW_OPT <- function(data,
   # estimate ATE
   temp <- df |>
     cbind(Y0, Yr) |>
-    dplyr::mutate(
+    mutate(
       piA = sum(A[S == 1]) / n,
       piS = sum(S) / (n + m),
       piSX = predict(piS.model, newdata = df, type = "response"),
       rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
     ) |>
-    dplyr::mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+    mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
 
   ### create outcomes: obs * T
   Ys <- as.matrix(Yr)
@@ -277,8 +277,8 @@ EC_AIPW_OPT <- function(data,
 
   if (Bootstrap == TRUE) {
     Group_ID <- df |>
-      dplyr::group_by(S, A) |>
-      dplyr::mutate(group_id = dplyr::cur_group_id())
+      group_by(S, A) |>
+      mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
     boot.ci.type <- switch(bootstrap_CI_type,

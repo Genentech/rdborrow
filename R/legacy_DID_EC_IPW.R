@@ -60,22 +60,22 @@ DID_EC_IPW <- function(data,
 
   #
   piS <- glm(as.formula(model_form_piS), data = df, family = "binomial")
-  piSX <- predict(piS, newdata = dplyr::filter(df), type = "response")
+  piSX <- predict(piS, newdata = filter(df), type = "response")
   if (model_form_piA == "") {
     piAX <- sum(A) / n
   } else {
-    piA <- glm(as.formula(model_form_piA), data = dplyr::filter(df, S == 1), family = "binomial")
-    piAX <- predict(piA, newdata = dplyr::filter(df), type = "response")
+    piA <- glm(as.formula(model_form_piA), data = filter(df, S == 1), family = "binomial")
+    piAX <- predict(piA, newdata = filter(df), type = "response")
   }
 
 
   temp <- df |>
-    dplyr::mutate(
+    mutate(
       piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
     ) |>
-    dplyr::mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
+    mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
 
   # create outcomes
@@ -101,8 +101,8 @@ DID_EC_IPW <- function(data,
 
   if (Bootstrap) {
     Group_ID <- df |>
-      dplyr::group_by(S, A) |>
-      dplyr::mutate(group_id = dplyr::cur_group_id())
+      group_by(S, A) |>
+      mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
     boot.ci.type <- switch(bootstrap_CI_type,

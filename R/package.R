@@ -2,6 +2,8 @@
 #' @importFrom copula mvdc rMvdc normalCopula
 #' @import futile.logger
 #' @import mvtnorm
+#' @import dplyr
+#' @import tidyr
 #' @import boot
 #' @importFrom CVXR Variable Minimize Problem
 #' @importMethodsFrom CVXR solve
@@ -13,8 +15,4 @@
 #' @importFrom Matrix bdiag
 NULL
 
-utils::globalVariables(c(
-  "rx", "piA", "piS", "piSX", "piAX",
-  "w11", "w10", "w00", "count",
-  "S", "A", "group_id"
-))
+utils::globalVariables(c(".", "rx", "piA", "piS", "piSX"))

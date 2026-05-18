@@ -54,14 +54,6 @@ setup_method_SCM <- function(method_name = "SCM",
                              nlambda = 10,
                              parallel = "no",
                              ncpus = 1) {
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop(
-      "'setup_method_SCM' requires the 'dplyr' package. ",
-      "Install it with install.packages(\"dplyr\"), ",
-      "or switch to scm().",
-      call. = FALSE
-    )
-  }
   .Deprecated("scm")
   checkmate::assert_string(method_name)
   checkmate::assert_flag(bootstrap_flag)

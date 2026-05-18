@@ -71,14 +71,6 @@ setup_method_weighting <- function(method_name = "IPW",
                                    model_form_piA = "",
                                    model_form_mu0_rct = "",
                                    model_form_mu1_rct = "") {
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop(
-      "'setup_method_weighting' requires the 'dplyr' package. ",
-      "Install it with install.packages(\"dplyr\"), ",
-      "or switch to ec_ipw() / ec_aipw().",
-      call. = FALSE
-    )
-  }
   .Deprecated(msg = paste(
     "'setup_method_weighting' is being deprecated.",
     "Use ec_ipw() for inverse probability weighting",

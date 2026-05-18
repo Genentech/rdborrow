@@ -34,13 +34,13 @@ SCMboot <- function(data,
   # create data matrices: attributes by row and subject by column
   X10 <- t(as.matrix(
     df_b |>
-      dplyr::filter(S == 1 & A == 0) |>
-      dplyr::select(dplyr::all_of(c(covariates_col_name, outcome_col_name)))
+      filter(S == 1 & A == 0) |>
+      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
   ))
   X00 <- t(as.matrix(
     df_b |>
-      dplyr::filter(S == 0) |>
-      dplyr::select(dplyr::all_of(c(covariates_col_name, outcome_col_name)))
+      filter(S == 0) |>
+      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
   ))
 
   # remove colnames of X10 and X00
@@ -60,8 +60,8 @@ SCMboot <- function(data,
 
   # Aggregate group level synthetic control estiamte
   Y.trt <- df_b |>
-    dplyr::filter(S == 1 & A == 1) |>
-    dplyr::select(dplyr::all_of(long_term_col_name)) |>
+    filter(S == 1 & A == 1) |>
+    dplyr::select(all_of(long_term_col_name)) |>
     colMeans()
 
   tau <- Y.trt - colMeans(y.est.mat)

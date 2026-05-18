@@ -69,7 +69,7 @@ DID_EC_OR <- function(data,
   # external outcome model
   # print("external outcome modeling:")
   model_list_ext <- lapply(1:T_follow, function(x) {
-    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = dplyr::filter(df, S == 0)))
+    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S == 0)))
   })
 
   # list2env(setNames(model.list, c("m.ext1","m.ext2","m.ext3","m.ext4")), envir = .GlobalEnv)
@@ -77,12 +77,12 @@ DID_EC_OR <- function(data,
   # rct outcome model
   # print("rct0 outcome modeling:")
   model_list_rct_pc <- lapply(1:T_pc, function(x) {
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu0_rct[x]), data = dplyr::filter(df, S == 1 & A == 0)))
+    assign(paste0("m.rct", x), lm(as.formula(model_form_mu0_rct[x]), data = filter(df, S == 1 & A == 0)))
   })
 
   # print("rct1 outcome modeling:")
   model_list_rct_cr <- lapply((T_pc + 1):T_follow, function(x) {
-    assign(paste0("m.rct", x), lm(as.formula(model_form_mu1_rct[x]), data = dplyr::filter(df, S == 1 & A == 1)))
+    assign(paste0("m.rct", x), lm(as.formula(model_form_mu1_rct[x]), data = filter(df, S == 1 & A == 1)))
   })
 
   model_list_rct <- c(model_list_rct_pc, model_list_rct_cr)
@@ -94,7 +94,7 @@ DID_EC_OR <- function(data,
     lapply(
       1:T_follow,
       function(x) {
-        predict(model_list_ext[[x]], newdata = dplyr::filter(df, S == 1))
+        predict(model_list_ext[[x]], newdata = filter(df, S == 1))
       }
     )
   )
@@ -108,7 +108,7 @@ DID_EC_OR <- function(data,
     lapply(
       1:T_follow,
       function(x) {
-        predict(model_list_rct[[x]], newdata = dplyr::filter(df, S == 1))
+        predict(model_list_rct[[x]], newdata = filter(df, S == 1))
       }
     )
   )
@@ -128,8 +128,8 @@ DID_EC_OR <- function(data,
 
   if (Bootstrap) {
     Group_ID <- df |>
-      dplyr::group_by(S, A) |>
-      dplyr::mutate(group_id = dplyr::cur_group_id())
+      group_by(S, A) |>
+      mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
     boot.ci.type <- switch(bootstrap_CI_type,

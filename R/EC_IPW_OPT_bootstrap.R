@@ -59,9 +59,9 @@ EC_IPW_OPT_bootstrap <- function(data,
     # estimate ATE
     ## TODO: why do use the true propensity score?
     temp <- df |>
-      dplyr::filter(S == 1) |>
-      dplyr::mutate(piA = sum(A) / n) |>
-      dplyr::mutate(w11 = piA, w10 = 1 - piA)
+      filter(S == 1) |>
+      mutate(piA = sum(A) / n) |>
+      mutate(w11 = piA, w10 = 1 - piA)
 
     ### create outcomes: obs by T
     Ys <- as.matrix(Y[S == 1, ])
@@ -81,13 +81,13 @@ EC_IPW_OPT_bootstrap <- function(data,
 
     # estimate ATE
     temp <- df |>
-      dplyr::mutate(
+      mutate(
         piA = sum(A[S == 1]) / n,
         piS = sum(S) / (n + m),
         piSX = predict(piS.model, newdata = df, type = "response"),
         rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
       ) |>
-      dplyr::mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
 
     ### create outcomes: obs * T
     Ys <- as.matrix(Y)

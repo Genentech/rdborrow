@@ -60,20 +60,20 @@ DID_EC_AIPW <- function(data,
 
   #
   piS <- glm(as.formula(model_form_piS), data = df, family = "binomial")
-  piSX <- predict(piS, newdata = dplyr::filter(df), type = "response")
+  piSX <- predict(piS, newdata = filter(df), type = "response")
   if (model_form_piA == "") {
     piAX <- sum(A) / n
   } else {
-    piA <- glm(as.formula(model_form_piA), data = dplyr::filter(df, S == 1), family = "binomial")
-    piAX <- predict(piA, newdata = dplyr::filter(df), type = "response")
+    piA <- glm(as.formula(model_form_piA), data = filter(df, S == 1), family = "binomial")
+    piAX <- predict(piA, newdata = filter(df), type = "response")
   }
 
   # predict Y0 from outcome regression models
   model_list_ext <- lapply(1:T_follow, function(x) {
-    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = dplyr::filter(df, S == 0)))
+    assign(paste0("m.ext", x), lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S == 0)))
   })
   Y0 <- data.frame(sapply(1:T_follow, function(x) {
-    predict(model_list_ext[[x]], newdata = dplyr::filter(df))
+    predict(model_list_ext[[x]], newdata = filter(df))
   }))
   colnames(Y0) <- paste0("y", 1:T_follow, "_0")
   # for residual
@@ -81,12 +81,12 @@ DID_EC_AIPW <- function(data,
   colnames(Yr) <- paste0("y", 1:T_follow, "_r")
 
   temp <- cbind(df, Y0, Yr) |>
-    dplyr::mutate(
+    mutate(
       piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
     ) |>
-    dplyr::mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
+    mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
   # create outcomes
   Ys <- as.matrix(Yr)
@@ -111,8 +111,8 @@ DID_EC_AIPW <- function(data,
 
   if (Bootstrap) {
     Group_ID <- df |>
-      dplyr::group_by(S, A) |>
-      dplyr::mutate(group_id = dplyr::cur_group_id())
+      group_by(S, A) |>
+      mutate(group_id = cur_group_id())
     Group_ID <- Group_ID$group_id
 
     boot.ci.type <- switch(bootstrap_CI_type,
