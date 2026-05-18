@@ -73,9 +73,9 @@ EC_IPW_OPT <- function(data,
     # estimate ATE
     ## TODO: why do use the true propensity score?
     temp <- df |>
-      filter(S == 1) |>
-      mutate(piA = sum(A) / n) |>
-      mutate(w11 = piA, w10 = 1 - piA)
+      dplyr::filter(S == 1) |>
+      dplyr::mutate(piA = sum(A) / n) |>
+      dplyr::mutate(w11 = piA, w10 = 1 - piA)
 
     ### create outcomes: obs by T
     Ys <- as.matrix(Y[S == 1, ])
@@ -113,14 +113,14 @@ EC_IPW_OPT <- function(data,
 
     # estimate ATE
     temp <- df |>
-      mutate(
+      dplyr::mutate(
         piA = sum(A[S == 1]) / n,
         piS = sum(S) / (n + m),
         piSX = predict(piS.model, newdata = df, type = "response"),
         # piSX = exp(log(2) + df$X - 3 * df$U)/(1+exp(log(2) + df$X - 3 * df$U)),
         rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
       ) |>
-      mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+      dplyr::mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
 
     # temp$w00[temp$w00 > 0.9] = 0.9
     # temp$w00[temp$w00 < 0.1] = 0.1
@@ -225,8 +225,8 @@ EC_IPW_OPT <- function(data,
 
   if (Bootstrap == TRUE) {
     Group_ID <- df |>
-      group_by(S, A) |>
-      mutate(group_id = cur_group_id())
+      dplyr::group_by(S, A) |>
+      dplyr::mutate(group_id = dplyr::cur_group_id())
     Group_ID <- Group_ID$group_id
 
     boot.ci.type <- switch(bootstrap_CI_type,

@@ -47,22 +47,22 @@ DID_EC_IPW_bootstrap <- function(data,
 
   #
   piS <- glm(as.formula(model_form_piS), data = df, family = "binomial")
-  piSX <- predict(piS, newdata = filter(df), type = "response")
+  piSX <- predict(piS, newdata = dplyr::filter(df), type = "response")
   if (model_form_piA == "") {
     piAX <- sum(A) / n
   } else {
-    piA <- glm(as.formula(model_form_piA), data = filter(df, S == 1), family = "binomial")
-    piAX <- predict(piA, newdata = filter(df), type = "response")
+    piA <- glm(as.formula(model_form_piA), data = dplyr::filter(df, S == 1), family = "binomial")
+    piAX <- predict(piA, newdata = dplyr::filter(df), type = "response")
   }
 
 
   temp <- df |>
-    mutate(
+    dplyr::mutate(
       piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
     ) |>
-    mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
+    dplyr::mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
 
   # create outcomes

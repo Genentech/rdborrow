@@ -67,13 +67,13 @@ SCM <- function(data,
   # create df matrices: attributes by row and subject by column
   X10 <- t(as.matrix(
     df |>
-      filter(S == 1 & A == 0) |>
-      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
+      dplyr::filter(S == 1 & A == 0) |>
+      dplyr::select(dplyr::all_of(c(covariates_col_name, outcome_col_name)))
   ))
   X00 <- t(as.matrix(
     df |>
-      filter(S == 0) |>
-      dplyr::select(all_of(c(covariates_col_name, outcome_col_name)))
+      dplyr::filter(S == 0) |>
+      dplyr::select(dplyr::all_of(c(covariates_col_name, outcome_col_name)))
   ))
 
   # remove colnames of X10 and X00
@@ -122,8 +122,8 @@ SCM <- function(data,
 
   # Aggregate group level synthetic control estiamte
   Y.trt <- df |>
-    filter(S == 1 & A == 1) |>
-    dplyr::select(all_of(long_term_col_name)) |>
+    dplyr::filter(S == 1 & A == 1) |>
+    dplyr::select(dplyr::all_of(long_term_col_name)) |>
     colMeans()
 
   tau <- Y.trt - colMeans(y.est.mat)
@@ -133,8 +133,8 @@ SCM <- function(data,
   cat("Performing bootstrap inference with SCM estimates...\n")
 
   Group_ID <- df |>
-    group_by(S, A) |>
-    mutate(group_id = cur_group_id())
+    dplyr::group_by(S, A) |>
+    dplyr::mutate(group_id = dplyr::cur_group_id())
   Group_ID <- Group_ID$group_id
 
   boot.ci.type <- switch(bootstrap_CI_type,

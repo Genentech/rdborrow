@@ -62,9 +62,9 @@ EC_AIPW_OPT_bootstrap <- function(data,
     # estimate ATE
     ## TODO: why do use the true propensity score?
     temp <- df |>
-      filter(S == 1) |>
-      mutate(`piA` = sum(A) / n) |>
-      mutate(w11 = `piA`, w10 = 1 - `piA`)
+      dplyr::filter(S == 1) |>
+      dplyr::mutate(`piA` = sum(A) / n) |>
+      dplyr::mutate(w11 = `piA`, w10 = 1 - `piA`)
 
     ### create outcomes: obs by T
     Ys <- as.matrix(Y[S == 1, ])
@@ -93,10 +93,10 @@ EC_AIPW_OPT_bootstrap <- function(data,
     piS.model <- glm(model_form_piS, data = df, family = "binomial")
     # outcome regression model
     Y0.model <- lapply(model_form_mu0_ext, function(x) {
-      lm(as.formula(x), data = filter(df, A == 0))
+      lm(as.formula(x), data = dplyr::filter(df, A == 0))
     })
     Y0.model.dummy <- lapply(model_form_mu0_ext, function(x) {
-      lm(as.formula(x), data = filter(df))
+      lm(as.formula(x), data = dplyr::filter(df))
     })
 
     # predict Y0 from outcome regression models
@@ -113,13 +113,13 @@ EC_AIPW_OPT_bootstrap <- function(data,
     # estimate ATE
     suppressWarnings({
       temp <- cbind(df, Y0, Yr) |>
-        mutate(
+        dplyr::mutate(
           piA = sum(A[S == 1]) / n,
           piS = sum(S) / (n + m),
           piSX = predict(piS.model, newdata = df, type = "response"),
           rx = (piSX / (1 - piSX)) * ((1 - piS) / piS)
         ) |>
-        mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
+        dplyr::mutate(w11 = piA, w10 = 1 - piA, w00 = rx)
     })
     ### create outcomes: obs * T
     Ys <- as.matrix(Yr)
