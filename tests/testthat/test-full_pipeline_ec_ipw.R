@@ -95,7 +95,7 @@ test_that("EC-IPW fixed weight 0.3", {
   expect_equal(res$results$upper_CI_normal[2], 1.6406212522, tolerance = tol)
 })
 
-test_that("EC-IPW bootstrap preserves point estimates", {
+test_that("EC-IPW bootstrap preserves point estimates (old API)", {
   bootstrap_obj <- setup_bootstrap(replicates = 50, bootstrap_CI_type = "perc")
   method <- suppressWarnings(setup_method_weighting(
     method_name = "IPW",
@@ -121,6 +121,10 @@ test_that("EC-IPW bootstrap preserves point estimates", {
   expect_equal(res$results$point_estimates[2], 0.4697208867, tolerance = tol)
   expect_equal(res$results$standard_deviation[1], 0.5134017502, tolerance = tol)
   expect_equal(res$results$standard_deviation[2], 0.5410007056, tolerance = tol)
+  expect_equal(res$results$lower_CI_boot[1], -1.4446915296, tolerance = tol)
+  expect_equal(res$results$lower_CI_boot[2], -0.6496977072, tolerance = tol)
+  expect_equal(res$results$upper_CI_boot[1], 0.9906102974, tolerance = tol)
+  expect_equal(res$results$upper_CI_boot[2], 1.5168364862, tolerance = tol)
   expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
   expect_named(
     res$results,
@@ -203,6 +207,12 @@ test_that("ec_ipw() with bootstrap", {
 
   expect_equal(res$results$point_estimates[1], -0.1971968926, tolerance = tol)
   expect_equal(res$results$point_estimates[2], 0.4697208867, tolerance = tol)
+  expect_equal(res$results$standard_deviation[1], 0.5189004543, tolerance = tol)
+  expect_equal(res$results$standard_deviation[2], 0.5423807156, tolerance = tol)
+  expect_equal(res$results$lower_CI_boot[1], -1.4650566979, tolerance = tol)
+  expect_equal(res$results$lower_CI_boot[2], -0.6567154973, tolerance = tol)
+  expect_equal(res$results$upper_CI_boot[1], 0.9805890544, tolerance = tol)
+  expect_equal(res$results$upper_CI_boot[2], 1.5445094270, tolerance = tol)
   expect_equal(res$borrow_weight, 0.1475196487, tolerance = tol)
   expect_named(
     res$results,

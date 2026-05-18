@@ -32,7 +32,10 @@ test_that("SCM point estimates match expected values", {
   expect_named(res, c("point_estimates", "lower_CI_boot", "upper_CI_boot"))
   expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
   expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
-  expect_all_true(res$lower_CI_boot <= res$upper_CI_boot)
+  expect_equal(res$lower_CI_boot[1], 1.5650299780, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 2.9914126760, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 2.2499972260, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 6.1183588240, tolerance = tol)
 })
 
 # new API----
@@ -64,4 +67,8 @@ test_that("scm() matches old API point estimates", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 2.1383459186, tolerance = tol)
   expect_equal(res$point_estimates[2], 3.8894184460, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], 1.5650299780, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 2.9914126760, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 2.2499972260, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 6.1183588240, tolerance = tol)
 })
