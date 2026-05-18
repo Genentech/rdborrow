@@ -33,6 +33,10 @@ test_that("DID-EC-OR point estimates and bootstrap CIs", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 1.5689465845, tolerance = tol)
   expect_equal(res$point_estimates[2], 4.4078336543, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], -0.5122539446, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 2.7815366451, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 3.1261896870, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 7.9430452410, tolerance = tol)
 })
 
 # new API----
@@ -67,4 +71,8 @@ test_that("did_ec_or() matches old API", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 1.5689465845, tolerance = tol)
   expect_equal(res$point_estimates[2], 4.4078336543, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], -0.5122539446, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 2.7815366451, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 3.1261896870, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 7.9430452410, tolerance = tol)
 })

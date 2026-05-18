@@ -32,6 +32,10 @@ test_that("DID-EC-AIPW point estimates and bootstrap CIs", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 2.0417274627, tolerance = tol)
   expect_equal(res$point_estimates[2], 4.0361177594, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], -0.2867417425, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 1.8145638636, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 4.0728301930, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 8.6316113430, tolerance = tol)
 })
 
 # new API----
@@ -65,4 +69,8 @@ test_that("did_ec_aipw() matches old API", {
   expect_equal(nrow(res), 2)
   expect_equal(res$point_estimates[1], 2.0417274627, tolerance = tol)
   expect_equal(res$point_estimates[2], 4.0361177594, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], -0.2867417425, tolerance = tol)
+  expect_equal(res$lower_CI_boot[2], 1.8145638636, tolerance = tol)
+  expect_equal(res$upper_CI_boot[1], 4.0728301930, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 8.6316113430, tolerance = tol)
 })
