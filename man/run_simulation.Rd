@@ -2,23 +2,54 @@
 % Please edit documentation in R/run_simulation.R
 \name{run_simulation}
 \alias{run_simulation}
-\title{Run simulation from a simualtion_obj}
+\title{Evaluate operating characteristics via Monte Carlo simulation}
 \usage{
 run_simulation(simulation_obj, quiet = TRUE)
 }
 \arguments{
-\item{simulation_obj}{A simulation object created by \code{setup_simulation_primary} or \code{setup_simulation_OLE}.}
+\item{simulation_obj}{A simulation object created by
+\code{\link{setup_simulation_primary}} or
+\code{\link{setup_simulation_OLE}}.}
 
 \item{quiet}{Logical. If \code{TRUE}, suppress iteration output.}
 }
 \value{
-a simulation_report object
+A simulation report object containing estimated power, type I
+  error rate, and related operating characteristics for each method.
 }
 \description{
-Run simulation from a simualtion_obj
+Runs repeated simulations under user-specified data-generating
+scenarios to estimate power, type I error rate, bias, and coverage
+for one or more borrowing methods.
+}
+\details{
+Six borrowing methods are available:
+\describe{
+  \item{\code{\link{ec_ipw}}}{Inverse probability weighting (primary
+    analysis).}
+  \item{\code{\link{ec_aipw}}}{Augmented inverse probability weighting
+    (primary analysis).}
+  \item{\code{\link{did_ec_ipw}}}{Difference-in-differences with IPW
+    (open-label extension).}
+  \item{\code{\link{did_ec_aipw}}}{Difference-in-differences with AIPW
+    (open-label extension).}
+  \item{\code{\link{did_ec_or}}}{Difference-in-differences with outcome
+    regression (open-label extension).}
+  \item{\code{\link{scm}}}{Synthetic control method (open-label
+    extension).}
+}
 }
 \examples{
 \dontrun{
-simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
+method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+sim <- setup_simulation_primary(
+  n_sim = 500,
+  method_obj_list = list(method),
+  ...
+)
+run_simulation(sim)
 }
+}
+\seealso{
+\code{\link{run_analysis}} for analyzing a single dataset.
 }
