@@ -67,6 +67,7 @@ setup_analysis_OLE(
   method_OLE_obj = setup_method_DID(method_name = "IPW"),
   T_cross = 2
 )
+#> Warning: 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or() for DID with outcome regression.
 #> <analysis_OLE_obj>
 #>   Observations: 300 
 #>   Trial status: S 

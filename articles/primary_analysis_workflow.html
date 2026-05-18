@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Primary Analysis Workflow • rdborrow</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Primary Analysis Workflow">
 </head>
@@ -52,7 +52,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Primary Analysis Workflow</h1>
                         <h4 data-toc-skip class="author">Lei Shi</h4>
             
-            <h4 data-toc-skip class="date">2026-05-13</h4>
+            <h4 data-toc-skip class="date">2026-05-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Genentech/rdborrow/blob/main/vignettes/primary_analysis_workflow.Rmd" class="external-link"><code>vignettes/primary_analysis_workflow.Rmd</code></a></small>
       <div class="d-none name"><code>primary_analysis_workflow.Rmd</code></div>
@@ -68,11 +68,10 @@ EC-IPW and EC-AIPW weighting estimators proposed in <a href="https://doi.org/10.
 incorporating external controls in randomized trials with longitudinal
 outcomes.</p>
 <div class="section level3">
-<h3 id="load-and-visualize-data">1 load and visualize data<a class="anchor" aria-label="anchor" href="#load-and-visualize-data"></a>
+<h3 id="load-data">1 Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load the simulated dataset</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SyntheticData</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SyntheticData</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   x1 x2 x3 x4       x5 A S T_cross         y1         y2         y3        y4</span></span>
 <span><span class="co">## 1  1  1  1  9 54.59836 1 1       2  3.4512377 -0.7642287 -2.4713591  3.935466</span></span>
 <span><span class="co">## 2  0  1  0  8 33.08006 1 1       2  0.4518106  6.3516296  4.5231869 -0.198674</span></span>
@@ -82,35 +81,27 @@ outcomes.</p>
 <span><span class="co">## 6  1  1  0  7 46.08991 0 1       2 -2.6967072 -0.6130288  0.7482786 -2.413717</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="estimation-and-inference">2 Estimation and inference:<a class="anchor" aria-label="anchor" href="#estimation-and-inference"></a>
+<h3 id="ec-ipw">2 EC-IPW<a class="anchor" aria-label="anchor" href="#ec-ipw"></a>
 </h3>
 <div class="section level4">
-<h4 id="inverse-probability-weighting-ipw">2.1 Inverse probability weighting (IPW)<a class="anchor" aria-label="anchor" href="#inverse-probability-weighting-ipw"></a>
+<h4 id="no-borrowing-weight-0">2.1 No borrowing (weight = 0)<a class="anchor" aria-label="anchor" href="#no-borrowing-weight-0"></a>
 </h4>
-<ol style="list-style-type: decimal">
-<li>IPW with zero weight (wt = 0):</li>
-</ol>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: within trial</span></span>
-<span><span class="co">## Data argument + column names (coxph, glm)</span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  wt <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_ipw.html">ec_ipw</a></span><span class="op">(</span></span>
+<span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>  weight <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
 <span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
 <span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
 <span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span>
-<span><span class="va">res</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $results</span></span>
 <span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
 <span><span class="co">## tau1     -0.02808704          0.5367987      -1.0801931        1.024019</span></span>
@@ -118,187 +109,167 @@ outcomes.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## $borrow_weight</span></span>
 <span><span class="co">## [1] 0</span></span></code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>IPW with data-adaptive weight:</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: within trial</span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
-<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
-<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
-<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res</span><span class="op">$</span><span class="va">borrow_weight</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.1475196</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span><span class="op">$</span><span class="va">results</span></span></code></pre></div>
-<pre><code><span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
-<span><span class="co">## tau1      -0.1971969          0.5134018       -1.203446        0.809052</span></span>
-<span><span class="co">## tau2       0.4697209          0.5410007       -0.590621        1.530063</span></span></code></pre>
 </div>
 <div class="section level4">
-<h4 id="augmented-inverse-probability-weighting-aipw">2.2 Augmented inverse probability weighting (AIPW)<a class="anchor" aria-label="anchor" href="#augmented-inverse-probability-weighting-aipw"></a>
+<h4 id="optimal-weight-data-adaptive">2.2 Optimal weight (data-adaptive)<a class="anchor" aria-label="anchor" href="#optimal-weight-data-adaptive"></a>
 </h4>
-<p>The second approach is AIPW, which also accommodates two external
-borrowing strategies.</p>
-<ol style="list-style-type: decimal">
-<li>AIPW with zero weight (wt = 0):</li>
-</ol>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: AIPW with 0 weight, should be same as IPW with 0 weight</span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"AIPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  wt <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>  model_form_mu0_ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_ipw.html">ec_ipw</a></span><span class="op">(</span>ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
 <span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
 <span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
 <span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>AIPW with data adaptive weight:</li>
-</ol>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: AIPW with given weight</span></span>
-<span><span class="co"># bootstrap as part of the method and analysis</span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"AIPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>  model_form_mu0_ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
-<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
-<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
-<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="bootstrap-inference">3 Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference"></a>
-</h3>
-<p>In this section we present Bootstrap inference results. We report
-Bootstrap confidence intervals with adjusted quantile ranges.</p>
-<ol style="list-style-type: decimal">
-<li>IPW with bootstrap CI</li>
-</ol>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: within trial</span></span>
-<span><span class="co">## Data argument + column names (coxph, glm)</span></span>
-<span><span class="co">## having a bootstrap_flag outside the class</span></span>
-<span><span class="va">bootstrap_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_bootstrap.html">setup_bootstrap</a></span><span class="op">(</span></span>
-<span>  replicates <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>  bootstrap_CI_type <span class="op">=</span> <span class="st">"perc"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bootstrap_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bootstrap_obj <span class="op">=</span> <span class="va">bootstrap_obj</span>,</span>
-<span>  wt <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
-<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
-<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
-<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span>
-<span><span class="va">res</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $results</span></span>
-<span><span class="co">##      point_estimates standard_deviation lower_CI_boot upper_CI_boot</span></span>
-<span><span class="co">## tau1      -0.1971969          0.5134018    -1.1788096     0.8804926</span></span>
-<span><span class="co">## tau2       0.4697209          0.5410007    -0.6244215     1.8038458</span></span>
+<span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
+<span><span class="co">## tau1      -0.1971969          0.5134018       -1.203446        0.809052</span></span>
+<span><span class="co">## tau2       0.4697209          0.5410007       -0.590621        1.530063</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $borrow_weight</span></span>
 <span><span class="co">## [1] 0.1475196</span></span></code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>AIPW with bootstrap CI</li>
-</ol>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># test: with optimal weight</span></span>
-<span><span class="co">## Data argument + column names (coxph, glm)</span></span>
-<span><span class="va">bootstrap_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_bootstrap.html">setup_bootstrap</a></span><span class="op">(</span></span>
-<span>  replicates <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>  bootstrap_CI_type <span class="op">=</span> <span class="st">"perc"</span></span>
+</div>
+<div class="section level4">
+<h4 id="bootstrap-inference">2.3 Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference"></a>
+</h4>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_ipw.html">ec_ipw</a></span><span class="op">(</span></span>
+<span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>  bootstrap <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  bootstrap_ci_type <span class="op">=</span> <span class="st">"perc"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">method_weighting_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
-<span>  method_name <span class="op">=</span> <span class="st">"AIPW"</span>,</span>
-<span>  optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  wt <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  bootstrap_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bootstrap_obj <span class="op">=</span> <span class="va">bootstrap_obj</span>,</span>
-<span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>  model_form_mu0_ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
+<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
+<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
+<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $results</span></span>
+<span><span class="co">##      point_estimates standard_deviation lower_CI_boot upper_CI_boot</span></span>
+<span><span class="co">## tau1      -0.1971969          0.4959412    -1.2142174     0.8434478</span></span>
+<span><span class="co">## tau2       0.4697209          0.5292954    -0.6256452     1.7990102</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $borrow_weight</span></span>
+<span><span class="co">## [1] 0.1475196</span></span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="ec-aipw">3 EC-AIPW<a class="anchor" aria-label="anchor" href="#ec-aipw"></a>
+</h3>
+<p>EC-AIPW augments the IPW estimator with an outcome regression model,
+making it doubly robust: consistent if either the propensity score model
+or the outcome model is correctly specified.</p>
+<div class="section level4">
+<h4 id="no-borrowing-weight-0-1">3.1 No borrowing (weight = 0)<a class="anchor" aria-label="anchor" href="#no-borrowing-weight-0-1"></a>
+</h4>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_aipw.html">ec_aipw</a></span><span class="op">(</span></span>
+<span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  weight <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
+<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
+<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
+<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $results</span></span>
+<span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
+<span><span class="co">## tau1      -0.4361151          0.5552065      -1.5242998       0.6520696</span></span>
+<span><span class="co">## tau2       0.4422248          0.5701633      -0.6752748       1.5597244</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $borrow_weight</span></span>
+<span><span class="co">## [1] 0</span></span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="optimal-weight-data-adaptive-1">3.2 Optimal weight (data-adaptive)<a class="anchor" aria-label="anchor" href="#optimal-weight-data-adaptive-1"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_aipw.html">ec_aipw</a></span><span class="op">(</span></span>
+<span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
 <span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">analysis_primary_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
-<span>  trial_status <span class="op">=</span> <span class="st">"S"</span>,</span>
-<span>  treatment <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>  outcome <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
-<span>  covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
-<span>  method_weighting_obj <span class="op">=</span> <span class="va">method_weighting_obj</span></span>
+<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
+<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
+<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $results</span></span>
+<span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
+<span><span class="co">## tau1      -0.5463256          0.5305614       -1.586207       0.4935556</span></span>
+<span><span class="co">## tau2       0.5401750          0.5543275       -0.546287       1.6266369</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $borrow_weight</span></span>
+<span><span class="co">## [1] 0.1475196</span></span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="bootstrap-inference-1">3.3 Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference-1"></a>
+</h4>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_aipw.html">ec_aipw</a></span><span class="op">(</span></span>
+<span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
+<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  bootstrap <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  bootstrap_ci_type <span class="op">=</span> <span class="st">"perc"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis_primary_obj</span><span class="op">)</span></span>
+<span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_analysis_primary.html">setup_analysis_primary</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">SyntheticData</span>,</span>
+<span>  trial_status_col_name <span class="op">=</span> <span class="st">"S"</span>,</span>
+<span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
+<span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span>
+<span>  method_weighting_obj <span class="op">=</span> <span class="va">method</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## best to just do the last one, but also have options</span></span>
-<span><span class="co">## time dependent way of effects and modeling</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $results</span></span>
+<span><span class="co">##      point_estimates standard_deviation lower_CI_boot upper_CI_boot</span></span>
+<span><span class="co">## tau1      -0.5463256           0.565138     -1.617718     0.8547375</span></span>
+<span><span class="co">## tau2       0.5401750           0.594804     -0.880384     1.5808952</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $borrow_weight</span></span>
+<span><span class="co">## [1] 0.1475196</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="notes">4 Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>When there are missing values in the data, the suggestion we have
-for now is to preprocess the dataset (such as deletion, imputing, etc.)
-to obtain a dataset without missingness, then apply the package. For
-general methodology development regarding missing values, we save it for
-future research work.</li>
+<li>When there are missing values in the data, preprocess the dataset
+(deletion, imputation, etc.) to obtain a complete dataset before
+applying the package.</li>
 </ol>
 </div>
 </div>

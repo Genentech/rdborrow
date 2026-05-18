@@ -86,4 +86,5 @@ setup_simulation_OLE(
   true_effect = c(0, 0),
   method_description = "IPW, DID"
 )
+#> Warning: 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or() for DID with outcome regression.
 ```

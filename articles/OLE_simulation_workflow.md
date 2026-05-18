@@ -139,6 +139,10 @@ method_IPW_DID <- setup_method_DID(
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning in setup_method_DID(method_name = "IPW", bootstrap_flag = TRUE, :
+#> 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse
+#> probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or()
+#> for DID with outcome regression.
 
 ## AIPW - optimal weight
 method_AIPW_DID <- setup_method_DID(
@@ -149,6 +153,10 @@ method_AIPW_DID <- setup_method_DID(
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5",
   model_form_mu0_ext = model_form_mu
 )
+#> Warning in setup_method_DID(method_name = "AIPW", bootstrap_flag = TRUE, :
+#> 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse
+#> probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or()
+#> for DID with outcome regression.
 
 ## OR - optimal weight
 
@@ -160,6 +168,10 @@ method_OR_DID <- setup_method_DID(
   model_form_mu0_rct = model_form_mu,
   model_form_mu1_rct = model_form_mu
 )
+#> Warning in setup_method_DID(method_name = "OR", bootstrap_flag = TRUE,
+#> bootstrap_obj = bootstrap_obj, : 'setup_method_DID' is being deprecated. Use
+#> did_ec_ipw() for DID with inverse probability weighting, did_ec_aipw() for DID
+#> with augmented IPW, or did_ec_or() for DID with outcome regression.
 
 ## method list
 method_obj_list <- list(

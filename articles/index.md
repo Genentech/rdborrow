@@ -1,5 +1,10 @@
 # Articles
 
+### Getting Started
+
+- [Introduction to
+  rdborrow](https://genentech.github.io/rdborrow/articles/introduction.md):
+
 ### Primary Analysis
 
 - [Primary Analysis

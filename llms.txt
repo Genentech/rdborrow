@@ -81,9 +81,28 @@ Set up and run simulations
 - [`setup_simulation_report()`](https://genentech.github.io/rdborrow/reference/setup_simulation_report.md)
   : setup_simulation_report
 
-## Method Configuration
+## Estimators
 
-Configure estimation methods
+Method constructors for estimation
+
+- [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  : EC-IPW method constructor
+- [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  : EC-AIPW method
+- [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
+  : DID-EC-IPW method
+- [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  : DID-EC-AIPW method
+- [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md)
+  : DID-EC-OR method constructor
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) : SCM
+  method constructor
+- [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  : Run estimation for a method object
+
+## Method Configuration (legacy)
+
+Configure estimation methods (deprecated)
 
 - [`setup_method_weighting()`](https://genentech.github.io/rdborrow/reference/setup_method_weighting.md)
   : Construct a method_weighting object
@@ -131,7 +150,7 @@ S4 class documentation
   : Bootstrap class
 - [`method_obj-class`](https://genentech.github.io/rdborrow/reference/method_obj-class.md)
   [`.method_obj`](https://genentech.github.io/rdborrow/reference/method_obj-class.md)
-  : method class
+  : Method classes
 - [`method_weighting_obj-class`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
   [`.method_weighting_obj`](https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.md)
   : Method weighting class
@@ -162,6 +181,11 @@ Example datasets
   : Synthetic example dataset for rdborrow
 
 # Articles
+
+### Getting Started
+
+- [Introduction to
+  rdborrow](https://genentech.github.io/rdborrow/articles/introduction.md):
 
 ### Primary Analysis
 

@@ -61,4 +61,5 @@ setup_analysis_primary(
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   method_weighting_obj = setup_method_weighting(method_name = "IPW")
 )
+#> Warning: 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented inverse probability weighting.
 ```

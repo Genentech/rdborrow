@@ -806,6 +806,9 @@ method_IPW_optimal_weight <- setup_method_weighting(
   optimal_weight_flag = TRUE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning in setup_method_weighting(method_name = "IPW", optimal_weight_flag =
+#> TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse
+#> probability weighting or ec_aipw() for augmented inverse probability weighting.
 
 ## AIPW - optimal weight
 method_AIPW_optimal_weight <- setup_method_weighting(
@@ -817,6 +820,9 @@ method_AIPW_optimal_weight <- setup_method_weighting(
     "y2 ~ x1 + x2 + x3 + x4 + x5"
   )
 )
+#> Warning in setup_method_weighting(method_name = "AIPW", optimal_weight_flag =
+#> TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse
+#> probability weighting or ec_aipw() for augmented inverse probability weighting.
 
 ## IPW - zero weight
 method_IPW_zero_weight <- setup_method_weighting(
@@ -825,6 +831,10 @@ method_IPW_zero_weight <- setup_method_weighting(
   optimal_weight_flag = FALSE,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning in setup_method_weighting(method_name = "IPW", wt = 0,
+#> optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.
+#> Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented
+#> inverse probability weighting.
 
 ## AIPW - zero weight
 method_AIPW_zero_weight <- setup_method_weighting(
@@ -837,6 +847,10 @@ method_AIPW_zero_weight <- setup_method_weighting(
     "y2 ~ x1 + x2 + x3 + x4 + x5"
   )
 )
+#> Warning in setup_method_weighting(method_name = "AIPW", wt = 0,
+#> optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.
+#> Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented
+#> inverse probability weighting.
 
 ## method list
 method_obj_list <- list(
@@ -4908,6 +4922,9 @@ method_IPW_optimal_weight <- setup_method_weighting(
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning in setup_method_weighting(method_name = "IPW", optimal_weight_flag =
+#> TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse
+#> probability weighting or ec_aipw() for augmented inverse probability weighting.
 
 ## AIPW - optimal weight
 method_AIPW_optimal_weight <- setup_method_weighting(
@@ -4921,6 +4938,9 @@ method_AIPW_optimal_weight <- setup_method_weighting(
     "y2 ~ x1 + x2 + x3 + x4 + x5 + y1"
   )
 )
+#> Warning in setup_method_weighting(method_name = "AIPW", optimal_weight_flag =
+#> TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse
+#> probability weighting or ec_aipw() for augmented inverse probability weighting.
 
 ## IPW - zero weight
 method_IPW_zero_weight <- setup_method_weighting(
@@ -4931,6 +4951,10 @@ method_IPW_zero_weight <- setup_method_weighting(
   bootstrap_obj = bootstrap_obj,
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning in setup_method_weighting(method_name = "IPW", wt = 0,
+#> optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.
+#> Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented
+#> inverse probability weighting.
 
 ## AIPW - zero weight
 method_AIPW_zero_weight <- setup_method_weighting(
@@ -4945,6 +4969,10 @@ method_AIPW_zero_weight <- setup_method_weighting(
     "y2 ~ x1 + x2 + x3 + x4 + x5 + y1"
   )
 )
+#> Warning in setup_method_weighting(method_name = "AIPW", wt = 0,
+#> optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.
+#> Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented
+#> inverse probability weighting.
 
 ## method list
 method_obj_list <- list(
@@ -8988,12 +9016,12 @@ simulation_report_bs <- run_simulation(simulation_primary_obj, quiet = FALSE)
 simulation_report_bs
 #>                method_description          bias  variance       mse coverage
 #> 1  IPW, optimal weight, bootstrap -0.0541718304 0.4845047 0.4874393    0.944
-#> 2 AIPW, optimal weight, bootstrap  0.0032679422 0.3159685 0.3159792    0.954
+#> 2 AIPW, optimal weight, bootstrap  0.0032679422 0.3159685 0.3159792    0.952
 #> 3     IPW, zero weight, bootstrap -0.0007803934 0.5317429 0.5317435    0.954
 #> 4    AIPW, zero weight, bootstrap  0.0014500246 0.3367785 0.3367806    0.950
 #>   type_I_error power
 #> 1        0.056 0.752
-#> 2        0.046 0.722
+#> 2        0.048 0.902
 #> 3        0.046 0.722
 #> 4        0.050 0.716
 ```

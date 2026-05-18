@@ -67,4 +67,5 @@ setup_method_DID(
   model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
   model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
 )
+#> Warning: 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or() for DID with outcome regression.
 ```

@@ -1,20 +1,27 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://genentech.github.io/rdborrow/404.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/LICENSE.html</loc></url>
-<url><loc>https://genentech.github.io/rdborrow/NOTES.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/articles/OLE_analysis_workflow.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/articles/OLE_simulation_workflow.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/articles/index.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/articles/introduction.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/articles/primary_analysis_workflow.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/articles/primary_simulation_workflow.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/authors.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/index.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/news/index.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/SyntheticData.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/aaa-rdborrow-package.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/analysis_OLE_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/analysis_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/analysis_primary_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/bootstrap_obj-class.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/did_ec_aipw.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/did_ec_ipw.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/did_ec_or.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/ec_aipw.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/ec_ipw.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/estimate.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/index.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/method_DID_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/method_SCM_obj-class.html</loc></url>
@@ -22,6 +29,7 @@
 <url><loc>https://genentech.github.io/rdborrow/reference/method_weighting_obj-class.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/run_analysis.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/run_simulation.html</loc></url>
+<url><loc>https://genentech.github.io/rdborrow/reference/scm.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/setup_analysis_primary.html</loc></url>
 <url><loc>https://genentech.github.io/rdborrow/reference/setup_bootstrap.html</loc></url>

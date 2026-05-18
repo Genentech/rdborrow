@@ -1,6 +1,6 @@
-# method class
+# Method classes
 
-method class
+Method classes
 
 ## Slots
 

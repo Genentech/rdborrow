@@ -11,152 +11,127 @@ to treatment.
 
 ### 1 DID methods
 
-#### 1.1 IPW
+#### 1.1 DID-EC-IPW
 
 ``` r
 
-bootstrap_obj <- setup_bootstrap(
-  replicates = 50,
-  bootstrap_CI_type = "perc"
+method <- did_ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
+  bootstrap = 50
 )
 
-method_DID_obj <- setup_method_DID(
-  method_name = "IPW",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
-)
-
-analysis_OLE_obj <- setup_analysis_OLE(
+analysis <- setup_analysis_OLE(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   T_cross = 2,
-  method_OLE_obj = method_DID_obj
+  method_OLE_obj = method
 )
 
-res <- run_analysis(analysis_OLE_obj)
+run_analysis(analysis)
 ```
 
-#### 1.2 AIPW
+    ##      point_estimates lower_CI_boot upper_CI_boot
+    ## tau3        2.075926     0.1198765      4.230701
+    ## tau4        4.389438     0.8192601      7.040613
+
+#### 1.2 DID-EC-AIPW
 
 ``` r
 
-bootstrap_obj <- setup_bootstrap(
-  replicates = 50,
-  bootstrap_CI_type = "perc"
-)
-
-model_form_mu <- c(
+model_forms <- c(
   "y1 ~ x1 + x2 + x3 + x4 + x5",
   "y2 ~ x1 + x2 + x3 + x4 + x5",
   "y3 ~ x1 + x2 + x3 + x4 + x5",
   "y4 ~ x1 + x2 + x3 + x4 + x5"
 )
 
-method_DID_obj <- setup_method_DID(
-  method_name = "AIPW",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-  model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5",
-  model_form_mu0_ext = model_form_mu
+method <- did_ec_aipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
+  outcome_formula = model_forms,
+  bootstrap = 50
 )
 
-analysis_OLE_obj <- setup_analysis_OLE(
+analysis <- setup_analysis_OLE(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   T_cross = 2,
-  method_OLE_obj = method_DID_obj
+  method_OLE_obj = method
 )
 
-res <- run_analysis(analysis_OLE_obj)
+run_analysis(analysis)
 ```
 
-#### 1.3 OR
+    ##      point_estimates lower_CI_boot upper_CI_boot
+    ## tau3        2.041727    -1.3020727      4.372254
+    ## tau4        4.036118     0.6559398      7.388494
+
+#### 1.3 DID-EC-OR
 
 ``` r
 
-bootstrap_obj <- setup_bootstrap(
-  replicates = 50,
-  bootstrap_CI_type = "perc"
-)
-
-model_form_mu <- c(
+model_forms <- c(
   "y1 ~ x1 + x2 + x3 + x4 + x5",
   "y2 ~ x1 + x2 + x3 + x4 + x5",
   "y3 ~ x1 + x2 + x3 + x4 + x5",
   "y4 ~ x1 + x2 + x3 + x4 + x5"
 )
 
-method_DID_obj <- setup_method_DID(
-  method_name = "OR",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  model_form_mu0_ext = model_form_mu,
-  model_form_mu0_rct = model_form_mu,
-  model_form_mu1_rct = model_form_mu
+method <- did_ec_or(
+  outcome_formula_ext = model_forms,
+  outcome_formula_rct_ctrl = model_forms,
+  outcome_formula_rct_trt = model_forms,
+  bootstrap = 50
 )
 
-analysis_OLE_obj <- setup_analysis_OLE(
+analysis <- setup_analysis_OLE(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   T_cross = 2,
-  method_OLE_obj = method_DID_obj
+  method_OLE_obj = method
 )
 
-res <- run_analysis(analysis_OLE_obj)
-res
+run_analysis(analysis)
 ```
 
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        1.568947      -1.06647      4.138741
     ## tau4        4.407834       1.91722      7.107674
 
-### 2 SCM method: with parallel computing
+### 2 Synthetic control method
 
 ``` r
 
-bootstrap_obj <- setup_bootstrap(
-  replicates = 50,
-  bootstrap_CI_type = "perc"
+method <- scm(
+  lambda_min = 0,
+  lambda_max = 1e-3,
+  nlambda = 2,
+  bootstrap = 10,
+  bootstrap_ci_type = "perc"
 )
 
-method_SCM_obj <- setup_method_SCM(
-  method_name = "SCM",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  lambda.min = 0,
-  lambda.max = 1e-3,
-  nlambda = 10,
-  parallel = "no",
-  ncpus = 1
-)
-
-analysis_OLE_obj <- setup_analysis_OLE(
+analysis <- setup_analysis_OLE(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   T_cross = 2,
-  method_OLE_obj = method_SCM_obj
+  method_OLE_obj = method
 )
 
-run_analysis(analysis_OLE_obj)
+run_analysis(analysis)
 ```
-
-    ## Running the synthetic control method...
-    ## Performing cross validation for tuning parameter selection...
 
     ## ℹ In a future CVXR release, `solve()` will return the optimal value directly
     ##   (like `psolve()`).
@@ -169,82 +144,19 @@ run_analysis(analysis_OLE_obj)
     ## ℹ Use `value(x)` after solving instead.
     ## This warning is displayed once per session.
 
-    ## Constructing pseudo controls for internal data...
-    ## Performing bootstrap inference with SCM estimates...
-
-    ## Warning: Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-
     ## Warning: Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
     ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
     ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
 
-    ## time elapsed for bootstrap:  9.22
+    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
+    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
 
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.134082     0.6776431      4.008635
-    ## tau4        3.950783     1.3126432      6.895732
-
-### 3 SCM method: without parallel computing
-
-``` r
-
-bootstrap_obj <- setup_bootstrap(
-  replicates = 50,
-  bootstrap_CI_type = "perc"
-)
-
-method_SCM_obj <- setup_method_SCM(
-  method_name = "SCM",
-  bootstrap_flag = TRUE,
-  bootstrap_obj = bootstrap_obj,
-  lambda.min = 0,
-  lambda.max = 1e-3,
-  nlambda = 10,
-  parallel = "no"
-)
-
-analysis_OLE_obj <- setup_analysis_OLE(
-  data = SyntheticData,
-  trial_status_col_name = "S",
-  treatment_col_name = "A",
-  outcome_col_name = c("y1", "y2", "y3", "y4"),
-  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-  T_cross = 2,
-  method_OLE_obj = method_SCM_obj
-)
-
-run_analysis(analysis_OLE_obj)
-```
-
-    ## Running the synthetic control method...
-    ## Performing cross validation for tuning parameter selection...
-    ## Constructing pseudo controls for internal data...
-    ## Performing bootstrap inference with SCM estimates...
-
-    ## Warning: Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-
-    ## time elapsed for bootstrap:  9.72
-
-    ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.134082     0.5584951      3.910489
-    ## tau4        3.950783     1.1203356      7.356058
+    ## tau3        2.064756      1.518103      2.677024
+    ## tau4        3.943234      1.931972      7.565861
 
 ## References
 

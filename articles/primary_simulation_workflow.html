@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Simulation Workflow for Primary Analysis • rdborrow</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Simulation Workflow for Primary Analysis">
 </head>
@@ -52,7 +52,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Simulation Workflow for Primary Analysis</h1>
                         <h4 data-toc-skip class="author">Lei Shi</h4>
             
-            <h4 data-toc-skip class="date">2026-05-13</h4>
+            <h4 data-toc-skip class="date">2026-05-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Genentech/rdborrow/blob/main/vignettes/primary_simulation_workflow.Rmd" class="external-link"><code>vignettes/primary_simulation_workflow.Rmd</code></a></small>
       <div class="d-none name"><code>primary_simulation_workflow.Rmd</code></div>
@@ -864,6 +864,9 @@ the primary (placebo-controlled) phase.</p>
 <span>  optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "IPW", optimal_weight_flag =</span></span>
+<span><span class="co">#&gt; TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse</span></span>
+<span><span class="co">#&gt; probability weighting or ec_aipw() for augmented inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## AIPW - optimal weight</span></span>
 <span><span class="va">method_AIPW_optimal_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -875,6 +878,9 @@ the primary (placebo-controlled) phase.</p>
 <span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "AIPW", optimal_weight_flag =</span></span>
+<span><span class="co">#&gt; TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse</span></span>
+<span><span class="co">#&gt; probability weighting or ec_aipw() for augmented inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## IPW - zero weight</span></span>
 <span><span class="va">method_IPW_zero_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -883,6 +889,10 @@ the primary (placebo-controlled) phase.</p>
 <span>  optimal_weight_flag <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "IPW", wt = 0,</span></span>
+<span><span class="co">#&gt; optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.</span></span>
+<span><span class="co">#&gt; Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented</span></span>
+<span><span class="co">#&gt; inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## AIPW - zero weight</span></span>
 <span><span class="va">method_AIPW_zero_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -895,6 +905,10 @@ the primary (placebo-controlled) phase.</p>
 <span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "AIPW", wt = 0,</span></span>
+<span><span class="co">#&gt; optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.</span></span>
+<span><span class="co">#&gt; Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented</span></span>
+<span><span class="co">#&gt; inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## method list</span></span>
 <span><span class="va">method_obj_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -4956,6 +4970,9 @@ the primary (placebo-controlled) phase.</p>
 <span>  bootstrap_obj <span class="op">=</span> <span class="va">bootstrap_obj</span>,</span>
 <span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "IPW", optimal_weight_flag =</span></span>
+<span><span class="co">#&gt; TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse</span></span>
+<span><span class="co">#&gt; probability weighting or ec_aipw() for augmented inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## AIPW - optimal weight</span></span>
 <span><span class="va">method_AIPW_optimal_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -4969,6 +4986,9 @@ the primary (placebo-controlled) phase.</p>
 <span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5 + y1"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "AIPW", optimal_weight_flag =</span></span>
+<span><span class="co">#&gt; TRUE, : 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse</span></span>
+<span><span class="co">#&gt; probability weighting or ec_aipw() for augmented inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## IPW - zero weight</span></span>
 <span><span class="va">method_IPW_zero_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -4979,6 +4999,10 @@ the primary (placebo-controlled) phase.</p>
 <span>  bootstrap_obj <span class="op">=</span> <span class="va">bootstrap_obj</span>,</span>
 <span>  model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "IPW", wt = 0,</span></span>
+<span><span class="co">#&gt; optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.</span></span>
+<span><span class="co">#&gt; Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented</span></span>
+<span><span class="co">#&gt; inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## AIPW - zero weight</span></span>
 <span><span class="va">method_AIPW_zero_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span>
@@ -4993,6 +5017,10 @@ the primary (placebo-controlled) phase.</p>
 <span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5 + y1"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in setup_method_weighting(method_name = "AIPW", wt = 0,</span></span>
+<span><span class="co">#&gt; optimal_weight_flag = FALSE, : 'setup_method_weighting' is being deprecated.</span></span>
+<span><span class="co">#&gt; Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented</span></span>
+<span><span class="co">#&gt; inverse probability weighting.</span></span>
 <span></span>
 <span><span class="co">## method list</span></span>
 <span><span class="va">method_obj_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -9027,12 +9055,12 @@ the primary (placebo-controlled) phase.</p>
 <code class="sourceCode R"><span><span class="va">simulation_report_bs</span></span>
 <span><span class="co">#&gt;                method_description          bias  variance       mse coverage</span></span>
 <span><span class="co">#&gt; 1  IPW, optimal weight, bootstrap -0.0541718304 0.4845047 0.4874393    0.944</span></span>
-<span><span class="co">#&gt; 2 AIPW, optimal weight, bootstrap  0.0032679422 0.3159685 0.3159792    0.954</span></span>
+<span><span class="co">#&gt; 2 AIPW, optimal weight, bootstrap  0.0032679422 0.3159685 0.3159792    0.952</span></span>
 <span><span class="co">#&gt; 3     IPW, zero weight, bootstrap -0.0007803934 0.5317429 0.5317435    0.954</span></span>
 <span><span class="co">#&gt; 4    AIPW, zero weight, bootstrap  0.0014500246 0.3367785 0.3367806    0.950</span></span>
 <span><span class="co">#&gt;   type_I_error power</span></span>
 <span><span class="co">#&gt; 1        0.056 0.752</span></span>
-<span><span class="co">#&gt; 2        0.046 0.722</span></span>
+<span><span class="co">#&gt; 2        0.048 0.902</span></span>
 <span><span class="co">#&gt; 3        0.046 0.722</span></span>
 <span><span class="co">#&gt; 4        0.050 0.716</span></span></code></pre></div>
 <p>The above code generates a report for the simulation results.</p>

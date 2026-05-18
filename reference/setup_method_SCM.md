@@ -64,4 +64,7 @@ setup_method_SCM(
   lambda.min = 0,
   lambda.max = 1e-3
 )
+#> Warning: 'setup_method_SCM' is deprecated.
+#> Use 'scm' instead.
+#> See help("Deprecated")
 ```
