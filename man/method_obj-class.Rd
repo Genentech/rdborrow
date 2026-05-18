@@ -4,9 +4,9 @@
 \name{method_obj-class}
 \alias{method_obj-class}
 \alias{.method_obj}
-\title{method class}
+\title{Method classes}
 \description{
-method class
+Method classes
 }
 \section{Slots}{
 

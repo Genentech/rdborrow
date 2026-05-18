@@ -7,10 +7,10 @@
 #' @return  a list containing: tau (effect size), sd.tau (standard deviation), wt (weight)
 #' @include EC_IPW_OPT.R
 #' @include EC_AIPW_OPT.R
-#' @include DID_EC_IPW.R
-#' @include DID_EC_AIPW.R
-#' @include DID_EC_OR.R
-#' @include SCM.R
+#' @include legacy_DID_EC_IPW.R
+#' @include legacy_DID_EC_AIPW.R
+#' @include legacy_DID_EC_OR.R
+#' @include legacy_SCM.R
 #'
 #' @export
 #'
@@ -184,6 +184,30 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
     } else {
       stop("No such method is defined!")
     }
+  } else if (is(method, "ec_ipw_method") || is(method, "ec_aipw_method")) {
+    res <- estimate(method,
+      data = data,
+      outcomes = outcome_col_name,
+      treatment = treatment_col_name,
+      trial_status = trial_status_col_name,
+      covariates = covariates_col_name,
+      alpha = alpha,
+      quiet = quiet
+    )
+  } else if (is(method, "did_ec_ipw_method") ||
+    is(method, "did_ec_aipw_method") ||
+    is(method, "did_ec_or_method") ||
+    is(method, "scm_method")) {
+    res <- estimate(method,
+      data = data,
+      outcomes = outcome_col_name,
+      treatment = treatment_col_name,
+      trial_status = trial_status_col_name,
+      covariates = covariates_col_name,
+      alpha = alpha,
+      quiet = quiet,
+      T_cross = T_cross
+    )
   } else {
     stop("No such method type is defined!")
   }

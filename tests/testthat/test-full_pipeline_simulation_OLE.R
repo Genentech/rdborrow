@@ -89,7 +89,7 @@ test_that("OLE simulation report matches vignette", {
     "y4 ~ x1 + x2 + x3 + x4 + x5"
   )
 
-  method_obj_list <- list(
+  method_obj_list <- suppressWarnings(list(
     setup_method_DID(
       method_name = "IPW", bootstrap_flag = TRUE, bootstrap_obj = bootstrap_obj,
       model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
@@ -107,7 +107,7 @@ test_that("OLE simulation report matches vignette", {
       model_form_mu0_rct = model_form_mu,
       model_form_mu1_rct = model_form_mu
     )
-  )
+  ))
 
   sim_obj <- setup_simulation_OLE(
     data_matrix_list      = sim_data,

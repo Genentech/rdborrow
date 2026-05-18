@@ -15,7 +15,7 @@
 #' @param alpha Significance level.
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
-#' @include DID_EC_OR_bootstrap.R
+#' @include legacy_DID_EC_OR_bootstrap.R
 #' @return tau and standard deviation
 #' @noRd
 #'

@@ -17,7 +17,7 @@
 #' @param T_cross numeric. The time point that separates the placebo-control period and the follow-up period.
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
-#' @include DID_EC_AIPW_bootstrap.R
+#' @include legacy_DID_EC_AIPW_bootstrap.R
 #' @return tau and standard deviation
 #' @noRd
 #'

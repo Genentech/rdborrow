@@ -5,7 +5,7 @@ test_that("setup_analysis_primary returns valid object", {
     treatment_col_name = "A",
     outcome_col_name = c("y1", "y2"),
     covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-    method_weighting_obj = setup_method_weighting(method_name = "IPW")
+    method_weighting_obj = suppressWarnings(setup_method_weighting(method_name = "IPW"))
   )
   expect_s4_class(obj, "analysis_primary_obj")
   expect_identical(obj@method_obj@method_name, "IPW")
@@ -19,7 +19,7 @@ test_that("setup_analysis_primary inherits base validation", {
     treatment_col_name = "A",
     outcome_col_name = "y1",
     covariates_col_name = "x1",
-    method_weighting_obj = setup_method_weighting()
+    method_weighting_obj = suppressWarnings(setup_method_weighting())
   ))
   expect_error(setup_analysis_primary(
     data = SyntheticData,
@@ -27,7 +27,7 @@ test_that("setup_analysis_primary inherits base validation", {
     treatment_col_name = "A",
     outcome_col_name = "y1",
     covariates_col_name = "x1",
-    method_weighting_obj = setup_method_weighting()
+    method_weighting_obj = suppressWarnings(setup_method_weighting())
   ))
 })
 
@@ -49,7 +49,7 @@ test_that("show method prints without error", {
     treatment_col_name = "A",
     outcome_col_name = c("y1", "y2"),
     covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-    method_weighting_obj = setup_method_weighting(method_name = "IPW")
+    method_weighting_obj = suppressWarnings(setup_method_weighting(method_name = "IPW"))
   )
   expect_output(show(obj), "analysis_primary_obj")
   expect_output(show(obj), "IPW")

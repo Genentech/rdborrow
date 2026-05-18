@@ -20,7 +20,7 @@
 #' @param ncpus Integer. Number of CPUs for parallel bootstrap.
 #' @param quiet Logical. If \code{TRUE}, suppress printed output.
 #'
-#' @include SCMboot.R
+#' @include legacy_SCMboot.R
 #' @return A list contains: estimated ATE, SE, weight used, SE by Bootstrap
 #'   and a 95% confidence interval for primary endpoint (only when
 #'   Bootstrap=TRUE)

@@ -63,7 +63,15 @@ setup_method_DID <- function(method_name = "IPW",
                              model_form_piA = "",
                              model_form_mu0_rct = "",
                              model_form_mu1_rct = "") {
-  .validate_method_base(method_name, bootstrap_flag, bootstrap_obj)
+  .Deprecated(msg = paste(
+    "'setup_method_DID' is being deprecated.",
+    "Use did_ec_ipw() for DID with inverse probability weighting,",
+    "did_ec_aipw() for DID with augmented IPW,",
+    "or did_ec_or() for DID with outcome regression."
+  ))
+  checkmate::assert_string(method_name)
+  checkmate::assert_flag(bootstrap_flag)
+  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
   checkmate::assert_string(model_form_piS)
   checkmate::assert_string(model_form_piA)
   checkmate::assert_character(model_form_mu0_ext)

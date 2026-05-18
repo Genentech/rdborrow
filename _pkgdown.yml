@@ -18,6 +18,9 @@ navbar:
       aria-label: GitHub
 
 articles:
+  - title: Getting Started
+    contents:
+      - introduction
   - title: Primary Analysis
     contents:
       - primary_analysis_workflow
@@ -47,8 +50,19 @@ reference:
       - run_simulation
       - setup_simulation_report
 
-  - title: Method Configuration
-    desc: Configure estimation methods
+  - title: Estimators
+    desc: Method constructors for estimation
+    contents:
+      - ec_ipw
+      - ec_aipw
+      - did_ec_ipw
+      - did_ec_aipw
+      - did_ec_or
+      - scm
+      - estimate
+
+  - title: Method Configuration (legacy)
+    desc: Configure estimation methods (deprecated)
     contents:
       - setup_method_weighting
       - setup_method_DID
