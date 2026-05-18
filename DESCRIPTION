@@ -50,8 +50,6 @@ Imports:
     checkmate,
     futile.logger,
     mvtnorm,
-    dplyr,
-    tidyr,
     boot,
     Matrix,
     CVXR,
@@ -61,8 +59,9 @@ Imports:
     stats,
     utils,
     methods
-Suggests: 
+Suggests:
     covr,
+    dplyr,
     ECOSolveR,
     knitr,
     pkgdown,
@@ -70,7 +69,8 @@ Suggests:
     lintr,
     spelling,
     styler,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tidyr
 Config/testthat/edition: 3
 Collate: 
     'EC_AIPW_OPT_bootstrap.R'

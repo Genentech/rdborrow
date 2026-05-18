@@ -63,6 +63,14 @@ setup_method_DID <- function(method_name = "IPW",
                              model_form_piA = "",
                              model_form_mu0_rct = "",
                              model_form_mu1_rct = "") {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop(
+      "'setup_method_DID' requires the 'dplyr' package. ",
+      "Install it with install.packages(\"dplyr\"), ",
+      "or switch to did_ec_ipw() / did_ec_aipw() / did_ec_or().",
+      call. = FALSE
+    )
+  }
   .Deprecated(msg = paste(
     "'setup_method_DID' is being deprecated.",
     "Use did_ec_ipw() for DID with inverse probability weighting,",

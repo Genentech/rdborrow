@@ -61,17 +61,17 @@ DID_EC_AIPW_bootstrap <- function(data,
 
   piS <- glm(as.formula(model_form_piS), data = df, family = "binomial")
   suppressWarnings({
-    piSX <- predict(piS, newdata = filter(df), type = "response")
+    piSX <- predict(piS, newdata = dplyr::filter(df), type = "response")
   })
   if (model_form_piA == "") {
     piAX <- sum(A) / n
   } else {
     piA <- glm(
       as.formula(model_form_piA),
-      data = filter(df, S == 1), family = "binomial"
+      data = dplyr::filter(df, S == 1), family = "binomial"
     )
     suppressWarnings({
-      piAX <- predict(piA, newdata = filter(df), type = "response")
+      piAX <- predict(piA, newdata = dplyr::filter(df), type = "response")
     })
   }
 
@@ -79,12 +79,12 @@ DID_EC_AIPW_bootstrap <- function(data,
   model_list_ext <- lapply(seq_len(T_follow), function(x) {
     assign(
       paste0("m.ext", x),
-      lm(as.formula(model_form_mu0_ext[x]), data = filter(df, S == 0))
+      lm(as.formula(model_form_mu0_ext[x]), data = dplyr::filter(df, S == 0))
     )
   })
   suppressWarnings({
     Y0 <- data.frame(sapply(seq_len(T_follow), function(x) {
-      predict(model_list_ext[[x]], newdata = filter(df))
+      predict(model_list_ext[[x]], newdata = dplyr::filter(df))
     }))
   })
   colnames(Y0) <- paste0("y", seq_len(T_follow), "_0")
@@ -93,12 +93,12 @@ DID_EC_AIPW_bootstrap <- function(data,
   colnames(Yr) <- paste0("y", seq_len(T_follow), "_r")
 
   temp <- cbind(df, Y0, Yr) |>
-    mutate(
+    dplyr::mutate(
       piAX = piAX,
       piSX = piSX,
       rx = piSX * (1 - pi.S) / (1 - piSX) / pi.S
     ) |>
-    mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
+    dplyr::mutate(w11 = 1 / piAX, w10 = 1 / (1 - piAX), w00 = rx)
 
   # create outcomes
   Ys <- as.matrix(Yr)
