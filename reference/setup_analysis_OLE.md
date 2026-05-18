@@ -1,6 +1,8 @@
-# Construct an analysis_OLE object
+# Set up an open-label extension (OLE) analysis
 
-Construct an analysis_OLE object
+Bundles data, column mappings, crossover time, and a method object into
+an analysis object ready to be passed to
+[`run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md).
 
 ## Usage
 
@@ -33,7 +35,8 @@ setup_analysis_OLE(
 
 - outcome_col_name:
 
-  Character vector of outcome column names.
+  Character vector of outcome column names covering both
+  placebo-controlled and OLE periods.
 
 - covariates_col_name:
 
@@ -41,11 +44,16 @@ setup_analysis_OLE(
 
 - method_OLE_obj:
 
-  A method object of class \`method_OLE_obj\` for OLE analysis.
+  A method object created by
+  [`did_ec_ipw`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md),
+  [`did_ec_aipw`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
+  [`did_ec_or`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
+  or [`scm`](https://genentech.github.io/rdborrow/reference/scm.md).
 
 - T_cross:
 
-  Numeric crossover time point.
+  Integer crossover time point. The first `T_cross` outcomes are from
+  the placebo-controlled phase; the rest are OLE.
 
 - alpha:
 
@@ -53,28 +61,58 @@ setup_analysis_OLE(
 
 ## Value
 
-An object of class \`analysis_OLE_obj\`.
+An object of class `analysis_OLE_obj`, to be passed to
+[`run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md).
+
+## Details
+
+Available OLE methods:
+
+- [`did_ec_ipw`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md):
+
+  Difference-in-differences with IPW.
+
+- [`did_ec_aipw`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md):
+
+  DID with augmented IPW.
+
+- [`did_ec_or`](https://genentech.github.io/rdborrow/reference/did_ec_or.md):
+
+  DID with outcome regression.
+
+- [`scm`](https://genentech.github.io/rdborrow/reference/scm.md):
+
+  Synthetic control method.
+
+## See also
+
+[`run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md),
+[`setup_analysis_primary`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
 
 ## Examples
 
 ``` r
+method <- did_ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
+  bootstrap = 50
+)
 setup_analysis_OLE(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2", "y3", "y4"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-  method_OLE_obj = setup_method_DID(method_name = "IPW"),
+  method_OLE_obj = method,
   T_cross = 2
 )
-#> Warning: 'setup_method_DID' is being deprecated. Use did_ec_ipw() for DID with inverse probability weighting, did_ec_aipw() for DID with augmented IPW, or did_ec_or() for DID with outcome regression.
 #> <analysis_OLE_obj>
 #>   Observations: 300 
 #>   Trial status: S 
 #>   Treatment: A 
 #>   Outcomes: y1, y2, y3, y4 
 #>   Covariates: x1, x2, x3, x4, x5 
-#>   Method: IPW 
+#>   Method: DID-EC-IPW 
 #>   T_cross: 2 
 #>   Alpha: 0.05 
 ```

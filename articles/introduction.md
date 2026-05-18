@@ -75,6 +75,20 @@ and
 [`vignette("OLE_simulation_workflow")`](https://genentech.github.io/rdborrow/articles/OLE_simulation_workflow.md)
 for usage.
 
+## Getting help
+
+The help pages for
+[`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+and
+[`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+list all available methods and link to their documentation:
+
+``` r
+
+?run_analysis
+?run_simulation
+```
+
 ## Quick start
 
 ``` r
@@ -93,7 +107,8 @@ analysis <- setup_analysis_primary(
 )
 
 # run
-run_analysis(analysis)
+results <- run_analysis(analysis)
+results
 ```
 
     ## $results

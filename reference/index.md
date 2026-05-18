@@ -11,11 +11,11 @@
 Set up and run analyses
 
 - [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
-  : Construct an analysis_primary object
+  : Set up a primary analysis with external control borrowing
 - [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
-  : Construct an analysis_OLE object
+  : Set up an open-label extension (OLE) analysis
 - [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
-  : run analysis
+  : Run an analysis with external control borrowing
 
 ## Simulation
 
@@ -26,7 +26,7 @@ Set up and run simulations
 - [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
   : Construct a simulation object for OLE analysis
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
-  : Run simulation from a simualtion_obj
+  : Evaluate operating characteristics via Monte Carlo simulation
 - [`setup_simulation_report()`](https://genentech.github.io/rdborrow/reference/setup_simulation_report.md)
   : setup_simulation_report
 

@@ -197,9 +197,19 @@ reports bias, variance, MSE, coverage, power</li>
 </div>
 </div>
 <div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>The help pages for <code><a href="../reference/run_analysis.html">run_analysis()</a></code> and
+<code><a href="../reference/run_simulation.html">run_simulation()</a></code> list all available methods and link to
+their documentation:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">run_analysis</span></span>
+<span><span class="op">?</span><span class="va">run_simulation</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create an EC-IPW method with optimal borrowing weight</span></span>
 <span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ec_ipw.html">ec_ipw</a></span><span class="op">(</span>ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span><span class="op">)</span></span>
 <span></span>
@@ -214,7 +224,8 @@ reports bias, variance, MSE, coverage, power</li>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># run</span></span>
-<span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span>
+<span><span class="va">results</span></span></code></pre></div>
 <pre><code><span><span class="co">## $results</span></span>
 <span><span class="co">##      point_estimates standard_deviation lower_CI_normal upper_CI_normal</span></span>
 <span><span class="co">## tau1      -0.1971969          0.5134018       -1.203446        0.809052</span></span>

@@ -1,6 +1,8 @@
-# Run simulation from a simualtion_obj
+# Evaluate operating characteristics via Monte Carlo simulation
 
-Run simulation from a simualtion_obj
+Runs repeated simulations under user-specified data-generating scenarios
+to estimate power, type I error rate, bias, and coverage for one or more
+borrowing methods.
 
 ## Usage
 
@@ -12,8 +14,10 @@ run_simulation(simulation_obj, quiet = TRUE)
 
 - simulation_obj:
 
-  A simulation object created by `setup_simulation_primary` or
-  `setup_simulation_OLE`.
+  A simulation object created by
+  [`setup_simulation_primary`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
+  or
+  [`setup_simulation_OLE`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md).
 
 - quiet:
 
@@ -21,12 +25,53 @@ run_simulation(simulation_obj, quiet = TRUE)
 
 ## Value
 
-a simulation_report object
+A simulation report object containing estimated power, type I error
+rate, and related operating characteristics for each method.
+
+## Details
+
+Six borrowing methods are available:
+
+- [`ec_ipw`](https://genentech.github.io/rdborrow/reference/ec_ipw.md):
+
+  Inverse probability weighting (primary analysis).
+
+- [`ec_aipw`](https://genentech.github.io/rdborrow/reference/ec_aipw.md):
+
+  Augmented inverse probability weighting (primary analysis).
+
+- [`did_ec_ipw`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md):
+
+  Difference-in-differences with IPW (open-label extension).
+
+- [`did_ec_aipw`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md):
+
+  Difference-in-differences with AIPW (open-label extension).
+
+- [`did_ec_or`](https://genentech.github.io/rdborrow/reference/did_ec_or.md):
+
+  Difference-in-differences with outcome regression (open-label
+  extension).
+
+- [`scm`](https://genentech.github.io/rdborrow/reference/scm.md):
+
+  Synthetic control method (open-label extension).
+
+## See also
+
+[`run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+for analyzing a single dataset.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-simulation_report <- run_simulation(simulation_OLE_obj, quiet = FALSE)
+method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+sim <- setup_simulation_primary(
+  n_sim = 500,
+  method_obj_list = list(method),
+  ...
+)
+run_simulation(sim)
 } # }
 ```
