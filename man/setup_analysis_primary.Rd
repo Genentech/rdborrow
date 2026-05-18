@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis_primary_class.R
 \name{setup_analysis_primary}
 \alias{setup_analysis_primary}
-\title{Construct an analysis_primary object}
+\title{Set up a primary analysis with external control borrowing}
 \usage{
 setup_analysis_primary(
   data,
@@ -25,24 +25,38 @@ setup_analysis_primary(
 
 \item{covariates_col_name}{Character vector of covariate column names.}
 
-\item{method_weighting_obj}{A weighting method object of class
-`method_primary_obj`.}
+\item{method_weighting_obj}{A method object created by
+\code{\link{ec_ipw}} or \code{\link{ec_aipw}}.}
 
 \item{alpha}{Significance level (default 0.05).}
 }
 \value{
-An object of class `analysis_primary_obj`.
+An object of class \code{analysis_primary_obj}, to be passed to
+  \code{\link{run_analysis}}.
 }
 \description{
-Construct an analysis_primary object
+Bundles data, column mappings, and a method object into an analysis
+object ready to be passed to \code{\link{run_analysis}}.
+}
+\details{
+Available primary methods:
+\describe{
+  \item{\code{\link{ec_ipw}}}{Inverse probability weighting.}
+  \item{\code{\link{ec_aipw}}}{Augmented inverse probability weighting
+    (doubly robust).}
+}
 }
 \examples{
+method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 setup_analysis_primary(
   data = SyntheticData,
   trial_status_col_name = "S",
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-  method_weighting_obj = setup_method_weighting(method_name = "IPW")
+  method_weighting_obj = method
 )
+}
+\seealso{
+\code{\link{run_analysis}}, \code{\link{setup_analysis_OLE}}
 }
