@@ -9,7 +9,6 @@
 #' @slot power Numeric vector of power estimates.
 #'
 #' @include method_class.R
-#' @export setup_simulation_report
 #'
 .simulation_report_obj <- setClass(
   "simulation_report_obj",
@@ -50,18 +49,7 @@ setMethod(
   }
 )
 
-#' setup_simulation_report
-#'
-#' @param method_description Character vector of method labels.
-#' @param bias Numeric vector of bias estimates.
-#' @param variance Numeric vector of variance estimates.
-#' @param mse Numeric vector of MSE estimates.
-#' @param coverage Numeric vector of coverage probabilities.
-#' @param type_I_error Numeric vector of type I error rates.
-#' @param power Numeric vector of power estimates.
-#'
-#' @return A \code{simulation_report_obj}.
-#' @export
+#' @noRd
 setup_simulation_report <- function(method_description,
                                     bias,
                                     variance,
