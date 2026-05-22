@@ -133,27 +133,6 @@ analysis <- setup_analysis_OLE(
 run_analysis(analysis)
 ```
 
-    ## ℹ In a future CVXR release, `solve()` will return the optimal value directly
-    ##   (like `psolve()`).
-    ## ℹ The `$getValue()`/`$getDualValue()` interface will be removed.
-    ## ℹ New API: `psolve(prob)`, then `value(x)`, `dual_value(constr)`,
-    ##   `status(prob)`.
-    ## This message is displayed once per session.
-
-    ## Warning: `getValue()` is deprecated.
-    ## ℹ Use `value(x)` after solving instead.
-    ## This warning is displayed once per session.
-
-    ## Warning: Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-    ## Solution may be inaccurate. Try another solver, adjusting the solver settings,
-    ## or solve with `verbose = TRUE` for more information.
-
-    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
-    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
-
     ##      point_estimates lower_CI_boot upper_CI_boot
     ## tau3        2.064756      1.518103      2.677024
     ## tau4        3.943234      1.931972      7.565861

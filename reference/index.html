@@ -31,92 +31,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="package-overview">Package Overview<a class="anchor" aria-label="anchor" href="#package-overview"></a></h2>
+      <h2 id="borrowing-methods">Borrowing methods<a class="anchor" aria-label="anchor" href="#borrowing-methods"></a></h2>
 
-
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="aaa-rdborrow-package.html">rdborrow-package</a></code> <code><a href="aaa-rdborrow-package.html">rdborrow</a></code>
-
-        </dt>
-        <dd>The rdborrow package</dd>
-      </dl></div><div class="section level2">
-      <h2 id="analysis">Analysis<a class="anchor" aria-label="anchor" href="#analysis"></a></h2>
-
-      <div class="section-desc"><p>Set up and run analyses</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="setup_analysis_primary.html">setup_analysis_primary()</a></code>
-
-        </dt>
-        <dd>Set up a primary analysis with external control borrowing</dd>
-
-        <dt>
-
-          <code><a href="setup_analysis_OLE.html">setup_analysis_OLE()</a></code>
-
-        </dt>
-        <dd>Set up an open-label extension (OLE) analysis</dd>
-
-        <dt>
-
-          <code><a href="run_analysis.html">run_analysis()</a></code>
-
-        </dt>
-        <dd>Run an analysis with external control borrowing</dd>
-      </dl></div><div class="section level2">
-      <h2 id="simulation">Simulation<a class="anchor" aria-label="anchor" href="#simulation"></a></h2>
-
-      <div class="section-desc"><p>Set up and run simulations</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="setup_simulation_primary.html">setup_simulation_primary()</a></code>
-
-        </dt>
-        <dd>Construct a simulation object for primary analysis</dd>
-
-        <dt>
-
-          <code><a href="setup_simulation_OLE.html">setup_simulation_OLE()</a></code>
-
-        </dt>
-        <dd>Construct a simulation object for OLE analysis</dd>
-
-        <dt>
-
-          <code><a href="run_simulation.html">run_simulation()</a></code>
-
-        </dt>
-        <dd>Evaluate operating characteristics via Monte Carlo simulation</dd>
-
-        <dt>
-
-          <code><a href="setup_simulation_report.html">setup_simulation_report()</a></code>
-
-        </dt>
-        <dd>setup_simulation_report</dd>
-      </dl></div><div class="section level2">
-      <h2 id="estimators">Estimators<a class="anchor" aria-label="anchor" href="#estimators"></a></h2>
-
-      <div class="section-desc"><p>Method constructors for estimation</p></div>
+      <div class="section-desc"><p>Choose an estimator for external control borrowing</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -164,17 +81,10 @@
 
         </dt>
         <dd>SCM method constructor</dd>
-
-        <dt>
-
-          <code><a href="estimate.html">estimate()</a></code>
-
-        </dt>
-        <dd>Run estimation for a method object</dd>
       </dl></div><div class="section level2">
-      <h2 id="method-configuration-legacy-">Method Configuration (legacy)<a class="anchor" aria-label="anchor" href="#method-configuration-legacy-"></a></h2>
+      <h2 id="analysis">Analysis<a class="anchor" aria-label="anchor" href="#analysis"></a></h2>
 
-      <div class="section-desc"><p>Configure estimation methods (deprecated)</p></div>
+      <div class="section-desc"><p>Set up and run a single analysis</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -183,35 +93,58 @@
 
       <dl><dt>
 
-          <code><a href="setup_method_weighting.html">setup_method_weighting()</a></code>
+          <code><a href="setup_analysis_primary.html">setup_analysis_primary()</a></code>
 
         </dt>
-        <dd>Construct a method_weighting object</dd>
+        <dd>Set up a primary analysis with external control borrowing</dd>
 
         <dt>
 
-          <code><a href="setup_method_DID.html">setup_method_DID()</a></code>
+          <code><a href="setup_analysis_OLE.html">setup_analysis_OLE()</a></code>
 
         </dt>
-        <dd>Construct a method_DID object</dd>
+        <dd>Set up an open-label extension (OLE) analysis</dd>
 
         <dt>
 
-          <code><a href="setup_method_SCM.html">setup_method_SCM()</a></code>
+          <code><a href="run_analysis.html">run_analysis()</a></code>
 
         </dt>
-        <dd>Construct a method_SCM object</dd>
-
-        <dt>
-
-          <code><a href="setup_bootstrap.html">setup_bootstrap()</a></code>
-
-        </dt>
-        <dd>Construct a bootstrap object</dd>
+        <dd>Run an analysis with external control borrowing</dd>
       </dl></div><div class="section level2">
-      <h2 id="data-generation">Data Generation<a class="anchor" aria-label="anchor" href="#data-generation"></a></h2>
+      <h2 id="simulation">Simulation<a class="anchor" aria-label="anchor" href="#simulation"></a></h2>
 
-      <div class="section-desc"><p>Simulate trial data</p></div>
+      <div class="section-desc"><p>Evaluate operating characteristics via Monte Carlo</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="setup_simulation_primary.html">setup_simulation_primary()</a></code>
+
+        </dt>
+        <dd>Construct a simulation object for primary analysis</dd>
+
+        <dt>
+
+          <code><a href="setup_simulation_OLE.html">setup_simulation_OLE()</a></code>
+
+        </dt>
+        <dd>Construct a simulation object for OLE analysis</dd>
+
+        <dt>
+
+          <code><a href="run_simulation.html">run_simulation()</a></code>
+
+        </dt>
+        <dd>Evaluate operating characteristics via Monte Carlo simulation</dd>
+      </dl></div><div class="section level2">
+      <h2 id="data-generation">Data generation<a class="anchor" aria-label="anchor" href="#data-generation"></a></h2>
+
+      <div class="section-desc"><p>Simulate trial and external control data</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -267,102 +200,9 @@
         </dt>
         <dd>Simulate outcomes from additive linear models</dd>
       </dl></div><div class="section level2">
-      <h2 id="classes">Classes<a class="anchor" aria-label="anchor" href="#classes"></a></h2>
-
-      <div class="section-desc"><p>S4 class documentation</p></div>
-
-      <dl></dl></div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="analysis_obj-class.html">analysis_obj-class</a></code> <code><a href="analysis_obj-class.html">.analysis_obj</a></code>
-
-        </dt>
-        <dd>Analysis class</dd>
-
-        <dt>
-
-          <code><a href="analysis_primary_obj-class.html">analysis_primary_obj-class</a></code> <code><a href="analysis_primary_obj-class.html">.analysis_primary_obj</a></code>
-
-        </dt>
-        <dd>Analysis primary class</dd>
-
-        <dt>
-
-          <code><a href="analysis_OLE_obj-class.html">analysis_OLE_obj-class</a></code> <code><a href="analysis_OLE_obj-class.html">.analysis_OLE_obj</a></code>
-
-        </dt>
-        <dd>Analysis OLE class</dd>
-
-        <dt>
-
-          <code><a href="bootstrap_obj-class.html">bootstrap_obj-class</a></code> <code><a href="bootstrap_obj-class.html">.bootstrap_obj</a></code>
-
-        </dt>
-        <dd>Bootstrap class</dd>
-
-        <dt>
-
-          <code><a href="method_obj-class.html">method_obj-class</a></code> <code><a href="method_obj-class.html">.method_obj</a></code>
-
-        </dt>
-        <dd>Method classes</dd>
-
-        <dt>
-
-          <code><a href="method_weighting_obj-class.html">method_weighting_obj-class</a></code> <code><a href="method_weighting_obj-class.html">.method_weighting_obj</a></code>
-
-        </dt>
-        <dd>Method weighting class</dd>
-
-        <dt>
-
-          <code><a href="method_DID_obj-class.html">method_DID_obj-class</a></code> <code><a href="method_DID_obj-class.html">.method_DID_obj</a></code>
-
-        </dt>
-        <dd>Method DID class</dd>
-
-        <dt>
-
-          <code><a href="method_SCM_obj-class.html">method_SCM_obj-class</a></code> <code><a href="method_SCM_obj-class.html">.method_SCM_obj</a></code>
-
-        </dt>
-        <dd>Method SCM class</dd>
-
-        <dt>
-
-          <code><a href="simulation_obj-class.html">simulation_obj-class</a></code> <code><a href="simulation_obj-class.html">.simulation_obj</a></code>
-
-        </dt>
-        <dd>Simulation class</dd>
-
-        <dt>
-
-          <code><a href="simulation_primary_obj-class.html">simulation_primary_obj-class</a></code> <code><a href="simulation_primary_obj-class.html">.simulation_primary_obj</a></code>
-
-        </dt>
-        <dd>Simulation for primary analysis</dd>
-
-        <dt>
-
-          <code><a href="simulation_OLE_obj-class.html">simulation_OLE_obj-class</a></code> <code><a href="simulation_OLE_obj-class.html">.simulation_OLE_obj</a></code>
-
-        </dt>
-        <dd>Simulation for OLE study</dd>
-
-        <dt>
-
-          <code><a href="simulation_report_obj-class.html">simulation_report_obj-class</a></code> <code><a href="simulation_report_obj-class.html">.simulation_report_obj</a></code>
-
-        </dt>
-        <dd>Simulation class</dd>
-      </dl></div><div class="section level2">
       <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a></h2>
 
-      <div class="section-desc"><p>Example datasets</p></div>
+
 
       <dl></dl></div><div class="section level2">
 

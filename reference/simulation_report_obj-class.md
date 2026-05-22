@@ -1,6 +1,6 @@
-# Simulation class
+# Simulation report class
 
-Simulation class
+Simulation report class
 
 ## Slots
 

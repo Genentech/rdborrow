@@ -50,9 +50,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>OLE Analysis Workflow</h1>
-                        <h4 data-toc-skip class="author">Lei Shi</h4>
+                        <h4 data-toc-skip class="author">Lei Shi,
+Matthew Secrest</h4>
             
-            <h4 data-toc-skip class="date">2026-05-18</h4>
+            <h4 data-toc-skip class="date">2026-05-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Genentech/rdborrow/blob/main/vignettes/OLE_analysis_workflow.Rmd" class="external-link"><code>vignettes/OLE_analysis_workflow.Rmd</code></a></small>
       <div class="d-none name"><code>OLE_analysis_workflow.Rmd</code></div>
@@ -186,23 +187,6 @@ control group switches to treatment.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> In a future CVXR release, `solve()` will return the optimal value directly</span></span>
-<span><span class="co">##   (like `psolve()`).</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The `$getValue()`/`$getDualValue()` interface will be removed.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> New API: `psolve(prob)`, then `value(x)`, `dual_value(constr)`,</span></span>
-<span><span class="co">##   `status(prob)`.</span></span>
-<span><span class="co">## <span style="color: #555555;">This message is displayed once per session.</span></span></span></code></pre>
-<pre><code><span><span class="co">## Warning: `getValue()` is deprecated.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Use `value(x)` after solving instead.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once per session.</span></span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Solution may be inaccurate. Try another solver, adjusting the solver settings,</span></span>
-<span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span>
-<span><span class="co">## Solution may be inaccurate. Try another solver, adjusting the solver settings,</span></span>
-<span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span>
-<span><span class="co">## Solution may be inaccurate. Try another solver, adjusting the solver settings,</span></span>
-<span><span class="co">## or solve with `verbose = TRUE` for more information.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints</span></span>
-<span><span class="co">## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints</span></span></code></pre>
 <pre><code><span><span class="co">##      point_estimates lower_CI_boot upper_CI_boot</span></span>
 <span><span class="co">## tau3        2.064756      1.518103      2.677024</span></span>
 <span><span class="co">## tau4        3.943234      1.931972      7.565861</span></span></code></pre>
