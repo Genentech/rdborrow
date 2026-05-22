@@ -4,9 +4,9 @@
 \name{simulation_report_obj-class}
 \alias{simulation_report_obj-class}
 \alias{.simulation_report_obj}
-\title{Simulation class}
+\title{Simulation report class}
 \description{
-Simulation class
+Simulation report class
 }
 \section{Slots}{
 
@@ -26,3 +26,4 @@ Simulation class
 \item{\code{power}}{Numeric vector of power estimates.}
 }}
 
+\keyword{internal}

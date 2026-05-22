@@ -22,3 +22,4 @@ Method DID class
 \item{\code{model_form_piA}}{Formula string for treatment assignment model.}
 }}
 
+\keyword{internal}

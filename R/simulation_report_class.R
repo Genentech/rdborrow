@@ -1,4 +1,4 @@
-#' Simulation class
+#' Simulation report class
 #'
 #' @slot method_description Character vector of method labels.
 #' @slot bias Numeric vector of bias estimates.
@@ -8,6 +8,7 @@
 #' @slot type_I_error Numeric vector of type I error rates.
 #' @slot power Numeric vector of power estimates.
 #'
+#' @keywords internal
 #' @include method_class.R
 #'
 .simulation_report_obj <- setClass(

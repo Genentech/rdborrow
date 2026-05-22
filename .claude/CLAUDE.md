@@ -24,6 +24,9 @@ Rscript -e "devtools::document()"
 # To check pkgdown documentation
 Rscript -e "pkgdown::check_pkgdown()"
 
+# To build the pkgdown site locally
+Rscript -e "pkgdown::clean_site(force = TRUE); pkgdown::build_site(override = list(template = list(favicon = list())))"
+
 # To check the package with R CMD check
 Rscript -e "devtools::check()"
 

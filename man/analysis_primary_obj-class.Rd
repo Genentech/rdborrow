@@ -14,3 +14,4 @@ Analysis primary class
 \item{\code{method_obj}}{A `method_primary_obj` specifying the estimation method.}
 }}
 
+\keyword{internal}

@@ -8,6 +8,7 @@
 #' @slot method_obj_list List of method objects to evaluate.
 #' @slot method_description Character vector of method labels.
 #'
+#' @keywords internal
 #' @include method_class.R
 .simulation_obj <- setClass(
   "simulation_obj",
@@ -31,6 +32,8 @@
 #' @slot data_matrix_list_alt List of data frames simulated under the alternative.
 #' @slot true_effect Numeric vector of true treatment effects.
 #' @slot alt_effect Numeric vector of alternative treatment effects.
+#'
+#' @keywords internal
 .simulation_primary_obj <- setClass(
   "simulation_primary_obj",
   contains = "simulation_obj",
@@ -51,6 +54,8 @@
 #' @slot data_matrix_list List of simulated data matrices.
 #' @slot true_effect True treatment effect for evaluating estimator performance.
 #' @slot T_cross Numeric crossover time point for the OLE phase.
+#'
+#' @keywords internal
 .simulation_OLE_obj <- setClass(
   "simulation_OLE_obj",
   contains = "simulation_obj",

@@ -3,6 +3,7 @@
 #' @slot replicates Number of bootstrap replicates.
 #' @slot bootstrap_CI_type Type of bootstrap confidence interval.
 #'
+#' @keywords internal
 #' @include method_class.R
 .bootstrap_obj <- setClass(
   "bootstrap_obj",

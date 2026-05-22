@@ -26,3 +26,4 @@ Analysis class
 \item{\code{alpha}}{Significance level.}
 }}
 
+\keyword{internal}

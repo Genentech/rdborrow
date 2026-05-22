@@ -2,6 +2,7 @@
 #'
 #' @slot method_obj A `method_primary_obj` specifying the estimation method.
 #'
+#' @keywords internal
 #' @include analysis_class.R
 #' @include method_weighting_class.R
 .analysis_primary_obj <- setClass(

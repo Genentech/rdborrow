@@ -20,3 +20,4 @@ Simulation for primary analysis
 \item{\code{alt_effect}}{Numeric vector of alternative treatment effects.}
 }}
 
+\keyword{internal}

@@ -18,3 +18,4 @@ Method classes
 \item{\code{bootstrap_obj}}{A bootstrap_obj with bootstrap settings.}
 }}
 
+\keyword{internal}

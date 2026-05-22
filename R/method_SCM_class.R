@@ -6,6 +6,7 @@
 #' @slot lambda.max Maximum penalty parameter.
 #' @slot nlambda Number of lambda values for cross-validation.
 #'
+#' @keywords internal
 #' @include method_class.R
 #' @include bootstrap_class.R
 .method_SCM_obj <- setClass(

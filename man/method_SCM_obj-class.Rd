@@ -22,3 +22,4 @@ Method SCM class
 \item{\code{nlambda}}{Number of lambda values for cross-validation.}
 }}
 
+\keyword{internal}

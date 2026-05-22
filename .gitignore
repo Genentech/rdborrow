@@ -11,3 +11,4 @@ mimic_true_data.Rmd
 user-design.Rmd
 inst/vignetteRMD/old_analysis_files
 docs
+pkgdown/
