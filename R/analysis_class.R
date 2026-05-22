@@ -8,6 +8,7 @@
 #' @slot trial_status_col_name Name of the trial status column.
 #' @slot alpha Significance level.
 #'
+#' @keywords internal
 #' @include method_class.R
 .analysis_obj <- setClass(
   "analysis_obj",

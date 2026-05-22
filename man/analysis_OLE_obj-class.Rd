@@ -16,3 +16,4 @@ Analysis OLE class
 \item{\code{T_cross}}{Numeric crossover time point.}
 }}
 
+\keyword{internal}

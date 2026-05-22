@@ -24,6 +24,9 @@ Rscript -e "devtools::document()"
 # To check pkgdown documentation
 Rscript -e "pkgdown::check_pkgdown()"
 
+# To build the pkgdown site locally
+Rscript -e "pkgdown::clean_site(force = TRUE); pkgdown::build_site(override = list(template = list(favicon = list())))"
+
 # To check the package with R CMD check
 Rscript -e "devtools::check()"
 
@@ -134,23 +137,35 @@ Run this one-liner to validate the package before committing:
 Rscript -e "devtools::document()" && Rscript -e "styler::style_pkg()" && Rscript -e "spelling::spell_check_package()" && Rscript -e "lintr::lint_package()" && Rscript -e "devtools::check(vignettes = FALSE)"
 ```
 
-## Changing the API
+## API refactor status
 
-### Goals
+### What's done
 
-1. **Better method constructors** — replace `setup_method_weighting(method_name="IPW", ...)` with `ec_ipw()`, etc. Each constructor carries its own estimation logic.
-2. **Polymorphic dispatch** — `run_analysis()` calls a generic on the method object instead of an if/else tree. Adding a new method = writing one constructor.
-3. **Merge bootstrap** — bootstrap is an inference option on the method, not a separate code path.
-4. **(Future) Model formula interface** — `outcome ~ treatment | covariates` instead of column name args.
+All 6 method constructors are implemented with clean base R code and S4 dispatch:
 
-### Current workflow (to deprecate)
+| Constructor | Replaces | Phase |
+|---|---|---|
+| `ec_ipw()` | `setup_method_weighting(method_name="IPW", ...)` | Primary |
+| `ec_aipw()` | `setup_method_weighting(method_name="AIPW", ...)` | Primary |
+| `did_ec_ipw()` | `setup_method_DID(method_name="IPW", ...)` | OLE |
+| `did_ec_aipw()` | `setup_method_DID(method_name="AIPW", ...)` | OLE |
+| `did_ec_or()` | `setup_method_DID(method_name="OR", ...)` | OLE |
+| `scm()` | `setup_method_SCM(...)` | OLE |
+
+Each constructor returns an S4 object. `run_analysis()` dispatches via the `estimate()` generic — no if/else for new methods. The old if/else tree still handles legacy method objects.
+
+Old and new APIs coexist: the old constructors (`setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`) emit deprecation warnings and still work. dplyr/tidyr have been moved to Suggests — legacy code uses `dplyr::filter()` etc., new code is pure base R.
+
+Full-pipeline regression tests lock numerical outputs for all 6 methods on `SyntheticData` (both old and new API).
+
+### Current workflow
 
 ```r
-method <- setup_method_weighting(
-  method_name = "IPW",
-  optimal_weight_flag = FALSE,
-  wt = 0,
-  model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
+method <- ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  weight = NULL,          # NULL = optimal, 0 = no borrowing, 0.3 = fixed
+  bootstrap = 500,        # NULL = sandwich SE only
+  bootstrap_ci_type = NULL  # NULL defaults to "perc" when bootstrap is set
 )
 
 analysis <- setup_analysis_primary(
@@ -162,121 +177,35 @@ analysis <- setup_analysis_primary(
   method_weighting_obj = method
 )
 
-res <- run_analysis(analysis)
+run_analysis(analysis)
 ```
 
-### Desired workflow
+### User-facing API surface
 
-```r
-method <- ec_ipw(
-  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
-  weight = NULL,          # NULL = optimal, 0 = no borrowing, 0.3 = fixed
-  bootstrap = 500,        # NULL = sandwich SE only
-  bootstrap_ci_type = NULL  # NULL defaults to "perc" when bootstrap is set
-)
+These are the only functions users should need:
 
-analysis <- setup_analysis(
-  data = SyntheticData,
-  outcomes = c("y1", "y2"),
-  treatment = "A",
-  trial_status = "S",
-  covariates = c("x1", "x2", "x3", "x4", "x5"),
-  method = method
-)
+- **Method constructors**: `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()`, `did_ec_aipw()`, `did_ec_or()`, `scm()`
+- **Analysis**: `setup_analysis_primary()`, `setup_analysis_OLE()`, `run_analysis()`
+- **Simulation**: `setup_simulation_primary()`, `setup_simulation_OLE()`, `run_simulation()`
+- **Data generation**: `simulate_trial()` and related `simulate_*()` helpers
 
-res <- run_analysis(analysis)
-```
+Everything else is internal.
 
-### Method constructors
+### Future PRs (in order)
 
-| Constructor | Replaces | Phase |
-|---|---|---|
-| `ec_ipw()` | `setup_method_weighting(method_name="IPW", ...)` | Primary |
-| `ec_aipw()` | `setup_method_weighting(method_name="AIPW", ...)` | Primary |
-| `did_ec_ipw()` | `setup_method_DID(method_name="IPW", ...)` | OLE |
-| `did_ec_aipw()` | `setup_method_DID(method_name="AIPW", ...)` | OLE |
-| `did_ec_or()` | `setup_method_DID(method_name="OR", ...)` | OLE |
-| `scm()` | `setup_method_SCM(...)` | OLE |
+The old API will remain for several release cycles to give users time to migrate. The plan:
 
-Each constructor returns an S4 method object. The S4 class defines a generic `estimate()` that `run_analysis()` dispatches on — no if/else.
-
-### How dispatch works
-
-```r
-# S4 generic
-setGeneric("estimate", function(method, data, ...) standardGeneric("estimate"))
-
-# Each method class implements estimate()
-setMethod("estimate", "ec_ipw_method", function(method, data, ...) {
-  # IPW estimation logic lives here
-})
-
-# run_analysis() becomes:
-run_analysis <- function(analysis_obj) {
-  estimate(analysis_obj@method, data = analysis_obj@data, ...)
-}
-```
-
-### Interim dispatch (during migration)
-
-While new method constructors coexist with the old if/else tree in `run_analysis()`, each new class gets an `else if` block at the end of `run_analysis()` that calls `estimate()`:
-
-```r
-# In run_analysis.R, BEFORE the final } else { stop(...) }:
-} else if (is(method, "ec_ipw_method")) {
-  res <- estimate(method,
-    data = data,
-    outcomes = outcome_col_name,
-    treatment = treatment_col_name,
-    trial_status = trial_status_col_name,
-    covariates = covariates_col_name,
-    alpha = alpha,
-    quiet = quiet
-  )
-}
-```
-
-This pattern is repeated for each new method class as it's created. The old if/else branches for the legacy classes remain untouched. Once all 6 methods are migrated, the entire if/else tree is replaced with a single `estimate()` call.
-
-New method objects inherit from `method_primary_obj` or `method_OLE_obj`, so they pass the existing `checkmate::assert_class(method, "method_primary_obj")` validation in `setup_analysis_primary()`.
-
-### Implementation order
-
-1. Create full-pipeline regression tests for all 6 methods (old API, locked numerical values) ✓
-2. Create all 6 method constructors (start with `ec_ipw()`)
-3. Each constructor returns an S4 object with estimation logic via `estimate()` generic
-4. For each new method, add an `else if (is(method, "xxx_method"))` to `run_analysis()`
-5. Add new-API tests to each pipeline test file (same expected values)
-6. Once all 6 are done: refactor `setup_analysis()` into a single function (merge `_primary`/`_OLE`, add `T_cross = NULL`)
-7. Once all 6 are done: replace the entire if/else in `run_analysis()` with one `estimate()` call
-8. Deprecate `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_analysis_primary`, `setup_analysis_OLE`
+1. **Rewire `run_analysis()`** — replace the if/else tree with a single `estimate()` call once the old constructors are removed
+2. **Delete legacy files** — `legacy_*.R`, `EC_IPW_OPT.R`, `EC_AIPW_OPT.R`, old bootstrap files
+3. **Drop dplyr/tidyr from Suggests** — once legacy files are gone, no tidyverse dependency remains
+4. **Unexport deprecated constructors** — `setup_method_weighting`, `setup_method_DID`, `setup_method_SCM`, `setup_bootstrap`
+5. **Rename S4 classes** for consistency (`method_*_obj` naming)
+6. **(Maybe) Merge `setup_analysis_primary`/`_OLE` into `setup_analysis()`** with `T_cross = NULL`
 
 ### Design decisions
 
-- **S4 classes for method objects** — keeps rigorous type definitions, consistent with existing package patterns.
-- **`T_cross` goes in `setup_analysis()`** — it's a property of the study design, not the method.
-- **`bootstrap_ci_type` is nullable** — defaults to `"perc"` when `bootstrap` is non-NULL, ignored otherwise.
-
-### Full-pipeline regression tests
-
-Before refactoring any estimator, we lock in its numerical outputs on `SyntheticData` so any code change that alters results is caught. Tests use the old API (setup_method → setup_analysis → run_analysis) with exact values at `tolerance = 1e-6`. As new API constructors are added, we add parallel assertions against the same expected values.
-
-Rename existing `test-vignette_results_*` files and split by method:
-
-| Test file | Method | Covers |
-|---|---|---|
-| `test-full_pipeline_ec_ipw.R` | EC-IPW | weight=0, optimal, fixed (0.3), bootstrap point estimates |
-| `test-full_pipeline_ec_aipw.R` | EC-AIPW | weight=0, optimal, fixed (0.3), bootstrap point estimates |
-| `test-full_pipeline_did_ec_ipw.R` | DID-EC-IPW | bootstrap CIs, point estimates |
-| `test-full_pipeline_did_ec_aipw.R` | DID-EC-AIPW | bootstrap CIs, point estimates |
-| `test-full_pipeline_did_ec_or.R` | DID-EC-OR | bootstrap CIs, point estimates |
-| `test-full_pipeline_scm.R` | SCM | bootstrap CIs, point estimates |
-
-Each test file asserts:
-- Point estimates (exact values)
-- Standard errors / standard deviations (exact values)
-- CI bounds for non-bootstrap (exact values)
-- Bootstrap point estimates match non-bootstrap
-- Borrow weight (where applicable)
-
-Simulation tests (`test-vignette_results_*_simulation.R`) stay separate — they test Monte Carlo properties, not individual estimator outputs.
+- **S4 classes for method objects** — rigorous type definitions, consistent with existing package patterns.
+- **`T_cross` goes in `setup_analysis_OLE()`** — it's a property of the study design, not the method.
+- **`bootstrap_ci_type` is nullable** — defaults to `"perc"` when `bootstrap` is non-NULL.
+- **Keep `setup_analysis_primary`/`_OLE` separate** — collapsing is easy later, splitting apart is not.
+- **Each method has `_core()`, `_sandwich()`, `_statistic()` internals** — `_core()` is the single source of truth for point estimates, shared by `estimate()` and the bootstrap `_statistic()`. No duplication.

@@ -18,3 +18,4 @@ Simulation for OLE study
 \item{\code{T_cross}}{Numeric crossover time point for the OLE phase.}
 }}
 
+\keyword{internal}

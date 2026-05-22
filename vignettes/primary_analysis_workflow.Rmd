@@ -1,6 +1,6 @@
 ---
 title: "Primary Analysis Workflow"
-author: "Lei Shi"
+author: "Lei Shi, Matthew Secrest"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

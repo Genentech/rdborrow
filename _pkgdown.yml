@@ -31,27 +31,8 @@ articles:
       - OLE_simulation_workflow
 
 reference:
-  - title: Package Overview
-    contents:
-      - rdborrow-package
-
-  - title: Analysis
-    desc: Set up and run analyses
-    contents:
-      - setup_analysis_primary
-      - setup_analysis_OLE
-      - run_analysis
-
-  - title: Simulation
-    desc: Set up and run simulations
-    contents:
-      - setup_simulation_primary
-      - setup_simulation_OLE
-      - run_simulation
-      - setup_simulation_report
-
-  - title: Estimators
-    desc: Method constructors for estimation
+  - title: Borrowing methods
+    desc: Choose an estimator for external control borrowing
     contents:
       - ec_ipw
       - ec_aipw
@@ -59,18 +40,23 @@ reference:
       - did_ec_aipw
       - did_ec_or
       - scm
-      - estimate
 
-  - title: Method Configuration (legacy)
-    desc: Configure estimation methods (deprecated)
+  - title: Analysis
+    desc: Set up and run a single analysis
     contents:
-      - setup_method_weighting
-      - setup_method_DID
-      - setup_method_SCM
-      - setup_bootstrap
+      - setup_analysis_primary
+      - setup_analysis_OLE
+      - run_analysis
 
-  - title: Data Generation
-    desc: Simulate trial data
+  - title: Simulation
+    desc: Evaluate operating characteristics via Monte Carlo
+    contents:
+      - setup_simulation_primary
+      - setup_simulation_OLE
+      - run_simulation
+
+  - title: Data generation
+    desc: Simulate trial and external control data
     contents:
       - simulate_trial
       - simulate_X_copula
@@ -80,23 +66,15 @@ reference:
       - simulate_trial_status
       - simulate_outcome_from_model
 
-  - title: Classes
-    desc: S4 class documentation
-    contents:
-      - analysis_obj-class
-      - analysis_primary_obj-class
-      - analysis_OLE_obj-class
-      - bootstrap_obj-class
-      - method_obj-class
-      - method_weighting_obj-class
-      - method_DID_obj-class
-      - method_SCM_obj-class
-      - simulation_obj-class
-      - simulation_primary_obj-class
-      - simulation_OLE_obj-class
-      - simulation_report_obj-class
-
   - title: Data
-    desc: Example datasets
     contents:
       - SyntheticData
+
+  - title: internal
+    contents:
+      - rdborrow-package
+      - estimate
+      - setup_method_weighting
+      - setup_method_DID
+      - setup_method_SCM
+      - setup_bootstrap

@@ -4,6 +4,7 @@
 #' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
 #' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
 #'
+#' @keywords internal
 #' @include bootstrap_class.R
 .method_obj <- setClass(
   "method_obj",

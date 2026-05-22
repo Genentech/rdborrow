@@ -1,6 +1,6 @@
 ---
 title: "OLE Analysis Workflow"
-author: "Lei Shi"
+author: "Lei Shi, Matthew Secrest"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -106,7 +106,7 @@ run_analysis(analysis)
 
 
 ### 2 Synthetic control method
-```{r}
+```{r message=FALSE, warning=FALSE}
 method <- scm(
   lambda_min = 0,
   lambda_max = 1e-3,

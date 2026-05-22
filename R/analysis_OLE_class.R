@@ -3,6 +3,7 @@
 #' @slot method_obj A `method_OLE_obj` specifying the estimation method.
 #' @slot T_cross Numeric crossover time point.
 #'
+#' @keywords internal
 #' @include method_DID_class.R
 #' @include method_SCM_class.R
 #' @include method_class.R

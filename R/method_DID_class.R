@@ -6,6 +6,7 @@
 #' @slot model_form_piS Formula string for trial participation model.
 #' @slot model_form_piA Formula string for treatment assignment model.
 #'
+#' @keywords internal
 #' @include method_class.R
 #' @include bootstrap_class.R
 .method_DID_obj <- setClass(

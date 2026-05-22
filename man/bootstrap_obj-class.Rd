@@ -16,3 +16,4 @@ Bootstrap class
 \item{\code{bootstrap_CI_type}}{Type of bootstrap confidence interval.}
 }}
 
+\keyword{internal}

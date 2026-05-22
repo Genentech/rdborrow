@@ -26,3 +26,4 @@ Simulation class
 \item{\code{method_description}}{Character vector of method labels.}
 }}
 
+\keyword{internal}
