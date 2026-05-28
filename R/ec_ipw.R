@@ -213,10 +213,11 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   # propensity score model for trial participation
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
+  pi_A <- sum(A[S == 1]) / n
 
-  # weights
-  w11 <- sum(A[S == 1]) / n # pi_A = P(A=1|S=1)
-  w10 <- 1 - w11 # 1 - pi_A
+  # weights (Theorem 1)
+  w11 <- 1 / pi_A
+  w10 <- 1 / (1 - pi_A)
   w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S) # density ratio
 
   # mu-hat components
@@ -229,9 +230,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   mu10 <- colMeans(Y_ctrl)
   mu00 <- colSums(w00_ext * Y_ext) / sum(w00_ext)
 
-  # optimal weight
+  # optimal weight (Eq 11)
   if (is.null(weight)) {
-    num <- sum(rep(w10, nrow(Y_ctrl))^(-2)) / sum(rep(w10, nrow(Y_ctrl))^(-1))^2
+    num <- sum(rep(w10^2, nrow(Y_ctrl))) / sum(rep(w10, nrow(Y_ctrl)))^2
     denom <- sum(w00_ext^2) / sum(w00_ext)^2
     borrow_weight <- num / (num + denom)
   } else {
@@ -244,7 +245,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
   list(
     tau = tau, borrow_weight = borrow_weight,
-    ps_model = ps_model, pi_SX = pi_SX, pi_A = w11,
+    ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
     w00 = w00, w10 = w10,
     mu1 = mu1, mu10 = mu10, mu00 = mu00
   )
