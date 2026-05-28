@@ -30,6 +30,23 @@ difference-in-differences (DID) estimators proposed in
 [Zhou et al. (2024)](https://doi.org/10.1080/10543406.2024.2444222)
 for the open-label extension (OLE) phase.
 
+The simulated data has four outcome columns (`y1`, `y2`, `y3`, `y4`)
+and a crossover point `T_cross = 2`. This means:
+
+- **`y1`, `y2`** (columns 1 to `T_cross`): placebo-controlled phase
+  (Period I). Both RCT controls and external controls are untreated.
+  These outcomes serve as negative controls for bias correction.
+- **`y3`, `y4`** (columns `T_cross + 1` to end): open-label extension
+  phase (Period II). RCT controls have switched to treatment; external
+  controls remain untreated. Treatment effects are estimated here.
+
+In other words, `T_cross` is the last index of the placebo-controlled
+phase in `outcome_col_name`.
+
+```{r}
+head(SyntheticData)
+```
+
 ### 1. Simulate a dataset for OLE study
 ```{r}
 # Initialize an empty data list

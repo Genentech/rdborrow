@@ -23,6 +23,16 @@ method (SCM) estimators proposed in
 for estimating long-term treatment effects when the control group
 switches to treatment.
 
+The `SyntheticData` dataset has outcomes `y1`, `y2`, `y3`, `y4` measured
+at four time points, and `T_cross = 2`. This means `y1` and `y2` are
+from the placebo-controlled phase (Period I) and `y3` and `y4` are from
+the open-label extension (Period II). `T_cross` is the last column index
+of Period I in `outcome_col_name`.
+
+```{r}
+head(SyntheticData[, c("A", "S", "y1", "y2", "y3", "y4")])
+```
+
 ### 1 DID methods
 
 #### 1.1 DID-EC-IPW
