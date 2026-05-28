@@ -118,7 +118,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
-  # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   if (length(method@outcome_formula) != length(outcomes)) {
     stop(
@@ -127,29 +126,51 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       call. = FALSE
     )
   }
-  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  df <- build_analysis_df(method, data, outcomes, treatment, trial_status, covariates)
+  n_time <- length(outcomes)
 
   if (!quiet) cat("Running EC-AIPW estimator...\n")
 
+  # point estimate + sandwich SE
   core <- .ec_aipw_core(
     df, outcomes, ps_formula,
     method@outcome_formula, method@weight
   )
-  sd_tau <- .ec_aipw_sandwich(
-    df, core, length(outcomes),
-    method@outcome_formula
+  sd_tau <- .ec_aipw_se(df, core, n_time, method@outcome_formula)
+
+  # format results
+  tau <- core$tau
+  borrow_weight <- core$borrow_weight
+  cutoff <- qnorm(1 - alpha / 2)
+  results <- data.frame(
+    point_estimates = tau,
+    standard_deviation = sd_tau,
+    lower_CI_normal = tau - sd_tau * cutoff,
+    upper_CI_normal = tau + sd_tau * cutoff,
+    row.names = paste0("tau", seq_len(n_time))
   )
 
-  .format_primary_results(
-    tau = core$tau, sd_tau = sd_tau,
-    borrow_weight = core$borrow_weight,
-    n_time = length(core$tau), alpha = alpha,
-    method = method, df = df, quiet = quiet,
-    statistic = .ec_aipw_statistic,
-    outcomes = outcomes, covariates = covariates,
-    ps_formula = ps_formula,
-    outcome_formula = method@outcome_formula
-  )
+  # bootstrap (optional)
+  if (!is.null(method@bootstrap)) {
+    if (!quiet) cat("Running bootstrap inference...\n")
+    boot_res <- .run_bootstrap(
+      df = df, statistic = .ec_aipw_boot_statistic,
+      n_estimates = n_time, bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      borrow_wt = borrow_weight, outcomes = outcomes,
+      covariates = covariates, ps_formula = ps_formula,
+      outcome_formula = method@outcome_formula
+    )
+    results <- data.frame(
+      point_estimates = tau,
+      standard_deviation = boot_res$sd_boot,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
+      row.names = paste0("tau", seq_len(n_time))
+    )
+  }
+
+  list(results = results, borrow_weight = borrow_weight)
 })
 
 #' EC-AIPW point estimate (Def 2, Eq 7).
@@ -233,7 +254,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @param outcome_formula character vector of outcome model formulas.
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
-.ec_aipw_sandwich <- function(df, core, n_time, outcome_formula) {
+.ec_aipw_se <- function(df, core, n_time, outcome_formula) {
   
   # see Zhou 2024a: Theorem 4 (Eq 15 for A/B matrices, Eq 16 for variance)
 
@@ -332,7 +353,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @param borrow_wt pre-computed borrowing weight.
 #' @return numeric vector of tau estimates.
 #' @noRd
-.ec_aipw_statistic <- function(data, indices, outcomes, covariates,
+.ec_aipw_boot_statistic <- function(data, indices, outcomes, covariates,
                                ps_formula, outcome_formula, borrow_wt) {
   d <- data[indices, , drop = FALSE]
   core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, borrow_wt)
