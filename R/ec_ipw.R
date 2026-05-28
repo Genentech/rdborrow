@@ -239,7 +239,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
     borrow_weight <- weight
   }
 
-  # combine of trial and external controls
+  # combine trial and external controls
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 

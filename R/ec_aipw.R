@@ -1,7 +1,7 @@
 #' @include ec_ipw.R
 NULL
 
-# S4 class definition----
+# S4 class definition
 .ec_aipw_method <- setClass(
   "ec_aipw_method",
   contains = "method_weighting_obj",
@@ -157,19 +157,25 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
+  # see Zhou 2024a: Def 2 (Eq 7) for point estimate, Eq 11 for optimal weight
+
   Y <- as.matrix(df[, outcomes, drop = FALSE])
   S <- df$S
   A <- df$A
-  N <- nrow(df)
   n <- sum(S)
-  n_time <- ncol(Y)
+  N <- length(S)
   pi_S <- n / N
+  n_time <- ncol(Y)
 
   # propensity score model
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
   pi_A <- sum(A[S == 1]) / n
-  rx <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
+
+  # weights
+  w11 <- 1 / pi_A
+  w10 <- 1 / (1 - pi_A)
+  w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S) # density ratio
 
   # outcome regression on controls, predict for all subjects
   Y0_models <- lapply(outcome_formula, \(f) {
@@ -180,33 +186,38 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   }, numeric(N))
   Yr <- Y - Y0
 
-  # weighted potential outcomes using residuals
-  w00 <- rx
-  potential <- (S * A / pi_A + S * (1 - A) / (1 - pi_A) +
-    (1 - S) * w00) * Yr
-  mu1 <- colSums(potential[S == 1 & A == 1, , drop = FALSE]) / n
-  mu10 <- colSums(potential[S == 1 & A == 0, , drop = FALSE]) / n
-  mu00 <- colSums(potential[S == 0, , drop = FALSE]) / sum((1 - S) * w00)
+  # mu-hat components using residuals (Def 2, Eq 7)
+  Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+  Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+  Yr_ext <- Yr[S == 0, , drop = FALSE]
+  w00_ext <- w00[S == 0]
 
-  # optimal borrowing weight
-  num <- sum(S * (1 - A) / (1 - pi_A)^2 / (sum(S * (1 - A) / (1 - pi_A)))^2)
-  denom <- sum((1 - S) * w00^2 / (sum((1 - S) * w00))^2)
-  w_opt <- num / (num + denom)
-  borrow_weight <- if (is.null(weight)) w_opt else weight
+  mu1 <- colMeans(Yr_trt)
+  mu10 <- colMeans(Yr_ctrl)
+  mu00 <- colSums(w00_ext * Yr_ext) / sum(w00_ext)
 
-  # combine rct control and external control
+  # optimal weight
+  if (is.null(weight)) {
+    num <- sum(rep(w10^2, nrow(Yr_ctrl))) / sum(rep(w10, nrow(Yr_ctrl)))^2
+    denom <- sum(w00_ext^2) / sum(w00_ext)^2
+    borrow_weight <- num / (num + denom)
+  } else {
+    borrow_weight <- weight
+  }
+
+  # combine trial and external controls
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 
   list(
     tau = tau, borrow_weight = borrow_weight,
     ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
-    pi_S = pi_S, rx = rx, w00 = w00,
+    pi_S = pi_S, w00 = w00,
     Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00
   )
 }
 
-#' sandwich variance for EC-AIPW (Theorem 4, Eq 15-16).
+#' sandwich variance for EC-AIPW.
 #' extends the IPW sandwich with outcome model parameter blocks.
 #' @param df internal data frame.
 #' @param core output from .ec_aipw_core.
@@ -215,6 +226,8 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
 .ec_aipw_sandwich <- function(df, core, n_time, outcome_formula) {
+  # see Zhou 2024a: Theorem 4 (Eq 15 for A/B matrices, Eq 16 for variance)
+
   S <- df$S
   A <- df$A
   N <- nrow(df)
@@ -256,7 +269,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       Y0_model_mats[[t]] / N
   })))
   Phi3_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
-    as.vector(-(1 - S) * core$rx / (1 - core$pi_S)) %*%
+    as.vector(-(1 - S) * core$w00 / (1 - core$pi_S)) %*%
       Y0_model_mats[[t]] / N
   })))
   Y0_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
@@ -286,7 +299,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps, phi_Y0)) / N
 
-  # sandwich: A^{-1} B A^{-T}, then extract tau variance----
+  # sandwich: A^{-1} B A^{-T}, then extract tau variance
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
