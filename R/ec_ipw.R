@@ -1,7 +1,7 @@
 #' @include method_class.R
 NULL
 
-# S4 class definition----
+# S4 class definition
 .ec_ipw_method <- setClass(
   "ec_ipw_method",
   contains = "method_weighting_obj",
@@ -116,15 +116,13 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   # weight=0 uses rct-only path (no PS model needed)
   if (!use_borrowing) {
     Y <- as.matrix(df[, outcomes, drop = FALSE])
-    result <- .ec_ipw_no_borrow(df, Y, df$S, df$A, sum(df$S), n_time)
+    result <- .ec_ipw_no_borrow(df, Y, df$S, df$A)
     borrow_weight <- 0
   } else {
     # weight>0 or NULL: fit PS model, compute borrowing weight, sandwich SE
     core <- .ec_ipw_borrow_core(
       df, as.matrix(df[, outcomes, drop = FALSE]),
-      df$S, df$A, sum(df$S), nrow(df),
-      sum(df$S) / nrow(df), n_time,
-      ps_formula, weight
+      df$S, df$A, ps_formula, weight
     )
     result <- .ec_ipw_sandwich(df, core, n_time)
     borrow_weight <- core$borrow_weight
@@ -147,11 +145,11 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param Y outcome matrix (N x T).
 #' @param S trial participation vector.
 #' @param A treatment vector.
-#' @param n number of RCT subjects.
-#' @param n_time number of time points.
 #' @return list with tau and intermediates for sandwich.
 #' @noRd
-.ec_ipw_no_borrow_core <- function(df, Y, S, A, n, n_time) {
+.ec_ipw_no_borrow_core <- function(df, Y, S, A) {
+  # see Zhou 2024a: Def 1 (Eq 6) with w=0, reduces to Hajek estimator
+  n <- sum(S)
   rct <- df[df$S == 1, , drop = FALSE]
   Y_rct <- Y[S == 1, , drop = FALSE]
   pi_A <- sum(rct$A) / n
@@ -173,12 +171,13 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param Y outcome matrix.
 #' @param S trial participation vector.
 #' @param A treatment vector.
-#' @param n number of RCT subjects.
-#' @param n_time number of time points.
 #' @return list with tau and sd_tau.
 #' @noRd
-.ec_ipw_no_borrow <- function(df, Y, S, A, n, n_time) {
-  core <- .ec_ipw_no_borrow_core(df, Y, S, A, n, n_time)
+.ec_ipw_no_borrow <- function(df, Y, S, A) {
+  # see Zhou 2024a: Theorem 3 with w=0
+  core <- .ec_ipw_no_borrow_core(df, Y, S, A)
+  n <- sum(S)
+  n_time <- ncol(Y)
 
   # influence functions for treated and control
   phi1 <- core$rct$A * sweep(core$Y_rct, 2, core$mu1) / core$pi_A
@@ -200,41 +199,47 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param Y outcome matrix (N x T).
 #' @param S trial participation vector.
 #' @param A treatment vector.
-#' @param n number of RCT subjects.
-#' @param N total sample size.
-#' @param pi_S marginal trial participation probability.
-#' @param n_time number of time points.
 #' @param ps_formula propensity score formula string.
 #' @param weight fixed weight or NULL for optimal.
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
-.ec_ipw_borrow_core <- function(df, Y, S, A, n, N, pi_S, n_time,
-                                ps_formula, weight) {
+.ec_ipw_borrow_core <- function(df, Y, S, A, ps_formula, weight) {
+  # see Zhou 2024a: Def 1 (Eq 6) for point estimate, Eq 11 for optimal weight
+
+  n <- sum(S)
+  N <- length(S)
+  pi_S <- n / N
+
   # propensity score model for trial participation
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
   pi_A <- sum(A[S == 1]) / n
 
-  # density ratio weights W00 = pi_S(X)(1-pi_S) / (1-pi_S(X))pi_S (Eq 4)
-  rx <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
+  # weights
+  w11 <- 1 / pi_A
+  w10 <- 1 / (1 - pi_A)
+  w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S) # density ratio
 
-  w11 <- pi_A
-  w10 <- 1 - pi_A
-  w00 <- rx
+  # mu-hat components
+  Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+  Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+  Y_ext <- Y[S == 0, , drop = FALSE]
+  w00_ext <- w00[S == 0]
 
-  # normalized weighted outcomes (Def 1, Eq 6)
-  potential <- (S * A / w11 + S * (1 - A) / w10 + (1 - S) * w00) * Y
-  mu1 <- colSums(potential[S == 1 & A == 1, , drop = FALSE]) / sum(S * A / w11)
-  mu10 <- colSums(potential[S == 1 & A == 0, , drop = FALSE]) / sum(S * (1 - A) / w10)
-  mu00 <- colSums(potential[S == 0, , drop = FALSE]) / sum((1 - S) * w00)
+  mu1 <- colMeans(Y_trt)
+  mu10 <- colMeans(Y_ctrl)
+  mu00 <- colSums(w00_ext * Y_ext) / sum(w00_ext)
 
-  # data-adaptive optimal weight (Eq 11, variance ratio approximation)
-  num <- sum(S * (1 - A) / w10^2 / (sum(S * (1 - A) / w10))^2)
-  denom <- sum((1 - S) * w00^2 / (sum((1 - S) * w00))^2)
-  w_opt <- num / (num + denom)
-  borrow_weight <- if (is.null(weight)) w_opt else weight
+  # optimal weight
+  if (is.null(weight)) {
+    num <- sum(rep(w10^2, nrow(Y_ctrl))) / sum(rep(w10, nrow(Y_ctrl)))^2
+    denom <- sum(w00_ext^2) / sum(w00_ext)^2
+    borrow_weight <- num / (num + denom)
+  } else {
+    borrow_weight <- weight
+  }
 
-  # hybrid control: convex combination of trial and external controls
+  # combine trial and external controls
   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
   tau <- mu1 - mu0
 
@@ -246,7 +251,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
 }
 
-#' sandwich variance for EC-IPW with borrowing (Theorem 3, Eq 12-13).
+#' sandwich variance for EC-IPW with borrowing
 #' constructs bread matrix A and meat matrix B from core intermediates.
 #' @param df internal data frame.
 #' @param core output from .ec_ipw_borrow_core.
@@ -254,6 +259,8 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau and sd_tau.
 #' @noRd
 .ec_ipw_sandwich <- function(df, core, n_time) {
+  # see Zhou 2024a: Theorem 3 (Eq 12 for A/B matrices, Eq 13 for variance)
+
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
   S <- df$S
   A <- df$A
@@ -319,18 +326,11 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   Y <- as.matrix(d[, outcomes, drop = FALSE])
   S <- d$S
   A <- d$A
-  n <- sum(S)
-  N <- nrow(d)
-  n_time <- ncol(Y)
 
   if (borrow_wt == 0) {
-    return(.ec_ipw_no_borrow_core(d, Y, S, A, n, n_time)$tau)
+    core <- .ec_ipw_no_borrow_core(d, Y, S, A)
+  } else {
+    core <- .ec_ipw_borrow_core(d, Y, S, A, ps_formula, borrow_wt)
   }
-
-  pi_S <- n / N
-  core <- .ec_ipw_borrow_core(
-    d, Y, S, A, n, N, pi_S, n_time,
-    ps_formula, borrow_wt
-  )
   core$tau
 }

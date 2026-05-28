@@ -6,10 +6,14 @@ test_that("simulate_trial produces correct dimensions (primary)", {
   X_ext <- data.frame(x1 = rnorm(n_ext), x2 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 0, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
-         noise_mean = 0, noise_sd = 1),
-    list(effect = 1, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
-         noise_mean = 0, noise_sd = 1)
+    list(
+      effect = 0, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
+      noise_mean = 0, noise_sd = 1
+    ),
+    list(
+      effect = 1, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
+      noise_mean = 0, noise_sd = 1
+    )
   )
 
   result <- simulate_trial(X_int, X_ext,
@@ -31,14 +35,22 @@ test_that("simulate_trial produces correct dimensions (OLE)", {
   X_ext <- data.frame(x1 = rnorm(n_ext), x2 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 0, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
-         noise_mean = 0, noise_sd = 1),
-    list(effect = 0, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
-         noise_mean = 0, noise_sd = 1),
-    list(effect = 1.5, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
-         noise_mean = 0, noise_sd = 1),
-    list(effect = 2.0, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
-         noise_mean = 0, noise_sd = 1)
+    list(
+      effect = 0, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
+      noise_mean = 0, noise_sd = 1
+    ),
+    list(
+      effect = 0, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
+      noise_mean = 0, noise_sd = 1
+    ),
+    list(
+      effect = 1.5, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
+      noise_mean = 0, noise_sd = 1
+    ),
+    list(
+      effect = 2.0, model_form_x = c("1" = 2, "x1" = 0.3, "x2" = -0.1),
+      noise_mean = 0, noise_sd = 1
+    )
   )
 
   result <- simulate_trial(X_int, X_ext,
@@ -60,8 +72,10 @@ test_that("simulate_trial assigns correct treatment counts", {
   X_ext <- data.frame(x1 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 0, model_form_x = c("1" = 1, "x1" = 0.5),
-         noise_mean = 0, noise_sd = 1)
+    list(
+      effect = 0, model_form_x = c("1" = 1, "x1" = 0.5),
+      noise_mean = 0, noise_sd = 1
+    )
   )
 
   result <- simulate_trial(X_int, X_ext,
@@ -86,8 +100,10 @@ test_that("simulate_trial S indicator is correct", {
   X_ext <- data.frame(x1 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 0, model_form_x = c("1" = 0, "x1" = 1),
-         noise_mean = 0, noise_sd = 0.1)
+    list(
+      effect = 0, model_form_x = c("1" = 0, "x1" = 1),
+      noise_mean = 0, noise_sd = 0.1
+    )
   )
 
   result <- simulate_trial(X_int, X_ext,
@@ -106,8 +122,10 @@ test_that("simulate_trial is reproducible with set.seed", {
   X_ext <- data.frame(x1 = rnorm(n_ext), x2 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 1, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
-         noise_mean = 0, noise_sd = 1)
+    list(
+      effect = 1, model_form_x = c("1" = 1, "x1" = 0.5, "x2" = -0.3),
+      noise_mean = 0, noise_sd = 1
+    )
   )
 
   set.seed(123)
@@ -133,8 +151,10 @@ test_that("simulate_trial rownames are sequential", {
   X_ext <- data.frame(x1 = rnorm(n_ext))
 
   specs <- list(
-    list(effect = 0, model_form_x = c("1" = 1, "x1" = 0),
-         noise_mean = 0, noise_sd = 1)
+    list(
+      effect = 0, model_form_x = c("1" = 1, "x1" = 0),
+      noise_mean = 0, noise_sd = 1
+    )
   )
 
   result <- simulate_trial(X_int, X_ext,
