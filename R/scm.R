@@ -106,13 +106,13 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   S <- data[[trial_status]]
   A <- data[[treatment]]
-  n_time <- length(outcomes)
-  N <- nrow(data)
 
   df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
   if (!quiet) cat("Running the synthetic control method...\n")
+  # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
 
   # build attribute matrices (covariates + all outcomes, transposed)
   X10 <- t(as.matrix(df[S == 1 & A == 0, c(covariates, outcomes), drop = FALSE]))
@@ -158,7 +158,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 
   boot_out <- boot::boot(
     data = df,
-    statistic = .scm_statistic,
+    statistic = .scm_boot_statistic,
     outcomes = outcomes,
     covariates = covariates,
     T_cross = T_cross,
@@ -264,7 +264,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 #' @param lambda pre-computed penalty parameter.
 #' @return numeric vector of tau estimates.
 #' @noRd
-.scm_statistic <- function(data, indices, outcomes, covariates,
+.scm_boot_statistic <- function(data, indices, outcomes, covariates,
                            T_cross, lambda) {
   d <- data[indices, , drop = FALSE]
   S <- d$S
