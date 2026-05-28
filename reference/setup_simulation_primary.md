@@ -88,5 +88,6 @@ setup_simulation_primary(
   true_effect = c(0, 0),
   method_description = "IPW"
 )
-#> Warning: 'setup_method_weighting' is being deprecated. Use ec_ipw() for inverse probability weighting or ec_aipw() for augmented inverse probability weighting.
+#> Warning: 'setup_method_weighting' has been removed. Use ec_ipw() or ec_aipw() instead.
+#> Error: setup_method_weighting() is no longer functional. Use ec_ipw() or ec_aipw().
 ```
