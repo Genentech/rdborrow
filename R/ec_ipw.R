@@ -210,17 +210,15 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @noRd
 .ec_ipw_borrow_core <- function(df, Y, S, A, n, N, pi_S, n_time,
                                 ps_formula, weight) {
+
   # propensity score model for trial participation
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
-  pi_A <- sum(A[S == 1]) / n
 
-  # density ratio weights W00 = pi_S(X)(1-pi_S) / (1-pi_S(X))pi_S (Eq 4)
-  rx <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
-
-  w11 <- pi_A
-  w10 <- 1 - pi_A
-  w00 <- rx
+  # weights
+  w11 <- sum(A[S == 1]) / n
+  w10 <- 1 - w11
+  w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
 
   # normalized weighted outcomes (Def 1, Eq 6)
   potential <- (S * A / w11 + S * (1 - A) / w10 + (1 - S) * w00) * Y
@@ -240,7 +238,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
   list(
     tau = tau, borrow_weight = borrow_weight,
-    ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
+    ps_model = ps_model, pi_SX = pi_SX, pi_A = w11,
     w00 = w00, w10 = w10,
     mu1 = mu1, mu10 = mu10, mu00 = mu00
   )
