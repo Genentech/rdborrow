@@ -74,7 +74,7 @@ reference:
     contents:
       - rdborrow-package
       - estimate
-      - setup_method_weighting
       - setup_method_DID
       - setup_method_SCM
       - setup_bootstrap
+      - setup_method_weighting

@@ -215,7 +215,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   pi_SX <- predict(ps_model, newdata = df, type = "response")
   pi_A <- sum(A[S == 1]) / n
 
-  # weights (Theorem 1)
+  # weights
   w11 <- 1 / pi_A
   w10 <- 1 / (1 - pi_A)
   w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S) # density ratio
@@ -230,7 +230,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   mu10 <- colMeans(Y_ctrl)
   mu00 <- colSums(w00_ext * Y_ext) / sum(w00_ext)
 
-  # optimal weight (Eq 11)
+  # optimal weight
   if (is.null(weight)) {
     num <- sum(rep(w10^2, nrow(Y_ctrl))) / sum(rep(w10, nrow(Y_ctrl)))^2
     denom <- sum(w00_ext^2) / sum(w00_ext)^2

@@ -120,6 +120,13 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  quiet = TRUE) {
   # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
+  if (length(method@outcome_formula) != length(outcomes)) {
+    stop(
+      "outcome_formula must have one formula per outcome (got ",
+      length(method@outcome_formula), " for ", length(outcomes), " outcomes).",
+      call. = FALSE
+    )
+  }
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
 
   if (!quiet) cat("Running EC-AIPW estimator...\n")
@@ -157,6 +164,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
+
   # see Zhou 2024a: Def 2 (Eq 7) for point estimate, Eq 11 for optimal weight
 
   Y <- as.matrix(df[, outcomes, drop = FALSE])
@@ -226,6 +234,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
 .ec_aipw_sandwich <- function(df, core, n_time, outcome_formula) {
+  
   # see Zhou 2024a: Theorem 4 (Eq 15 for A/B matrices, Eq 16 for variance)
 
   S <- df$S

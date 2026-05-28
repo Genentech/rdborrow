@@ -32,8 +32,6 @@
 #' @seealso \code{\link{run_simulation}} for evaluating operating
 #'   characteristics via Monte Carlo simulation.
 #'
-#' @include EC_IPW_OPT.R
-#' @include EC_AIPW_OPT.R
 #' @include legacy_DID_EC_IPW.R
 #' @include legacy_DID_EC_AIPW.R
 #' @include legacy_DID_EC_OR.R
@@ -77,51 +75,7 @@ run_analysis <- function(analysis_obj, quiet = TRUE) {
     T_cross <- analysis_obj@T_cross
   }
 
-  if (method_type == "method_weighting_obj") {
-    if (!quiet) {
-      cat("Estimating causal effects for primary analysis... \n")
-    }
-
-    wt <- method@wt
-    optimal_weight_flag <- method@optimal_weight_flag
-
-    name <- method@method_name
-    model_form_piS <- method@model_form_piS
-    model_form_piA <- method@model_form_piA
-    model_form_mu0_ext <- method@model_form_mu0_ext
-    model_form_mu0_rct <- method@model_form_mu0_rct
-    model_form_mu1_rct <- method@model_form_mu1_rct
-
-
-    if (name == "IPW") {
-      res <- EC_IPW_OPT(
-        data = data,
-        outcome_col_name = outcome_col_name,
-        trial_status_col_name = trial_status_col_name,
-        treatment_col_name = treatment_col_name,
-        covariates_col_name = covariates_col_name,
-        model_form_piS = model_form_piS,
-        wt = wt,
-        optimal_weight_flag = optimal_weight_flag,
-        bootstrap_flag, R, bootstrap_CI_type, alpha = alpha, quiet = quiet
-      )
-    } else if (name == "AIPW") {
-      res <- EC_AIPW_OPT(
-        data = data,
-        outcome_col_name = outcome_col_name,
-        trial_status_col_name = trial_status_col_name,
-        treatment_col_name = treatment_col_name,
-        covariates_col_name = covariates_col_name,
-        model_form_piS = model_form_piS,
-        model_form_mu0_ext = model_form_mu0_ext,
-        wt = wt,
-        optimal_weight_flag = optimal_weight_flag,
-        bootstrap_flag, R, bootstrap_CI_type, alpha = alpha, quiet = quiet
-      )
-    } else {
-      stop("No such method is defined!")
-    }
-  } else if (method_type == "method_DID_obj") {
+  if (method_type == "method_DID_obj") {
     ## TODO: implement OLE analysis
     if (!quiet) {
       cat("Estimating long term causal effects using DID methods... \n")

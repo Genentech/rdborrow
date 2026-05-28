@@ -121,32 +121,25 @@ generate_primary_sim_data <- function() {
 test_that("Primary simulation (parametric) report matches vignette", {
   sim_data <- generate_primary_sim_data()
 
-  method_obj_list <- suppressWarnings(list(
-    setup_method_weighting(
-      method_name = "IPW", optimal_weight_flag = TRUE,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-    ),
-    setup_method_weighting(
-      method_name = "AIPW", optimal_weight_flag = TRUE,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_mu0_ext = c(
+  method_obj_list <- list(
+    ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5"),
+    ec_aipw(
+      ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+      outcome_formula = c(
         "y1 ~ x1 + x2 + x3 + x4 + x5",
         "y2 ~ x1 + x2 + x3 + x4 + x5"
       )
     ),
-    setup_method_weighting(
-      method_name = "IPW", wt = 0, optimal_weight_flag = FALSE,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-    ),
-    setup_method_weighting(
-      method_name = "AIPW", wt = 0, optimal_weight_flag = FALSE,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_mu0_ext = c(
+    ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0),
+    ec_aipw(
+      ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+      outcome_formula = c(
         "y1 ~ x1 + x2 + x3 + x4 + x5",
         "y2 ~ x1 + x2 + x3 + x4 + x5"
-      )
+      ),
+      weight = 0
     )
-  ))
+  )
 
   sim_obj <- setup_simulation_primary(
     data_matrix_list_null = sim_data$null,
