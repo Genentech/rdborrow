@@ -31,8 +31,13 @@ covering both placebo-controlled and OLE periods.}
 \code{\link{did_ec_ipw}}, \code{\link{did_ec_aipw}},
 \code{\link{did_ec_or}}, or \code{\link{scm}}.}
 
-\item{T_cross}{Integer crossover time point. The first \code{T_cross}
-outcomes are from the placebo-controlled phase; the rest are OLE.}
+\item{T_cross}{Integer crossover time point (column index boundary).
+The first \code{T_cross} outcome columns are from the
+placebo-controlled phase and are used as negative controls for
+bias correction. The remaining \code{length(outcome_col_name) -
+T_cross} columns are from the open-label extension phase and are
+used to estimate the treatment effect. Must be a positive integer
+strictly less than \code{length(outcome_col_name)}.}
 
 \item{alpha}{Significance level (default 0.05).}
 }

@@ -27,8 +27,9 @@ NULL
 #' DID-EC-OR method constructor
 #'
 #' Creates a method object for difference-in-differences outcome
-#' regression estimation with external control borrowing for the
-#' open-label extension phase (Zhou et al., 2024).
+#' regression (DID-EC-OR) estimation with external control borrowing
+#' for the open-label extension phase (Zhou et al., 2024, Eq. 3).
+#' Uses outcome models only (no propensity score model).
 #'
 #' @param outcome_formula_ext Character vector of outcome model formulas
 #'   for external controls, one per time point.

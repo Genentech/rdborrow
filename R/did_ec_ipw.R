@@ -22,9 +22,10 @@ NULL
 
 #' DID-EC-IPW method
 #'
-#' Creates a method object for difference-in-differences IPW estimation
-#' with external control borrowing for the open-label extension phase
-#' (Zhou et al., 2024).
+#' Creates a method object for difference-in-differences inverse
+#' probability weighting (DID-EC-IPW) estimation with external
+#' control borrowing for the open-label extension phase
+#' (Zhou et al., 2024, Eq. 4).
 #'
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation.

@@ -27,9 +27,10 @@ methods). Defaults to 500.}
 An S4 object of class \code{did_ec_ipw_method}.
 }
 \description{
-Creates a method object for difference-in-differences IPW estimation
-with external control borrowing for the open-label extension phase
-(Zhou et al., 2024).
+Creates a method object for difference-in-differences inverse
+probability weighting (DID-EC-IPW) estimation with external
+control borrowing for the open-label extension phase
+(Zhou et al., 2024, Eq. 4).
 }
 \examples{
 did_ec_ipw(

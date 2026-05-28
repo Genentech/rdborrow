@@ -55,8 +55,13 @@ setMethod(
 #' @param method_OLE_obj A method object created by
 #'   \code{\link{did_ec_ipw}}, \code{\link{did_ec_aipw}},
 #'   \code{\link{did_ec_or}}, or \code{\link{scm}}.
-#' @param T_cross Integer crossover time point. The first \code{T_cross}
-#'   outcomes are from the placebo-controlled phase; the rest are OLE.
+#' @param T_cross Integer crossover time point (column index boundary).
+#'   The first \code{T_cross} outcome columns are from the
+#'   placebo-controlled phase and are used as negative controls for
+#'   bias correction. The remaining \code{length(outcome_col_name) -
+#'   T_cross} columns are from the open-label extension phase and are
+#'   used to estimate the treatment effect. Must be a positive integer
+#'   strictly less than \code{length(outcome_col_name)}.
 #' @param alpha Significance level (default 0.05).
 #'
 #' @return An object of class \code{analysis_OLE_obj}, to be passed to
@@ -92,7 +97,14 @@ setup_analysis_OLE <- function(data, trial_status_col_name,
     outcome_col_name, covariates_col_name, alpha
   )
   checkmate::assert_class(method_OLE_obj, "method_OLE_obj")
-  checkmate::assert_number(T_cross, lower = 0)
+  checkmate::assert_int(T_cross, lower = 1)
+  if (T_cross >= length(outcome_col_name)) {
+    stop(
+      "T_cross must be less than the number of outcomes (got ",
+      T_cross, " for ", length(outcome_col_name), " outcomes).",
+      call. = FALSE
+    )
+  }
 
   .analysis_OLE_obj(
     data = data,
