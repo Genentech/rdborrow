@@ -106,16 +106,13 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   S <- data[[trial_status]]
   A <- data[[treatment]]
-  n_time <- ncol(Y)
-  N <- nrow(data)
-  n <- sum(S)
 
   df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
 
   if (!quiet) cat("Running DID-EC-OR estimator...\n")
 
   result <- .did_ec_or_core(
-    df, S, A, n, n_time, T_cross,
+    df, S, A, T_cross,
     method@outcome_formula_ext,
     method@outcome_formula_rct_ctrl,
     method@outcome_formula_rct_trt
@@ -124,9 +121,9 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 
   if (!quiet) cat("Running bootstrap inference...\n")
 
-  n_ole <- n_time - T_cross
+  n_ole <- ncol(Y) - T_cross
   boot_res <- .run_bootstrap(
-    df = df, statistic = .did_ec_or_statistic,
+    df = df, statistic = .did_ec_or_boot_statistic,
     n_estimates = n_ole, bootstrap = method@bootstrap,
     bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes,
@@ -140,32 +137,30 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
     point_estimates = tau,
     lower_CI_boot = boot_res$lower_ci,
     upper_CI_boot = boot_res$upper_ci,
-    row.names = paste0("tau", (T_cross + 1):n_time)
+    row.names = paste0("tau", (T_cross + 1):ncol(Y))
   )
 })
 
 # internal helpers----
 
-#' DID-EC-OR point estimate.
-#' uses outcome regression only (no PS model). fits separate models for
-#' external controls, RCT controls (pre-crossover), and RCT treated (OLE).
-#' DID logic: tau = (RCT model OLE - RCT model pre) - (EC model OLE - EC model pre).
+#' DID-EC-OR point estimate (Zhou 2024b, Eq 3 / Appendix B).
 #' @param df internal data frame.
 #' @param S trial participation vector.
 #' @param A treatment vector.
-#' @param n number of RCT subjects.
-#' @param n_time number of time points.
 #' @param T_cross crossover time point.
 #' @param outcome_formula_ext formulas for external control outcome models.
 #' @param outcome_formula_rct_ctrl formulas for RCT control outcome models.
 #' @param outcome_formula_rct_trt formulas for RCT treated outcome models.
 #' @return list with tau vector.
 #' @noRd
-.did_ec_or_core <- function(df, S, A, n, n_time, T_cross,
+.did_ec_or_core <- function(df, S, A, T_cross,
                             outcome_formula_ext,
                             outcome_formula_rct_ctrl,
                             outcome_formula_rct_trt) {
-  T_pc <- T_cross
+  # see Zhou 2024b: Eq 3 (identification), Appendix B (sample estimator)
+
+  n <- sum(S)
+  n_time <- length(outcome_formula_ext)
 
   # external outcome models
   model_list_ext <- lapply(seq_len(n_time), \(t) {
@@ -173,12 +168,12 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   })
 
   # rct outcome models: control for placebo period, treated for OLE period
-  model_list_rct_pc <- lapply(seq_len(T_pc), \(t) {
+  model_list_rct_pc <- lapply(seq_len(T_cross), \(t) {
     lm(as.formula(outcome_formula_rct_ctrl[t]),
       data = df[S == 1 & A == 0, , drop = FALSE]
     )
   })
-  model_list_rct_cr <- lapply((T_pc + 1):n_time, \(t) {
+  model_list_rct_cr <- lapply((T_cross + 1):n_time, \(t) {
     lm(as.formula(outcome_formula_rct_trt[t]),
       data = df[S == 1 & A == 1, , drop = FALSE]
     )
@@ -199,14 +194,13 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   }, numeric(n))
   avg_S1 <- colMeans(mu_S1)
 
-  tau <- (avg_S1[(T_pc + 1):n_time] - mean(avg_S1[1:T_pc])) -
-    (avg_S0A0[(T_pc + 1):n_time] - mean(avg_S0A0[1:T_pc]))
+  tau <- (avg_S1[(T_cross + 1):n_time] - mean(avg_S1[1:T_cross])) -
+    (avg_S0A0[(T_cross + 1):n_time] - mean(avg_S0A0[1:T_cross]))
 
   list(tau = tau)
 }
 
 #' bootstrap statistic for DID-EC-OR.
-#' refits all outcome models on each resample.
 #' @param data internal data frame.
 #' @param indices bootstrap sample indices.
 #' @param outcomes outcome column names.
@@ -216,45 +210,12 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 #' @param T_cross crossover time point.
 #' @return numeric vector of tau estimates.
 #' @noRd
-.did_ec_or_statistic <- function(data, indices, outcomes,
-                                 outcome_formula_ext,
-                                 outcome_formula_rct_ctrl,
-                                 outcome_formula_rct_trt,
-                                 T_cross) {
+.did_ec_or_boot_statistic <- function(data, indices, outcomes,
+                                      outcome_formula_ext,
+                                      outcome_formula_rct_ctrl,
+                                      outcome_formula_rct_trt,
+                                      T_cross) {
   d <- data[indices, , drop = FALSE]
-  S <- d$S
-  A <- d$A
-  n <- sum(S)
-  n_time <- length(outcomes)
-  T_pc <- T_cross
-
-  model_list_ext <- lapply(seq_len(n_time), \(t) {
-    lm(as.formula(outcome_formula_ext[t]), data = d[S == 0, , drop = FALSE])
-  })
-  model_list_rct_pc <- lapply(seq_len(T_pc), \(t) {
-    lm(as.formula(outcome_formula_rct_ctrl[t]),
-      data = d[S == 1 & A == 0, , drop = FALSE]
-    )
-  })
-  model_list_rct_cr <- lapply((T_pc + 1):n_time, \(t) {
-    lm(as.formula(outcome_formula_rct_trt[t]),
-      data = d[S == 1 & A == 1, , drop = FALSE]
-    )
-  })
-  model_list_rct <- c(model_list_rct_pc, model_list_rct_cr)
-
-  rct_data <- d[S == 1, , drop = FALSE]
-
-  mu_S0A0 <- vapply(seq_len(n_time), \(t) {
-    predict(model_list_ext[[t]], newdata = rct_data)
-  }, numeric(n))
-  avg_S0A0 <- colMeans(mu_S0A0)
-
-  mu_S1 <- vapply(seq_len(n_time), \(t) {
-    predict(model_list_rct[[t]], newdata = rct_data)
-  }, numeric(n))
-  avg_S1 <- colMeans(mu_S1)
-
-  (avg_S1[(T_pc + 1):n_time] - mean(avg_S1[1:T_pc])) -
-    (avg_S0A0[(T_pc + 1):n_time] - mean(avg_S0A0[1:T_pc]))
+  .did_ec_or_core(d, d$S, d$A, T_cross, outcome_formula_ext,
+    outcome_formula_rct_ctrl, outcome_formula_rct_trt)$tau
 }

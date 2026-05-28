@@ -6,7 +6,7 @@
 \usage{
 did_ec_aipw(
   ps_formula,
-  trt_formula = "",
+  trt_formula = NULL,
   outcome_formula,
   bootstrap = 500L,
   bootstrap_ci_type = NULL
@@ -17,7 +17,7 @@ did_ec_aipw(
 predicting trial participation.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{""} for marginal probability.}
+or \code{NULL} (default) for marginal probability.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per time point.}

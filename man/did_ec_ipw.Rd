@@ -6,7 +6,7 @@
 \usage{
 did_ec_ipw(
   ps_formula,
-  trt_formula = "",
+  trt_formula = NULL,
   bootstrap = 500L,
   bootstrap_ci_type = NULL
 )
@@ -16,7 +16,7 @@ did_ec_ipw(
 predicting trial participation.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{""} for marginal probability.}
+or \code{NULL} (default) for marginal probability.}
 
 \item{bootstrap}{Number of bootstrap replicates (required for DID
 methods). Defaults to 500.}
