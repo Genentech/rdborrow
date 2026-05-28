@@ -103,9 +103,8 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 treatment, trial_status,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
-  # unwrap formula
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
-  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  df <- build_analysis_df(method, data, outcomes, treatment, trial_status, covariates)
   n_time <- length(outcomes)
 
   if (!quiet) cat("Running EC-IPW estimator...\n")
@@ -113,31 +112,52 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   weight <- method@weight
   use_borrowing <- is.null(weight) || weight > 0
 
-  # weight=0 uses rct-only path (no PS model needed)
+  # point estimate + sandwich SE
   if (!use_borrowing) {
     Y <- as.matrix(df[, outcomes, drop = FALSE])
-    result <- .ec_ipw_no_borrow(df, Y, df$S, df$A)
+    result <- .ec_ipw_rct_se(df, Y, df$S, df$A)
     borrow_weight <- 0
   } else {
-    # weight>0 or NULL: fit PS model, compute borrowing weight, sandwich SE
-    core <- .ec_ipw_borrow_core(
+    core <- .ec_ipw_core(
       df, as.matrix(df[, outcomes, drop = FALSE]),
       df$S, df$A, ps_formula, weight
     )
-    result <- .ec_ipw_sandwich(df, core, n_time)
+    result <- .ec_ipw_se(df, core, n_time)
     borrow_weight <- core$borrow_weight
   }
 
-  # format output and optionally run bootstrap
-  .format_primary_results(
-    tau = result$tau, sd_tau = result$sd_tau,
-    borrow_weight = borrow_weight,
-    n_time = n_time, alpha = alpha,
-    method = method, df = df, quiet = quiet,
-    statistic = .ec_ipw_statistic,
-    outcomes = outcomes, covariates = covariates,
-    ps_formula = ps_formula
+  # format results
+  tau <- result$tau
+  sd_tau <- result$sd_tau
+  cutoff <- qnorm(1 - alpha / 2)
+  results <- data.frame(
+    point_estimates = tau,
+    standard_deviation = sd_tau,
+    lower_CI_normal = tau - sd_tau * cutoff,
+    upper_CI_normal = tau + sd_tau * cutoff,
+    row.names = paste0("tau", seq_len(n_time))
   )
+
+  # bootstrap (optional)
+  if (!is.null(method@bootstrap)) {
+    if (!quiet) cat("Running bootstrap inference...\n")
+    boot_res <- .run_bootstrap(
+      df = df, statistic = .ec_ipw_boot_statistic,
+      n_estimates = n_time, bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      borrow_wt = borrow_weight, outcomes = outcomes,
+      covariates = covariates, ps_formula = ps_formula
+    )
+    results <- data.frame(
+      point_estimates = tau,
+      standard_deviation = boot_res$sd_boot,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
+      row.names = paste0("tau", seq_len(n_time))
+    )
+  }
+
+  list(results = results, borrow_weight = borrow_weight)
 })
 
 #' compute Hajek ATE using only RCT subjects (w=0, no PS model).
@@ -147,7 +167,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param A treatment vector.
 #' @return list with tau and intermediates for sandwich.
 #' @noRd
-.ec_ipw_no_borrow_core <- function(df, Y, S, A) {
+.ec_ipw_rct_core <- function(df, Y, S, A) {
   # see Zhou 2024a: Def 1 (Eq 6) with w=0, reduces to Hajek estimator
   n <- sum(S)
   rct <- df[df$S == 1, , drop = FALSE]
@@ -173,9 +193,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param A treatment vector.
 #' @return list with tau and sd_tau.
 #' @noRd
-.ec_ipw_no_borrow <- function(df, Y, S, A) {
+.ec_ipw_rct_se <- function(df, Y, S, A) {
   # see Zhou 2024a: Theorem 3 with w=0
-  core <- .ec_ipw_no_borrow_core(df, Y, S, A)
+  core <- .ec_ipw_rct_core(df, Y, S, A)
   n <- sum(S)
   n_time <- ncol(Y)
 
@@ -203,7 +223,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param weight fixed weight or NULL for optimal.
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
-.ec_ipw_borrow_core <- function(df, Y, S, A, ps_formula, weight) {
+.ec_ipw_core <- function(df, Y, S, A, ps_formula, weight) {
   # see Zhou 2024a: Def 1 (Eq 6) for point estimate, Eq 11 for optimal weight
 
   n <- sum(S)
@@ -254,11 +274,11 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' sandwich variance for EC-IPW with borrowing
 #' constructs bread matrix A and meat matrix B from core intermediates.
 #' @param df internal data frame.
-#' @param core output from .ec_ipw_borrow_core.
+#' @param core output from .ec_ipw_core.
 #' @param n_time number of time points.
 #' @return list with tau and sd_tau.
 #' @noRd
-.ec_ipw_sandwich <- function(df, core, n_time) {
+.ec_ipw_se <- function(df, core, n_time) {
   # see Zhou 2024a: Theorem 3 (Eq 12 for A/B matrices, Eq 13 for variance)
 
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
@@ -320,7 +340,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param borrow_wt pre-computed borrowing weight.
 #' @return numeric vector of tau estimates.
 #' @noRd
-.ec_ipw_statistic <- function(data, indices, outcomes, covariates,
+.ec_ipw_boot_statistic <- function(data, indices, outcomes, covariates,
                               ps_formula, borrow_wt) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
@@ -328,9 +348,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   A <- d$A
 
   if (borrow_wt == 0) {
-    core <- .ec_ipw_no_borrow_core(d, Y, S, A)
+    core <- .ec_ipw_rct_core(d, Y, S, A)
   } else {
-    core <- .ec_ipw_borrow_core(d, Y, S, A, ps_formula, borrow_wt)
+    core <- .ec_ipw_core(d, Y, S, A, ps_formula, borrow_wt)
   }
   core$tau
 }

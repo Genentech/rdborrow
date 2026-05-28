@@ -38,72 +38,24 @@
 )
 
 
-#' Build the internal data frame for primary weighting estimators.
-#' Combines outcome matrix Y, trial status S, treatment A, and covariates
-#' into a single data frame used by all ec_ipw/ec_aipw internals.
-#' @param data user-supplied data frame.
-#' @param outcomes character vector of outcome column names.
-#' @param treatment name of the treatment column.
-#' @param trial_status name of the trial participation column.
-#' @param covariates character vector of covariate column names.
-#' @return data frame with columns: outcome cols, S, A, covariate cols.
+# build_analysis_df generic----
+setGeneric("build_analysis_df", function(method, data, outcomes, treatment,
+                                         trial_status, covariates) {
+  standardGeneric("build_analysis_df")
+})
+
 #' @noRd
-.build_analysis_df <- function(data, outcomes, treatment, trial_status,
-                               covariates) {
+setMethod("build_analysis_df", "method_weighting_obj", function(method, data,
+                                                                outcomes,
+                                                                treatment,
+                                                                trial_status,
+                                                                covariates) {
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   data.frame(Y,
     S = data[[trial_status]], A = data[[treatment]],
     data[, covariates, drop = FALSE]
   )
-}
-
-#' Format estimation results for primary weighting methods.
-#' If bootstrap is requested, runs .run_bootstrap and returns boot CIs.
-#' Otherwise returns sandwich SE with normal CIs.
-#' @param tau numeric vector of point estimates.
-#' @param sd_tau numeric vector of sandwich standard errors.
-#' @param borrow_weight numeric borrowing weight used.
-#' @param n_time number of time points (length of tau).
-#' @param alpha significance level.
-#' @param method S4 method object (checked for bootstrap slot).
-#' @param df internal data frame (passed to bootstrap statistic).
-#' @param quiet logical suppress output.
-#' @param statistic bootstrap statistic function.
-#' @param ... additional args passed to statistic via .run_bootstrap.
-#' @return list with results (data.frame) and borrow_weight.
-#' @noRd
-.format_primary_results <- function(tau, sd_tau, borrow_weight, n_time,
-                                    alpha, method, df, quiet, statistic,
-                                    ...) {
-  cutoff <- qnorm(1 - alpha / 2)
-
-  if (!is.null(method@bootstrap)) {
-    if (!quiet) cat("Running bootstrap inference...\n")
-    boot_res <- .run_bootstrap(
-      df = df, statistic = statistic,
-      n_estimates = n_time, bootstrap = method@bootstrap,
-      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
-      borrow_wt = borrow_weight, ...
-    )
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = boot_res$sd_boot,
-      lower_CI_boot = boot_res$lower_ci,
-      upper_CI_boot = boot_res$upper_ci,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  } else {
-    results <- data.frame(
-      point_estimates = tau,
-      standard_deviation = sd_tau,
-      lower_CI_normal = tau - sd_tau * cutoff,
-      upper_CI_normal = tau + sd_tau * cutoff,
-      row.names = paste0("tau", seq_len(n_time))
-    )
-  }
-
-  list(results = results, borrow_weight = borrow_weight)
-}
+})
 
 # class unions----
 setClassUnion("numericOrNULL", c("numeric", "NULL"))

@@ -73,10 +73,6 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Collate: 
-    'EC_AIPW_OPT_bootstrap.R'
-    'EC_AIPW_OPT.R'
-    'EC_IPW_OPT_bootstrap.R'
-    'EC_IPW_OPT.R'
     'bootstrap_class.R'
     'method_class.R'
     'analysis_class.R'
@@ -91,6 +87,7 @@ Collate:
     'did_ec_aipw.R'
     'did_ec_or.R'
     'ec_aipw.R'
+    'legacy.R'
     'legacy_DID_EC_AIPW_bootstrap.R'
     'legacy_DID_EC_AIPW.R'
     'legacy_DID_EC_IPW_bootstrap.R'
