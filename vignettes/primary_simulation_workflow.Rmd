@@ -208,7 +208,7 @@ for (trial_iter in 1:ntrial) {
   data_matrix_list_alt[[trial_iter]] <- Data
 }
 
-data_matrix_list_alt[[1]]
+head(data_matrix_list_alt[[1]])
 ```
 
 
