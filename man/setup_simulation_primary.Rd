@@ -56,11 +56,9 @@ setup_simulation_primary(
   treatment_col_name = "A",
   outcome_col_name = c("y1", "y2"),
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
-  method_obj_list = list(setup_method_weighting(
-    method_name = "IPW",
-    optimal_weight_flag = TRUE,
-    model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5"
-  )),
+  method_obj_list = list(
+    ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+  ),
   true_effect = c(0, 0),
   method_description = "IPW"
 )
