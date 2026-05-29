@@ -70,6 +70,12 @@ reference:
     contents:
       - SyntheticData
 
+  - title: Deprecated
+    contents:
+      - setup_method_weighting
+      - setup_method_DID
+      - setup_method_SCM
+
   - title: internal
     contents:
       - rdborrow-package
