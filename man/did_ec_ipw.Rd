@@ -6,7 +6,7 @@
 \usage{
 did_ec_ipw(
   ps_formula,
-  trt_formula = "",
+  trt_formula = NULL,
   bootstrap = 500L,
   bootstrap_ci_type = NULL
 )
@@ -16,7 +16,7 @@ did_ec_ipw(
 predicting trial participation.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{""} for marginal probability.}
+or \code{NULL} (default) for marginal probability.}
 
 \item{bootstrap}{Number of bootstrap replicates (required for DID
 methods). Defaults to 500.}
@@ -27,9 +27,10 @@ methods). Defaults to 500.}
 An S4 object of class \code{did_ec_ipw_method}.
 }
 \description{
-Creates a method object for difference-in-differences IPW estimation
-with external control borrowing for the open-label extension phase
-(Zhou et al., 2024).
+Creates a method object for difference-in-differences inverse
+probability weighting (DID-EC-IPW) estimation with external
+control borrowing for the open-label extension phase
+(Zhou et al., 2024, Eq. 4).
 }
 \examples{
 did_ec_ipw(

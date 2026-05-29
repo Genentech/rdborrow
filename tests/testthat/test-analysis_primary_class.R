@@ -39,7 +39,7 @@ test_that("setup_analysis_primary validates method type", {
     treatment_col_name = "A",
     outcome_col_name = "y1",
     covariates_col_name = "x1",
-    method_weighting_obj = suppressWarnings(setup_method_DID())
+    method_weighting_obj = did_ec_ipw(ps_formula = "S ~ x1", bootstrap = 50)
   ))
 })
 

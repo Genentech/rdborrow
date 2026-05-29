@@ -6,7 +6,7 @@
 \usage{
 did_ec_aipw(
   ps_formula,
-  trt_formula = "",
+  trt_formula = NULL,
   outcome_formula,
   bootstrap = 500L,
   bootstrap_ci_type = NULL
@@ -17,7 +17,7 @@ did_ec_aipw(
 predicting trial participation.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{""} for marginal probability.}
+or \code{NULL} (default) for marginal probability.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per time point.}
@@ -30,9 +30,11 @@ one per time point.}
 An S4 object of class \code{did_ec_aipw_method}.
 }
 \description{
-Creates a method object for difference-in-differences augmented IPW
-estimation with external control borrowing for the open-label
-extension phase (Zhou et al., 2024).
+Creates a method object for difference-in-differences augmented
+inverse probability weighting (DID-EC-AIPW) estimation with
+external control borrowing for the open-label extension phase
+(Zhou et al., 2024, Eq. 5). Doubly robust: consistent if either
+the propensity score model or the outcome model is correct.
 }
 \examples{
 did_ec_aipw(

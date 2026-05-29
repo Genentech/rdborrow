@@ -7,7 +7,7 @@ NULL
   contains = "method_DID_obj",
   slots = c(
     ps_formula = "character",
-    trt_formula = "character",
+    trt_formula = "characterOrNULL",
     outcome_formula = "character",
     bootstrap = "numericOrNULL",
     bootstrap_ci_type = "character"
@@ -15,7 +15,7 @@ NULL
   prototype = list(
     method_name = "DID-EC-AIPW",
     ps_formula = "",
-    trt_formula = "",
+    trt_formula = NULL,
     outcome_formula = "",
     bootstrap = NULL,
     bootstrap_ci_type = "perc"
@@ -24,14 +24,16 @@ NULL
 
 #' DID-EC-AIPW method
 #'
-#' Creates a method object for difference-in-differences augmented IPW
-#' estimation with external control borrowing for the open-label
-#' extension phase (Zhou et al., 2024).
+#' Creates a method object for difference-in-differences augmented
+#' inverse probability weighting (DID-EC-AIPW) estimation with
+#' external control borrowing for the open-label extension phase
+#' (Zhou et al., 2024, Eq. 5). Doubly robust: consistent if either
+#' the propensity score model or the outcome model is correct.
 #'
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation.
 #' @param trt_formula Formula string for the treatment assignment model,
-#'   or \code{""} for marginal probability.
+#'   or \code{NULL} (default) for marginal probability.
 #' @param outcome_formula Character vector of outcome model formulas,
 #'   one per time point.
 #' @param bootstrap Number of bootstrap replicates. Defaults to 500.
@@ -60,12 +62,12 @@ NULL
 #'   bootstrap = 500
 #' )
 did_ec_aipw <- function(ps_formula,
-                        trt_formula = "",
+                        trt_formula = NULL,
                         outcome_formula,
                         bootstrap = 500L,
                         bootstrap_ci_type = NULL) {
   checkmate::assert_string(ps_formula)
-  checkmate::assert_string(trt_formula)
+  checkmate::assert_string(trt_formula, null.ok = TRUE)
   checkmate::assert_character(outcome_formula, min.len = 1)
   checkmate::assert_count(bootstrap, positive = TRUE)
 
@@ -100,14 +102,10 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   S <- data[[trial_status]]
   A <- data[[treatment]]
-  n_time <- ncol(Y)
-  N <- nrow(data)
-  n <- sum(S)
-  pi_S <- n / N
 
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   trt_formula <- method@trt_formula
-  if (trt_formula != "") {
+  if (!is.null(trt_formula)) {
     trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
   }
 
@@ -116,17 +114,15 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
   if (!quiet) cat("Running DID-EC-AIPW estimator...\n")
 
   result <- .did_ec_aipw_core(
-    df, Y, S, A, n, N, pi_S, n_time,
-    T_cross, ps_formula, trt_formula,
-    method@outcome_formula
+    df, Y, S, A, T_cross, ps_formula, trt_formula, method@outcome_formula
   )
   tau <- result$tau
 
   if (!quiet) cat("Running bootstrap inference...\n")
 
-  n_ole <- n_time - T_cross
+  n_ole <- ncol(Y) - T_cross
   boot_res <- .run_bootstrap(
-    df = df, statistic = .did_ec_aipw_statistic,
+    df = df, statistic = .did_ec_aipw_boot_statistic,
     n_estimates = n_ole, bootstrap = method@bootstrap,
     bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes, ps_formula = ps_formula,
@@ -138,36 +134,38 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
     point_estimates = tau,
     lower_CI_boot = boot_res$lower_ci,
     upper_CI_boot = boot_res$upper_ci,
-    row.names = paste0("tau", (T_cross + 1):n_time)
+    row.names = paste0("tau", (T_cross + 1):ncol(Y))
   )
 })
 
 # internal helpers----
 
-#' DID-EC-AIPW point estimate.
-#' augments DID-IPW with outcome regression: uses residuals Y-mu(X)
-#' instead of raw outcomes for the weighted potential outcomes.
+#' DID-EC-AIPW point estimate (Zhou 2024b, Eq 5 / Appendix B).
 #' @param df internal data frame.
 #' @param Y outcome matrix (N x T).
 #' @param S trial participation vector.
 #' @param A treatment vector.
-#' @param n number of RCT subjects.
-#' @param N total sample size.
-#' @param pi_S marginal trial participation probability.
-#' @param n_time number of time points.
 #' @param T_cross crossover time point.
 #' @param ps_formula propensity score formula.
-#' @param trt_formula treatment assignment formula.
+#' @param trt_formula treatment assignment formula (NULL for marginal).
 #' @param outcome_formula character vector of outcome model formulas.
 #' @return list with tau vector.
 #' @noRd
-.did_ec_aipw_core <- function(df, Y, S, A, n, N, pi_S, n_time,
-                              T_cross, ps_formula, trt_formula,
-                              outcome_formula) {
+.did_ec_aipw_core <- function(df, Y, S, A, T_cross, ps_formula,
+                              trt_formula, outcome_formula) {
+  # see Zhou 2024b: Eq 5 (identification), Appendix B (sample estimator)
+
+  n <- sum(S)
+  N <- length(S)
+  pi_S <- n / N
+  n_time <- ncol(Y)
+
+  # propensity score model
   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
   pi_SX <- predict(ps_model, newdata = df, type = "response")
 
-  if (trt_formula == "") {
+  # treatment assignment model
+  if (is.null(trt_formula)) {
     pi_AX <- sum(A[S == 1]) / n
   } else {
     trt_model <- glm(as.formula(trt_formula),
@@ -185,34 +183,39 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
   }, numeric(N))
   Yr <- Y - Y0
 
-  rx <- pi_SX * (1 - pi_S) / (1 - pi_SX) / pi_S
+  # weights
   w11 <- 1 / pi_AX
   w10 <- 1 / (1 - pi_AX)
-  w00 <- rx
+  w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
 
-  potential <- (S * A * w11 / sum(S * A * w11) +
-    S * (1 - A) * w10 / sum(S * (1 - A) * w10) +
-    (1 - S) * w00 / sum((1 - S) * w00)) * Yr
+  # normalized weighted residuals per group
+  Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+  Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+  Yr_ext <- Yr[S == 0, , drop = FALSE]
+  w11_trt <- w11[S == 1 & A == 1]
+  w10_ctrl <- w10[S == 1 & A == 0]
+  w00_ext <- w00[S == 0]
 
-  T_pc <- T_cross
-  mu_S1A1 <- colSums(
-    potential[S == 1 & A == 1, (T_pc + 1):n_time, drop = FALSE]
-  )
-  mu_S0A0 <- colSums(
-    potential[S == 0, (T_pc + 1):n_time, drop = FALSE]
-  )
-  bias <- sum(rowMeans(
-    potential[S == 1 & A == 0, 1:T_pc, drop = FALSE]
-  )) - sum(rowMeans(
-    potential[S == 0, 1:T_pc, drop = FALSE]
-  ))
+  # delta_trial: treated OLE residuals
+  mu_trt_ole <- colSums(w11_trt * Yr_trt[, (T_cross + 1):n_time, drop = FALSE]) /
+    sum(w11_trt)
 
-  tau <- mu_S1A1 - mu_S0A0 - bias
+  # delta_EC: external control OLE residuals
+  mu_ext_ole <- colSums(w00_ext * Yr_ext[, (T_cross + 1):n_time, drop = FALSE]) /
+    sum(w00_ext)
+
+  # bias correction: pre-crossover difference in residuals
+  bias_ctrl <- sum(w10_ctrl * rowMeans(Yr_ctrl[, 1:T_cross, drop = FALSE])) /
+    sum(w10_ctrl)
+  bias_ext <- sum(w00_ext * rowMeans(Yr_ext[, 1:T_cross, drop = FALSE])) /
+    sum(w00_ext)
+  bias <- bias_ctrl - bias_ext
+
+  tau <- mu_trt_ole - mu_ext_ole - bias
   list(tau = tau)
 }
 
 #' bootstrap statistic for DID-EC-AIPW.
-#' refits PS, treatment, and outcome models on each resample.
 #' @param data internal data frame.
 #' @param indices bootstrap sample indices.
 #' @param outcomes outcome column names.
@@ -222,58 +225,10 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 #' @param T_cross crossover time point.
 #' @return numeric vector of tau estimates.
 #' @noRd
-.did_ec_aipw_statistic <- function(data, indices, outcomes, ps_formula,
-                                   trt_formula, outcome_formula, T_cross) {
+.did_ec_aipw_boot_statistic <- function(data, indices, outcomes, ps_formula,
+                                        trt_formula, outcome_formula, T_cross) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
-  S <- d$S
-  A <- d$A
-  n <- sum(S)
-  N <- nrow(d)
-  n_time <- ncol(Y)
-  pi_S <- n / N
-
-  ps_model <- glm(as.formula(ps_formula), data = d, family = "binomial")
-  pi_SX <- predict(ps_model, newdata = d, type = "response")
-
-  if (trt_formula == "") {
-    pi_AX <- sum(A[S == 1]) / n
-  } else {
-    trt_model <- glm(as.formula(trt_formula),
-      data = d[S == 1, , drop = FALSE], family = "binomial"
-    )
-    pi_AX <- predict(trt_model, newdata = d, type = "response")
-  }
-
-  Y0_models <- lapply(outcome_formula, \(f) {
-    lm(as.formula(f), data = d[S == 0, , drop = FALSE])
-  })
-  Y0 <- vapply(seq_len(n_time), \(t) {
-    predict(Y0_models[[t]], newdata = d)
-  }, numeric(N))
-  Yr <- Y - Y0
-
-  rx <- pi_SX * (1 - pi_S) / (1 - pi_SX) / pi_S
-  w11 <- 1 / pi_AX
-  w10 <- 1 / (1 - pi_AX)
-  w00 <- rx
-
-  potential <- (S * A * w11 / sum(S * A * w11) +
-    S * (1 - A) * w10 / sum(S * (1 - A) * w10) +
-    (1 - S) * w00 / sum((1 - S) * w00)) * Yr
-
-  T_pc <- T_cross
-  mu_S1A1 <- colSums(
-    potential[S == 1 & A == 1, (T_pc + 1):n_time, drop = FALSE]
-  )
-  mu_S0A0 <- colSums(
-    potential[S == 0, (T_pc + 1):n_time, drop = FALSE]
-  )
-  bias <- sum(rowMeans(
-    potential[S == 1 & A == 0, 1:T_pc, drop = FALSE]
-  )) - sum(rowMeans(
-    potential[S == 0, 1:T_pc, drop = FALSE]
-  ))
-
-  mu_S1A1 - mu_S0A0 - bias
+  .did_ec_aipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
+    outcome_formula)$tau
 }

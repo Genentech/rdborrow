@@ -21,3 +21,50 @@ setup_method_weighting <- function(...) {
     call. = FALSE
   )
 }
+
+#' Setup method DID (Deprecated)
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function has been removed. Use [did_ec_ipw()] for
+#' inverse probability weighting, [did_ec_aipw()] for augmented
+#' inverse probability weighting, or [did_ec_or()] for outcome
+#' regression.
+#'
+#' @param ... Ignored.
+#'
+#' @export
+setup_method_DID <- function(...) {
+  .Deprecated(msg = paste(
+    "'setup_method_DID' has been removed.",
+    "Use did_ec_ipw(), did_ec_aipw(), or did_ec_or() instead."
+  ))
+  stop(
+    "setup_method_DID() is no longer functional. ",
+    "Use did_ec_ipw(), did_ec_aipw(), or did_ec_or().",
+    call. = FALSE
+  )
+}
+
+#' Setup method SCM (Deprecated)
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function has been removed. Use [scm()] instead.
+#'
+#' @param ... Ignored.
+#'
+#' @export
+setup_method_SCM <- function(...) {
+  .Deprecated(msg = paste(
+    "'setup_method_SCM' has been removed.",
+    "Use scm() instead."
+  ))
+  stop(
+    "setup_method_SCM() is no longer functional. ",
+    "Use scm().",
+    call. = FALSE
+  )
+}

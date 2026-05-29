@@ -89,25 +89,25 @@ test_that("OLE simulation report matches vignette", {
     "y4 ~ x1 + x2 + x3 + x4 + x5"
   )
 
-  method_obj_list <- suppressWarnings(list(
-    setup_method_DID(
-      method_name = "IPW", bootstrap_flag = TRUE, bootstrap_obj = bootstrap_obj,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5"
+  method_obj_list <- list(
+    did_ec_ipw(
+      ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+      trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
+      bootstrap = 50
     ),
-    setup_method_DID(
-      method_name = "AIPW", bootstrap_flag = TRUE, bootstrap_obj = bootstrap_obj,
-      model_form_piS = "S ~ x1 + x2 + x3 + x4 + x5",
-      model_form_piA = "A ~ x1 + x2 + x3 + x4 + x5",
-      model_form_mu0_ext = model_form_mu
+    did_ec_aipw(
+      ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+      trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
+      outcome_formula = model_form_mu,
+      bootstrap = 50
     ),
-    setup_method_DID(
-      method_name = "OR", bootstrap_flag = TRUE, bootstrap_obj = bootstrap_obj,
-      model_form_mu0_ext = model_form_mu,
-      model_form_mu0_rct = model_form_mu,
-      model_form_mu1_rct = model_form_mu
+    did_ec_or(
+      outcome_formula_ext = model_form_mu,
+      outcome_formula_rct_ctrl = model_form_mu,
+      outcome_formula_rct_trt = model_form_mu,
+      bootstrap = 50
     )
-  ))
+  )
 
   sim_obj <- setup_simulation_OLE(
     data_matrix_list      = sim_data,

@@ -31,8 +31,9 @@ An S4 object of class \code{did_ec_or_method}.
 }
 \description{
 Creates a method object for difference-in-differences outcome
-regression estimation with external control borrowing for the
-open-label extension phase (Zhou et al., 2024).
+regression (DID-EC-OR) estimation with external control borrowing
+for the open-label extension phase (Zhou et al., 2024, Eq. 3).
+Uses outcome models only (no propensity score model).
 }
 \examples{
 model_forms <- c(
