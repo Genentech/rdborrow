@@ -1,15 +1,15 @@
 # DID-EC-IPW method
 
-Creates a method object for difference-in-differences IPW estimation
-with external control borrowing for the open-label extension phase (Zhou
-et al., 2024).
+Creates a method object for difference-in-differences inverse
+probability weighting (DID-EC-IPW) estimation with external control
+borrowing for the open-label extension phase (Zhou et al., 2024, Eq. 4).
 
 ## Usage
 
 ``` r
 did_ec_ipw(
   ps_formula,
-  trt_formula = "",
+  trt_formula = NULL,
   bootstrap = 500L,
   bootstrap_ci_type = NULL
 )
@@ -24,8 +24,8 @@ did_ec_ipw(
 
 - trt_formula:
 
-  Formula string for the treatment assignment model, or `""` for
-  marginal probability.
+  Formula string for the treatment assignment model, or `NULL` (default)
+  for marginal probability.
 
 - bootstrap:
 

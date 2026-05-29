@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,16 +116,12 @@ alternative.</p></dd>
 <span class="r-in"><span>  treatment_col_name <span class="op">=</span> <span class="st">"A"</span>,</span></span>
 <span class="r-in"><span>  outcome_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  covariates_col_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="setup_method_weighting.html">setup_method_weighting</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    method_name <span class="op">=</span> <span class="st">"IPW"</span>,</span></span>
-<span class="r-in"><span>    optimal_weight_flag <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>    model_form_piS <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="ec_ipw.html">ec_ipw</a></span><span class="op">(</span>ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"IPW"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'setup_method_weighting' has been removed. Use ec_ipw() or ec_aipw() instead.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> setup_method_weighting() is no longer functional. Use ec_ipw() or ec_aipw().</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

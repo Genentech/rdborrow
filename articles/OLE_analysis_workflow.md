@@ -9,6 +9,25 @@ al. (2024)](https://doi.org/10.1080/10543406.2024.2444222) for
 estimating long-term treatment effects when the control group switches
 to treatment.
 
+The `SyntheticData` dataset has outcomes `y1`, `y2`, `y3`, `y4` measured
+at four time points, and `T_cross = 2`. This means `y1` and `y2` are
+from the placebo-controlled phase (Period I) and `y3` and `y4` are from
+the open-label extension (Period II). `T_cross` is the last column index
+of Period I in `outcome_col_name`.
+
+``` r
+
+head(SyntheticData[, c("A", "S", "y1", "y2", "y3", "y4")])
+```
+
+    ##   A S         y1         y2         y3        y4
+    ## 1 1 1  3.4512377 -0.7642287 -2.4713591  3.935466
+    ## 2 1 1  0.4518106  6.3516296  4.5231869 -0.198674
+    ## 3 0 1  3.0532714 -2.0453190  5.9064870 -1.374919
+    ## 4 1 1 -9.1183948  0.2304339  4.7858172  8.490757
+    ## 5 0 1 -1.4270057  1.5878794  3.7006101  9.449632
+    ## 6 0 1 -2.6967072 -0.6130288  0.7482786 -2.413717
+
 ### 1 DID methods
 
 #### 1.1 DID-EC-IPW

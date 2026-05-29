@@ -114,6 +114,15 @@ Simulate trial and external control data
 - [`SyntheticData`](https://genentech.github.io/rdborrow/reference/SyntheticData.md)
   : Synthetic example dataset for rdborrow
 
+## Deprecated
+
+- [`setup_method_weighting()`](https://genentech.github.io/rdborrow/reference/setup_method_weighting.md)
+  : Setup method weighting (Deprecated)
+- [`setup_method_DID()`](https://genentech.github.io/rdborrow/reference/setup_method_DID.md)
+  : Setup method DID (Deprecated)
+- [`setup_method_SCM()`](https://genentech.github.io/rdborrow/reference/setup_method_SCM.md)
+  : Setup method SCM (Deprecated)
+
 # Articles
 
 ### Getting Started

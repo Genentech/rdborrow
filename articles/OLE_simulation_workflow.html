@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
                         <h4 data-toc-skip class="author">Lei Shi,
 Matthew Secrest</h4>
             
-            <h4 data-toc-skip class="date">2026-05-28</h4>
+            <h4 data-toc-skip class="date">2026-05-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Genentech/rdborrow/blob/main/vignettes/OLE_simulation_workflow.Rmd" class="external-link"><code>vignettes/OLE_simulation_workflow.Rmd</code></a></small>
       <div class="d-none name"><code>OLE_simulation_workflow.Rmd</code></div>
@@ -67,10 +67,36 @@ Matthew Secrest</h4>
 <p>This vignette demonstrates Monte Carlo simulation for evaluating the
 difference-in-differences (DID) estimators proposed in <a href="https://doi.org/10.1080/10543406.2024.2444222" class="external-link">Zhou et
 al. (2024)</a> for the open-label extension (OLE) phase.</p>
+<p>The simulated data has four outcome columns (<code>y1</code>,
+<code>y2</code>, <code>y3</code>, <code>y4</code>) and a crossover point
+<code>T_cross = 2</code>. This means:</p>
+<ul>
+<li>
+<strong><code>y1</code>, <code>y2</code></strong> (columns 1 to
+<code>T_cross</code>): placebo-controlled phase (Period I). Both RCT
+controls and external controls are untreated. These outcomes serve as
+negative controls for bias correction.</li>
+<li>
+<strong><code>y3</code>, <code>y4</code></strong> (columns
+<code>T_cross + 1</code> to end): open-label extension phase (Period
+II). RCT controls have switched to treatment; external controls remain
+untreated. Treatment effects are estimated here.</li>
+</ul>
+<p>In other words, <code>T_cross</code> is the last index of the
+placebo-controlled phase in <code>outcome_col_name</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">SyntheticData</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   x1 x2 x3 x4       x5 A S T_cross         y1         y2         y3        y4</span></span>
+<span><span class="co">#&gt; 1  1  1  1  9 54.59836 1 1       2  3.4512377 -0.7642287 -2.4713591  3.935466</span></span>
+<span><span class="co">#&gt; 2  0  1  0  8 33.08006 1 1       2  0.4518106  6.3516296  4.5231869 -0.198674</span></span>
+<span><span class="co">#&gt; 3  1  1  1  7 48.51653 0 1       2  3.0532714 -2.0453190  5.9064870 -1.374919</span></span>
+<span><span class="co">#&gt; 4  1  1  1 15 31.68766 1 1       2 -9.1183948  0.2304339  4.7858172  8.490757</span></span>
+<span><span class="co">#&gt; 5  1  1  1 12 29.98495 0 1       2 -1.4270057  1.5878794  3.7006101  9.449632</span></span>
+<span><span class="co">#&gt; 6  1  1  0  7 46.08991 0 1       2 -2.6967072 -0.6130288  0.7482786 -2.413717</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="simulate-a-dataset-for-ole-study">1. Simulate a dataset for OLE study<a class="anchor" aria-label="anchor" href="#simulate-a-dataset-for-ole-study"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initialize an empty data list</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span></span>
 <span></span>
@@ -88,7 +114,7 @@ al. (2024)</a> for the open-label extension (OLE) phase.</p>
 <span><span class="va">outcome_col_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span><span class="op">)</span></span>
 <span><span class="va">treatment_col_name</span> <span class="op">&lt;-</span> <span class="st">"A"</span></span>
 <span><span class="va">trial_status_col_name</span> <span class="op">&lt;-</span> <span class="st">"S"</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sequentially adding in datasets</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">trial_iter</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">ntrial</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># simulate 300 sample</span></span>
@@ -173,7 +199,7 @@ al. (2024)</a> for the open-label extension (OLE) phase.</p>
 <div class="section level3">
 <h3 id="bootstrap-inference">2 Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_form_mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
 <span>  <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
@@ -209,7 +235,7 @@ al. (2024)</a> for the open-label extension (OLE) phase.</p>
 <span>  <span class="va">method_AIPW_DID</span>,</span>
 <span>  <span class="va">method_OR_DID</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a simulation object for primary analysis</span></span>
 <span><span class="va">simulation_OLE_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_simulation_OLE.html">setup_simulation_OLE</a></span><span class="op">(</span></span>
 <span>  data_matrix_list <span class="op">=</span> <span class="va">data_matrix_list</span>, <span class="co"># two scenarios</span></span>
@@ -227,9 +253,9 @@ al. (2024)</a> for the open-label extension (OLE) phase.</p>
 <span>    <span class="st">"OR, DID"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">simulation_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_simulation.html">run_simulation</a></span><span class="op">(</span><span class="va">simulation_OLE_obj</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simulation_report</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_simulation.html">run_simulation</a></span><span class="op">(</span><span class="va">simulation_OLE_obj</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simulation_report</span></span>
 <span><span class="co">#&gt;   method_description         bias variance      mse coverage type_I_error</span></span>
 <span><span class="co">#&gt; 1           IPW, DID -0.282537033 3.187900 3.267727    0.942        0.058</span></span>

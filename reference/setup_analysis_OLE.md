@@ -52,8 +52,12 @@ setup_analysis_OLE(
 
 - T_cross:
 
-  Integer crossover time point. The first `T_cross` outcomes are from
-  the placebo-controlled phase; the rest are OLE.
+  Integer crossover time point (column index boundary). The first
+  `T_cross` outcome columns are from the placebo-controlled phase and
+  are used as negative controls for bias correction. The remaining
+  `length(outcome_col_name) - T_cross` columns are from the open-label
+  extension phase and are used to estimate the treatment effect. Must be
+  a positive integer strictly less than `length(outcome_col_name)`.
 
 - alpha:
 

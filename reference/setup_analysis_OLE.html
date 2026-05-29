@@ -9,7 +9,7 @@ into an analysis object ready to be passed to run_analysis."><meta property="og:
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,8 +85,13 @@ covering both placebo-controlled and OLE periods.</p></dd>
 
 
 <dt id="arg-t-cross">T_cross<a class="anchor" aria-label="anchor" href="#arg-t-cross"></a></dt>
-<dd><p>Integer crossover time point. The first <code>T_cross</code>
-outcomes are from the placebo-controlled phase; the rest are OLE.</p></dd>
+<dd><p>Integer crossover time point (column index boundary).
+The first <code>T_cross</code> outcome columns are from the
+placebo-controlled phase and are used as negative controls for
+bias correction. The remaining <code>length(outcome_col_name) -
+T_cross</code> columns are from the open-label extension phase and are
+used to estimate the treatment effect. Must be a positive integer
+strictly less than <code>length(outcome_col_name)</code>.</p></dd>
 
 
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
