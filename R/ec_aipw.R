@@ -8,17 +8,13 @@ NULL
   slots = c(
     ps_formula = "character",
     outcome_formula = "character",
-    weight = "numericOrNULL",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "characterOrNULL"
+    weight = "numericOrNULL"
   ),
   prototype = list(
     method_name = "EC-AIPW",
     ps_formula = "",
     outcome_formula = "",
-    weight = NULL,
-    bootstrap = NULL,
-    bootstrap_ci_type = NULL
+    weight = NULL
   )
 )
 

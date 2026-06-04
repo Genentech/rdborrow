@@ -8,17 +8,13 @@ NULL
   slots = c(
     outcome_formula_ext = "character",
     outcome_formula_rct_ctrl = "character",
-    outcome_formula_rct_trt = "character",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    outcome_formula_rct_trt = "character"
   ),
   prototype = list(
     method_name = "DID-EC-OR",
     outcome_formula_ext = "",
     outcome_formula_rct_ctrl = "",
-    outcome_formula_rct_trt = "",
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    outcome_formula_rct_trt = ""
   )
 )
 

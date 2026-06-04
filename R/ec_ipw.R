@@ -7,16 +7,12 @@ NULL
   contains = "method_weighting_obj",
   slots = c(
     ps_formula = "character",
-    weight = "numericOrNULL",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "characterOrNULL"
+    weight = "numericOrNULL"
   ),
   prototype = list(
     method_name = "EC-IPW",
     ps_formula = "",
-    weight = NULL,
-    bootstrap = NULL,
-    bootstrap_ci_type = NULL
+    weight = NULL
   )
 )
 

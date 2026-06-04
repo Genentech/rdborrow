@@ -1,12 +1,25 @@
+# class unions----
+setClassUnion("numericOrNULL", c("numeric", "NULL"))
+setClassUnion("characterOrNULL", c("character", "NULL"))
+
 #' Method classes
 #'
 #' @slot method_name character.
+#' @slot bootstrap Number of bootstrap replicates, or NULL.
+#' @slot bootstrap_ci_type Bootstrap CI type, or NULL.
 #'
 #' @keywords internal
 .method_obj <- setClass(
   "method_obj",
   slots = c(
-    method_name = "character"
+    method_name = "character",
+    bootstrap = "numericOrNULL",
+    bootstrap_ci_type = "characterOrNULL"
+  ),
+  prototype = list(
+    method_name = "",
+    bootstrap = NULL,
+    bootstrap_ci_type = NULL
   )
 )
 

@@ -7,16 +7,12 @@ NULL
   contains = "method_DID_obj",
   slots = c(
     ps_formula = "character",
-    trt_formula = "characterOrNULL",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    trt_formula = "characterOrNULL"
   ),
   prototype = list(
     method_name = "DID-EC-IPW",
     ps_formula = "",
-    trt_formula = NULL,
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    trt_formula = NULL
   )
 )
 

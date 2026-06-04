@@ -8,17 +8,13 @@ NULL
   slots = c(
     ps_formula = "character",
     trt_formula = "characterOrNULL",
-    outcome_formula = "character",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    outcome_formula = "character"
   ),
   prototype = list(
     method_name = "DID-EC-AIPW",
     ps_formula = "",
     trt_formula = NULL,
-    outcome_formula = "",
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    outcome_formula = ""
   )
 )
 

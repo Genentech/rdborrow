@@ -10,9 +10,7 @@ NULL
     lambda_max = "numeric",
     nlambda = "integer",
     parallel = "character",
-    ncpus = "integer",
-    bootstrap = "numeric",
-    bootstrap_ci_type = "character"
+    ncpus = "integer"
   ),
   prototype = list(
     method_name = "SCM",
@@ -20,9 +18,7 @@ NULL
     lambda_max = 0.1,
     nlambda = 2L,
     parallel = "no",
-    ncpus = 1L,
-    bootstrap = 100L,
-    bootstrap_ci_type = "perc"
+    ncpus = 1L
   )
 )
 

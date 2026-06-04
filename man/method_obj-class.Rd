@@ -12,6 +12,10 @@ Method classes
 
 \describe{
 \item{\code{method_name}}{character.}
+
+\item{\code{bootstrap}}{Number of bootstrap replicates, or NULL.}
+
+\item{\code{bootstrap_ci_type}}{Bootstrap CI type, or NULL.}
 }}
 
 \keyword{internal}
