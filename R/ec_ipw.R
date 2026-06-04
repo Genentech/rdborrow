@@ -89,12 +89,7 @@ ec_ipw <- function(ps_formula,
     weight = weight,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "EC-IPW",
-    bootstrap_flag = !is.null(bootstrap),
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap %||% 500L,
-      bootstrap_CI_type = bootstrap_ci_type %||% "perc"
-    )
+    method_name = "EC-IPW"
   )
 }
 
@@ -341,7 +336,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .ec_ipw_boot_statistic <- function(data, indices, outcomes, covariates,
-                              ps_formula, borrow_wt) {
+                                   ps_formula, borrow_wt) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
   S <- d$S

@@ -84,12 +84,7 @@ did_ec_aipw <- function(ps_formula,
     outcome_formula = outcome_formula,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-AIPW",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-AIPW"
   )
 }
 
@@ -229,6 +224,8 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
                                         trt_formula, outcome_formula, T_cross) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
-  .did_ec_aipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
-    outcome_formula)$tau
+  .did_ec_aipw_core(
+    d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
+    outcome_formula
+  )$tau
 }

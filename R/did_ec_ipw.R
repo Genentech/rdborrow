@@ -71,12 +71,7 @@ did_ec_ipw <- function(ps_formula,
     trt_formula = trt_formula,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-IPW",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-IPW"
   )
 }
 

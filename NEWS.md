@@ -1,6 +1,7 @@
 # rdborrow 0.0.4.0
 
 ## Breaking changes
+- `setup_bootstrap()` has been removed. Bootstrap settings are now specified directly in method constructors (e.g., `ec_ipw(bootstrap = 500, bootstrap_ci_type = "perc")`). Calling `setup_bootstrap()` now raises an error with migration instructions.
 - `setup_method_weighting()`, `setup_method_DID()`, and `setup_method_SCM()` have been removed. Use `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()`, `did_ec_aipw()`, `did_ec_or()`, or `scm()` instead. Calling the old constructors now raises an error with migration instructions.
 - `EC_IPW_OPT()`, `EC_AIPW_OPT()`, and all `legacy_DID_EC_*` / `legacy_SCM*` internal functions have been deleted.
 - `did_ec_ipw()` and `did_ec_aipw()`: `trt_formula` default changed from `""` to `NULL`.

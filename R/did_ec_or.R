@@ -86,12 +86,7 @@ did_ec_or <- function(outcome_formula_ext,
     outcome_formula_rct_trt = outcome_formula_rct_trt,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-OR",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-OR"
   )
 }
 
@@ -216,6 +211,8 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
                                       outcome_formula_rct_trt,
                                       T_cross) {
   d <- data[indices, , drop = FALSE]
-  .did_ec_or_core(d, d$S, d$A, T_cross, outcome_formula_ext,
-    outcome_formula_rct_ctrl, outcome_formula_rct_trt)$tau
+  .did_ec_or_core(
+    d, d$S, d$A, T_cross, outcome_formula_ext,
+    outcome_formula_rct_ctrl, outcome_formula_rct_trt
+  )$tau
 }

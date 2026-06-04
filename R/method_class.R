@@ -1,17 +1,12 @@
 #' Method classes
 #'
 #' @slot method_name character.
-#' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
-#' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
 #'
 #' @keywords internal
-#' @include bootstrap_class.R
 .method_obj <- setClass(
   "method_obj",
   slots = c(
-    method_name = "character",
-    bootstrap_flag = "logical",
-    bootstrap_obj = "bootstrap_obj"
+    method_name = "character"
   )
 )
 
@@ -94,22 +89,10 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 }
 
 #' Create a base method_obj (internal, used only in tests).
-#' Users should call ec_ipw(), ec_aipw(), did_ec_ipw(), etc. instead.
 #' @param method_name character identifier for the method.
-#' @param bootstrap_flag logical whether bootstrap is used.
-#' @param bootstrap_obj bootstrap_obj with replicates and CI type.
 #' @return a method_obj S4 instance.
 #' @noRd
-setup_method <- function(method_name = "",
-                         bootstrap_flag = FALSE,
-                         bootstrap_obj = .bootstrap_obj()) {
+setup_method <- function(method_name = "") {
   checkmate::assert_string(method_name)
-  checkmate::assert_flag(bootstrap_flag)
-  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
-
-  .method_obj(
-    method_name = method_name,
-    bootstrap_flag = bootstrap_flag,
-    bootstrap_obj = bootstrap_obj
-  )
+  .method_obj(method_name = method_name)
 }

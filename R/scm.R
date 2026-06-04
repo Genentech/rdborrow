@@ -86,12 +86,7 @@ scm <- function(lambda_min = 0,
     ncpus = as.integer(ncpus),
     bootstrap = as.integer(bootstrap),
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "SCM",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = as.integer(bootstrap),
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "SCM"
   )
 }
 
@@ -265,7 +260,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .scm_boot_statistic <- function(data, indices, outcomes, covariates,
-                           T_cross, lambda) {
+                                T_cross, lambda) {
   d <- data[indices, , drop = FALSE]
   S <- d$S
   A <- d$A

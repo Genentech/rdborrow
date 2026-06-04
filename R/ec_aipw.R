@@ -104,12 +104,7 @@ ec_aipw <- function(ps_formula,
     weight = weight,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "EC-AIPW",
-    bootstrap_flag = !is.null(bootstrap),
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap %||% 500L,
-      bootstrap_CI_type = bootstrap_ci_type %||% "perc"
-    )
+    method_name = "EC-AIPW"
   )
 }
 
@@ -185,7 +180,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
-
   # see Zhou 2024a: Def 2 (Eq 7) for point estimate, Eq 11 for optimal weight
 
   Y <- as.matrix(df[, outcomes, drop = FALSE])
@@ -255,7 +249,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
 .ec_aipw_se <- function(df, core, n_time, outcome_formula) {
-  
   # see Zhou 2024a: Theorem 4 (Eq 15 for A/B matrices, Eq 16 for variance)
 
   S <- df$S
@@ -354,7 +347,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .ec_aipw_boot_statistic <- function(data, indices, outcomes, covariates,
-                               ps_formula, outcome_formula, borrow_wt) {
+                                    ps_formula, outcome_formula, borrow_wt) {
   d <- data[indices, , drop = FALSE]
   core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, borrow_wt)
   core$tau

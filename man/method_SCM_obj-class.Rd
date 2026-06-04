@@ -8,18 +8,4 @@
 \description{
 Method SCM class
 }
-\section{Slots}{
-
-\describe{
-\item{\code{parallel}}{Parallelization type for boot.}
-
-\item{\code{ncpus}}{Number of CPUs for parallel bootstrap.}
-
-\item{\code{lambda.min}}{Minimum penalty parameter.}
-
-\item{\code{lambda.max}}{Maximum penalty parameter.}
-
-\item{\code{nlambda}}{Number of lambda values for cross-validation.}
-}}
-
 \keyword{internal}

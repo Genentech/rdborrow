@@ -12,10 +12,6 @@ Method classes
 
 \describe{
 \item{\code{method_name}}{character.}
-
-\item{\code{bootstrap_flag}}{Logical indicating whether bootstrap inference is used.}
-
-\item{\code{bootstrap_obj}}{A bootstrap_obj with bootstrap settings.}
 }}
 
 \keyword{internal}

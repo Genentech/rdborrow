@@ -68,3 +68,28 @@ setup_method_SCM <- function(...) {
     call. = FALSE
   )
 }
+
+#' Setup bootstrap (Deprecated)
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Bootstrap settings are now specified directly in each method
+#' constructor (e.g., [ec_ipw()], [did_ec_ipw()]). The separate
+#' bootstrap object is no longer needed.
+#'
+#' @param ... Ignored.
+#'
+#' @export
+setup_bootstrap <- function(...) {
+  .Deprecated(msg = paste(
+    "'setup_bootstrap' has been removed.",
+    "Bootstrap settings are now passed directly to method constructors",
+    "(e.g., ec_ipw(bootstrap = 500, bootstrap_ci_type = 'perc'))."
+  ))
+  stop(
+    "setup_bootstrap() is no longer functional. ",
+    "Pass bootstrap settings directly to method constructors.",
+    call. = FALSE
+  )
+}
