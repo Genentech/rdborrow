@@ -65,11 +65,14 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @param bootstrap number of bootstrap replicates.
 #' @param bootstrap_ci_type short CI type name ("perc", "bca", etc.).
 #' @param alpha significance level for CIs.
+#' @param parallel parallelization type for boot ("no", "multicore", "snow").
+#' @param ncpus number of CPUs for parallel bootstrap.
 #' @param ... additional arguments passed through to statistic.
 #' @return list with lower_ci, upper_ci (vectors), and sd_boot (vector).
 #' @noRd
 .run_bootstrap <- function(df, statistic, n_estimates, bootstrap,
-                           bootstrap_ci_type, alpha, ...) {
+                           bootstrap_ci_type, alpha,
+                           parallel = "no", ncpus = 1L, ...) {
   group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
   ci_type_long <- switch(bootstrap_ci_type,
@@ -85,6 +88,8 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     statistic = statistic,
     R = bootstrap,
     strata = group_id,
+    parallel = parallel,
+    ncpus = ncpus,
     ...
   )
 

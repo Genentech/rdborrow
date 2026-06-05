@@ -137,42 +137,20 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 
   # bootstrap inference
   if (!quiet) cat("Performing bootstrap inference...\n")
-  group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
-
-  ci_type_long <- switch(method@bootstrap_ci_type,
-    norm = "normal",
-    bca = "bca",
-    stud = "student",
-    perc = "percent",
-    basic = "basic"
-  )
-
-  boot_out <- boot::boot(
-    data = df,
-    statistic = .scm_boot_statistic,
-    outcomes = outcomes,
-    covariates = covariates,
-    T_cross = T_cross,
-    lambda = lambda,
-    parallel = method@parallel,
-    ncpus = method@ncpus,
-    R = method@bootstrap,
-    strata = group_id
-  )
-
   n_ole <- n_time - T_cross
-  ci_bounds <- vapply(seq_len(n_ole), \(i) {
-    ci <- boot::boot.ci(boot_out,
-      conf = 1 - alpha,
-      type = method@bootstrap_ci_type, index = i
-    )
-    ci[[ci_type_long]][4:5]
-  }, numeric(2))
+  boot_res <- .run_bootstrap(
+    df = df, statistic = .scm_boot_statistic,
+    n_estimates = n_ole, bootstrap = method@bootstrap,
+    bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+    parallel = method@parallel, ncpus = method@ncpus,
+    outcomes = outcomes, covariates = covariates,
+    T_cross = T_cross, lambda = lambda
+  )
 
   data.frame(
     point_estimates = tau,
-    lower_CI_boot = ci_bounds[1, ],
-    upper_CI_boot = ci_bounds[2, ],
+    lower_CI_boot = boot_res$lower_ci,
+    upper_CI_boot = boot_res$upper_ci,
     row.names = paste0("tau", (T_cross + 1):n_time)
   )
 })
