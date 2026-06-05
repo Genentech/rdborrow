@@ -117,7 +117,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       call. = FALSE
     )
   }
-  df <- build_analysis_df(method, data, outcomes, treatment, trial_status, covariates)
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   n_time <- length(outcomes)
 
   if (!quiet) cat("Running EC-AIPW estimator...\n")
