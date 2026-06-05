@@ -81,27 +81,13 @@ scm(lambda_min = 0, lambda_max = 0.001, nlambda = 2, bootstrap = 50)
 #> Slot "ncpus":
 #> [1] 1
 #> 
+#> Slot "method_name":
+#> [1] "SCM"
+#> 
 #> Slot "bootstrap":
 #> [1] 50
 #> 
 #> Slot "bootstrap_ci_type":
 #> [1] "perc"
-#> 
-#> Slot "lambda.min":
-#> numeric(0)
-#> 
-#> Slot "lambda.max":
-#> numeric(0)
-#> 
-#> Slot "method_name":
-#> [1] "SCM"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] TRUE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 50 
-#>   CI type: Percentile 
 #> 
 ```

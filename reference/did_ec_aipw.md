@@ -78,36 +78,13 @@ did_ec_aipw(
 #> [1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
 #> [3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
 #> 
+#> Slot "method_name":
+#> [1] "DID-EC-AIPW"
+#> 
 #> Slot "bootstrap":
 #> [1] 500
 #> 
 #> Slot "bootstrap_ci_type":
 #> [1] "perc"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] TRUE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 500 
-#>   CI type: Percentile 
-#> 
-#> Slot "model_form_piS":
-#> [1] ""
-#> 
-#> Slot "model_form_piA":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_ext":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_rct":
-#> [1] ""
-#> 
-#> Slot "model_form_mu1_rct":
-#> [1] ""
-#> 
-#> Slot "method_name":
-#> [1] "DID-EC-AIPW"
 #> 
 ```

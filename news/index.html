@@ -36,6 +36,8 @@
 <div class="section level3">
 <h3 id="breaking-changes-0-0-4-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-4-0"></a></h3>
 <ul><li>
+<code><a href="../reference/setup_bootstrap.html">setup_bootstrap()</a></code> has been removed. Bootstrap settings are now specified directly in method constructors (e.g., <code>ec_ipw(bootstrap = 500, bootstrap_ci_type = "perc")</code>). Calling <code><a href="../reference/setup_bootstrap.html">setup_bootstrap()</a></code> now raises an error with migration instructions.</li>
+<li>
 <code><a href="../reference/setup_method_weighting.html">setup_method_weighting()</a></code>, <code><a href="../reference/setup_method_DID.html">setup_method_DID()</a></code>, and <code><a href="../reference/setup_method_SCM.html">setup_method_SCM()</a></code> have been removed. Use <code><a href="../reference/ec_ipw.html">ec_ipw()</a></code>, <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code>, <code><a href="../reference/did_ec_ipw.html">did_ec_ipw()</a></code>, <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code>, <code><a href="../reference/did_ec_or.html">did_ec_or()</a></code>, or <code><a href="../reference/scm.html">scm()</a></code> instead. Calling the old constructors now raises an error with migration instructions.</li>
 <li>
 <code>EC_IPW_OPT()</code>, <code>EC_AIPW_OPT()</code>, and all <code>legacy_DID_EC_*</code> / <code>legacy_SCM*</code> internal functions have been deleted.</li>

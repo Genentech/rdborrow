@@ -1,33 +1,19 @@
-# Construct a bootstrap object
+# Setup bootstrap (Deprecated)
 
-Construct a bootstrap object
+\`r lifecycle::badge("deprecated")\`
+
+Bootstrap settings are now specified directly in each method constructor
+(e.g., \[ec_ipw()\], \[did_ec_ipw()\]). The separate bootstrap object is
+no longer needed.
 
 ## Usage
 
 ``` r
-setup_bootstrap(replicates = 500, bootstrap_CI_type = "bca")
+setup_bootstrap(...)
 ```
 
 ## Arguments
 
-- replicates:
+- ...:
 
-  Number of bootstrap replicates.
-
-- bootstrap_CI_type:
-
-  Type of bootstrap CI. One of `"bca"`, `"norm"`, `"basic"`, `"stud"`,
-  or `"perc"`.
-
-## Value
-
-A bootstrap object.
-
-## Examples
-
-``` r
-bootstrap_obj <- setup_bootstrap(
-  replicates = 2e3,
-  bootstrap_CI_type = "perc"
-)
-```
+  Ignored.

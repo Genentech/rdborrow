@@ -4,6 +4,12 @@
 
 ### Breaking changes
 
+- [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
+  has been removed. Bootstrap settings are now specified directly in
+  method constructors (e.g.,
+  `ec_ipw(bootstrap = 500, bootstrap_ci_type = "perc")`). Calling
+  [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
+  now raises an error with migration instructions.
 - [`setup_method_weighting()`](https://genentech.github.io/rdborrow/reference/setup_method_weighting.md),
   [`setup_method_DID()`](https://genentech.github.io/rdborrow/reference/setup_method_DID.md),
   and

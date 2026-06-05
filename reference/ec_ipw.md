@@ -58,43 +58,14 @@ ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 #> Slot "weight":
 #> NULL
 #> 
+#> Slot "method_name":
+#> [1] "EC-IPW"
+#> 
 #> Slot "bootstrap":
 #> NULL
 #> 
 #> Slot "bootstrap_ci_type":
 #> NULL
-#> 
-#> Slot "optimal_weight_flag":
-#> [1] FALSE
-#> 
-#> Slot "wt":
-#> [1] 0
-#> 
-#> Slot "model_form_piS":
-#> [1] ""
-#> 
-#> Slot "model_form_piA":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_ext":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_rct":
-#> [1] ""
-#> 
-#> Slot "model_form_mu1_rct":
-#> [1] ""
-#> 
-#> Slot "method_name":
-#> [1] "EC-IPW"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] FALSE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 500 
-#>   CI type: Percentile 
 #> 
 
 # no borrowing
@@ -106,43 +77,14 @@ ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5", weight = 0)
 #> Slot "weight":
 #> [1] 0
 #> 
+#> Slot "method_name":
+#> [1] "EC-IPW"
+#> 
 #> Slot "bootstrap":
 #> NULL
 #> 
 #> Slot "bootstrap_ci_type":
 #> NULL
-#> 
-#> Slot "optimal_weight_flag":
-#> [1] FALSE
-#> 
-#> Slot "wt":
-#> [1] 0
-#> 
-#> Slot "model_form_piS":
-#> [1] ""
-#> 
-#> Slot "model_form_piA":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_ext":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_rct":
-#> [1] ""
-#> 
-#> Slot "model_form_mu1_rct":
-#> [1] ""
-#> 
-#> Slot "method_name":
-#> [1] "EC-IPW"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] FALSE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 500 
-#>   CI type: Percentile 
 #> 
 
 # optimal weight with bootstrap
@@ -157,43 +99,14 @@ ec_ipw(
 #> Slot "weight":
 #> NULL
 #> 
+#> Slot "method_name":
+#> [1] "EC-IPW"
+#> 
 #> Slot "bootstrap":
 #> [1] 500
 #> 
 #> Slot "bootstrap_ci_type":
 #> [1] "perc"
-#> 
-#> Slot "optimal_weight_flag":
-#> [1] FALSE
-#> 
-#> Slot "wt":
-#> [1] 0
-#> 
-#> Slot "model_form_piS":
-#> [1] ""
-#> 
-#> Slot "model_form_piA":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_ext":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_rct":
-#> [1] ""
-#> 
-#> Slot "model_form_mu1_rct":
-#> [1] ""
-#> 
-#> Slot "method_name":
-#> [1] "EC-IPW"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] TRUE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 500 
-#>   CI type: Percentile 
 #> 
 
 # fixed weight with bootstrap
@@ -209,42 +122,13 @@ ec_ipw(
 #> Slot "weight":
 #> [1] 0.3
 #> 
+#> Slot "method_name":
+#> [1] "EC-IPW"
+#> 
 #> Slot "bootstrap":
 #> [1] 500
 #> 
 #> Slot "bootstrap_ci_type":
 #> [1] "perc"
-#> 
-#> Slot "optimal_weight_flag":
-#> [1] FALSE
-#> 
-#> Slot "wt":
-#> [1] 0
-#> 
-#> Slot "model_form_piS":
-#> [1] ""
-#> 
-#> Slot "model_form_piA":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_ext":
-#> [1] ""
-#> 
-#> Slot "model_form_mu0_rct":
-#> [1] ""
-#> 
-#> Slot "model_form_mu1_rct":
-#> [1] ""
-#> 
-#> Slot "method_name":
-#> [1] "EC-IPW"
-#> 
-#> Slot "bootstrap_flag":
-#> [1] TRUE
-#> 
-#> Slot "bootstrap_obj":
-#> <bootstrap_obj>
-#>   Replicates: 500 
-#>   CI type: Percentile 
 #> 
 ```

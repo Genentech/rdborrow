@@ -8,10 +8,10 @@ Method classes
 
   character.
 
-- `bootstrap_flag`:
+- `bootstrap`:
 
-  Logical indicating whether bootstrap inference is used.
+  Number of bootstrap replicates, or NULL.
 
-- `bootstrap_obj`:
+- `bootstrap_ci_type`:
 
-  A bootstrap_obj with bootstrap settings.
+  Bootstrap CI type, or NULL.

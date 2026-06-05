@@ -71,3 +71,5 @@ Simulate trial and external control data
   : Setup method DID (Deprecated)
 - [`setup_method_SCM()`](https://genentech.github.io/rdborrow/reference/setup_method_SCM.md)
   : Setup method SCM (Deprecated)
+- [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
+  : Setup bootstrap (Deprecated)
