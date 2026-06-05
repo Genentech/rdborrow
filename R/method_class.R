@@ -106,6 +106,16 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   list(lower_ci = ci_bounds[1, ], upper_ci = ci_bounds[2, ], sd_boot = sd_boot)
 }
 
+#' @noRd
+.build_analysis_df <- function(data, outcomes, treatment, trial_status,
+                               covariates) {
+  Y <- as.matrix(data[, outcomes, drop = FALSE])
+  data.frame(Y,
+    S = data[[trial_status]], A = data[[treatment]],
+    data[, covariates, drop = FALSE]
+  )
+}
+
 #' Create a base method_obj (internal, used only in tests).
 #' @param method_name character identifier for the method.
 #' @return a method_obj S4 instance.

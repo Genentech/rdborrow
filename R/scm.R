@@ -94,11 +94,9 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
                                              covariates, alpha = 0.05,
                                              quiet = TRUE,
                                              T_cross) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
-
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  S <- df$S
+  A <- df$A
   n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
