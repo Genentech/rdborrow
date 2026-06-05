@@ -46,57 +46,21 @@
 #' )
 #' run_analysis(analysis)
 run_analysis <- function(analysis_obj, quiet = TRUE) {
-  # sanity check
-  ## TODO:
-  # correct initialization of objects
-  # correct dimension compatible
-  #
-
-  data <- analysis_obj@data
-  outcome_col_name <- analysis_obj@outcome_col_name
-  trial_status_col_name <- analysis_obj@trial_status_col_name
-  treatment_col_name <- analysis_obj@treatment_col_name
-  covariates_col_name <- analysis_obj@covariates_col_name
-  alpha <- analysis_obj@alpha
   method <- analysis_obj@method_obj
-  Bootstrap <- method@bootstrap_obj
 
-  bootstrap_flag <- method@bootstrap_flag
-  R <- Bootstrap@replicates
-  bootstrap_CI_type <- Bootstrap@bootstrap_CI_type
-
-  method_type <- is(method)[1]
-  if (is(analysis_obj)[1] == "analysis_OLE_obj") {
-    T_cross <- analysis_obj@T_cross
+  args <- list(
+    method = method,
+    data = analysis_obj@data,
+    outcomes = analysis_obj@outcome_col_name,
+    treatment = analysis_obj@treatment_col_name,
+    trial_status = analysis_obj@trial_status_col_name,
+    covariates = analysis_obj@covariates_col_name,
+    alpha = analysis_obj@alpha,
+    quiet = quiet
+  )
+  if (is(analysis_obj, "analysis_OLE_obj")) {
+    args$T_cross <- analysis_obj@T_cross
   }
 
-  if (is(method, "ec_ipw_method") || is(method, "ec_aipw_method")) {
-    res <- estimate(method,
-      data = data,
-      outcomes = outcome_col_name,
-      treatment = treatment_col_name,
-      trial_status = trial_status_col_name,
-      covariates = covariates_col_name,
-      alpha = alpha,
-      quiet = quiet
-    )
-  } else if (is(method, "did_ec_ipw_method") ||
-    is(method, "did_ec_aipw_method") ||
-    is(method, "did_ec_or_method") ||
-    is(method, "scm_method")) {
-    res <- estimate(method,
-      data = data,
-      outcomes = outcome_col_name,
-      treatment = treatment_col_name,
-      trial_status = trial_status_col_name,
-      covariates = covariates_col_name,
-      alpha = alpha,
-      quiet = quiet,
-      T_cross = T_cross
-    )
-  } else {
-    stop("No such method type is defined!")
-  }
-
-  res
+  do.call(estimate, args)
 }

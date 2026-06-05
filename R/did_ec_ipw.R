@@ -7,16 +7,12 @@ NULL
   contains = "method_DID_obj",
   slots = c(
     ps_formula = "character",
-    trt_formula = "characterOrNULL",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    trt_formula = "characterOrNULL"
   ),
   prototype = list(
     method_name = "DID-EC-IPW",
     ps_formula = "",
-    trt_formula = NULL,
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    trt_formula = NULL
   )
 )
 
@@ -71,12 +67,7 @@ did_ec_ipw <- function(ps_formula,
     trt_formula = trt_formula,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-IPW",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-IPW"
   )
 }
 
@@ -86,17 +77,16 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
                                                     covariates, alpha = 0.05,
                                                     quiet = TRUE,
                                                     T_cross) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  S <- df$S
+  A <- df$A
 
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   trt_formula <- method@trt_formula
   if (!is.null(trt_formula)) {
     trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
   }
-
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
 
   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
 

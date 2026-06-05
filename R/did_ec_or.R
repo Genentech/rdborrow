@@ -8,17 +8,13 @@ NULL
   slots = c(
     outcome_formula_ext = "character",
     outcome_formula_rct_ctrl = "character",
-    outcome_formula_rct_trt = "character",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    outcome_formula_rct_trt = "character"
   ),
   prototype = list(
     method_name = "DID-EC-OR",
     outcome_formula_ext = "",
     outcome_formula_rct_ctrl = "",
-    outcome_formula_rct_trt = "",
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    outcome_formula_rct_trt = ""
   )
 )
 
@@ -86,12 +82,7 @@ did_ec_or <- function(outcome_formula_ext,
     outcome_formula_rct_trt = outcome_formula_rct_trt,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-OR",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-OR"
   )
 }
 
@@ -103,11 +94,9 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
                                                    covariates, alpha = 0.05,
                                                    quiet = TRUE,
                                                    T_cross) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
-
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  S <- df$S
+  A <- df$A
 
   if (!quiet) cat("Running DID-EC-OR estimator...\n")
 
@@ -121,7 +110,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 
   if (!quiet) cat("Running bootstrap inference...\n")
 
-  n_ole <- ncol(Y) - T_cross
+  n_ole <- length(outcomes) - T_cross
   boot_res <- .run_bootstrap(
     df = df, statistic = .did_ec_or_boot_statistic,
     n_estimates = n_ole, bootstrap = method@bootstrap,
@@ -137,7 +126,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
     point_estimates = tau,
     lower_CI_boot = boot_res$lower_ci,
     upper_CI_boot = boot_res$upper_ci,
-    row.names = paste0("tau", (T_cross + 1):ncol(Y))
+    row.names = paste0("tau", (T_cross + 1):length(outcomes))
   )
 })
 
@@ -216,6 +205,8 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
                                       outcome_formula_rct_trt,
                                       T_cross) {
   d <- data[indices, , drop = FALSE]
-  .did_ec_or_core(d, d$S, d$A, T_cross, outcome_formula_ext,
-    outcome_formula_rct_ctrl, outcome_formula_rct_trt)$tau
+  .did_ec_or_core(
+    d, d$S, d$A, T_cross, outcome_formula_ext,
+    outcome_formula_rct_ctrl, outcome_formula_rct_trt
+  )$tau
 }

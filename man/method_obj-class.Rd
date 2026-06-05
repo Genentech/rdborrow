@@ -13,9 +13,9 @@ Method classes
 \describe{
 \item{\code{method_name}}{character.}
 
-\item{\code{bootstrap_flag}}{Logical indicating whether bootstrap inference is used.}
+\item{\code{bootstrap}}{Number of bootstrap replicates, or NULL.}
 
-\item{\code{bootstrap_obj}}{A bootstrap_obj with bootstrap settings.}
+\item{\code{bootstrap_ci_type}}{Bootstrap CI type, or NULL.}
 }}
 
 \keyword{internal}

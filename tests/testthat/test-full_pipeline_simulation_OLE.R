@@ -80,8 +80,6 @@ generate_OLE_sim_data <- function() {
 test_that("OLE simulation report matches vignette", {
   sim_data <- generate_OLE_sim_data()
 
-  bootstrap_obj <- setup_bootstrap(replicates = 50, bootstrap_CI_type = "perc")
-
   model_form_mu <- c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
     "y2 ~ x1 + x2 + x3 + x4 + x5",

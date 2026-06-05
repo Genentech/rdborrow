@@ -1,17 +1,25 @@
+# class unions----
+setClassUnion("numericOrNULL", c("numeric", "NULL"))
+setClassUnion("characterOrNULL", c("character", "NULL"))
+
 #' Method classes
 #'
 #' @slot method_name character.
-#' @slot bootstrap_flag Logical indicating whether bootstrap inference is used.
-#' @slot bootstrap_obj A bootstrap_obj with bootstrap settings.
+#' @slot bootstrap Number of bootstrap replicates, or NULL.
+#' @slot bootstrap_ci_type Bootstrap CI type, or NULL.
 #'
 #' @keywords internal
-#' @include bootstrap_class.R
 .method_obj <- setClass(
   "method_obj",
   slots = c(
     method_name = "character",
-    bootstrap_flag = "logical",
-    bootstrap_obj = "bootstrap_obj"
+    bootstrap = "numericOrNULL",
+    bootstrap_ci_type = "characterOrNULL"
+  ),
+  prototype = list(
+    method_name = "",
+    bootstrap = NULL,
+    bootstrap_ci_type = NULL
   )
 )
 
@@ -57,11 +65,14 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @param bootstrap number of bootstrap replicates.
 #' @param bootstrap_ci_type short CI type name ("perc", "bca", etc.).
 #' @param alpha significance level for CIs.
+#' @param parallel parallelization type for boot ("no", "multicore", "snow").
+#' @param ncpus number of CPUs for parallel bootstrap.
 #' @param ... additional arguments passed through to statistic.
 #' @return list with lower_ci, upper_ci (vectors), and sd_boot (vector).
 #' @noRd
 .run_bootstrap <- function(df, statistic, n_estimates, bootstrap,
-                           bootstrap_ci_type, alpha, ...) {
+                           bootstrap_ci_type, alpha,
+                           parallel = "no", ncpus = 1L, ...) {
   group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
 
   ci_type_long <- switch(bootstrap_ci_type,
@@ -77,6 +88,8 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     statistic = statistic,
     R = bootstrap,
     strata = group_id,
+    parallel = parallel,
+    ncpus = ncpus,
     ...
   )
 
@@ -93,23 +106,21 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   list(lower_ci = ci_bounds[1, ], upper_ci = ci_bounds[2, ], sd_boot = sd_boot)
 }
 
+#' @noRd
+.build_analysis_df <- function(data, outcomes, treatment, trial_status,
+                               covariates) {
+  Y <- as.matrix(data[, outcomes, drop = FALSE])
+  data.frame(Y,
+    S = data[[trial_status]], A = data[[treatment]],
+    data[, covariates, drop = FALSE]
+  )
+}
+
 #' Create a base method_obj (internal, used only in tests).
-#' Users should call ec_ipw(), ec_aipw(), did_ec_ipw(), etc. instead.
 #' @param method_name character identifier for the method.
-#' @param bootstrap_flag logical whether bootstrap is used.
-#' @param bootstrap_obj bootstrap_obj with replicates and CI type.
 #' @return a method_obj S4 instance.
 #' @noRd
-setup_method <- function(method_name = "",
-                         bootstrap_flag = FALSE,
-                         bootstrap_obj = .bootstrap_obj()) {
+setup_method <- function(method_name = "") {
   checkmate::assert_string(method_name)
-  checkmate::assert_flag(bootstrap_flag)
-  checkmate::assert_class(bootstrap_obj, "bootstrap_obj")
-
-  .method_obj(
-    method_name = method_name,
-    bootstrap_flag = bootstrap_flag,
-    bootstrap_obj = bootstrap_obj
-  )
+  .method_obj(method_name = method_name)
 }

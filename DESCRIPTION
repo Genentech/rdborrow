@@ -73,7 +73,6 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Collate: 
-    'bootstrap_class.R'
     'method_class.R'
     'analysis_class.R'
     'method_SCM_class.R'

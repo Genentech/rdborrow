@@ -8,17 +8,13 @@ NULL
   slots = c(
     ps_formula = "character",
     trt_formula = "characterOrNULL",
-    outcome_formula = "character",
-    bootstrap = "numericOrNULL",
-    bootstrap_ci_type = "character"
+    outcome_formula = "character"
   ),
   prototype = list(
     method_name = "DID-EC-AIPW",
     ps_formula = "",
     trt_formula = NULL,
-    outcome_formula = "",
-    bootstrap = NULL,
-    bootstrap_ci_type = "perc"
+    outcome_formula = ""
   )
 )
 
@@ -84,12 +80,7 @@ did_ec_aipw <- function(ps_formula,
     outcome_formula = outcome_formula,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "DID-EC-AIPW",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = bootstrap,
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "DID-EC-AIPW"
   )
 }
 
@@ -99,17 +90,16 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
                                                      covariates, alpha = 0.05,
                                                      quiet = TRUE,
                                                      T_cross) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  S <- df$S
+  A <- df$A
 
   ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
   trt_formula <- method@trt_formula
   if (!is.null(trt_formula)) {
     trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
   }
-
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
 
   if (!quiet) cat("Running DID-EC-AIPW estimator...\n")
 
@@ -229,6 +219,8 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
                                         trt_formula, outcome_formula, T_cross) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
-  .did_ec_aipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
-    outcome_formula)$tau
+  .did_ec_aipw_core(
+    d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
+    outcome_formula
+  )$tau
 }

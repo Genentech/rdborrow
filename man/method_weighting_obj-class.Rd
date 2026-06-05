@@ -8,22 +8,4 @@
 \description{
 Method weighting class
 }
-\section{Slots}{
-
-\describe{
-\item{\code{optimal_weight_flag}}{logical.}
-
-\item{\code{wt}}{numeric.}
-
-\item{\code{model_form_mu0_ext}}{Formula string for external control outcome model.}
-
-\item{\code{model_form_mu0_rct}}{Formula string for RCT control outcome model.}
-
-\item{\code{model_form_mu1_rct}}{Formula string for RCT treatment outcome model.}
-
-\item{\code{model_form_piS}}{Formula string for trial participation model.}
-
-\item{\code{model_form_piA}}{Formula string for treatment assignment model.}
-}}
-
 \keyword{internal}

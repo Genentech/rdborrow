@@ -10,9 +10,7 @@ NULL
     lambda_max = "numeric",
     nlambda = "integer",
     parallel = "character",
-    ncpus = "integer",
-    bootstrap = "numeric",
-    bootstrap_ci_type = "character"
+    ncpus = "integer"
   ),
   prototype = list(
     method_name = "SCM",
@@ -20,9 +18,7 @@ NULL
     lambda_max = 0.1,
     nlambda = 2L,
     parallel = "no",
-    ncpus = 1L,
-    bootstrap = 100L,
-    bootstrap_ci_type = "perc"
+    ncpus = 1L
   )
 )
 
@@ -86,12 +82,7 @@ scm <- function(lambda_min = 0,
     ncpus = as.integer(ncpus),
     bootstrap = as.integer(bootstrap),
     bootstrap_ci_type = bootstrap_ci_type,
-    method_name = "SCM",
-    bootstrap_flag = TRUE,
-    bootstrap_obj = .bootstrap_obj(
-      replicates = as.integer(bootstrap),
-      bootstrap_CI_type = bootstrap_ci_type
-    )
+    method_name = "SCM"
   )
 }
 
@@ -103,11 +94,9 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
                                              covariates, alpha = 0.05,
                                              quiet = TRUE,
                                              T_cross) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  S <- data[[trial_status]]
-  A <- data[[treatment]]
-
-  df <- data.frame(Y, S = S, A = A, data[, covariates, drop = FALSE])
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  S <- df$S
+  A <- df$A
   n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
@@ -146,42 +135,20 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 
   # bootstrap inference
   if (!quiet) cat("Performing bootstrap inference...\n")
-  group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
-
-  ci_type_long <- switch(method@bootstrap_ci_type,
-    norm = "normal",
-    bca = "bca",
-    stud = "student",
-    perc = "percent",
-    basic = "basic"
-  )
-
-  boot_out <- boot::boot(
-    data = df,
-    statistic = .scm_boot_statistic,
-    outcomes = outcomes,
-    covariates = covariates,
-    T_cross = T_cross,
-    lambda = lambda,
-    parallel = method@parallel,
-    ncpus = method@ncpus,
-    R = method@bootstrap,
-    strata = group_id
-  )
-
   n_ole <- n_time - T_cross
-  ci_bounds <- vapply(seq_len(n_ole), \(i) {
-    ci <- boot::boot.ci(boot_out,
-      conf = 1 - alpha,
-      type = method@bootstrap_ci_type, index = i
-    )
-    ci[[ci_type_long]][4:5]
-  }, numeric(2))
+  boot_res <- .run_bootstrap(
+    df = df, statistic = .scm_boot_statistic,
+    n_estimates = n_ole, bootstrap = method@bootstrap,
+    bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+    parallel = method@parallel, ncpus = method@ncpus,
+    outcomes = outcomes, covariates = covariates,
+    T_cross = T_cross, lambda = lambda
+  )
 
   data.frame(
     point_estimates = tau,
-    lower_CI_boot = ci_bounds[1, ],
-    upper_CI_boot = ci_bounds[2, ],
+    lower_CI_boot = boot_res$lower_ci,
+    upper_CI_boot = boot_res$upper_ci,
     row.names = paste0("tau", (T_cross + 1):n_time)
   )
 })
@@ -265,7 +232,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .scm_boot_statistic <- function(data, indices, outcomes, covariates,
-                           T_cross, lambda) {
+                                T_cross, lambda) {
   d <- data[indices, , drop = FALSE]
   S <- d$S
   A <- d$A
