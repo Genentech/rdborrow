@@ -31,4 +31,4 @@
 # rdborrow 0.0.1.0
 
 ## Changes
-- Original package with boht IPW and AIPW methods
+- Original package with both IPW and AIPW methods

@@ -33,15 +33,18 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 #' sim <- setup_simulation_primary(
-#'   n_sim = 500,
+#'   data_matrix_list_null = list(SyntheticData, SyntheticData),
+#'   trial_status_col_name = "S",
+#'   treatment_col_name = "A",
+#'   outcome_col_name = c("y1", "y2"),
+#'   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
 #'   method_obj_list = list(method),
-#'   ...
+#'   true_effect = c(0, 0),
+#'   method_description = "IPW"
 #' )
 #' run_simulation(sim)
-#' }
 run_simulation <- function(simulation_obj, quiet = TRUE) {
   covariates_col_name <- simulation_obj@covariates_col_name
   outcome_col_name <- simulation_obj@outcome_col_name
@@ -104,7 +107,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
     coverage <- sapply(
       seq_along(method_obj_list),
       function(x) {
-        if (("lower_CI_boot" %in% colnames(record[[x]])) & ("upper_CI_boot" %in% colnames(record[[x]]))) {
+        if (("lower_CI_boot" %in% colnames(record[[x]])) && ("upper_CI_boot" %in% colnames(record[[x]]))) {
           sum((true_effect > record[[x]]$lower_CI_boot) &
             (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list_null)
         } else {
@@ -156,7 +159,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
       power <- 1 - sapply(
         seq_along(method_obj_list),
         function(x) {
-          if (("lower_CI_boot" %in% colnames(record_alt[[x]])) & ("upper_CI_boot" %in% colnames(record_alt[[x]]))) {
+          if (("lower_CI_boot" %in% colnames(record_alt[[x]])) && ("upper_CI_boot" %in% colnames(record_alt[[x]]))) {
             sum((true_effect > record_alt[[x]]$lower_CI_boot) &
               (true_effect < record_alt[[x]]$upper_CI_boot)) / length(data_matrix_list_alt)
           } else {
@@ -212,7 +215,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
     coverage <- sapply(
       seq_along(method_obj_list),
       function(x) {
-        if (("lower_CI_boot" %in% colnames(record[[x]])) & ("upper_CI_boot" %in% colnames(record[[x]]))) {
+        if (("lower_CI_boot" %in% colnames(record[[x]])) && ("upper_CI_boot" %in% colnames(record[[x]]))) {
           sum((true_effect > record[[x]]$lower_CI_boot) &
             (true_effect < record[[x]]$upper_CI_boot)) / length(data_matrix_list)
         } else {
