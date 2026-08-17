@@ -2,6 +2,7 @@
 
 * local: Ubuntu 24.04, R 4.6.1
 * win-builder (R-devel)
+* R-hub (macOS, Intel and Apple silicon, R-devel)
 
 ## R CMD check results
 
