@@ -1,3 +1,10 @@
+## Resubmission
+
+This is a resubmission. The previous submission of this version did not
+complete CRAN's automated checks within the 10-minute limit. I've reduced
+the runtime of the test suite and vignette builds; a full check now
+completes in under 2 minutes.
+
 ## Test environments
 
 * local: Ubuntu 24.04, R 4.6.1

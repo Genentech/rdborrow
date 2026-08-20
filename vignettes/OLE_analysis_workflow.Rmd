@@ -121,7 +121,7 @@ method <- scm(
   lambda_min = 0,
   lambda_max = 1e-3,
   nlambda = 2,
-  bootstrap = 10,
+  bootstrap = 3,
   bootstrap_ci_type = "perc"
 )
 

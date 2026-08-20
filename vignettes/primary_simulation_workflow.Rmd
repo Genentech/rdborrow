@@ -38,7 +38,9 @@ set.seed(2023)
 
 data_matrix_list_null <- list()
 data_matrix_list_alt <- list()
-ntrial <- 500
+# a small ntrial keeps this vignette fast to build; use hundreds to
+# thousands of trials for stable operating characteristic estimates
+ntrial <- 20
 
 # Specify the significance level alpha
 alpha <- 0.05
