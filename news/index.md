@@ -2,6 +2,8 @@
 
 ## rdborrow 0.0.4.0
 
+CRAN release: 2026-08-31
+
 ### Breaking changes
 
 - [`setup_bootstrap()`](https://genentech.github.io/rdborrow/reference/setup_bootstrap.md)
@@ -80,4 +82,4 @@
 
 ### Changes
 
-- Original package with boht IPW and AIPW methods
+- Original package with both IPW and AIPW methods

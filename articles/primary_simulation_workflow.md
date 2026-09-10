@@ -18,7 +18,9 @@ set.seed(2023)
 
 data_matrix_list_null <- list()
 data_matrix_list_alt <- list()
-ntrial <- 500
+# a small ntrial keeps this vignette fast to build; use hundreds to
+# thousands of trials for stable operating characteristic estimates
+ntrial <- 20
 
 # Specify the significance level alpha
 alpha <- 0.05
@@ -198,13 +200,13 @@ for (trial_iter in 1:ntrial) {
 }
 
 head(data_matrix_list_alt[[1]])
-#>   x1 x2 x3 x4       x5 A S        y1        y2
-#> 1  1  1  0  9 34.26100 1 1 5.0618055  1.541674
-#> 2  1  1  0  3 38.96407 0 1 1.5177566  1.929797
-#> 3  1  1  0  9 47.73282 0 1 0.9979992  3.777971
-#> 4  1  1  0  6 45.96887 1 1 1.4548124 -9.007860
-#> 5  1  1  0 14 34.36397 0 1 5.3379200  2.835806
-#> 6  1  1  0  3 52.98654 1 1 4.5813799  3.205442
+#>   x1 x2 x3 x4       x5 A S         y1        y2
+#> 1  0  1  0  2 36.90508 1 1  3.6260347  6.265349
+#> 2  1  1  0 14 25.44926 1 1  5.6809759  2.566003
+#> 3  1  1  1 28 27.19396 1 1 -0.5518921 -2.074243
+#> 4  0  1  0 10 32.65669 0 1 -0.1818891  5.195533
+#> 5  0  1  0  6 31.22264 1 1  4.8591983  3.665490
+#> 6  1  1  1 35 22.77644 0 1  0.4364034 -9.368366
 ```
 
 ### 2 Parametric inference
@@ -276,16 +278,16 @@ simulation_report <- run_simulation(simulation_primary_obj, quiet = TRUE)
 ``` r
 
 simulation_report # Type I error and Power
-#>     method_description          bias  variance       mse coverage type_I_error
-#> 1  IPW, optimal weight -0.0541718304 0.4845047 0.4874393    0.946        0.054
-#> 2 AIPW, optimal weight  0.0011470217 0.3140481 0.3140494    0.946        0.054
-#> 3     IPW, zero weight -0.0007803934 0.5317429 0.5317435    0.956        0.044
-#> 4    AIPW, zero weight -0.0005666468 0.3353926 0.3353929    0.946        0.054
+#>     method_description         bias  variance       mse coverage type_I_error
+#> 1  IPW, optimal weight -0.003333374 0.5948377 0.5948488     0.90         0.10
+#> 2 AIPW, optimal weight -0.105637948 0.2263140 0.2374734     0.95         0.05
+#> 3     IPW, zero weight  0.009894312 0.6239639 0.6240618     0.95         0.05
+#> 4    AIPW, zero weight -0.147679223 0.2401897 0.2619988     0.95         0.05
 #>   power
-#> 1 0.784
-#> 2 0.954
-#> 3 0.786
-#> 4 0.944
+#> 1  0.75
+#> 2  1.00
+#> 3  0.75
+#> 4  1.00
 ```
 
 ### 3 Bootstrap inference
@@ -365,16 +367,16 @@ simulation_report_bs <- run_simulation(simulation_primary_obj, quiet = TRUE)
 ``` r
 
 simulation_report_bs
-#>                method_description          bias  variance       mse coverage
-#> 1  IPW, optimal weight, bootstrap -0.0541718304 0.4845047 0.4874393    0.944
-#> 2 AIPW, optimal weight, bootstrap  0.0032679422 0.3159685 0.3159792    0.952
-#> 3     IPW, zero weight, bootstrap -0.0007803934 0.5317429 0.5317435    0.954
-#> 4    AIPW, zero weight, bootstrap  0.0014500246 0.3367785 0.3367806    0.944
+#>                method_description         bias  variance       mse coverage
+#> 1  IPW, optimal weight, bootstrap -0.003333374 0.5948377 0.5948488     0.95
+#> 2 AIPW, optimal weight, bootstrap -0.108635705 0.2250218 0.2368236     0.95
+#> 3     IPW, zero weight, bootstrap  0.009894312 0.6239639 0.6240618     0.90
+#> 4    AIPW, zero weight, bootstrap -0.150771625 0.2366983 0.2594304     0.95
 #>   type_I_error power
-#> 1        0.056 0.750
-#> 2        0.048 0.910
-#> 3        0.046 0.722
-#> 4        0.056 0.890
+#> 1         0.05   0.7
+#> 2         0.05   0.9
+#> 3         0.10   0.7
+#> 4         0.05   1.0
 ```
 
 ## References

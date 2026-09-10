@@ -17,3 +17,16 @@ setup_bootstrap(...)
 - ...:
 
   Ignored.
+
+## Value
+
+This function is defunct and always signals an error; it does not return
+a value.
+
+## Examples
+
+``` r
+try(setup_bootstrap())
+#> Warning: 'setup_bootstrap' has been removed. Bootstrap settings are now passed directly to method constructors (e.g., ec_ipw(bootstrap = 500, bootstrap_ci_type = 'perc')).
+#> Error : setup_bootstrap() is no longer functional. Pass bootstrap settings directly to method constructors.
+```

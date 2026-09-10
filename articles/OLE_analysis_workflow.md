@@ -135,7 +135,7 @@ method <- scm(
   lambda_min = 0,
   lambda_max = 1e-3,
   nlambda = 2,
-  bootstrap = 10,
+  bootstrap = 3,
   bootstrap_ci_type = "perc"
 )
 
@@ -153,8 +153,8 @@ run_analysis(analysis)
 ```
 
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.064756      1.518103      2.677024
-    ## tau4        3.943234      1.931972      7.565861
+    ## tau3        2.064756     0.6869358      4.487804
+    ## tau4        3.943234     2.7631105      6.711921
 
 ## References
 

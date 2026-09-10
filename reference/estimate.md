@@ -133,3 +133,25 @@ estimate(
 ## Value
 
 A list with estimation results.
+
+## Examples
+
+``` r
+method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+estimate(
+  method,
+  data = SyntheticData,
+  outcomes = c("y1", "y2"),
+  treatment = "A",
+  trial_status = "S",
+  covariates = c("x1", "x2", "x3", "x4", "x5")
+)
+#> $results
+#>      point_estimates standard_deviation lower_CI_normal upper_CI_normal
+#> tau1      -0.1971969          0.5134018       -1.203446        0.809052
+#> tau2       0.4697209          0.5410007       -0.590621        1.530063
+#> 
+#> $borrow_weight
+#> [1] 0.1475196
+#> 
+```

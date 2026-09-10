@@ -40,7 +40,9 @@ head(SyntheticData)
 set.seed(2023)
 
 data_matrix_list <- list()
-ntrial <- 500
+# a small ntrial keeps this vignette fast to build; use hundreds to
+# thousands of trials for stable operating characteristic estimates
+ntrial <- 20
 
 # Specify the significance level alpha
 alpha <- 0.05
@@ -209,10 +211,10 @@ simulation_report <- run_simulation(simulation_OLE_obj, quiet = TRUE)
 ``` r
 
 simulation_report
-#>   method_description         bias variance      mse coverage type_I_error
-#> 1           IPW, DID -0.282537033 3.187900 3.267727    0.942        0.058
-#> 2          AIPW, DID  0.001684041 3.328328 3.328331    0.942        0.058
-#> 3            OR, DID  0.035746079 1.459605 1.460883    0.960        0.040
+#>   method_description        bias variance       mse coverage type_I_error
+#> 1           IPW, DID -0.28180693 3.881071 3.9604863     0.90         0.10
+#> 2          AIPW, DID  0.23441801 3.885825 3.9407764     0.95         0.05
+#> 3            OR, DID  0.05582604 0.609393 0.6125095     1.00         0.00
 ```
 
 ## References

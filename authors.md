@@ -13,17 +13,19 @@
 
 - **Jiawen Zhu**. Author.
 
+- **Genentech, Inc.**. Copyright holder.
+
 ## Citation
 
 Source:
 [`DESCRIPTION`](https://github.com/Genentech/rdborrow/blob/main/DESCRIPTION)
 
 Shi L, Secrest M, Pang H, Chen C, Zhu J (2026). *rdborrow: External
-Control Borrowing for Rare Disease Simulation and Analysis*. R package
-version 0.0.4.0, <https://genentech.github.io/rdborrow/>.
+Control Borrowing for Rare Disease Trials*. R package version 0.0.4.0,
+<https://genentech.github.io/rdborrow/>.
 
     @Manual{,
-      title = {rdborrow: External Control Borrowing for Rare Disease Simulation and Analysis},
+      title = {rdborrow: External Control Borrowing for Rare Disease Trials},
       author = {Lei Shi and Matt Secrest and Herbert Pang and Chen Chen and Jiawen Zhu},
       year = {2026},
       note = {R package version 0.0.4.0},
