@@ -9,10 +9,17 @@ setup_bootstrap(...)
 \arguments{
 \item{...}{Ignored.}
 }
+\value{
+This function is defunct and always signals an error;
+  it does not return a value.
+}
 \description{
 `r lifecycle::badge("deprecated")`
 
 Bootstrap settings are now specified directly in each method
 constructor (e.g., [ec_ipw()], [did_ec_ipw()]). The separate
 bootstrap object is no longer needed.
+}
+\examples{
+try(setup_bootstrap())
 }

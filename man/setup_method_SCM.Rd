@@ -9,8 +9,15 @@ setup_method_SCM(...)
 \arguments{
 \item{...}{Ignored.}
 }
+\value{
+This function is defunct and always signals an error;
+  it does not return a value.
+}
 \description{
 `r lifecycle::badge("deprecated")`
 
 This function has been removed. Use [scm()] instead.
+}
+\examples{
+try(setup_method_SCM())
 }

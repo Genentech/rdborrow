@@ -9,10 +9,17 @@ setup_method_weighting(...)
 \arguments{
 \item{...}{Ignored.}
 }
+\value{
+This function is defunct and always signals an error;
+  it does not return a value.
+}
 \description{
 `r lifecycle::badge("deprecated")`
 
 This function has been removed. Use [ec_ipw()] for inverse
 probability weighting or [ec_aipw()] for augmented inverse
 probability weighting.
+}
+\examples{
+try(setup_method_weighting())
 }

@@ -6,7 +6,6 @@
 #' @import tidyr
 #' @import boot
 #' @importFrom CVXR Variable Minimize Problem
-#' @importMethodsFrom CVXR solve
 #' @import progress
 #' @import future.apply
 #' @importFrom methods is new

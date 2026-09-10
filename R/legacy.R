@@ -9,7 +9,13 @@
 #'
 #' @param ... Ignored.
 #'
+#' @return This function is defunct and always signals an error;
+#'   it does not return a value.
+#'
 #' @export
+#'
+#' @examples
+#' try(setup_method_weighting())
 setup_method_weighting <- function(...) {
   .Deprecated(msg = paste(
     "'setup_method_weighting' has been removed.",
@@ -34,7 +40,13 @@ setup_method_weighting <- function(...) {
 #'
 #' @param ... Ignored.
 #'
+#' @return This function is defunct and always signals an error;
+#'   it does not return a value.
+#'
 #' @export
+#'
+#' @examples
+#' try(setup_method_DID())
 setup_method_DID <- function(...) {
   .Deprecated(msg = paste(
     "'setup_method_DID' has been removed.",
@@ -56,7 +68,13 @@ setup_method_DID <- function(...) {
 #'
 #' @param ... Ignored.
 #'
+#' @return This function is defunct and always signals an error;
+#'   it does not return a value.
+#'
 #' @export
+#'
+#' @examples
+#' try(setup_method_SCM())
 setup_method_SCM <- function(...) {
   .Deprecated(msg = paste(
     "'setup_method_SCM' has been removed.",
@@ -80,7 +98,13 @@ setup_method_SCM <- function(...) {
 #'
 #' @param ... Ignored.
 #'
+#' @return This function is defunct and always signals an error;
+#'   it does not return a value.
+#'
 #' @export
+#'
+#' @examples
+#' try(setup_bootstrap())
 setup_bootstrap <- function(...) {
   .Deprecated(msg = paste(
     "'setup_bootstrap' has been removed.",

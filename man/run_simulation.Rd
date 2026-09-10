@@ -40,15 +40,18 @@ Six borrowing methods are available:
 }
 }
 \examples{
-\dontrun{
 method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 sim <- setup_simulation_primary(
-  n_sim = 500,
+  data_matrix_list_null = list(SyntheticData, SyntheticData),
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   method_obj_list = list(method),
-  ...
+  true_effect = c(0, 0),
+  method_description = "IPW"
 )
 run_simulation(sim)
-}
 }
 \seealso{
 \code{\link{run_analysis}} for analyzing a single dataset.

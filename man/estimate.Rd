@@ -113,3 +113,14 @@ based on the method class. Each method subclass (e.g.,
 \code{ec_ipw_method}, \code{did_ec_ipw_method}) implements its own
 \code{estimate()} method containing the full estimation pipeline.
 }
+\examples{
+method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+estimate(
+  method,
+  data = SyntheticData,
+  outcomes = c("y1", "y2"),
+  treatment = "A",
+  trial_status = "S",
+  covariates = c("x1", "x2", "x3", "x4", "x5")
+)
+}

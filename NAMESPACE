@@ -32,23 +32,30 @@ import(future.apply)
 import(mvtnorm)
 import(progress)
 import(tidyr)
-importFrom(CVXR,Minimize)
-importFrom(CVXR,Problem)
-importFrom(CVXR,Variable)
+importFrom(CVXR,
+  Minimize,
+  Problem,
+  Variable
+)
 importFrom(Matrix,bdiag)
-importFrom(copula,mvdc)
-importFrom(copula,normalCopula)
-importFrom(copula,rMvdc)
-importFrom(methods,is)
-importFrom(methods,new)
-importFrom(stats,as.formula)
-importFrom(stats,glm)
-importFrom(stats,lm)
-importFrom(stats,model.matrix)
-importFrom(stats,predict)
-importFrom(stats,qnorm)
-importFrom(stats,rbinom)
-importFrom(stats,rmultinom)
-importFrom(stats,var)
+importFrom(copula,
+  mvdc,
+  normalCopula,
+  rMvdc
+)
+importFrom(methods,
+  is,
+  new
+)
+importFrom(stats,
+  as.formula,
+  glm,
+  lm,
+  model.matrix,
+  predict,
+  qnorm,
+  rbinom,
+  rmultinom,
+  var
+)
 importFrom(utils,data)
-importMethodsFrom(CVXR,solve)

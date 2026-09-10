@@ -53,6 +53,17 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 #'
 #' @return A list with estimation results.
 #' @export
+#'
+#' @examples
+#' method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
+#' estimate(
+#'   method,
+#'   data = SyntheticData,
+#'   outcomes = c("y1", "y2"),
+#'   treatment = "A",
+#'   trial_status = "S",
+#'   covariates = c("x1", "x2", "x3", "x4", "x5")
+#' )
 setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 
 #' Run stratified bootstrap and extract confidence intervals.
