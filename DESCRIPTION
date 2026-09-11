@@ -53,8 +53,6 @@ Imports:
     checkmate,
     futile.logger,
     mvtnorm,
-    dplyr,
-    tidyr,
     boot,
     Matrix,
     CVXR,

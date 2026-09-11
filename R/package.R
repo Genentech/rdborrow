@@ -2,8 +2,6 @@
 #' @importFrom copula mvdc rMvdc normalCopula
 #' @import futile.logger
 #' @import mvtnorm
-#' @import dplyr
-#' @import tidyr
 #' @import boot
 #' @importFrom CVXR Variable Minimize Problem
 #' @import progress
