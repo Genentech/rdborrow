@@ -59,7 +59,6 @@ Imports:
     Matrix,
     CVXR,
     copula,
-    future.apply,
     progress,
     stats,
     utils,
