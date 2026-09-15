@@ -130,7 +130,7 @@ results
   treatment effect in randomized trial after control to treatment
   crossover using external controls.” *Journal of Biopharmaceutical
   Statistics*. doi:
-  [10.1080/10543406.2024.2444222](https://doi.org/10.1080/10543406.2024.2444222).
+  [10.1080/10543406.2024.2330209](https://doi.org/10.1080/10543406.2024.2330209).
 - Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
   causal inference incorporating external controls in randomized
   controlled trials with longitudinal outcomes.” *Journal of

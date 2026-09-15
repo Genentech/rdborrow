@@ -4,7 +4,7 @@
 
 This vignette demonstrates Monte Carlo simulation for evaluating the
 difference-in-differences (DID) estimators proposed in [Zhou et
-al. (2024)](https://doi.org/10.1080/10543406.2024.2444222) for the
+al. (2024)](https://doi.org/10.1080/10543406.2024.2330209) for the
 open-label extension (OLE) phase.
 
 The simulated data has four outcome columns (`y1`, `y2`, `y3`, `y4`) and
@@ -223,7 +223,7 @@ simulation_report
   treatment effect in randomized trial after control to treatment
   crossover using external controls.” *Journal of Biopharmaceutical
   Statistics*. doi:
-  [10.1080/10543406.2024.2444222](https://doi.org/10.1080/10543406.2024.2444222).
+  [10.1080/10543406.2024.2330209](https://doi.org/10.1080/10543406.2024.2330209).
 - Shi L, Pang H, Chen C, Zhu J (2025). “rdborrow: an R package for
   causal inference incorporating external controls in randomized
   controlled trials with longitudinal outcomes.” *Journal of
