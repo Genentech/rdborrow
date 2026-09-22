@@ -126,13 +126,10 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   # see Zhou 2024b: Eq 4 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
-  N <- length(S)
-  pi_S <- n / N
   n_time <- ncol(Y)
 
-  # propensity score model for trial participation
-  ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
-  pi_SX <- predict(ps_model, newdata = df, type = "response")
+  # propensity score model and density ratio weights
+  w00 <- .ec_weights(df, ps_formula, S)$w00
 
   # treatment assignment model
   if (is.null(trt_formula)) {
@@ -144,10 +141,9 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
     pi_AX <- predict(trt_model, newdata = df, type = "response")
   }
 
-  # weights (same as primary: W11, W10, W0)
+  # treatment weights (same as primary: W11, W10)
   w11 <- 1 / pi_AX
   w10 <- 1 / (1 - pi_AX)
-  w00 <- (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
 
   # normalized weighted outcomes per group
   Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]

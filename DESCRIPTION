@@ -86,6 +86,7 @@ Collate:
     'did_ec_aipw.R'
     'did_ec_or.R'
     'ec_aipw.R'
+    'ec_weights.R'
     'legacy.R'
     'package.R'
     'rdborrow-package.R'
