@@ -52,3 +52,16 @@ test_that("DID-EC-IPW marginal treatment model (default trt_formula)", {
   expect_equal(res$lower_CI_boot[1], 0.1003513361, tolerance = tol)
   expect_equal(res$upper_CI_boot[2], 8.2159408390, tolerance = tol)
 })
+
+test_that("DID-EC-IPW marginal model matches an intercept-only treatment model", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outcomes <- c("y1", "y2", "y3", "y4")
+  df <- .build_analysis_df(SyntheticData, outcomes, "A", "S", covs)
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  ps <- "S ~ x1 + x2 + x3 + x4 + x5"
+
+  marginal <- .did_ec_ipw_core(df, Y, df$S, df$A, 2, ps, NULL)$tau
+  intercept <- .did_ec_ipw_core(df, Y, df$S, df$A, 2, ps, "A ~ 1")$tau
+
+  expect_equal(marginal, intercept, tolerance = 0)
+})
