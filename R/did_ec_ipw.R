@@ -133,7 +133,9 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 
   # treatment assignment model
   if (is.null(trt_formula)) {
-    pi_AX <- sum(A[S == 1]) / n
+    # marginal randomization probability, recycled so the weights below
+    # can be subset by a length-N logical like the modelled branch
+    pi_AX <- rep(sum(A[S == 1]) / n, length(S))
   } else {
     trt_model <- glm(as.formula(trt_formula),
       data = df[S == 1, , drop = FALSE], family = "binomial"

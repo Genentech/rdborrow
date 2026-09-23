@@ -28,3 +28,27 @@ test_that("DID-EC-IPW point estimates and bootstrap CIs", {
   expect_equal(res$upper_CI_boot[1], 4.0048311340, tolerance = tol)
   expect_equal(res$upper_CI_boot[2], 8.2132873140, tolerance = tol)
 })
+
+test_that("DID-EC-IPW marginal treatment model (default trt_formula)", {
+  method <- did_ec_ipw(
+    ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+    bootstrap = 50
+  )
+  analysis <- setup_analysis_OLE(
+    data = SyntheticData,
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2", "y3", "y4"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    T_cross = 2,
+    method_OLE_obj = method
+  )
+
+  set.seed(42)
+  res <- run_analysis(analysis)
+
+  expect_equal(res$point_estimates[1], 2.3233521560, tolerance = tol)
+  expect_equal(res$point_estimates[2], 4.6325195543, tolerance = tol)
+  expect_equal(res$lower_CI_boot[1], 0.1003513361, tolerance = tol)
+  expect_equal(res$upper_CI_boot[2], 8.2159408390, tolerance = tol)
+})
