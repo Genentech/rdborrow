@@ -7,12 +7,16 @@ NULL
   contains = "method_weighting_obj",
   slots = c(
     ps_formula = "character",
+    ps_fit = "ANY",
+    ps_fit_env = "ANY",
     outcome_formula = "character",
     weight = "numericOrNULL"
   ),
   prototype = list(
     method_name = "EC-AIPW",
     ps_formula = "",
+    ps_fit = NULL,
+    ps_fit_env = NULL,
     outcome_formula = "",
     weight = NULL
   )
@@ -26,7 +30,16 @@ NULL
 #' \code{\link{setup_analysis_primary}} and \code{\link{run_analysis}}.
 #'
 #' @param ps_formula Formula string for the propensity score model
-#'   predicting trial participation.
+#'   predicting trial participation. Omit when using \code{ps_fit}.
+#' @param ps_fit Alternative to \code{ps_formula}: supply the weights
+#'   yourself instead of fitting the internal logistic propensity model.
+#'   Either a function of the data returning one non-negative weight per
+#'   subject, or a fitted \pkg{WeightIt} or \pkg{MatchIt} object, whose
+#'   stored call is re-evaluated on each bootstrap resample. Only the
+#'   weights for external controls (\code{S == 0}) affect the estimate,
+#'   and they enter through a self-normalized mean, so their overall scale
+#'   is irrelevant. Requires \code{bootstrap}: the sandwich variance needs
+#'   the propensity model score, which supplied weights cannot provide.
 #' @param outcome_formula Character vector of outcome model formulas,
 #'   one per time point (e.g., \code{c("y1 ~ x1 + x2", "y2 ~ x1 + x2")}).
 #' @param weight Borrowing weight. \code{NULL} (default) for data-adaptive
@@ -74,11 +87,14 @@ NULL
 #'   weight = 0.3,
 #'   bootstrap = 500
 #' )
-ec_aipw <- function(ps_formula,
+ec_aipw <- function(ps_formula = NULL,
                     outcome_formula,
+                    ps_fit = NULL,
                     weight = NULL,
                     bootstrap = NULL,
                     bootstrap_ci_type = NULL) {
+  .check_ps_args(ps_formula, ps_fit, bootstrap)
+  if (is.null(ps_formula)) ps_formula <- ""
   checkmate::assert_string(ps_formula)
   checkmate::assert_character(outcome_formula, min.len = 1)
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
@@ -96,6 +112,8 @@ ec_aipw <- function(ps_formula,
 
   .ec_aipw_method(
     ps_formula = ps_formula,
+    ps_fit = ps_fit,
+    ps_fit_env = parent.frame(),
     outcome_formula = outcome_formula,
     weight = weight,
     bootstrap = bootstrap,
@@ -125,9 +143,14 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   # point estimate + sandwich SE
   core <- .ec_aipw_core(
     df, outcomes, ps_formula,
-    method@outcome_formula, method@weight
+    method@outcome_formula, method@weight, method@ps_fit,
+    method@ps_fit_env
   )
-  sd_tau <- .ec_aipw_se(df, core, n_time, method@outcome_formula)
+  sd_tau <- if (is.null(method@ps_fit)) {
+    .ec_aipw_se(df, core, n_time, method@outcome_formula)
+  } else {
+    rep(NA_real_, n_time)
+  }
 
   # format results
   tau <- core$tau
@@ -149,7 +172,8 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       n_estimates = n_time, bootstrap = method@bootstrap,
       bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
       borrow_wt = borrow_weight, outcomes = outcomes,
-      ps_formula = ps_formula,
+      ps_formula = ps_formula, ps_fit = method@ps_fit,
+      ps_fit_env = method@ps_fit_env,
       outcome_formula = method@outcome_formula
     )
     results <- data.frame(
@@ -175,7 +199,8 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @param weight fixed weight or NULL for optimal.
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
-.ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight) {
+.ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight,
+                          ps_fit = NULL, ps_fit_env = parent.frame()) {
   # see Zhou 2024a: Def 2 (Eq 7) for point estimate, Eq 11 for optimal weight
 
   Y <- as.matrix(df[, outcomes, drop = FALSE])
@@ -187,7 +212,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   n_time <- ncol(Y)
 
   # propensity score model and density ratio weights
-  wts <- .ec_weights(df, ps_formula, S)
+  wts <- .ec_weights(df, ps_formula, S, ps_fit, ps_fit_env)
   ps_model <- wts$ps_model
   pi_SX <- wts$pi_SX
   w00 <- wts$w00
@@ -343,8 +368,11 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .ec_aipw_boot_statistic <- function(data, indices, outcomes,
-                                    ps_formula, outcome_formula, borrow_wt) {
+                                    ps_formula, outcome_formula, borrow_wt,
+                                    ps_fit = NULL, ps_fit_env = parent.frame()) {
   d <- data[indices, , drop = FALSE]
-  core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, borrow_wt)
+  core <- .ec_aipw_core(
+    d, outcomes, ps_formula, outcome_formula, borrow_wt, ps_fit
+  )
   core$tau
 }

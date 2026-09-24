@@ -9,10 +9,12 @@
 #' @param S trial participation vector.
 #' @param ps_fit optional user-supplied weighting, or NULL for the internal
 #'   logistic model.
+#' @param ps_fit_env environment to resolve a stored call in.
 #' @return list with ps_model, pi_SX, pi_S and w00. ps_model and pi_SX are
 #'   NULL when ps_fit is used.
 #' @noRd
-.ec_weights <- function(df, ps_formula, S, ps_fit = NULL) {
+.ec_weights <- function(df, ps_formula, S, ps_fit = NULL,
+                        ps_fit_env = parent.frame()) {
   pi_S <- sum(S) / length(S)
 
   if (!is.null(ps_fit)) {
@@ -20,7 +22,7 @@
       ps_model = NULL,
       pi_SX = NULL,
       pi_S = pi_S,
-      w00 = .ec_user_weights(ps_fit, df, S)
+      w00 = .ec_user_weights(ps_fit, df, S, ps_fit_env)
     ))
   }
 
@@ -42,13 +44,14 @@
 #' @param ps_fit function, weightit object, or matchit object.
 #' @param df internal data frame for the current (possibly resampled) data.
 #' @param S trial participation vector.
+#' @param ps_fit_env environment to resolve a stored call in.
 #' @return numeric vector of non-negative weights, length nrow(df).
 #' @noRd
-.ec_user_weights <- function(ps_fit, df, S) {
+.ec_user_weights <- function(ps_fit, df, S, ps_fit_env) {
   w <- if (is.function(ps_fit)) {
     ps_fit(df)
   } else {
-    .ec_refit_weights(ps_fit, df)
+    .ec_refit_weights(ps_fit, df, ps_fit_env)
   }
 
   if (!is.numeric(w) || length(w) != nrow(df)) {
@@ -77,9 +80,11 @@
 #' Re-evaluate a WeightIt or MatchIt object's call on new data.
 #' @param ps_fit weightit or matchit object.
 #' @param df data to refit on.
+#' @param ps_fit_env environment the user built the object in, used to
+#'   resolve the function named in its stored call.
 #' @return numeric vector of weights.
 #' @noRd
-.ec_refit_weights <- function(ps_fit, df) {
+.ec_refit_weights <- function(ps_fit, df, ps_fit_env) {
   cl <- ps_fit$call
   if (is.null(cl)) {
     stop(
@@ -89,6 +94,60 @@
     )
   }
   cl$data <- quote(df)
-  refit <- eval(cl, list(df = df), parent.frame())
+  refit <- tryCatch(
+    eval(cl, list(df = df), ps_fit_env),
+    error = function(e) {
+      stop(
+        "Could not re-evaluate the ps_fit object's call on a bootstrap ",
+        "resample: ", conditionMessage(e), "\n",
+        "This happens when the stored call refers to variables that are no ",
+        "longer in scope. Pass a function of the data instead, for example ",
+        "ps_fit = \\(d) WeightIt::weightit(S ~ x, d, estimand = \"ATT\")$weights",
+        call. = FALSE
+      )
+    }
+  )
+  if (is.null(refit$weights)) {
+    stop("Re-evaluating the ps_fit object produced no weights.", call. = FALSE)
+  }
   refit$weights
+}
+
+#' Validate the propensity-model arguments shared by ec_ipw and ec_aipw.
+#' exactly one of ps_formula and ps_fit must be given; user-supplied weights
+#' have no propensity model, so the sandwich variance is unavailable and
+#' bootstrap inference is required.
+#' @param ps_formula propensity score formula string, or NULL.
+#' @param ps_fit user-supplied weighting, or NULL.
+#' @param bootstrap number of bootstrap replicates, or NULL.
+#' @return invisible NULL, called for its side effect of erroring.
+#' @noRd
+.check_ps_args <- function(ps_formula, ps_fit, bootstrap) {
+  if (is.null(ps_formula) && is.null(ps_fit)) {
+    stop("Supply either ps_formula or ps_fit.", call. = FALSE)
+  }
+  if (!is.null(ps_formula) && !is.null(ps_fit)) {
+    stop(
+      "Supply either ps_formula or ps_fit, not both.",
+      call. = FALSE
+    )
+  }
+  if (!is.null(ps_fit)) {
+    if (!is.function(ps_fit) && !inherits(ps_fit, c("weightit", "matchit"))) {
+      stop(
+        "ps_fit must be a function of the data, or a WeightIt or MatchIt ",
+        "object.",
+        call. = FALSE
+      )
+    }
+    if (is.null(bootstrap)) {
+      stop(
+        "ps_fit requires bootstrap inference. The sandwich variance needs ",
+        "the propensity model score, which user-supplied weights do not ",
+        "provide. Set bootstrap to a number of replicates.",
+        call. = FALSE
+      )
+    }
+  }
+  invisible(NULL)
 }

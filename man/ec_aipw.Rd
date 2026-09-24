@@ -5,8 +5,9 @@
 \title{EC-AIPW method}
 \usage{
 ec_aipw(
-  ps_formula,
+  ps_formula = NULL,
   outcome_formula,
+  ps_fit = NULL,
   weight = NULL,
   bootstrap = NULL,
   bootstrap_ci_type = NULL
@@ -14,10 +15,20 @@ ec_aipw(
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
-predicting trial participation.}
+predicting trial participation. Omit when using \code{ps_fit}.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per time point (e.g., \code{c("y1 ~ x1 + x2", "y2 ~ x1 + x2")}).}
+
+\item{ps_fit}{Alternative to \code{ps_formula}: supply the weights
+yourself instead of fitting the internal logistic propensity model.
+Either a function of the data returning one non-negative weight per
+subject, or a fitted \pkg{WeightIt} or \pkg{MatchIt} object, whose
+stored call is re-evaluated on each bootstrap resample. Only the
+weights for external controls (\code{S == 0}) affect the estimate,
+and they enter through a self-normalized mean, so their overall scale
+is irrelevant. Requires \code{bootstrap}: the sandwich variance needs
+the propensity model score, which supplied weights cannot provide.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for RCT-only, or a value in (0, 1].}
