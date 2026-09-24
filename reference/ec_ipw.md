@@ -33,8 +33,7 @@ ec_ipw(ps_formula, weight = NULL, bootstrap = NULL, bootstrap_ci_type = NULL)
 - bootstrap_ci_type:
 
   Bootstrap CI type, or `NULL` (default) which resolves to `"perc"` when
-  `bootstrap` is set. One of `"perc"`, `"bca"`, `"norm"`, `"basic"`, or
-  `"stud"`.
+  `bootstrap` is set. One of `"perc"`, `"bca"`, `"norm"`, or `"basic"`.
 
 ## Value
 

@@ -2,8 +2,26 @@
 
 ## rdborrow (development version)
 
+### Breaking changes
+
+- `bootstrap_ci_type` no longer accepts `"stud"` in any method
+  constructor. Studentized intervals require a variance estimate for
+  each bootstrap replicate, which the estimators do not produce, so the
+  option failed whenever it was used
+  ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
+
 ### Bug fixes
 
+- `bootstrap_ci_type = "norm"` no longer returns `NA` confidence bounds.
+  The normal component of
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) output
+  has three columns rather than five, so the fixed index used to read
+  the bounds ran past the end of it
+  ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
+- `bootstrap_ci_type = "bca"` no longer errors. `boot.ci()` re-invokes
+  the bootstrap statistic through `empinf()` without the arguments
+  passed to `boot()`, so those are now captured in a closure
+  ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
 - [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
   and
   [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
