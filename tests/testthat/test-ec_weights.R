@@ -178,3 +178,63 @@ test_that("ps_fit accepts a real MatchIt object", {
   expect_all_true(is.finite(res$results$point_estimates))
   expect_all_true(is.finite(res$results$lower_CI_boot))
 })
+
+test_that("ps_fit works for the DID methods", {
+  skip_if_not_installed("WeightIt")
+
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outcomes <- c("y1", "y2", "y3", "y4")
+  trt <- "A ~ x1 + x2 + x3 + x4 + x5"
+  of <- paste0(outcomes, " ~ x1 + x2 + x3 + x4 + x5")
+
+  ole <- function(method) {
+    setup_analysis_OLE(
+      data = SyntheticData,
+      trial_status_col_name = "S",
+      treatment_col_name = "A",
+      outcome_col_name = outcomes,
+      covariates_col_name = covs,
+      T_cross = 2,
+      method_OLE_obj = method
+    )
+  }
+
+  w <- suppressWarnings(WeightIt::weightit(
+    S ~ x1 + x2 + x3 + x4 + x5,
+    data = SyntheticData, method = "glm", estimand = "ATT", focal = "1"
+  ))
+
+  set.seed(42)
+  ipw_formula <- run_analysis(
+    ole(did_ec_ipw(ec_ps, trt_formula = trt, bootstrap = 50))
+  )
+  set.seed(42)
+  ipw_supplied <- run_analysis(
+    ole(did_ec_ipw(ps_fit = w, trt_formula = trt, bootstrap = 50))
+  )
+  expect_equal(ipw_supplied$point_estimates, ipw_formula$point_estimates)
+
+  set.seed(42)
+  aipw_formula <- run_analysis(
+    ole(did_ec_aipw(ec_ps,
+      trt_formula = trt, outcome_formula = of,
+      bootstrap = 50
+    ))
+  )
+  set.seed(42)
+  aipw_supplied <- run_analysis(
+    ole(did_ec_aipw(
+      ps_fit = w, trt_formula = trt, outcome_formula = of,
+      bootstrap = 50
+    ))
+  )
+  expect_equal(aipw_supplied$point_estimates, aipw_formula$point_estimates)
+})
+
+test_that("DID constructors reject ps_formula and ps_fit together", {
+  expect_error(did_ec_ipw(ec_ps, ps_fit = att_weights), "not both")
+  expect_error(
+    did_ec_aipw(ec_ps, ps_fit = att_weights, outcome_formula = "y1 ~ x1"),
+    "not both"
+  )
+})

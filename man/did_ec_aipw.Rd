@@ -5,7 +5,8 @@
 \title{DID-EC-AIPW method}
 \usage{
 did_ec_aipw(
-  ps_formula,
+  ps_formula = NULL,
+  ps_fit = NULL,
   trt_formula = NULL,
   outcome_formula,
   bootstrap = 500L,
@@ -14,7 +15,20 @@ did_ec_aipw(
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
-predicting trial participation.}
+predicting trial participation. Omit when using \code{ps_fit}.}
+
+\item{ps_fit}{Alternative to \code{ps_formula}: supply the weights
+yourself instead of fitting the internal logistic propensity model.
+Either a function of the data returning one non-negative weight per
+subject, or a fitted \pkg{WeightIt} or \pkg{MatchIt} object, whose
+stored call is re-evaluated on each bootstrap resample. Only the
+weights for external controls (\code{S == 0}) affect the estimate,
+and they enter through a self-normalized mean, so their overall scale
+is irrelevant. For \pkg{WeightIt}, use \code{estimand = "ATT"} with
+the trial as the focal group. This governs trial participation only;
+treatment assignment is specified with \code{trt_formula}, which
+describes a randomization scheme you already know rather than a model
+to be estimated.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
 or \code{NULL} (default) for marginal probability.}
