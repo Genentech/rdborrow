@@ -12,7 +12,7 @@ Description: Implements causal inference methods for incorporating external
     conducting power analyses for sample size determination. Methods are
     based on Zhou et al. (2024) <doi:10.1093/jrsssa/qnae075> and
     Zhou et al. (2024) <doi:10.1080/10543406.2024.2330209>.
-Version: 0.0.4.0
+Version: 0.0.4.1
 License: Apache License (>= 2)
 Authors@R: c(
     person(
