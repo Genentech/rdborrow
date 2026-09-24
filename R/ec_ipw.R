@@ -31,8 +31,7 @@ NULL
 #'   (default) for sandwich variance with normal CIs.
 #' @param bootstrap_ci_type Bootstrap CI type, or \code{NULL} (default)
 #'   which resolves to \code{"perc"} when \code{bootstrap} is set. One of
-#'   \code{"perc"}, \code{"bca"}, \code{"norm"}, \code{"basic"}, or
-#'   \code{"stud"}.
+#'   \code{"perc"}, \code{"bca"}, \code{"norm"}, or \code{"basic"}.
 #'
 #' @return An S4 object of class \code{ec_ipw_method}.
 #'
@@ -76,7 +75,7 @@ ec_ipw <- function(ps_formula,
   }
   if (!is.null(bootstrap_ci_type)) {
     checkmate::assert_choice(
-      bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+      bootstrap_ci_type, c("perc", "bca", "norm", "basic")
     )
   }
 

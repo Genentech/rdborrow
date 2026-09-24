@@ -71,7 +71,7 @@ did_ec_aipw <- function(ps_formula,
     bootstrap_ci_type <- "perc"
   }
   checkmate::assert_choice(
-    bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+    bootstrap_ci_type, c("perc", "bca", "norm", "basic")
   )
 
   .did_ec_aipw_method(
