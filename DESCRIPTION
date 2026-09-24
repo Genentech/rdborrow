@@ -63,7 +63,6 @@ Imports:
     methods
 Suggests: 
     covr,
-    MatchIt,
     ECOSolveR,
     knitr,
     pkgdown,
@@ -72,6 +71,7 @@ Suggests:
     spelling,
     styler,
     testthat (>= 3.0.0),
+    MatchIt,
     WeightIt
 Config/testthat/edition: 3
 Collate: 

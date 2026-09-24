@@ -117,3 +117,64 @@ test_that("ps_fit validates the weights it produces", {
     "zero total weight"
   )
 })
+
+test_that("ps_fit accepts a real WeightIt object, however the call was written", {
+  skip_if_not_installed("WeightIt")
+
+  set.seed(42)
+  built_in <- run_analysis(ec_primary(ec_ipw(ec_ps, bootstrap = 100)))
+
+  # bare call, as written after library(WeightIt)
+  bare <- suppressWarnings(WeightIt::weightit(
+    S ~ x1 + x2 + x3 + x4 + x5,
+    data = SyntheticData, method = "glm", estimand = "ATT", focal = "1"
+  ))
+  set.seed(42)
+  from_object <- suppressWarnings(
+    run_analysis(ec_primary(ec_ipw(ps_fit = bare, bootstrap = 100)))
+  )
+
+  # ATT weights are the density ratio the estimator already uses, so the
+  # point estimate must match the internal propensity path
+  expect_equal(
+    from_object$results$point_estimates,
+    built_in$results$point_estimates
+  )
+})
+
+test_that("WeightIt ATT weights equal the internal density ratio", {
+  skip_if_not_installed("WeightIt")
+
+  model <- glm(
+    S ~ x1 + x2 + x3 + x4 + x5,
+    data = SyntheticData, family = "binomial"
+  )
+  p <- unname(predict(model, newdata = SyntheticData, type = "response"))
+  odds <- p / (1 - p)
+
+  w <- unname(suppressWarnings(WeightIt::weightit(
+    S ~ x1 + x2 + x3 + x4 + x5,
+    data = SyntheticData, method = "glm", estimand = "ATT", focal = "1"
+  ))$weights)
+
+  external <- SyntheticData$S == 0
+  expect_equal(w[external], odds[external])
+  expect_all_equal(w[!external], 1)
+})
+
+test_that("ps_fit accepts a real MatchIt object", {
+  skip_if_not_installed("MatchIt")
+
+  m <- MatchIt::matchit(
+    S ~ x1 + x2 + x3 + x4 + x5,
+    data = SyntheticData, method = "subclass", estimand = "ATT"
+  )
+
+  set.seed(42)
+  res <- suppressWarnings(
+    run_analysis(ec_primary(ec_ipw(ps_fit = m, bootstrap = 50)))
+  )
+
+  expect_all_true(is.finite(res$results$point_estimates))
+  expect_all_true(is.finite(res$results$lower_CI_boot))
+})

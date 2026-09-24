@@ -28,7 +28,12 @@ stored call is re-evaluated on each bootstrap resample. Only the
 weights for external controls (\code{S == 0}) affect the estimate,
 and they enter through a self-normalized mean, so their overall scale
 is irrelevant. Requires \code{bootstrap}: the sandwich variance needs
-the propensity model score, which supplied weights cannot provide.}
+the propensity model score, which supplied weights cannot provide.
+For \pkg{WeightIt}, use \code{estimand = "ATT"} with the trial as the
+focal group, which makes the control weights exactly the density ratio
+this estimator expects. Only weights for external controls are used, so
+a \pkg{MatchIt} design that drops trial subjects aligns the external
+controls with the matched subset rather than the whole trial.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for RCT-only, or a value in (0, 1].}

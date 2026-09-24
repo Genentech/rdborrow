@@ -39,6 +39,11 @@ NULL
 #'   and they enter through a self-normalized mean, so their overall scale
 #'   is irrelevant. Requires \code{bootstrap}: the sandwich variance needs
 #'   the propensity model score, which supplied weights cannot provide.
+#'   For \pkg{WeightIt}, use \code{estimand = "ATT"} with the trial as the
+#'   focal group, which makes the control weights exactly the density ratio
+#'   this estimator expects. Only weights for external controls are used, so
+#'   a \pkg{MatchIt} design that drops trial subjects aligns the external
+#'   controls with the matched subset rather than the whole trial.
 #' @param weight Borrowing weight. \code{NULL} (default) for data-adaptive
 #'   optimal weight, \code{0} for RCT-only, or a value in (0, 1].
 #' @param bootstrap Number of bootstrap replicates, or \code{NULL}
