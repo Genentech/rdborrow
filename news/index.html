@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,18 +32,19 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rdborrow-development-version">rdborrow (development version)<a class="anchor" aria-label="anchor" href="#rdborrow-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.4.1" id="rdborrow-0041">rdborrow 0.0.4.1<a class="anchor" aria-label="anchor" href="#rdborrow-0041"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-0-4-1">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-4-1"></a></h3>
 <ul><li>
 <code>bootstrap_ci_type</code> no longer accepts <code>"stud"</code> in any method constructor. Studentized intervals require a variance estimate for each bootstrap replicate, which the estimators do not produce, so the option failed whenever it was used (<a href="https://github.com/Genentech/rdborrow/issues/77" class="external-link">#77</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>
-<code>bootstrap_ci_type = "norm"</code> no longer returns <code>NA</code> confidence bounds. The normal component of <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code> output has three columns rather than five, so the fixed index used to read the bounds ran past the end of it (<a href="https://github.com/Genentech/rdborrow/issues/77" class="external-link">#77</a>).</li>
+<h3 id="bug-fixes-0-0-4-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-4-1"></a></h3>
+<ul><li>Corrected the DOIs in the package references. The two DOIs cited in <code>DESCRIPTION</code> pointed to unrelated papers, and the open-label extension methods and vignettes cited an unrelated paper rather than Zhou X, Pang H, Drake C, Burger HU, Zhu J (2024). Reported by Herb Pang.</li>
 <li>
 <code>bootstrap_ci_type = "bca"</code> no longer errors. <code>boot.ci()</code> re-invokes the bootstrap statistic through <code>empinf()</code> without the arguments passed to <code>boot()</code>, so those are now captured in a closure (<a href="https://github.com/Genentech/rdborrow/issues/77" class="external-link">#77</a>).</li>
+<li>
+<code>bootstrap_ci_type = "norm"</code> no longer returns <code>NA</code> confidence bounds. The normal component of <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code> output has three columns rather than five, so the fixed index used to read the bounds ran past the end of it (<a href="https://github.com/Genentech/rdborrow/issues/77" class="external-link">#77</a>).</li>
 <li>
 <code><a href="../reference/did_ec_ipw.html">did_ec_ipw()</a></code> and <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code> no longer return <code>NA</code> estimates when <code>trt_formula</code> is left at its default of <code>NULL</code>. The marginal randomization probability was a scalar, so subsetting the treatment weights by a length-N logical produced <code>NA</code> for all but the first subject (<a href="https://github.com/Genentech/rdborrow/issues/71" class="external-link">#71</a>).</li>
 </ul></div>

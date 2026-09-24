@@ -1,6 +1,6 @@
 # Changelog
 
-## rdborrow (development version)
+## rdborrow 0.0.4.1
 
 ### Breaking changes
 
@@ -12,15 +12,20 @@
 
 ### Bug fixes
 
+- Corrected the DOIs in the package references. The two DOIs cited in
+  `DESCRIPTION` pointed to unrelated papers, and the open-label
+  extension methods and vignettes cited an unrelated paper rather than
+  Zhou X, Pang H, Drake C, Burger HU, Zhu J (2024). Reported by Herb
+  Pang.
+- `bootstrap_ci_type = "bca"` no longer errors. `boot.ci()` re-invokes
+  the bootstrap statistic through `empinf()` without the arguments
+  passed to `boot()`, so those are now captured in a closure
+  ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
 - `bootstrap_ci_type = "norm"` no longer returns `NA` confidence bounds.
   The normal component of
   [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) output
   has three columns rather than five, so the fixed index used to read
   the bounds ran past the end of it
-  ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
-- `bootstrap_ci_type = "bca"` no longer errors. `boot.ci()` re-invokes
-  the bootstrap statistic through `empinf()` without the arguments
-  passed to `boot()`, so those are now captured in a closure
   ([\#77](https://github.com/Genentech/rdborrow/issues/77)).
 - [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
   and
