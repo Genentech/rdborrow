@@ -73,7 +73,7 @@ did_ec_or <- function(outcome_formula_ext,
     bootstrap_ci_type <- "perc"
   }
   checkmate::assert_choice(
-    bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+    bootstrap_ci_type, c("perc", "bca", "norm", "basic")
   )
 
   .did_ec_or_method(

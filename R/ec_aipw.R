@@ -90,7 +90,7 @@ ec_aipw <- function(ps_formula,
   }
   if (!is.null(bootstrap_ci_type)) {
     checkmate::assert_choice(
-      bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+      bootstrap_ci_type, c("perc", "bca", "norm", "basic")
     )
   }
 

@@ -71,7 +71,7 @@ scm <- function(lambda_min = 0,
     bootstrap_ci_type <- "perc"
   }
   checkmate::assert_choice(
-    bootstrap_ci_type, c("perc", "bca", "norm", "basic", "stud")
+    bootstrap_ci_type, c("perc", "bca", "norm", "basic")
   )
 
   .scm_method(
