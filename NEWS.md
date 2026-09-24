@@ -1,3 +1,8 @@
+# rdborrow (development version)
+
+## Bug fixes
+- `did_ec_ipw()` and `did_ec_aipw()` no longer return `NA` estimates when `trt_formula` is left at its default of `NULL`. The marginal randomization probability was a scalar, so subsetting the treatment weights by a length-N logical produced `NA` for all but the first subject (#71).
+
 # rdborrow 0.0.4.0
 
 ## Breaking changes
