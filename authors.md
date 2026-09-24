@@ -18,7 +18,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Genentech/rdborrow/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Genentech/rdborrow/blob/v0.0.4.1/DESCRIPTION)
 
 Shi L, Secrest M, Pang H, Chen C, Zhu J (2026). *rdborrow: External
 Control Borrowing for Rare Disease Trials*. R package version 0.0.4.1,
