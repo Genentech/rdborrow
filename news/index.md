@@ -1,5 +1,18 @@
 # Changelog
 
+## rdborrow (development version)
+
+### Bug fixes
+
+- [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
+  and
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  no longer return `NA` estimates when `trt_formula` is left at its
+  default of `NULL`. The marginal randomization probability was a
+  scalar, so subsetting the treatment weights by a length-N logical
+  produced `NA` for all but the first subject
+  ([\#71](https://github.com/Genentech/rdborrow/issues/71)).
+
 ## rdborrow 0.0.4.0
 
 CRAN release: 2026-08-31

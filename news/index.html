@@ -32,6 +32,14 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="rdborrow-development-version">rdborrow (development version)<a class="anchor" aria-label="anchor" href="#rdborrow-development-version"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/did_ec_ipw.html">did_ec_ipw()</a></code> and <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code> no longer return <code>NA</code> estimates when <code>trt_formula</code> is left at its default of <code>NULL</code>. The marginal randomization probability was a scalar, so subsetting the treatment weights by a length-N logical produced <code>NA</code> for all but the first subject (<a href="https://github.com/Genentech/rdborrow/issues/71" class="external-link">#71</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.4.0" id="rdborrow-0040">rdborrow 0.0.4.0<a class="anchor" aria-label="anchor" href="#rdborrow-0040"></a></h2><p class="text-muted">CRAN release: 2026-08-31</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-0-4-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-4-0"></a></h3>
