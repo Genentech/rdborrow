@@ -1,17 +1,3 @@
-ec_refit_count <- new.env(parent = emptyenv())
-ec_refit_count$n <- 0L
-
-# stand-in for a WeightIt object: exposes $weights and a re-evaluable $call
-fake_weightit <- function(formula, data) {
-  ec_refit_count$n <- ec_refit_count$n + 1L
-  model <- glm(formula, data = data, family = "binomial")
-  p <- predict(model, newdata = data, type = "response")
-  structure(
-    list(weights = p / (1 - p), call = match.call()),
-    class = "weightit"
-  )
-}
-
 att_weights <- function(d) {
   model <- glm(S ~ x1 + x2 + x3 + x4 + x5, data = d, family = "binomial")
   p <- predict(model, newdata = d, type = "response")

@@ -8,7 +8,6 @@ NULL
   slots = c(
     ps_formula = "character",
     ps_fit = "ANY",
-    ps_fit_env = "ANY",
     trt_formula = "characterOrNULL",
     outcome_formula = "character"
   ),
@@ -16,7 +15,6 @@ NULL
     method_name = "DID-EC-AIPW",
     ps_formula = "",
     ps_fit = NULL,
-    ps_fit_env = NULL,
     trt_formula = NULL,
     outcome_formula = ""
   )
@@ -96,7 +94,6 @@ did_ec_aipw <- function(ps_formula = NULL,
   .did_ec_aipw_method(
     ps_formula = ps_formula,
     ps_fit = ps_fit,
-    ps_fit_env = parent.frame(),
     trt_formula = trt_formula,
     outcome_formula = outcome_formula,
     bootstrap = bootstrap,
@@ -126,7 +123,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 
   result <- .did_ec_aipw_core(
     df, Y, S, A, T_cross, ps_formula, trt_formula, method@outcome_formula,
-    method@ps_fit, method@ps_fit_env
+    method@ps_fit
   )
   tau <- result$tau
 
@@ -140,7 +137,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
     outcomes = outcomes, ps_formula = ps_formula,
     trt_formula = trt_formula, outcome_formula = method@outcome_formula,
     T_cross = T_cross,
-    ps_fit = method@ps_fit, ps_fit_env = method@ps_fit_env
+    ps_fit = method@ps_fit
   )
 
   data.frame(
@@ -166,7 +163,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 #' @noRd
 .did_ec_aipw_core <- function(df, Y, S, A, T_cross, ps_formula,
                               trt_formula, outcome_formula,
-                              ps_fit = NULL, ps_fit_env = parent.frame()) {
+                              ps_fit = NULL) {
   # see Zhou 2024b: Eq 5 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
@@ -174,7 +171,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
   n_time <- ncol(Y)
 
   # propensity score model and density ratio weights
-  w00 <- .ec_weights(df, ps_formula, S, ps_fit, ps_fit_env)$w00
+  w00 <- .ec_weights(df, ps_formula, S, ps_fit)$w00
 
   # treatment assignment model
   if (is.null(trt_formula)) {
@@ -240,12 +237,11 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 #' @noRd
 .did_ec_aipw_boot_statistic <- function(data, indices, outcomes, ps_formula,
                                         trt_formula, outcome_formula, T_cross,
-                                        ps_fit = NULL,
-                                        ps_fit_env = parent.frame()) {
+                                        ps_fit = NULL) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
   .did_ec_aipw_core(
     d, Y, d$S, d$A, T_cross, ps_formula, trt_formula,
-    outcome_formula, ps_fit, ps_fit_env
+    outcome_formula, ps_fit
   )$tau
 }

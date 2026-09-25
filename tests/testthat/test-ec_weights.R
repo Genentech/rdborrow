@@ -24,27 +24,40 @@ test_that("ps_fit weights are scale invariant", {
   expect_equal(b$results$point_estimates, a$results$point_estimates)
 })
 
-test_that("ps_fit accepts a WeightIt-style object and refits per resample", {
-  obj <- fake_weightit(S ~ x1 + x2 + x3 + x4 + x5, data = SyntheticData)
-  ec_refit_count$n <- 0L
+test_that("the bootstrap refits ps_fit on every resample", {
+  refits <- 0L
+  counted <- function(d) {
+    refits <<- refits + 1L
+    att_weights(d)
+  }
 
-  # few replicates keep the refit count small; the CI is not under test here
+  # few replicates keep the count small; the CI is not under test here
   set.seed(42)
   res <- suppressWarnings(
-    run_analysis(ec_primary(ec_ipw(ps_fit = obj, bootstrap = 20)))
+    run_analysis(ec_primary(ec_ipw(ps_fit = counted, bootstrap = 20)))
   )
 
   # one point estimate, one boot t0, then one per replicate
-  expect_identical(ec_refit_count$n, 22L)
+  expect_identical(refits, 22L)
   expect_all_true(is.finite(res$results$point_estimates))
 })
 
-test_that("ps_fit object with an unresolvable call gives an actionable error", {
-  wrapper <- function(formula, data) fake_weightit(formula, data)
-  obj <- wrapper(S ~ x1 + x2 + x3 + x4 + x5, data = SyntheticData)
+test_that("a stored call that cannot be re-run gives an actionable error", {
+  skip_if_not_installed("WeightIt")
+
+  # the call records `method = local_method`, which does not exist outside
+  # the function that built the object
+  build <- function() {
+    local_method <- "glm"
+    suppressWarnings(WeightIt::weightit(
+      S ~ x1 + x2 + x3 + x4 + x5,
+      data = SyntheticData, method = local_method,
+      estimand = "ATT", focal = "1"
+    ))
+  }
 
   expect_error(
-    run_analysis(ec_primary(ec_ipw(ps_fit = obj, bootstrap = 10))),
+    run_analysis(ec_primary(ec_ipw(ps_fit = build(), bootstrap = 10))),
     "Pass a function of the data instead"
   )
 })

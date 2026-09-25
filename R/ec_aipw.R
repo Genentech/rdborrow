@@ -8,7 +8,6 @@ NULL
   slots = c(
     ps_formula = "character",
     ps_fit = "ANY",
-    ps_fit_env = "ANY",
     outcome_formula = "character",
     weight = "numericOrNULL"
   ),
@@ -16,7 +15,6 @@ NULL
     method_name = "EC-AIPW",
     ps_formula = "",
     ps_fit = NULL,
-    ps_fit_env = NULL,
     outcome_formula = "",
     weight = NULL
   )
@@ -118,7 +116,6 @@ ec_aipw <- function(ps_formula = NULL,
   .ec_aipw_method(
     ps_formula = ps_formula,
     ps_fit = ps_fit,
-    ps_fit_env = parent.frame(),
     outcome_formula = outcome_formula,
     weight = weight,
     bootstrap = bootstrap,
@@ -148,8 +145,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   # point estimate + sandwich SE
   core <- .ec_aipw_core(
     df, outcomes, ps_formula,
-    method@outcome_formula, method@weight, method@ps_fit,
-    method@ps_fit_env
+    method@outcome_formula, method@weight, method@ps_fit
   )
   sd_tau <- if (is.null(method@ps_fit)) {
     .ec_aipw_se(df, core, n_time, method@outcome_formula)
@@ -178,7 +174,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
       borrow_wt = borrow_weight, outcomes = outcomes,
       ps_formula = ps_formula, ps_fit = method@ps_fit,
-      ps_fit_env = method@ps_fit_env,
       outcome_formula = method@outcome_formula
     )
     results <- data.frame(
@@ -205,7 +200,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_aipw_core <- function(df, outcomes, ps_formula, outcome_formula, weight,
-                          ps_fit = NULL, ps_fit_env = parent.frame()) {
+                          ps_fit = NULL) {
   # see Zhou 2024a: Def 2 (Eq 7) for point estimate, Eq 11 for optimal weight
 
   Y <- as.matrix(df[, outcomes, drop = FALSE])
@@ -217,7 +212,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   n_time <- ncol(Y)
 
   # propensity score model and density ratio weights
-  wts <- .ec_weights(df, ps_formula, S, ps_fit, ps_fit_env)
+  wts <- .ec_weights(df, ps_formula, S, ps_fit)
   ps_model <- wts$ps_model
   pi_SX <- wts$pi_SX
   w00 <- wts$w00
@@ -374,7 +369,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @noRd
 .ec_aipw_boot_statistic <- function(data, indices, outcomes,
                                     ps_formula, outcome_formula, borrow_wt,
-                                    ps_fit = NULL, ps_fit_env = parent.frame()) {
+                                    ps_fit = NULL) {
   d <- data[indices, , drop = FALSE]
   core <- .ec_aipw_core(
     d, outcomes, ps_formula, outcome_formula, borrow_wt, ps_fit

@@ -8,14 +8,12 @@ NULL
   slots = c(
     ps_formula = "character",
     ps_fit = "ANY",
-    ps_fit_env = "ANY",
     weight = "numericOrNULL"
   ),
   prototype = list(
     method_name = "EC-IPW",
     ps_formula = "",
     ps_fit = NULL,
-    ps_fit_env = NULL,
     weight = NULL
   )
 )
@@ -112,7 +110,6 @@ ec_ipw <- function(ps_formula = NULL,
   .ec_ipw_method(
     ps_formula = ps_formula,
     ps_fit = ps_fit,
-    ps_fit_env = parent.frame(),
     weight = weight,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
@@ -134,8 +131,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   # point estimate + sandwich SE
   core <- .ec_ipw_core(
     df, as.matrix(df[, outcomes, drop = FALSE]),
-    df$S, df$A, ps_formula, method@weight, method@ps_fit,
-    method@ps_fit_env
+    df$S, df$A, ps_formula, method@weight, method@ps_fit
   )
   result <- if (is.null(method@ps_fit)) {
     .ec_ipw_se(df, core, n_time)
@@ -164,8 +160,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
       n_estimates = n_time, bootstrap = method@bootstrap,
       bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
       borrow_wt = borrow_weight, outcomes = outcomes,
-      ps_formula = ps_formula, ps_fit = method@ps_fit,
-      ps_fit_env = method@ps_fit_env
+      ps_formula = ps_formula, ps_fit = method@ps_fit
     )
     results <- data.frame(
       point_estimates = tau,
@@ -191,8 +186,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @param weight fixed weight or NULL for optimal.
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
-.ec_ipw_core <- function(df, Y, S, A, ps_formula, weight, ps_fit = NULL,
-                         ps_fit_env = parent.frame()) {
+.ec_ipw_core <- function(df, Y, S, A, ps_formula, weight, ps_fit = NULL) {
   # see Zhou 2024a: Def 1 (Eq 6) for point estimate, Eq 11 for optimal weight
 
   n <- sum(S)
@@ -211,7 +205,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   }
 
   # propensity score model and density ratio weights
-  wts <- .ec_weights(df, ps_formula, S, ps_fit, ps_fit_env)
+  wts <- .ec_weights(df, ps_formula, S, ps_fit)
   ps_model <- wts$ps_model
   pi_SX <- wts$pi_SX
   w00 <- wts$w00
@@ -322,9 +316,8 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .ec_ipw_boot_statistic <- function(data, indices, outcomes,
-                                   ps_formula, borrow_wt, ps_fit = NULL,
-                                   ps_fit_env = parent.frame()) {
+                                   ps_formula, borrow_wt, ps_fit = NULL) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
-  .ec_ipw_core(d, Y, d$S, d$A, ps_formula, borrow_wt, ps_fit, ps_fit_env)$tau
+  .ec_ipw_core(d, Y, d$S, d$A, ps_formula, borrow_wt, ps_fit)$tau
 }

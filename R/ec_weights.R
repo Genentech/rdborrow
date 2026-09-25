@@ -1,4 +1,5 @@
 # density-ratio weights for external controls----
+
 #' Fit the trial-participation propensity model and form the density-ratio
 #' weights used by every external-control weighting estimator.
 #' shared by ec_ipw, ec_aipw, did_ec_ipw and did_ec_aipw.
@@ -9,12 +10,10 @@
 #' @param S trial participation vector.
 #' @param ps_fit optional user-supplied weighting, or NULL for the internal
 #'   logistic model.
-#' @param ps_fit_env environment to resolve a stored call in.
 #' @return list with ps_model, pi_SX, pi_S and w00. ps_model and pi_SX are
 #'   NULL when ps_fit is used.
 #' @noRd
-.ec_weights <- function(df, ps_formula, S, ps_fit = NULL,
-                        ps_fit_env = parent.frame()) {
+.ec_weights <- function(df, ps_formula, S, ps_fit = NULL) {
   pi_S <- sum(S) / length(S)
 
   if (!is.null(ps_fit)) {
@@ -22,7 +21,7 @@
       ps_model = NULL,
       pi_SX = NULL,
       pi_S = pi_S,
-      w00 = .ec_user_weights(ps_fit, df, S, ps_fit_env)
+      w00 = .ec_user_weights(ps_fit, df, S)
     ))
   }
 
@@ -44,14 +43,13 @@
 #' @param ps_fit function, weightit object, or matchit object.
 #' @param df internal data frame for the current (possibly resampled) data.
 #' @param S trial participation vector.
-#' @param ps_fit_env environment to resolve a stored call in.
 #' @return numeric vector of non-negative weights, length nrow(df).
 #' @noRd
-.ec_user_weights <- function(ps_fit, df, S, ps_fit_env) {
+.ec_user_weights <- function(ps_fit, df, S) {
   w <- if (is.function(ps_fit)) {
     ps_fit(df)
   } else {
-    .ec_refit_weights(ps_fit, df, ps_fit_env)
+    .ec_refit_weights(ps_fit, df)
   }
 
   if (!is.numeric(w) || length(w) != nrow(df)) {
@@ -77,14 +75,16 @@
   w
 }
 
-#' Re-evaluate a WeightIt or MatchIt object's call on new data.
+#' Re-run a WeightIt or MatchIt object's call against new data.
+#' the object's class determines which function produced it, so the call head
+#' is rewritten to the namespaced function rather than resolved from wherever
+#' the user happened to build the object. remaining arguments are evaluated
+#' against the global environment.
 #' @param ps_fit weightit or matchit object.
 #' @param df data to refit on.
-#' @param ps_fit_env environment the user built the object in, used to
-#'   resolve the function named in its stored call.
 #' @return numeric vector of weights.
 #' @noRd
-.ec_refit_weights <- function(ps_fit, df, ps_fit_env) {
+.ec_refit_weights <- function(ps_fit, df) {
   cl <- ps_fit$call
   if (is.null(cl)) {
     stop(
@@ -93,22 +93,29 @@
       call. = FALSE
     )
   }
+
+  cl[[1]] <- if (inherits(ps_fit, "weightit")) {
+    quote(WeightIt::weightit)
+  } else {
+    quote(MatchIt::matchit)
+  }
   cl$data <- quote(df)
+
   refit <- tryCatch(
-    eval(cl, list(df = df), ps_fit_env),
+    eval(cl, list2env(list(df = df), parent = globalenv())),
     error = function(e) {
       stop(
-        "Could not re-evaluate the ps_fit object's call on a bootstrap ",
-        "resample: ", conditionMessage(e), "\n",
-        "This happens when the stored call refers to variables that are no ",
-        "longer in scope. Pass a function of the data instead, for example ",
-        "ps_fit = \\(d) WeightIt::weightit(S ~ x, d, estimand = \"ATT\")$weights",
+        "Could not re-run the ps_fit object's call on a bootstrap resample: ",
+        conditionMessage(e), "\n",
+        "This happens when the stored call refers to variables that are not ",
+        "in the global environment. Pass a function of the data instead, for ",
+        "example ps_fit = \\(d) WeightIt::weightit(S ~ x, d)$weights",
         call. = FALSE
       )
     }
   )
   if (is.null(refit$weights)) {
-    stop("Re-evaluating the ps_fit object produced no weights.", call. = FALSE)
+    stop("Re-running the ps_fit object produced no weights.", call. = FALSE)
   }
   refit$weights
 }
