@@ -7,11 +7,13 @@ NULL
   contains = "method_DID_obj",
   slots = c(
     ps_formula = "character",
+    ps_fit = "ANY",
     trt_formula = "characterOrNULL"
   ),
   prototype = list(
     method_name = "DID-EC-IPW",
     ps_formula = "",
+    ps_fit = NULL,
     trt_formula = NULL
   )
 )
@@ -24,7 +26,19 @@ NULL
 #' (Zhou et al., 2024, Eq. 4).
 #'
 #' @param ps_formula Formula string for the propensity score model
-#'   predicting trial participation.
+#'   predicting trial participation. Omit when using \code{ps_fit}.
+#' @param ps_fit Alternative to \code{ps_formula}: supply the weights
+#'   yourself instead of fitting the internal logistic propensity model.
+#'   Either a function of the data returning one non-negative weight per
+#'   subject, or a fitted \pkg{WeightIt} or \pkg{MatchIt} object, whose
+#'   stored call is re-evaluated on each bootstrap resample. Only the
+#'   weights for external controls (\code{S == 0}) affect the estimate,
+#'   and they enter through a self-normalized mean, so their overall scale
+#'   is irrelevant. For \pkg{WeightIt}, use \code{estimand = "ATT"} with
+#'   the trial as the focal group. This governs trial participation only;
+#'   treatment assignment is specified with \code{trt_formula}, which
+#'   describes a randomization scheme you already know rather than a model
+#'   to be estimated.
 #' @param trt_formula Formula string for the treatment assignment model,
 #'   or \code{NULL} (default) for marginal probability.
 #' @param bootstrap Number of bootstrap replicates (required for DID
@@ -47,10 +61,13 @@ NULL
 #'   trt_formula = "A ~ x1 + x2 + x3 + x4 + x5",
 #'   bootstrap = 500
 #' )
-did_ec_ipw <- function(ps_formula,
+did_ec_ipw <- function(ps_formula = NULL,
+                       ps_fit = NULL,
                        trt_formula = NULL,
                        bootstrap = 500L,
                        bootstrap_ci_type = NULL) {
+  .check_ps_args(ps_formula, ps_fit, bootstrap)
+  if (is.null(ps_formula)) ps_formula <- ""
   checkmate::assert_string(ps_formula)
   checkmate::assert_string(trt_formula, null.ok = TRUE)
   checkmate::assert_count(bootstrap, positive = TRUE)
@@ -64,6 +81,7 @@ did_ec_ipw <- function(ps_formula,
 
   .did_ec_ipw_method(
     ps_formula = ps_formula,
+    ps_fit = ps_fit,
     trt_formula = trt_formula,
     bootstrap = bootstrap,
     bootstrap_ci_type = bootstrap_ci_type,
@@ -90,7 +108,10 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 
   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
 
-  result <- .did_ec_ipw_core(df, Y, S, A, T_cross, ps_formula, trt_formula)
+  result <- .did_ec_ipw_core(
+    df, Y, S, A, T_cross, ps_formula, trt_formula,
+    method@ps_fit
+  )
   tau <- result$tau
 
   if (!quiet) cat("Running bootstrap inference...\n")
@@ -101,7 +122,8 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
     n_estimates = n_ole, bootstrap = method@bootstrap,
     bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes, ps_formula = ps_formula,
-    trt_formula = trt_formula, T_cross = T_cross
+    trt_formula = trt_formula, T_cross = T_cross,
+    ps_fit = method@ps_fit
   )
 
   data.frame(
@@ -122,14 +144,15 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 #' @param trt_formula treatment assignment formula (NULL for marginal).
 #' @return list with tau vector.
 #' @noRd
-.did_ec_ipw_core <- function(df, Y, S, A, T_cross, ps_formula, trt_formula) {
+.did_ec_ipw_core <- function(df, Y, S, A, T_cross, ps_formula, trt_formula,
+                             ps_fit = NULL) {
   # see Zhou 2024b: Eq 4 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
   n_time <- ncol(Y)
 
   # propensity score model and density ratio weights
-  w00 <- .ec_weights(df, ps_formula, S)$w00
+  w00 <- .ec_weights(df, ps_formula, S, ps_fit)$w00
 
   # treatment assignment model
   if (is.null(trt_formula)) {
@@ -185,8 +208,10 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 #' @return numeric vector of tau estimates.
 #' @noRd
 .did_ec_ipw_boot_statistic <- function(data, indices, outcomes, ps_formula,
-                                       trt_formula, T_cross) {
+                                       trt_formula, T_cross, ps_fit = NULL) {
   d <- data[indices, , drop = FALSE]
   Y <- as.matrix(d[, outcomes, drop = FALSE])
-  .did_ec_ipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula)$tau
+  .did_ec_ipw_core(
+    d, Y, d$S, d$A, T_cross, ps_formula, trt_formula, ps_fit
+  )$tau
 }

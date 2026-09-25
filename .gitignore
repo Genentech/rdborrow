@@ -14,3 +14,4 @@ user-design.Rmd
 inst/vignetteRMD/old_analysis_files
 docs
 pkgdown/
+tests/testthat/_problems/

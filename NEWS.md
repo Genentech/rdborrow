@@ -1,3 +1,8 @@
+# rdborrow (development version)
+
+## New features
+- `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()` and `did_ec_aipw()` gain a `ps_fit` argument for supplying your own inverse probability weights instead of the internal logistic propensity model. Pass a function of the data returning one weight per subject, or a fitted `WeightIt` or `MatchIt` object, whose stored call is re-evaluated on each bootstrap resample so the resampling refits rather than reusing full-data weights. Requires `bootstrap`, since the sandwich variance needs the propensity model score; the difference-in-differences methods are bootstrap-only regardless, so the requirement costs them nothing. `ps_fit` governs trial participation only — treatment assignment stays with `trt_formula`, which describes a known randomization scheme rather than a model to be estimated. For `WeightIt`, `estimand = "ATT"` with the trial as the focal group gives exactly the density ratio the estimator expects (#63).
+
 # rdborrow 0.0.4.1
 
 ## Breaking changes

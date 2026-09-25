@@ -4,12 +4,34 @@
 \alias{ec_ipw}
 \title{EC-IPW method constructor}
 \usage{
-ec_ipw(ps_formula, weight = NULL, bootstrap = NULL, bootstrap_ci_type = NULL)
+ec_ipw(
+  ps_formula = NULL,
+  ps_fit = NULL,
+  weight = NULL,
+  bootstrap = NULL,
+  bootstrap_ci_type = NULL
+)
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
 predicting trial participation. The left-hand side is replaced
-internally (e.g., \code{"S ~ x1 + x2 + x3"}).}
+internally (e.g., \code{"S ~ x1 + x2 + x3"}). Omit when using
+\code{ps_fit}.}
+
+\item{ps_fit}{Alternative to \code{ps_formula}: supply the weights
+yourself instead of fitting the internal logistic propensity model.
+Either a function of the data returning one non-negative weight per
+subject, or a fitted \pkg{WeightIt} or \pkg{MatchIt} object, whose
+stored call is re-evaluated on each bootstrap resample. Only the
+weights for external controls (\code{S == 0}) affect the estimate,
+and they enter through a self-normalized mean, so their overall scale
+is irrelevant. Requires \code{bootstrap}: the sandwich variance needs
+the propensity model score, which supplied weights cannot provide.
+For \pkg{WeightIt}, use \code{estimand = "ATT"} with the trial as the
+focal group, which makes the control weights exactly the density ratio
+this estimator expects. Only weights for external controls are used, so
+a \pkg{MatchIt} design that drops trial subjects aligns the external
+controls with the matched subset rather than the whole trial.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for RCT-only, or a value in (0, 1].}
@@ -48,6 +70,14 @@ ec_ipw(
   weight = 0.3,
   bootstrap = 500
 )
+
+# user-supplied weights, here reproducing the internal model by hand
+att <- function(d) {
+  fit <- glm(S ~ x1 + x2 + x3 + x4 + x5, data = d, family = "binomial")
+  p <- predict(fit, newdata = d, type = "response")
+  p / (1 - p)
+}
+ec_ipw(ps_fit = att, bootstrap = 500)
 }
 \references{
 Zhou et al. (2024). Causal estimators for incorporating external
