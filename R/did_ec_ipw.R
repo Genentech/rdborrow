@@ -112,18 +112,6 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   )
 })
 
-#' fitted treatment probabilities.
-#'
-#' a seam so tests can emulate the slightly different values that different
-#' blas libraries converge the irls fit to.
-#' @param model fitted treatment assignment model.
-#' @param newdata data to predict on.
-#' @return numeric vector of fitted probabilities.
-#' @noRd
-.predict_trt <- function(model, newdata) {
-  predict(model, newdata = newdata, type = "response")
-}
-
 #' DID-EC-IPW point estimate (Zhou 2024b, Eq 4 / Appendix B).
 #' @param df internal data frame.
 #' @param Y outcome matrix (N x T).
@@ -152,7 +140,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
     trt_model <- glm(as.formula(trt_formula),
       data = df[S == 1, , drop = FALSE], family = "binomial"
     )
-    pi_AX <- .predict_trt(trt_model, df)
+    pi_AX <- predict(trt_model, newdata = df, type = "response")
   }
 
   # treatment weights (same as primary: W11, W10)
