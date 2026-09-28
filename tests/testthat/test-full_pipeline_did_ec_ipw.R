@@ -65,3 +65,25 @@ test_that("DID-EC-IPW marginal model matches an intercept-only treatment model",
 
   expect_equal(marginal, intercept, tolerance = tol)
 })
+
+test_that("DID-EC-IPW absorbs BLAS-level noise in the treatment model", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outcomes <- c("y1", "y2", "y3", "y4")
+  df <- .build_analysis_df(SyntheticData, outcomes, "A", "S", covs)
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  ps <- "S ~ x1 + x2 + x3 + x4 + x5"
+
+  marginal <- .did_ec_ipw_core(df, Y, df$S, df$A, 2, ps, NULL)$tau
+
+  # emulate an IRLS fit that converged a hair off the exact proportion, as
+  # happens under BLIS but not under OpenBLAS
+  local_mocked_bindings(
+    .predict_trt = function(model, newdata) {
+      predict(model, newdata = newdata, type = "response") * (1 + 1e-12)
+    }
+  )
+  perturbed <- .did_ec_ipw_core(df, Y, df$S, df$A, 2, ps, "A ~ 1")$tau
+
+  expect_gt(max(abs(perturbed - marginal)), 0)
+  expect_equal(perturbed, marginal, tolerance = tol)
+})
