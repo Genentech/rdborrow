@@ -1,3 +1,8 @@
+# rdborrow 0.0.4.2
+
+## Bug fixes
+- Fixed a test that compared the marginal treatment model against an equivalent intercept-only model with an exact-equality assertion. The two paths are mathematically identical but reach the result by different routes, so they can differ by a few floating-point units under BLAS libraries such as BLIS; the comparison now uses the same tolerance as the other regression tests.
+
 # rdborrow 0.0.4.1
 
 ## Breaking changes
