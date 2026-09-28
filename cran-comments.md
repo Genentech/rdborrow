@@ -12,6 +12,7 @@ estimator behavior changed.
 ## Test environments
 
 * local: Ubuntu 24.04, R 4.6.1 (OpenBLAS)
+* local: Ubuntu 24.04, R 4.6.1, BLAS = BLIS 0.9.0 (openmp)
 * GitHub Actions: Ubuntu (R-release, R-devel), macOS, Windows
 
 ## R CMD check results
