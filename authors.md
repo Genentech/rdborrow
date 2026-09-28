@@ -18,16 +18,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Genentech/rdborrow/blob/v0.0.4.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Genentech/rdborrow/blob/main/DESCRIPTION)
 
 Shi L, Secrest M, Pang H, Chen C, Zhu J (2026). *rdborrow: External
-Control Borrowing for Rare Disease Trials*. R package version 0.0.4.1,
+Control Borrowing for Rare Disease Trials*. R package version 0.0.4.2,
 <https://genentech.github.io/rdborrow/>.
 
     @Manual{,
       title = {rdborrow: External Control Borrowing for Rare Disease Trials},
       author = {Lei Shi and Matt Secrest and Herbert Pang and Chen Chen and Jiawen Zhu},
       year = {2026},
-      note = {R package version 0.0.4.1},
+      note = {R package version 0.0.4.2},
       url = {https://genentech.github.io/rdborrow/},
     }
