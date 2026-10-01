@@ -16,7 +16,10 @@ library(rdborrow)
 This article is for developers who want to add a borrowing estimator to
 rdborrow. Every method is an S4 class with its own `estimate()` method.
 `run_analysis()` and `run_simulation()` reach the estimator through S4
-dispatch, so a new method never requires editing existing code.
+dispatch, so a new method never changes the logic of existing code. Adding
+one to the package does touch a few existing files to register it (the
+method lists in the docs, `NAMESPACE`, `NEWS.md`, `_pkgdown.yml`); the
+checklist below lists every one.
 
 ## How a method plugs in
 
@@ -50,19 +53,59 @@ OLE analyses also pass `T_cross`.
 
 ## The `estimate()` contract
 
-Your `estimate()` method receives the full data frame (trial participants
-and external controls) and the column names. The analysis and simulation
-code expects it to return a specific shape.
+### What `estimate()` receives
+
+`data` is the user's data frame, with the user's column names, holding
+trial participants and external controls. `outcomes`, `treatment`,
+`trial_status`, and `covariates` are the column names given to
+`setup_analysis_*()`.
+
+The built-in methods immediately standardize the data with the internal
+helper `.build_analysis_df()`. It returns the outcome columns, then the trial
+status column renamed to `S`, the treatment column renamed to `A`, then the
+covariates. Here the trial status and treatment columns start out as
+`in_trial` and `arm`:
+
+```{r}
+trial_data <- SyntheticData
+names(trial_data)[names(trial_data) == "S"] <- "in_trial"
+names(trial_data)[names(trial_data) == "A"] <- "arm"
+
+df <- rdborrow:::.build_analysis_df(
+  trial_data,
+  outcomes = c("y1", "y2"), treatment = "arm", trial_status = "in_trial",
+  covariates = c("x1", "x2")
+)
+head(df, 3)
+```
+
+Do the same. The shared bootstrap helper stratifies on columns literally
+named `S` and `A`, and user formulas are rewritten to match: for example
+`ec_ipw()` replaces the left-hand side of `ps_formula` with `S`.
+
+Validate anything that depends on the analysis inside `estimate()`, not in
+the constructor, because the constructor can't see the data. For example,
+`ec_aipw()` checks there that it has one outcome formula per outcome.
+
+### What `estimate()` returns
+
+The analysis and simulation code expects a specific shape.
 
 | Analysis | Return value |
 |---|---|
-| Primary | `list(results, borrow_weight)`, where `results` is a data frame with one row per outcome (`tau1`, `tau2`, ...) and columns `point_estimates`, `standard_deviation`, and either `lower_CI_normal`/`upper_CI_normal` or, when bootstrapping, `lower_CI_boot`/`upper_CI_boot` |
+| Primary, sandwich SE | `list(results, borrow_weight)`, where `results` is a data frame with one row per outcome (`tau1`, `tau2`, ...) and columns `point_estimates`, `standard_deviation`, `lower_CI_normal`, `upper_CI_normal` |
+| Primary, bootstrap | The same, but `standard_deviation` is the bootstrap standard deviation and the CI columns are `lower_CI_boot`, `upper_CI_boot` instead of the `*_normal` pair |
 | OLE | A data frame with one row per post-crossover outcome and columns `point_estimates`, `lower_CI_boot`, `upper_CI_boot` |
+
+A primary method doesn't need a sandwich variance. If it only supports the
+bootstrap, return just the bootstrap shape.
 
 `run_simulation()` keeps the last row (the final time point) from each
 replicate. To compute coverage, type I error, and power, it uses the
 `*_boot` confidence interval columns if they exist and the `*_normal`
-columns otherwise. Keep these column names exactly as shown.
+columns otherwise. Keep these column names exactly as shown. Pass
+`true_effect` to `setup_simulation_*()` as a single number, the effect at
+the final time point (see [#90](https://github.com/Genentech/rdborrow/issues/90)).
 
 ## A toy method, end to end
 
@@ -78,7 +121,8 @@ $$
 Here $\bar Y_{11}$, $\bar Y_{10}$, and $\bar Y_{00}$ are the outcome means for
 trial treated, trial control, and external control patients.
 
-First, the class and a validated constructor:
+First, the class and a validated constructor. `bootstrap` and
+`bootstrap_ci_type` are slots inherited from `method_obj`:
 
 ```{r}
 .hamburger_method <- setClass(
@@ -88,15 +132,24 @@ First, the class and a validated constructor:
   prototype = list(method_name = "Hamburger", weight = 0.5)
 )
 
-hamburger <- function(weight = 0.5) {
+hamburger <- function(weight = 0.5, bootstrap = NULL,
+                      bootstrap_ci_type = NULL) {
   checkmate::assert_number(weight, lower = 0, upper = 1)
-  .hamburger_method(method_name = "Hamburger", weight = weight)
+  checkmate::assert_int(bootstrap, lower = 2, null.ok = TRUE)
+  if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    bootstrap_ci_type <- "perc"
+  }
+  .hamburger_method(
+    method_name = "Hamburger", weight = weight,
+    bootstrap = bootstrap, bootstrap_ci_type = bootstrap_ci_type
+  )
 }
 ```
 
 Next, the estimator. Following the package convention, one internal
-function, `.hamburger_core()`, computes the point estimate, and
-`estimate()` wraps it with a standard error and confidence interval:
+function, `.hamburger_core()`, computes the point estimate. The bootstrap
+statistic resamples rows and calls the same function, so the point estimate
+is defined in exactly one place:
 
 ```{r}
 .hamburger_core <- function(Y, S, A, weight) {
@@ -115,26 +168,65 @@ function, `.hamburger_core()`, computes the point estimate, and
   )
 }
 
+.hamburger_boot_statistic <- function(data, indices, outcomes, weight) {
+  d <- data[indices, , drop = FALSE]
+  Y <- as.matrix(d[, outcomes, drop = FALSE])
+  .hamburger_core(Y, d$S, d$A, weight)$tau
+}
+```
+
+`estimate()` standardizes the data, computes the point estimate, and then
+attaches either a closed-form standard error or bootstrap intervals. Inside
+the package you would call `.build_analysis_df()` and `.run_bootstrap()`
+directly; outside it they need `rdborrow:::`.
+
+```{r}
 setMethod("estimate", "hamburger_method", function(method, data, outcomes,
                                                    treatment, trial_status,
                                                    covariates, alpha = 0.05,
                                                    quiet = TRUE) {
-  Y <- as.matrix(data[, outcomes, drop = FALSE])
-  core <- .hamburger_core(
-    Y, data[[trial_status]], data[[treatment]], method@weight
+  df <- rdborrow:::.build_analysis_df(
+    data, outcomes, treatment, trial_status, covariates
   )
-  cutoff <- qnorm(1 - alpha / 2)
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  core <- .hamburger_core(Y, df$S, df$A, method@weight)
+  labels <- paste0("tau", seq_along(outcomes))
 
-  results <- data.frame(
-    point_estimates = core$tau,
-    standard_deviation = core$sd_tau,
-    lower_CI_normal = core$tau - cutoff * core$sd_tau,
-    upper_CI_normal = core$tau + cutoff * core$sd_tau,
-    row.names = paste0("tau", seq_along(outcomes))
-  )
+  if (is.null(method@bootstrap)) {
+    cutoff <- qnorm(1 - alpha / 2)
+    results <- data.frame(
+      point_estimates = core$tau,
+      standard_deviation = core$sd_tau,
+      lower_CI_normal = core$tau - cutoff * core$sd_tau,
+      upper_CI_normal = core$tau + cutoff * core$sd_tau,
+      row.names = labels
+    )
+  } else {
+    boot_res <- rdborrow:::.run_bootstrap(
+      df = df, statistic = .hamburger_boot_statistic,
+      n_estimates = length(outcomes), bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      outcomes = outcomes, weight = method@weight
+    )
+    results <- data.frame(
+      point_estimates = core$tau,
+      standard_deviation = boot_res$sd_boot,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
+      row.names = labels
+    )
+  }
+
   list(results = results, borrow_weight = method@weight)
 })
 ```
+
+`.run_bootstrap()` takes the standardized data frame, the statistic, the
+number of estimates it returns, the number of replicates, the CI type, and
+`alpha`. Any further named arguments (here `outcomes` and `weight`) are
+passed through to the statistic. It resamples within each trial status and
+treatment group and returns a list with `lower_ci`, `upper_ci`, and
+`sd_boot`, one value per estimate.
 
 That is the whole method. It runs through the standard workflow without
 any changes to rdborrow:
@@ -148,6 +240,14 @@ analysis <- setup_analysis_primary(
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   method_weighting_obj = hamburger(weight = 0.5)
 )
+run_analysis(analysis)
+```
+
+With `bootstrap` set, the same call returns bootstrap intervals:
+
+```{r}
+analysis@method_obj <- hamburger(weight = 0.5, bootstrap = 200)
+set.seed(1)
 run_analysis(analysis)
 ```
 
@@ -173,28 +273,50 @@ rdborrow itself, use `R/ec_ipw.R` as the template.
 
 1. **Create `R/{name}.R`.** Start it with `#' @include method_class.R`.
    rdborrow uses a `Collate` field, so `devtools::document()` needs this
-   tag to load the parent classes first.
+   tag to load the parent classes first. Functions from the packages and
+   `stats` functions that rdborrow already imports (see `R/package.R`) can
+   be used directly. For anything else, add an `@importFrom` there or call
+   it as `pkg::fun()`.
 2. **Define the class and constructor.** Validate every argument with
-   checkmate. Resolve `bootstrap_ci_type` to `"perc"` when `bootstrap` is
-   set. Document the constructor with roxygen, `@export` it, and give it
+   checkmate, including `checkmate::assert_int(bootstrap, lower = 2,
+   null.ok = TRUE)` (drop `null.ok` if the method is bootstrap only).
+   Resolve `bootstrap_ci_type` to `"perc"` when `bootstrap` is set.
+   Document the constructor with roxygen, `@export` it, and give it
    runnable `@examples`.
 3. **Write the `estimate()` method.** Tag it with `#' @rdname estimate`.
+   Start with `.build_analysis_df()`, and put any validation that depends
+   on the analysis, such as one formula per outcome, here.
 4. **Split the internals into three functions:**
     - `.{name}_core()`: the single source of the point estimate.
     - `.{name}_se()`: the sandwich variance, if the method has a closed
-      form. The DID and SCM methods don't and support bootstrap only.
+      form. Skip it for a bootstrap-only method, as the DID methods and
+      `scm()` do.
     - `.{name}_boot_statistic(data, indices, ...)`: a thin wrapper that
       resamples rows and calls `.{name}_core()`. Pass it to the shared
-      `.run_bootstrap()`, which stratifies by trial status and treatment.
-      Don't write a new bootstrap loop.
+      `.run_bootstrap()`, as in the toy method above. Don't write a new
+      bootstrap loop.
+
+    Describe internal functions with `#'` comments that end in `@noRd`, as
+    `R/ec_ipw.R` does, so they don't get a help page.
 5. **Lock the numbers with a test.** Add
    `tests/testthat/test-full_pipeline_{name}.R` that runs the method on
    `SyntheticData` through `setup_analysis_*()` and `run_analysis()`. Check
    the point estimates against an independent reference, such as the paper's
    code or a hand calculation, rather than against the new function's own
-   output.
-6. **Register the method.** Add it to the "Borrowing methods" section of
-   `_pkgdown.yml`, to the method list in `?run_analysis`, and to `NEWS.md`.
+   output. Call `set.seed()` before any bootstrap. Model refits on small
+   resamples can warn (for example, rank-deficient fits on `SyntheticData`);
+   expect those warnings explicitly with `expect_warning()`.
+6. **Register the method.** Add it to:
+    - the method lists in `?run_analysis` (`R/run_analysis.R`),
+      `?run_simulation` (`R/run_simulation.R`), and
+      `?setup_analysis_primary` (`R/analysis_primary_class.R`) or
+      `?setup_analysis_OLE` (`R/analysis_OLE_class.R`)
+    - the "Borrowing methods" section of `_pkgdown.yml`
+    - `NEWS.md`
+
+    `devtools::document()` then updates `NAMESPACE` and the matching
+    `man/*.Rd` files. These registration edits are the only changes to
+    existing files.
 7. **Validate:**
 
     ```r
@@ -204,10 +326,3 @@ rdborrow itself, use `R/ec_ipw.R` as the template.
     pkgdown::check_pkgdown()
     devtools::check()
     ```
-
-## Using an AI coding agent
-
-The steps above are mechanical once the math is settled, which makes them a
-good fit for an AI coding agent. [Developing with AI coding
-agents](ai-coding-agents.html) shows how to hand this recipe to an agent and
-how to check its work.

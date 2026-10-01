@@ -92,14 +92,92 @@ statistically wrong. These habits catch that:
   estimator and its expected output can encode the same mistake in both.
 - **Review the math line by line.** For an estimator, that is
   `.{name}_core()` and `.{name}_se()`; the rest is plumbing.
-- **Keep changes additive.** A new estimator only adds files. If the diff
-  touches `run_analysis()`, an existing method, or a shared helper, ask why.
+- **Keep changes additive.** A new estimator adds files and edits only the
+  registration spots listed in [Adding a new method](adding-a-method.html).
+  If the diff changes the logic of `run_analysis()`, an existing method, or
+  a shared helper, ask why.
 - **Treat a changed regression test as a red flag.** The
   `test-full_pipeline_*.R` files lock every method's output on
   `SyntheticData`. A changed number needs an explanation in the PR.
 - **Run the full check.** `devtools::test()` uses `load_all()`, which can
   hide problems that only appear in the installed package.
   `devtools::check()` doesn't.
+
+## Testing the docs with an adversarial agent
+
+Docs written for agents can be tested by an agent. To check this article,
+[Adding a new method](adding-a-method.html), and `AGENTS.md`, we gave a
+second agent a real task: build `ec_or()`, an outcome-regression estimator
+for the primary analysis with bootstrap-only inference, in its own git
+worktree. Its instructions said to use only the docs, to log every time it
+had to read package code instead, and to treat a run with no findings as
+suspicious.
+
+The agent built a working method on its own branch:
+
+- An independent reference script, written in base R before any package
+  code, and the new `ec_or()` agreed exactly on `SyntheticData`.
+- The full-pipeline test failed first and passed after implementation.
+  `devtools::check()` reported 0 errors, 0 warnings, and 0 notes, and
+  `ec_or()` ran inside `run_simulation()`.
+- It reported 15 findings. Two were blockers, places where it couldn't
+  continue without reading code: the docs didn't say that `estimate()`
+  should rename columns to `S` and `A` with `.build_analysis_df()`, and they
+  didn't give `.run_bootstrap()`'s arguments or return value. Both are now
+  documented, along with the missing registration spots and a
+  bootstrap-only example.
+- It found two package bugs: `bootstrap = 1` was accepted and then failed
+  with an opaque error ([#91](https://github.com/Genentech/rdborrow/pull/91)), and `run_simulation()` silently recycles a
+  vector `true_effect` across replicates ([#90](https://github.com/Genentech/rdborrow/issues/90)).
+
+Rerun this check whenever the developer docs change. The prompt below is
+the one we used, updated with what the first run taught us:
+
+````text
+You are an adversarial tester for the rdborrow R package's developer
+documentation. Build a new borrowing method by following the docs exactly,
+and report every place they are wrong, ambiguous, or missing something. A
+smooth run with no findings is a suspicious result; look harder.
+
+Setup:
+- Create a git worktree on a new branch from the branch under test. Do not
+  touch any other branch or the main working tree. Building from a
+  worktree adds a `.git` file at the top level; add `^\.git$` to your
+  branch's .Rbuildignore and note that this edit is a test artifact.
+- Your only guidance is AGENTS.md, vignettes/articles/adding-a-method.Rmd,
+  and vignettes/articles/ai-coding-agents.Rmd. You may read package code,
+  but every time you need code to learn something the docs should have
+  told you, log it as a finding.
+- Do not push, open PRs, or create issues. There is no issue for this
+  exercise; say so in the NEWS bullet instead of citing one.
+
+Task: add <estimator>, defined as <definition>, with <sandwich or
+bootstrap-only> inference. Choose a method that exercises a path the docs'
+toy example does not.
+
+Rules:
+1. Before any package code, write an independent reference script in base
+   R, with no rdborrow internals, that computes the estimate on
+   SyntheticData. This is your ground truth.
+2. Follow adding-a-method.Rmd in order. Write the full-pipeline test
+   against the reference values first and confirm it fails.
+3. Follow every AGENTS.md rule and run the "Before committing" one-liner.
+   Commit locally.
+4. Probe the docs' claims:
+   - List every existing file you modified. Each one is either a step in
+     the checklist or a finding.
+   - Run the method inside run_simulation() with a few small simulated
+     replicates and a scalar true_effect, and confirm which CI columns
+     coverage uses.
+   - Try to break the constructor (out-of-range arguments, bootstrap = 1,
+     mismatched formula counts) and judge whether the errors are clear.
+
+Report, most severe first: each finding with the doc file and line, what
+it says, what happened, a suggested fix, and a severity (blocker, wrong,
+gap, nit); files touched, split into checklist steps and undocumented
+edits; reference vs. package estimates; the final devtools::check()
+summary; and how long a human contributor would need with these docs.
+````
 
 ## Keeping `AGENTS.md` current
 
