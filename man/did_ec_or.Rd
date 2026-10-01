@@ -22,7 +22,8 @@ formulas for RCT control subjects, one per time point.}
 \item{outcome_formula_rct_trt}{Character vector of outcome model
 formulas for RCT treated subjects, one per time point.}
 
-\item{bootstrap}{Number of bootstrap replicates. Defaults to 500.}
+\item{bootstrap}{Number of bootstrap replicates (at least 2).
+Defaults to 500.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}
 }

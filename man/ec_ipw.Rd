@@ -14,7 +14,7 @@ internally (e.g., \code{"S ~ x1 + x2 + x3"}).}
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for RCT-only, or a value in (0, 1].}
 
-\item{bootstrap}{Number of bootstrap replicates, or \code{NULL}
+\item{bootstrap}{Number of bootstrap replicates (at least 2), or \code{NULL}
 (default) for sandwich variance with normal CIs.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type, or \code{NULL} (default)

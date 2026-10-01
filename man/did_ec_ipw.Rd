@@ -18,7 +18,7 @@ predicting trial participation.}
 \item{trt_formula}{Formula string for the treatment assignment model,
 or \code{NULL} (default) for marginal probability.}
 
-\item{bootstrap}{Number of bootstrap replicates (required for DID
+\item{bootstrap}{Number of bootstrap replicates, at least 2 (required for DID
 methods). Defaults to 500.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}

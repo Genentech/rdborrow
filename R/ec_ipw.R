@@ -27,7 +27,7 @@ NULL
 #'   internally (e.g., \code{"S ~ x1 + x2 + x3"}).
 #' @param weight Borrowing weight. \code{NULL} (default) for data-adaptive
 #'   optimal weight, \code{0} for RCT-only, or a value in (0, 1].
-#' @param bootstrap Number of bootstrap replicates, or \code{NULL}
+#' @param bootstrap Number of bootstrap replicates (at least 2), or \code{NULL}
 #'   (default) for sandwich variance with normal CIs.
 #' @param bootstrap_ci_type Bootstrap CI type, or \code{NULL} (default)
 #'   which resolves to \code{"perc"} when \code{bootstrap} is set. One of
@@ -67,7 +67,7 @@ ec_ipw <- function(ps_formula,
                    bootstrap_ci_type = NULL) {
   checkmate::assert_string(ps_formula)
   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
-  checkmate::assert_count(bootstrap, positive = TRUE, null.ok = TRUE)
+  checkmate::assert_int(bootstrap, lower = 2, null.ok = TRUE)
 
   # bootstrap type
   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
