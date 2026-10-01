@@ -1,7 +1,7 @@
 # rdborrow (development version)
 
 ## Bug fixes
-- All method constructors now require `bootstrap` to be at least 2. `bootstrap = 1` was accepted and then failed inside `run_analysis()` with an opaque confidence interval error.
+- All method constructors now require `bootstrap` to be at least 2. `bootstrap = 1` was accepted and then failed inside `run_analysis()` with an opaque confidence interval error (#91).
 
 # rdborrow 0.0.4.2
 
