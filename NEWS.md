@@ -1,3 +1,8 @@
+# rdborrow (development version)
+
+## Documentation
+- Two new developer articles. "Adding a new method" explains how an estimator plugs into `run_analysis()` and `run_simulation()` through S4 dispatch, walks through a runnable toy method, and gives a checklist for adding a method to the package (#87). "Developing with AI coding agents" explains the new `AGENTS.md` file of agent instructions and gives a workflow, example prompts, and review habits for working on the package with an AI coding agent (#88).
+
 # rdborrow 0.0.4.2
 
 ## Bug fixes

@@ -10,3 +10,5 @@
 ^data-raw$
 ^\.claude$
 ^CRAN-SUBMISSION$
+^vignettes/articles$
+^AGENTS\.md$
