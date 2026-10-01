@@ -52,8 +52,10 @@ standard errors only.
 Each constructor returns an S4 object. `run_analysis()` is a single
 `do.call(estimate, args)`; each method class implements its own `estimate()`
 method. A new estimator adds a class, a constructor and an `estimate()`
-method, and never edits `run_analysis()`, `run_simulation()` or another
-method.
+method, and never changes the logic of `run_analysis()`, `run_simulation()`
+or another method. Registering it edits only documentation: the method
+lists, `_pkgdown.yml`, `NEWS.md`, and the files `devtools::document()`
+regenerates.
 
 ```
 method_obj
@@ -216,7 +218,8 @@ When refactoring any estimator or internal function, apply all of these:
 - Every user-facing function should be exported and have roxygen2
   documentation.
 - Wrap roxygen comments at 80 characters.
-- Internal functions should not have roxygen documentation.
+- Internal functions get no help page: describe them with `#'` comments that
+  end in `@noRd`, as `R/ec_ipw.R` does.
 - Whenever you add a new (non-internal) documentation topic, also add the
   topic to `_pkgdown.yml`.
 - Always re-document the package after changing a roxygen2 comment.
@@ -245,7 +248,8 @@ tidyverse team's instructions:
   skills in `.claude/skills/`.
 - Other agents: run `Rscript -e 'usethis::learn_tidy_skill("arg-checking")'`
   or `Rscript -e 'usethis::learn_tidy_skill("deprecate")'` (usethis >= 3.2.2)
-  and follow the output.
+  and follow the output. If `learn_tidy_skill()` doesn't exist, the installed
+  usethis is too old; run `Rscript -e 'install.packages("usethis")'` first.
 
 ## GitHub
 
