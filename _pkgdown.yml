@@ -29,6 +29,10 @@ articles:
     contents:
       - OLE_analysis_workflow
       - OLE_simulation_workflow
+  - title: Developers
+    contents:
+      - articles/adding-a-method
+      - articles/ai-coding-agents
 
 reference:
   - title: Borrowing methods

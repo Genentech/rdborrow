@@ -1,0 +1,109 @@
+---
+title: "Developing with AI coding agents"
+---
+
+This article is for developers who work on rdborrow with an AI coding agent
+such as Claude Code, Codex, Cursor, or Gemini CLI. The repository tells
+agents how the package is built, so the agent's first draft follows the
+package's conventions. Your job shifts to stating the task precisely and
+checking the result.
+
+## How agents learn the package's conventions
+
+`AGENTS.md`, at the top of the repository, is a plain markdown file of
+instructions that most coding agents read automatically. Claude Code reads
+`.claude/CLAUDE.md` instead, which imports `AGENTS.md`, so every agent
+follows the same rules from a single file. `AGENTS.md` is listed in
+`.Rbuildignore`, so it never ships with the package.
+
+It covers:
+
+| Section | What the agent learns |
+|---|---|
+| Architecture | The user-facing API, the method class hierarchy, how `estimate()` dispatch works, and the `_core()` / `_se()` / `_boot_statistic()` pattern |
+| Key commands | How to run tests, re-document, build the site, and run `R CMD check` |
+| Coding | Base R only, base pipe, R 4.1 compatibility, checkmate validation, comment style |
+| Testing | Where tests go, which expectations to use, and that a bug fix needs a failing test first |
+| Documentation and `NEWS.md` | When to add roxygen docs, pkgdown entries, and NEWS bullets |
+| Specialized tasks | Where to find the tidyverse instructions for argument checking and deprecation |
+| Before committing | The one-line validation command to run before every commit |
+
+For Claude Code, `.claude/settings.json` also pre-approves routine commands
+such as `Rscript`, `grep`, and `gh issue view`, so the agent doesn't stop to
+ask before running tests.
+
+## A workflow that works
+
+1. **Start from an issue.** An issue gives the agent a fixed statement of the
+   problem and gives the PR something to close.
+2. **Ask for a plan before code.** Reading a plan takes a minute; unwinding a
+   wrong approach takes much longer.
+3. **Write the test first.** Have the agent write a test that fails for the
+   right reason, and confirm it fails, before it touches the fix.
+4. **Let the agent implement and validate.** `AGENTS.md` tells it to run
+   styler, re-document, and run the before-committing check.
+5. **Review the diff yourself.** Read every changed line, starting with the
+   statistics.
+6. **Open a PR that references the issue.**
+
+## Example prompts
+
+### Add a method
+
+[Adding a new method](adding-a-method.html) is written so that an agent can
+follow it step by step. Give the agent the estimator's definition and point it
+at the article:
+
+```text
+Add a new primary-analysis estimator to rdborrow called ec_or(), an
+outcome-regression estimator for external control borrowing as defined in
+<paper, equation number>.
+
+Follow vignettes/articles/adding-a-method.Rmd step by step and use
+R/ec_ipw.R as the template. Before writing the estimator, write
+tests/testthat/test-full_pipeline_ec_or.R against reference values that I
+will provide, and confirm that it fails. Then implement the method until
+the test passes and devtools::check() is clean.
+```
+
+### Fix a bug from an issue
+
+```text
+Read issue #86 with `gh issue view 86 --comments`. Write a test that
+reproduces the bug and confirm that it fails. Then fix the bug, add a
+NEWS.md bullet, and run the before-committing check.
+```
+
+### Deprecate an argument
+
+```text
+Deprecate the <argument> argument of <function>(), following the
+deprecation instructions referenced in AGENTS.md. Update the tests and
+NEWS.md.
+```
+
+## Checking the agent's work
+
+An agent can produce a clean, passing, well-documented change that is
+statistically wrong. These habits catch that:
+
+- **Supply the reference values yourself.** Take them from the paper, the
+  authors' code, or a hand calculation. An agent that writes both the
+  estimator and its expected output can encode the same mistake in both.
+- **Review the math line by line.** For an estimator, that is
+  `.{name}_core()` and `.{name}_se()`; the rest is plumbing.
+- **Keep changes additive.** A new estimator only adds files. If the diff
+  touches `run_analysis()`, an existing method, or a shared helper, ask why.
+- **Treat a changed regression test as a red flag.** The
+  `test-full_pipeline_*.R` files lock every method's output on
+  `SyntheticData`. A changed number needs an explanation in the PR.
+- **Run the full check.** `devtools::test()` uses `load_all()`, which can
+  hide problems that only appear in the installed package.
+  `devtools::check()` doesn't.
+
+## Keeping `AGENTS.md` current
+
+`AGENTS.md` is the single source of the package's conventions for both
+people and agents. When a convention changes, update `AGENTS.md` in the same
+PR. Add new rules there, not to `.claude/CLAUDE.md`, so that every agent
+sees them.
