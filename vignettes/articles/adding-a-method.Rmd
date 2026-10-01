@@ -1,0 +1,213 @@
+---
+title: "Adding a new method"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rdborrow)
+```
+
+This article is for developers who want to add a borrowing estimator to
+rdborrow. Every method is an S4 class with its own `estimate()` method.
+`run_analysis()` and `run_simulation()` reach the estimator through S4
+dispatch, so a new method never requires editing existing code.
+
+## How a method plugs in
+
+Every method object inherits from one of two parent classes, and that
+parent decides which analysis it can be used in:
+
+```
+method_obj
+├── method_primary_obj  -> setup_analysis_primary()
+│   └── method_weighting_obj    ec_ipw(), ec_aipw()
+└── method_OLE_obj      -> setup_analysis_OLE()
+    ├── method_DID_obj          did_ec_ipw(), did_ec_aipw(), did_ec_or()
+    └── method_SCM_obj          scm()
+```
+
+`method_obj` carries the slots every method shares: `method_name`,
+`bootstrap`, and `bootstrap_ci_type`. Your class adds slots for its own
+settings, such as model formulas or a borrowing weight.
+
+`run_analysis()` then does one thing. It collects the column names stored in
+the analysis object and calls:
+
+```r
+estimate(
+  method, data, outcomes, treatment, trial_status, covariates,
+  alpha, quiet
+)
+```
+
+OLE analyses also pass `T_cross`.
+
+## The `estimate()` contract
+
+Your `estimate()` method receives the full data frame (trial participants
+and external controls) and the column names. The analysis and simulation
+code expects it to return a specific shape.
+
+| Analysis | Return value |
+|---|---|
+| Primary | `list(results, borrow_weight)`, where `results` is a data frame with one row per outcome (`tau1`, `tau2`, ...) and columns `point_estimates`, `standard_deviation`, and either `lower_CI_normal`/`upper_CI_normal` or, when bootstrapping, `lower_CI_boot`/`upper_CI_boot` |
+| OLE | A data frame with one row per post-crossover outcome and columns `point_estimates`, `lower_CI_boot`, `upper_CI_boot` |
+
+`run_simulation()` keeps the last row (the final time point) from each
+replicate. To compute coverage, type I error, and power, it uses the
+`*_boot` confidence interval columns if they exist and the `*_normal`
+columns otherwise. Keep these column names exactly as shown.
+
+## A toy method, end to end
+
+The fastest way to see the contract in action is to define a method outside
+the package. The dummy estimator below, `hamburger()`, is deliberately named
+so that nobody mistakes it for a real method. It pools trial controls and
+external controls with a fixed weight `w` and makes no covariate adjustment:
+
+$$
+\hat\tau = \bar Y_{11} - \left[(1 - w)\,\bar Y_{10} + w\,\bar Y_{00}\right]
+$$
+
+Here $\bar Y_{11}$, $\bar Y_{10}$, and $\bar Y_{00}$ are the outcome means for
+trial treated, trial control, and external control patients.
+
+First, the class and a validated constructor:
+
+```{r}
+.hamburger_method <- setClass(
+  "hamburger_method",
+  contains = "method_primary_obj",
+  slots = c(weight = "numeric"),
+  prototype = list(method_name = "Hamburger", weight = 0.5)
+)
+
+hamburger <- function(weight = 0.5) {
+  checkmate::assert_number(weight, lower = 0, upper = 1)
+  .hamburger_method(method_name = "Hamburger", weight = weight)
+}
+```
+
+Next, the estimator. Following the package convention, one internal
+function, `.hamburger_core()`, computes the point estimate, and
+`estimate()` wraps it with a standard error and confidence interval:
+
+```{r}
+.hamburger_core <- function(Y, S, A, weight) {
+  groups <- list(
+    trt = S == 1 & A == 1,
+    ctrl = S == 1 & A == 0,
+    ext = S == 0
+  )
+  means <- lapply(groups, \(g) colMeans(Y[g, , drop = FALSE]))
+  vars <- lapply(groups, \(g) apply(Y[g, , drop = FALSE], 2, var) / sum(g))
+
+  list(
+    tau = means$trt - (1 - weight) * means$ctrl - weight * means$ext,
+    sd_tau = sqrt(vars$trt + (1 - weight)^2 * vars$ctrl +
+      weight^2 * vars$ext)
+  )
+}
+
+setMethod("estimate", "hamburger_method", function(method, data, outcomes,
+                                                   treatment, trial_status,
+                                                   covariates, alpha = 0.05,
+                                                   quiet = TRUE) {
+  Y <- as.matrix(data[, outcomes, drop = FALSE])
+  core <- .hamburger_core(
+    Y, data[[trial_status]], data[[treatment]], method@weight
+  )
+  cutoff <- qnorm(1 - alpha / 2)
+
+  results <- data.frame(
+    point_estimates = core$tau,
+    standard_deviation = core$sd_tau,
+    lower_CI_normal = core$tau - cutoff * core$sd_tau,
+    upper_CI_normal = core$tau + cutoff * core$sd_tau,
+    row.names = paste0("tau", seq_along(outcomes))
+  )
+  list(results = results, borrow_weight = method@weight)
+})
+```
+
+That is the whole method. It runs through the standard workflow without
+any changes to rdborrow:
+
+```{r}
+analysis <- setup_analysis_primary(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = hamburger(weight = 0.5)
+)
+run_analysis(analysis)
+```
+
+Swapping in `ec_ipw()` with the same fixed weight shows how much the
+covariate adjustment changes the answer:
+
+```{r}
+analysis@method_obj <- ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  weight = 0.5
+)
+run_analysis(analysis)
+```
+
+For the same reason, `hamburger()` can go straight into the
+`method_obj_list` of `setup_simulation_primary()` and be compared against
+the built-in methods (see `vignette("primary_simulation_workflow")`).
+
+## Moving the method into the package
+
+Defining a method outside the package works for prototyping. To add it to
+rdborrow itself, use `R/ec_ipw.R` as the template.
+
+1. **Create `R/{name}.R`.** Start it with `#' @include method_class.R`.
+   rdborrow uses a `Collate` field, so `devtools::document()` needs this
+   tag to load the parent classes first.
+2. **Define the class and constructor.** Validate every argument with
+   checkmate. Resolve `bootstrap_ci_type` to `"perc"` when `bootstrap` is
+   set. Document the constructor with roxygen, `@export` it, and give it
+   runnable `@examples`.
+3. **Write the `estimate()` method.** Tag it with `#' @rdname estimate`.
+4. **Split the internals into three functions:**
+    - `.{name}_core()`: the single source of the point estimate.
+    - `.{name}_se()`: the sandwich variance, if the method has a closed
+      form. The DID and SCM methods don't and support bootstrap only.
+    - `.{name}_boot_statistic(data, indices, ...)`: a thin wrapper that
+      resamples rows and calls `.{name}_core()`. Pass it to the shared
+      `.run_bootstrap()`, which stratifies by trial status and treatment.
+      Don't write a new bootstrap loop.
+5. **Lock the numbers with a test.** Add
+   `tests/testthat/test-full_pipeline_{name}.R` that runs the method on
+   `SyntheticData` through `setup_analysis_*()` and `run_analysis()`. Check
+   the point estimates against an independent reference, such as the paper's
+   code or a hand calculation, rather than against the new function's own
+   output.
+6. **Register the method.** Add it to the "Borrowing methods" section of
+   `_pkgdown.yml`, to the method list in `?run_analysis`, and to `NEWS.md`.
+7. **Validate:**
+
+    ```r
+    devtools::document()
+    styler::style_pkg()
+    devtools::test()
+    pkgdown::check_pkgdown()
+    devtools::check()
+    ```
+
+## Using an AI coding agent
+
+The steps above are mechanical once the math is settled, which makes them a
+good fit for an AI coding agent. [Developing with AI coding
+agents](ai-coding-agents.html) shows how to hand this recipe to an agent and
+how to check its work.

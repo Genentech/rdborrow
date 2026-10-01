@@ -109,3 +109,4 @@ LazyData: true
 Encoding: UTF-8
 Language: en-US
 Config/roxygen2/version: 8.1.0
+Config/Needs/website: rmarkdown
