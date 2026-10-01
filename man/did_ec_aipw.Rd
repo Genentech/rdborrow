@@ -22,7 +22,8 @@ or \code{NULL} (default) for marginal probability.}
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per time point.}
 
-\item{bootstrap}{Number of bootstrap replicates. Defaults to 500.}
+\item{bootstrap}{Number of bootstrap replicates (at least 2).
+Defaults to 500.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}
 }

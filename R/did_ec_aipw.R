@@ -32,7 +32,8 @@ NULL
 #'   or \code{NULL} (default) for marginal probability.
 #' @param outcome_formula Character vector of outcome model formulas,
 #'   one per time point.
-#' @param bootstrap Number of bootstrap replicates. Defaults to 500.
+#' @param bootstrap Number of bootstrap replicates (at least 2).
+#'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
 #'
 #' @return An S4 object of class \code{did_ec_aipw_method}.
@@ -65,7 +66,7 @@ did_ec_aipw <- function(ps_formula,
   checkmate::assert_string(ps_formula)
   checkmate::assert_string(trt_formula, null.ok = TRUE)
   checkmate::assert_character(outcome_formula, min.len = 1)
-  checkmate::assert_count(bootstrap, positive = TRUE)
+  checkmate::assert_int(bootstrap, lower = 2)
 
   if (is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"
