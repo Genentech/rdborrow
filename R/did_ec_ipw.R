@@ -27,7 +27,7 @@ NULL
 #'   predicting trial participation.
 #' @param trt_formula Formula string for the treatment assignment model,
 #'   or \code{NULL} (default) for marginal probability.
-#' @param bootstrap Number of bootstrap replicates (required for DID
+#' @param bootstrap Number of bootstrap replicates, at least 2 (required for DID
 #'   methods). Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
 #'
@@ -53,7 +53,7 @@ did_ec_ipw <- function(ps_formula,
                        bootstrap_ci_type = NULL) {
   checkmate::assert_string(ps_formula)
   checkmate::assert_string(trt_formula, null.ok = TRUE)
-  checkmate::assert_count(bootstrap, positive = TRUE)
+  checkmate::assert_int(bootstrap, lower = 2)
 
   if (is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"

@@ -26,7 +26,8 @@ scm(
 
 \item{ncpus}{Number of CPUs for parallel bootstrap.}
 
-\item{bootstrap}{Number of bootstrap replicates. Defaults to 200.}
+\item{bootstrap}{Number of bootstrap replicates (at least 2).
+Defaults to 200.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}
 }

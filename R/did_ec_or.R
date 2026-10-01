@@ -33,7 +33,8 @@ NULL
 #'   formulas for RCT control subjects, one per time point.
 #' @param outcome_formula_rct_trt Character vector of outcome model
 #'   formulas for RCT treated subjects, one per time point.
-#' @param bootstrap Number of bootstrap replicates. Defaults to 500.
+#' @param bootstrap Number of bootstrap replicates (at least 2).
+#'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
 #'
 #' @return An S4 object of class \code{did_ec_or_method}.
@@ -67,7 +68,7 @@ did_ec_or <- function(outcome_formula_ext,
   checkmate::assert_character(outcome_formula_ext, min.len = 1)
   checkmate::assert_character(outcome_formula_rct_ctrl, min.len = 1)
   checkmate::assert_character(outcome_formula_rct_trt, min.len = 1)
-  checkmate::assert_count(bootstrap, positive = TRUE)
+  checkmate::assert_int(bootstrap, lower = 2)
 
   if (is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"

@@ -39,6 +39,23 @@ test_that("all bootstrap CI types return finite bounds", {
   }
 })
 
+test_that("constructors reject fewer than two bootstrap replicates", {
+  f <- "y1 ~ x1"
+  constructors <- list(
+    \(b) ec_ipw("S ~ x1", bootstrap = b),
+    \(b) ec_aipw("S ~ x1", outcome_formula = f, bootstrap = b),
+    \(b) did_ec_ipw("S ~ x1", bootstrap = b),
+    \(b) did_ec_aipw("S ~ x1", outcome_formula = f, bootstrap = b),
+    \(b) did_ec_or(f, f, f, bootstrap = b),
+    \(b) scm(bootstrap = b)
+  )
+
+  for (make in constructors) {
+    expect_error(make(1), "bootstrap")
+    expect_s4_class(make(2), "method_obj")
+  }
+})
+
 test_that("bootstrap_ci_type rejects studentized intervals", {
   expect_error(
     ec_ipw("S ~ x1", bootstrap = 100, bootstrap_ci_type = "stud")
