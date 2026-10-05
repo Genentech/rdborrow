@@ -34,7 +34,13 @@ ec_aipw(
 - weight:
 
   Borrowing weight. `NULL` (default) for data-adaptive optimal weight,
-  `0` for RCT-only, or a value in (0, 1\].
+  `0` for no direct borrowing, or a value in (0, 1\]. At `0` the
+  external controls get no weight, but the outcome model is still fit on
+  all controls, trial and external (as in Zhou et al., Theorem 2). The
+  estimate stays valid by randomization alone; the external data affect
+  only its precision. Unlike
+  [`ec_ipw`](https://genentech.github.io/rdborrow/reference/ec_ipw.md),
+  it therefore does not use trial data only.
 
 - bootstrap:
 
@@ -86,7 +92,7 @@ ec_aipw(
 #> NULL
 #> 
 
-# no borrowing
+# no direct borrowing
 ec_aipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
   outcome_formula = c(

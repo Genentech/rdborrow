@@ -62,9 +62,11 @@ analysis <- setup_analysis_primary(
 run_analysis(analysis)
 ```
 
-`weight = NULL` is the data-adaptive optimal weight, `0` is no
-borrowing, and a value in (0, 1\] is a fixed weight. `bootstrap = NULL`
-gives sandwich standard errors only.
+`weight = NULL` is the data-adaptive optimal weight, `0` gives external
+controls no weight, and a value in (0, 1\] is a fixed weight. At `0`,
+[`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+still fits its outcome model on all controls (by design; \#92).
+`bootstrap = NULL` gives sandwich standard errors only.
 
 ### Method classes and dispatch
 

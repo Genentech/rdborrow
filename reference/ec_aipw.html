@@ -72,7 +72,12 @@ one per time point (e.g., <code>c("y1 ~ x1 + x2", "y2 ~ x1 + x2")</code>).</p></
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>
 <dd><p>Borrowing weight. <code>NULL</code> (default) for data-adaptive
-optimal weight, <code>0</code> for RCT-only, or a value in (0, 1].</p></dd>
+optimal weight, <code>0</code> for no direct borrowing, or a value in (0, 1].
+At <code>0</code> the external controls get no weight, but the outcome model
+is still fit on all controls, trial and external (as in Zhou et al.,
+Theorem 2). The estimate stays valid by randomization alone; the
+external data affect only its precision. Unlike <code><a href="ec_ipw.html">ec_ipw</a></code>,
+it therefore does not use trial data only.</p></dd>
 
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>
@@ -125,7 +130,7 @@ controls in randomized trials with longitudinal outcomes.
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># no borrowing</span></span></span>
+<span class="r-in"><span><span class="co"># no direct borrowing</span></span></span>
 <span class="r-in"><span><span class="fu">ec_aipw</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span></span>
 <span class="r-in"><span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>

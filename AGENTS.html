@@ -73,7 +73,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/run_analysis.html">run_analysis</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></span></code></pre></div>
-<p><code>weight = NULL</code> is the data-adaptive optimal weight, <code>0</code> is no borrowing, and a value in (0, 1] is a fixed weight. <code>bootstrap = NULL</code> gives sandwich standard errors only.</p>
+<p><code>weight = NULL</code> is the data-adaptive optimal weight, <code>0</code> gives external controls no weight, and a value in (0, 1] is a fixed weight. At <code>0</code>, <code><a href="reference/ec_aipw.html">ec_aipw()</a></code> still fits its outcome model on all controls (by design; #92). <code>bootstrap = NULL</code> gives sandwich standard errors only.</p>
 </div>
 <div class="section level3">
 <h3 id="method-classes-and-dispatch">Method classes and dispatch<a class="anchor" aria-label="anchor" href="#method-classes-and-dispatch"></a></h3>

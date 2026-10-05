@@ -117,6 +117,11 @@ or the outcome model is correctly specified.
 
 #### 3.1 No borrowing (weight = 0)
 
+With `weight = 0`, external controls get no weight in the control mean,
+but EC-AIPW still fits its outcome model on all controls, trial and
+external. The estimate remains valid by randomization; the external data
+affect only its precision.
+
 ``` r
 
 method <- ec_aipw(
