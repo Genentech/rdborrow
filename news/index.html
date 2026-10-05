@@ -34,6 +34,11 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="rdborrow-development-version">rdborrow (development version)<a class="anchor" aria-label="anchor" href="#rdborrow-development-version"></a></h2>
 <div class="section level3">
+<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/setup_simulation_primary.html">setup_simulation_primary()</a></code> and <code><a href="../reference/setup_simulation_OLE.html">setup_simulation_OLE()</a></code> now require <code>true_effect</code> to be a single number, the true effect at the final visit. <code><a href="../reference/run_simulation.html">run_simulation()</a></code> scores only the final visit, so a vector was recycled across simulated trials rather than matched to visits, and bias, coverage, type I error, and power were silently wrong unless every element was equal. With an even number of trials there was no warning (<a href="https://github.com/Genentech/rdborrow/issues/90" class="external-link">#90</a>).</li>
+</ul></div>
+<div class="section level3">
 <h3 id="minor-improvements-development-version">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/scm.html">scm()</a></code> now solves its optimizations with CVXR’s current interface (<code>psolve()</code> and <code>value()</code>) instead of <code><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve()</a></code> and <code>$getValue()</code>, which CVXR has deprecated and will remove. rdborrow now requires CVXR &gt;= 1.8.1. Estimates are unchanged (<a href="https://github.com/Genentech/rdborrow/issues/97" class="external-link">#97</a>).</li>

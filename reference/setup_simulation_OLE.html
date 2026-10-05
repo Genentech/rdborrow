@@ -85,7 +85,8 @@
 
 
 <dt id="arg-true-effect">true_effect<a class="anchor" aria-label="anchor" href="#arg-true-effect"></a></dt>
-<dd><p>Numeric vector of true treatment effects.</p></dd>
+<dd><p>The true treatment effect at the final visit, a single
+number. [run_simulation()] evaluates estimates at the final visit only.</p></dd>
 
 
 <dt id="arg-method-description">method_description<a class="anchor" aria-label="anchor" href="#arg-method-description"></a></dt>
@@ -118,7 +119,7 @@ in `method_obj_list`.</p></dd>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  T_cross <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"IPW, DID"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 </code></pre></div>

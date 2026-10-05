@@ -2,6 +2,20 @@
 
 ## rdborrow (development version)
 
+### Breaking changes
+
+- [`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
+  and
+  [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
+  now require `true_effect` to be a single number, the true effect at
+  the final visit.
+  [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+  scores only the final visit, so a vector was recycled across simulated
+  trials rather than matched to visits, and bias, coverage, type I
+  error, and power were silently wrong unless every element was equal.
+  With an even number of trials there was no warning
+  ([\#90](https://github.com/Genentech/rdborrow/issues/90)).
+
 ### Minor improvements
 
 - [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now

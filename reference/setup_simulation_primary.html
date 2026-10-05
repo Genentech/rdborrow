@@ -82,7 +82,8 @@
 
 
 <dt id="arg-true-effect">true_effect<a class="anchor" aria-label="anchor" href="#arg-true-effect"></a></dt>
-<dd><p>Numeric vector of true treatment effects.</p></dd>
+<dd><p>The true treatment effect at the final visit, a single
+number. [run_simulation()] evaluates estimates at the final visit only.</p></dd>
 
 
 <dt id="arg-method-description">method_description<a class="anchor" aria-label="anchor" href="#arg-method-description"></a></dt>
@@ -119,7 +120,7 @@ alternative.</p></dd>
 <span class="r-in"><span>  method_obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="ec_ipw.html">ec_ipw</a></span><span class="op">(</span>ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
-<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  true_effect <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  method_description <span class="op">=</span> <span class="st">"IPW"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 </code></pre></div>

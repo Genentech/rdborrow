@@ -10,7 +10,7 @@ Simulation for OLE study
 
 - `true_effect`:
 
-  True treatment effect for evaluating estimator performance.
+  True treatment effect at the final visit.
 
 - `T_cross`:
 

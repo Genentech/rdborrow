@@ -14,7 +14,7 @@ Simulation for primary analysis
 
 - `true_effect`:
 
-  Numeric vector of true treatment effects.
+  True treatment effect at the final visit.
 
 - `alt_effect`:
 
