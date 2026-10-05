@@ -39,7 +39,7 @@ placebo-controlled phase by borrowing from external controls.
 
 Both methods support:
 
-- **No borrowing** (`weight = 0`): uses only RCT data
+- **No borrowing** (`weight = 0`): gives external controls no weight. EC-IPW then uses only RCT data. EC-AIPW still fits its outcome model on all controls, so external data affect its precision, though not its validity
 - **Optimal weight** (`weight = NULL`): data-adaptive weight minimizing variance
 - **Fixed weight** (`weight = 0.3`): user-specified borrowing amount
 - **Sandwich variance** or **bootstrap inference**

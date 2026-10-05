@@ -90,6 +90,12 @@ making it doubly robust: consistent if either the propensity score model
 or the outcome model is correctly specified.
 
 #### 3.1 No borrowing (weight = 0)
+
+With `weight = 0`, external controls get no weight in the control mean, but
+EC-AIPW still fits its outcome model on all controls, trial and external.
+The estimate remains valid by randomization; the external data affect only
+its precision.
+
 ```{r}
 method <- ec_aipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
