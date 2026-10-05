@@ -30,7 +30,7 @@
 #'
 #' @slot data_matrix_list_null List of data frames simulated under the null.
 #' @slot data_matrix_list_alt List of data frames simulated under the alternative.
-#' @slot true_effect Numeric vector of true treatment effects.
+#' @slot true_effect True treatment effect at the final visit.
 #' @slot alt_effect Numeric vector of alternative treatment effects.
 #'
 #' @keywords internal
@@ -52,7 +52,7 @@
 #' Simulation for OLE study
 #'
 #' @slot data_matrix_list List of simulated data matrices.
-#' @slot true_effect True treatment effect for evaluating estimator performance.
+#' @slot true_effect True treatment effect at the final visit.
 #' @slot T_cross Numeric crossover time point for the OLE phase.
 #'
 #' @keywords internal
@@ -127,7 +127,8 @@ setup_simulation <- function(trial_status_col_name,
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
-#' @param true_effect Numeric vector of true treatment effects.
+#' @param true_effect The true treatment effect at the final visit, a single
+#'   number. [run_simulation()] evaluates estimates at the final visit only.
 #' @param method_description Character vector of method labels, one per method
 #'   in `method_obj_list`.
 #' @param data_matrix_list_alt List of data frames simulated under the
@@ -148,7 +149,7 @@ setup_simulation <- function(trial_status_col_name,
 #'   method_obj_list = list(
 #'     ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
 #'   ),
-#'   true_effect = c(0, 0),
+#'   true_effect = 0,
 #'   method_description = "IPW"
 #' )
 setup_simulation_primary <- function(data_matrix_list_null,
@@ -170,7 +171,7 @@ setup_simulation_primary <- function(data_matrix_list_null,
   for (i in seq_along(data_matrix_list_null)) {
     checkmate::assert_data_frame(data_matrix_list_null[[i]])
   }
-  checkmate::assert_numeric(true_effect, min.len = 1)
+  checkmate::assert_number(true_effect)
   checkmate::assert_list(data_matrix_list_alt)
   for (i in seq_along(data_matrix_list_alt)) {
     checkmate::assert_data_frame(data_matrix_list_alt[[i]])
@@ -201,7 +202,8 @@ setup_simulation_primary <- function(data_matrix_list_null,
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
 #' @param T_cross Numeric crossover time point.
-#' @param true_effect Numeric vector of true treatment effects.
+#' @param true_effect The true treatment effect at the final visit, a single
+#'   number. [run_simulation()] evaluates estimates at the final visit only.
 #' @param method_description Character vector of method labels, one per method
 #'   in `method_obj_list`.
 #' @param alpha Significance level.
@@ -224,7 +226,7 @@ setup_simulation_primary <- function(data_matrix_list_null,
 #'     )
 #'   ),
 #'   T_cross = 2,
-#'   true_effect = c(0, 0),
+#'   true_effect = 0,
 #'   method_description = "IPW, DID"
 #' )
 setup_simulation_OLE <- function(data_matrix_list,
@@ -246,7 +248,7 @@ setup_simulation_OLE <- function(data_matrix_list,
     checkmate::assert_data_frame(data_matrix_list[[i]])
   }
   checkmate::assert_number(T_cross, lower = 0)
-  checkmate::assert_numeric(true_effect, min.len = 1)
+  checkmate::assert_number(true_effect)
 
   simulation_OLE_obj <- .simulation_OLE_obj(
     data_matrix_list = data_matrix_list,

@@ -32,7 +32,8 @@ setup_simulation_OLE(
 
 \item{T_cross}{Numeric crossover time point.}
 
-\item{true_effect}{Numeric vector of true treatment effects.}
+\item{true_effect}{The true treatment effect at the final visit, a single
+number. [run_simulation()] evaluates estimates at the final visit only.}
 
 \item{method_description}{Character vector of method labels, one per method
 in `method_obj_list`.}
@@ -60,7 +61,7 @@ setup_simulation_OLE(
     )
   ),
   T_cross = 2,
-  true_effect = c(0, 0),
+  true_effect = 0,
   method_description = "IPW, DID"
 )
 }
