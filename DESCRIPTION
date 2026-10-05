@@ -55,7 +55,7 @@ Imports:
     mvtnorm,
     boot,
     Matrix,
-    CVXR,
+    CVXR (>= 1.8.1),
     copula,
     progress,
     stats,

@@ -182,9 +182,9 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   obj <- loss + penal
   constr <- list(sum(w) == 1, w >= 0)
   prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
-  result <- solve(prob, solver = "ECOS")
+  CVXR::psolve(prob, solver = "ECOS")
 
-  wt_est <- result$getValue(w)
+  wt_est <- CVXR::value(w)
   y_est <- X00[long_term_col_name, ] %*% wt_est
 
   list(wt_est, y_est)
@@ -215,9 +215,9 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
       obj <- loss + penal
       constr <- list(sum(w) == 1, w >= 0)
       prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
-      result <- solve(prob, solver = "ECOS")
+      CVXR::psolve(prob, solver = "ECOS")
 
-      wt_est <- result$getValue(w)
+      wt_est <- CVXR::value(w)
       y_est <- ec[long_term_col_name, -loocv] %*% wt_est
       list(wt_est, y_est)
     })
