@@ -32,7 +32,15 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.4.2" id="rdborrow-0042">rdborrow 0.0.4.2<a class="anchor" aria-label="anchor" href="#rdborrow-0042"></a></h2>
+<h2 class="pkg-version" data-toc-text="development version" id="rdborrow-development-version">rdborrow (development version)<a class="anchor" aria-label="anchor" href="#rdborrow-development-version"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/run_simulation.html">run_simulation()</a></code> no longer errors with “‘x’ is NULL” when a method’s results have a single column. It kept the last row of each replicate without <code>drop = FALSE</code>, so a one-column data frame collapsed to a vector (<a href="https://github.com/Genentech/rdborrow/issues/93" class="external-link">#93</a>).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.4.2" id="rdborrow-0042">rdborrow 0.0.4.2<a class="anchor" aria-label="anchor" href="#rdborrow-0042"></a></h2><p class="text-muted">CRAN release: 2026-10-01</p>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-4-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-4-2"></a></h3>
 <ul><li>Two tests asserted exact floating-point equality between a marginal treatment model and an equivalent intercept-only model. The two are mathematically identical but computed by different routes, so they can differ in the last bit under BLAS libraries such as BLIS; both now compare with a tolerance.</li>
