@@ -103,9 +103,9 @@ bootstrap, return just the bootstrap shape.
 `run_simulation()` keeps the last row (the final time point) from each
 replicate. To compute coverage, type I error, and power, it uses the
 `*_boot` confidence interval columns if they exist and the `*_normal`
-columns otherwise. Keep these column names exactly as shown. Pass
-`true_effect` to `setup_simulation_*()` as a single number, the effect at
-the final time point (see [#90](https://github.com/Genentech/rdborrow/issues/90)).
+columns otherwise. Keep these column names exactly as shown. For the same
+reason, `setup_simulation_*()` takes `true_effect` as a single number: the
+effect at the final visit.
 
 ## A toy method, end to end
 

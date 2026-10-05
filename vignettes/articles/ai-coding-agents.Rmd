@@ -126,9 +126,11 @@ The agent built a working method on its own branch:
   didn't give `.run_bootstrap()`'s arguments or return value. Both are now
   documented, along with the missing registration spots and a
   bootstrap-only example.
-- It found two package bugs: `bootstrap = 1` was accepted and then failed
-  with an opaque error ([#91](https://github.com/Genentech/rdborrow/pull/91)), and `run_simulation()` silently recycles a
-  vector `true_effect` across replicates ([#90](https://github.com/Genentech/rdborrow/issues/90)).
+- It found two package bugs, both since fixed: `bootstrap = 1` was accepted
+  and then failed with an opaque error
+  ([#91](https://github.com/Genentech/rdborrow/pull/91)), and
+  `run_simulation()` silently recycled a vector `true_effect` across
+  replicates ([#90](https://github.com/Genentech/rdborrow/issues/90)).
 
 Rerun this check whenever the developer docs change. The prompt below is
 the one we used, updated with what the first run taught us:
