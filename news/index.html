@@ -45,7 +45,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>
+<ul><li>All method constructors now require <code>bootstrap</code> to be at least 2. <code>bootstrap = 1</code> was accepted and then failed inside <code><a href="../reference/run_analysis.html">run_analysis()</a></code> with an opaque confidence interval error (<a href="https://github.com/Genentech/rdborrow/issues/91" class="external-link">#91</a>).</li>
+<li>
 <code><a href="../reference/run_simulation.html">run_simulation()</a></code> no longer errors with “‘x’ is NULL” when a method’s results have a single column. It kept the last row of each replicate without <code>drop = FALSE</code>, so a one-column data frame collapsed to a vector (<a href="https://github.com/Genentech/rdborrow/issues/93" class="external-link">#93</a>).</li>
 </ul></div>
 </div>

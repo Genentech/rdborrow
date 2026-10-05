@@ -44,7 +44,7 @@ scm(
 
 - bootstrap:
 
-  Number of bootstrap replicates. Defaults to 200.
+  Number of bootstrap replicates (at least 2). Defaults to 200.
 
 - bootstrap_ci_type:
 

@@ -38,8 +38,8 @@ ec_aipw(
 
 - bootstrap:
 
-  Number of bootstrap replicates, or `NULL` (default) for sandwich
-  variance with normal CIs.
+  Number of bootstrap replicates (at least 2), or `NULL` (default) for
+  sandwich variance with normal CIs.
 
 - bootstrap_ci_type:
 

@@ -29,8 +29,8 @@ did_ec_ipw(
 
 - bootstrap:
 
-  Number of bootstrap replicates (required for DID methods). Defaults to
-  500.
+  Number of bootstrap replicates, at least 2 (required for DID methods).
+  Defaults to 500.
 
 - bootstrap_ci_type:
 

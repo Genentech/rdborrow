@@ -27,6 +27,11 @@
 
 ### Bug fixes
 
+- All method constructors now require `bootstrap` to be at least 2.
+  `bootstrap = 1` was accepted and then failed inside
+  [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+  with an opaque confidence interval error
+  ([\#91](https://github.com/Genentech/rdborrow/issues/91)).
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
   no longer errors with “‘x’ is NULL” when a method’s results have a
   single column. It kept the last row of each replicate without

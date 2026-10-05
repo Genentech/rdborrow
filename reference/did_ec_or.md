@@ -36,7 +36,7 @@ did_ec_or(
 
 - bootstrap:
 
-  Number of bootstrap replicates. Defaults to 500.
+  Number of bootstrap replicates (at least 2). Defaults to 500.
 
 - bootstrap_ci_type:
 
