@@ -91,7 +91,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
 
         # only focus on the last time point
         # print(nrow(res$results))
-        record_df <- rbind(record_df, res$results[nrow(res$results), ])
+        record_df <- rbind(record_df, res$results[nrow(res$results), , drop = FALSE])
       }
       record[[md_iter]] <- record_df
     }
@@ -145,7 +145,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
 
           # only focus on the last time point
           # print(nrow(res$results))
-          record_df_alt <- rbind(record_df_alt, res$results[nrow(res$results), ])
+          record_df_alt <- rbind(record_df_alt, res$results[nrow(res$results), , drop = FALSE])
         }
         record_alt[[md_iter]] <- record_df_alt
       }
@@ -199,7 +199,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
         rownames(res)[nrow(res)] <- ""
 
         # only focus on the last time point
-        record_df <- rbind(record_df, res[nrow(res), ])
+        record_df <- rbind(record_df, res[nrow(res), , drop = FALSE])
       }
       record[[md_iter]] <- record_df
     }
