@@ -31,7 +31,8 @@ setup_simulation_primary(
 
 \item{method_obj_list}{List of method objects to evaluate.}
 
-\item{true_effect}{Numeric vector of true treatment effects.}
+\item{true_effect}{The true treatment effect at the final visit, a single
+number. [run_simulation()] evaluates estimates at the final visit only.}
 
 \item{method_description}{Character vector of method labels, one per method
 in `method_obj_list`.}
@@ -59,7 +60,7 @@ setup_simulation_primary(
   method_obj_list = list(
     ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
   ),
-  true_effect = c(0, 0),
+  true_effect = 0,
   method_description = "IPW"
 )
 }

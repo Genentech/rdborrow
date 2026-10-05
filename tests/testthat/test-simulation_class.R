@@ -76,12 +76,12 @@ test_that("setup_simulation_primary returns valid object", {
     outcome_col_name = c("y1", "y2"),
     covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
     method_obj_list = list(setup_method(method_name = "AIPW")),
-    true_effect = c(0, 0),
+    true_effect = 0,
     method_description = "AIPW"
   )
   expect_s4_class(obj, "simulation_primary_obj")
   expect_length(obj@data_matrix_list_null, 2)
-  expect_identical(obj@true_effect, c(0, 0))
+  expect_identical(obj@true_effect, 0)
   expect_identical(obj@data_matrix_list_alt, list())
   expect_identical(obj@alt_effect, numeric(0))
 })
@@ -118,12 +118,36 @@ test_that("setup_simulation_OLE returns valid object", {
     covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
     method_obj_list = list(setup_method(method_name = "AIPW")),
     T_cross = 2,
-    true_effect = c(0, 0),
+    true_effect = 0,
     method_description = "AIPW"
   )
   expect_s4_class(obj, "simulation_OLE_obj")
   expect_identical(obj@T_cross, 2)
-  expect_identical(obj@true_effect, c(0, 0))
+  expect_identical(obj@true_effect, 0)
+})
+
+test_that("simulation setup requires a single true_effect", {
+  args <- list(
+    trial_status_col_name = "S",
+    treatment_col_name = "A",
+    outcome_col_name = c("y1", "y2"),
+    covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+    method_obj_list = list(setup_method(method_name = "AIPW")),
+    true_effect = c(-1, 1),
+    method_description = "AIPW"
+  )
+  expect_error(
+    do.call(setup_simulation_primary, c(
+      list(data_matrix_list_null = list(SyntheticData)), args
+    )),
+    "true_effect"
+  )
+  expect_error(
+    do.call(setup_simulation_OLE, c(
+      list(data_matrix_list = list(SyntheticData), T_cross = 2), args
+    )),
+    "true_effect"
+  )
 })
 
 test_that("setup_simulation_OLE validates T_cross", {
