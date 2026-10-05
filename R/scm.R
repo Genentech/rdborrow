@@ -38,7 +38,8 @@ NULL
 #' @param parallel Parallelization type for bootstrap (\code{"no"},
 #'   \code{"multicore"}, or \code{"snow"}).
 #' @param ncpus Number of CPUs for parallel bootstrap.
-#' @param bootstrap Number of bootstrap replicates. Defaults to 200.
+#' @param bootstrap Number of bootstrap replicates (at least 2).
+#'   Defaults to 200.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
 #'
 #' @return An S4 object of class \code{scm_method}.
@@ -65,7 +66,7 @@ scm <- function(lambda_min = 0,
   checkmate::assert_count(nlambda, positive = TRUE)
   checkmate::assert_choice(parallel, c("no", "multicore", "snow"))
   checkmate::assert_count(ncpus, positive = TRUE)
-  checkmate::assert_count(bootstrap, positive = TRUE)
+  checkmate::assert_int(bootstrap, lower = 2)
 
   if (is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"

@@ -7,6 +7,7 @@
 - `scm()` now solves its optimizations with CVXR's current interface (`psolve()` and `value()`) instead of `solve()` and `$getValue()`, which CVXR has deprecated and will remove. rdborrow now requires CVXR >= 1.8.1. Estimates are unchanged (#97).
 
 ## Bug fixes
+- All method constructors now require `bootstrap` to be at least 2. `bootstrap = 1` was accepted and then failed inside `run_analysis()` with an opaque confidence interval error (#91).
 - `run_simulation()` no longer errors with "'x' is NULL" when a method's results have a single column. It kept the last row of each replicate without `drop = FALSE`, so a one-column data frame collapsed to a vector (#93).
 
 # rdborrow 0.0.4.2
