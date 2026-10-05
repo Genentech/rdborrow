@@ -2,6 +2,15 @@
 
 ## rdborrow (development version)
 
+### Minor improvements
+
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
+  solves its optimizations with CVXR’s current interface (`psolve()` and
+  `value()`) instead of [`solve()`](https://rdrr.io/r/base/solve.html)
+  and `$getValue()`, which CVXR has deprecated and will remove. rdborrow
+  now requires CVXR \>= 1.8.1. Estimates are unchanged
+  ([\#97](https://github.com/Genentech/rdborrow/issues/97)).
+
 ### Bug fixes
 
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
