@@ -1,3 +1,8 @@
+# rdborrow (development version)
+
+## Bug fixes
+- `run_simulation()` no longer errors with "'x' is NULL" when a method's results have a single column. It kept the last row of each replicate without `drop = FALSE`, so a one-column data frame collapsed to a vector (#93).
+
 # rdborrow 0.0.4.2
 
 ## Bug fixes
