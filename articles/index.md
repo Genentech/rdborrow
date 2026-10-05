@@ -18,3 +18,10 @@
   Workflow](https://genentech.github.io/rdborrow/articles/OLE_analysis_workflow.md):
 - [Simulation Workflow for OLE
   Phase](https://genentech.github.io/rdborrow/articles/OLE_simulation_workflow.md):
+
+### Developers
+
+- [Adding a new
+  method](https://genentech.github.io/rdborrow/articles/adding-a-method.md):
+- [Developing with AI coding
+  agents](https://genentech.github.io/rdborrow/articles/ai-coding-agents.md):

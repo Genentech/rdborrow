@@ -49,6 +49,10 @@
 <li>
 <code><a href="../reference/run_simulation.html">run_simulation()</a></code> no longer errors with “‘x’ is NULL” when a method’s results have a single column. It kept the last row of each replicate without <code>drop = FALSE</code>, so a one-column data frame collapsed to a vector (<a href="https://github.com/Genentech/rdborrow/issues/93" class="external-link">#93</a>).</li>
 </ul></div>
+<div class="section level3">
+<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
+<ul><li>Two new developer articles. “Adding a new method” explains how an estimator plugs into <code><a href="../reference/run_analysis.html">run_analysis()</a></code> and <code><a href="../reference/run_simulation.html">run_simulation()</a></code> through S4 dispatch, walks through a runnable toy method, and gives a checklist for adding a method to the package (<a href="https://github.com/Genentech/rdborrow/issues/87" class="external-link">#87</a>). “Developing with AI coding agents” explains the new <code>AGENTS.md</code> file of agent instructions and gives a workflow, example prompts, and review habits for working on the package with an AI coding agent (<a href="https://github.com/Genentech/rdborrow/issues/88" class="external-link">#88</a>).</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.4.2" id="rdborrow-0042">rdborrow 0.0.4.2<a class="anchor" aria-label="anchor" href="#rdborrow-0042"></a></h2><p class="text-muted">CRAN release: 2026-10-01</p>

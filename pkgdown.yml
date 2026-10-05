@@ -2,12 +2,14 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
+  articles/adding-a-method: adding-a-method.html
+  articles/ai-coding-agents: ai-coding-agents.html
   introduction: introduction.html
   OLE_analysis_workflow: OLE_analysis_workflow.html
   OLE_simulation_workflow: OLE_simulation_workflow.html
   primary_analysis_workflow: primary_analysis_workflow.html
   primary_simulation_workflow: primary_simulation_workflow.html
-last_built: 2026-10-05T22:41Z
+last_built: 2026-10-05T22:52Z
 urls:
   reference: https://genentech.github.io/rdborrow/reference
   article: https://genentech.github.io/rdborrow/articles

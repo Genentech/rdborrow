@@ -1,0 +1,390 @@
+# Adding a new method
+
+``` r
+
+library(rdborrow)
+```
+
+This article is for developers who want to add a borrowing estimator to
+rdborrow. Every method is an S4 class with its own
+[`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+method.
+[`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+and
+[`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+reach the estimator through S4 dispatch, so a new method never changes
+the logic of existing code. Adding one to the package does touch a few
+existing files to register it (the method lists in the docs,
+`NAMESPACE`, `NEWS.md`, `_pkgdown.yml`); the checklist below lists every
+one.
+
+## How a method plugs in
+
+Every method object inherits from one of two parent classes, and that
+parent decides which analysis it can be used in:
+
+    method_obj
+    ├── method_primary_obj  -> setup_analysis_primary()
+    │   └── method_weighting_obj    ec_ipw(), ec_aipw()
+    └── method_OLE_obj      -> setup_analysis_OLE()
+        ├── method_DID_obj          did_ec_ipw(), did_ec_aipw(), did_ec_or()
+        └── method_SCM_obj          scm()
+
+`method_obj` carries the slots every method shares: `method_name`,
+`bootstrap`, and `bootstrap_ci_type`. Your class adds slots for its own
+settings, such as model formulas or a borrowing weight.
+
+[`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+then does one thing. It collects the column names stored in the analysis
+object and calls:
+
+``` r
+
+estimate(
+  method, data, outcomes, treatment, trial_status, covariates,
+  alpha, quiet
+)
+```
+
+OLE analyses also pass `T_cross`.
+
+## The `estimate()` contract
+
+### What `estimate()` receives
+
+`data` is the user’s data frame, with the user’s column names, holding
+trial participants and external controls. `outcomes`, `treatment`,
+`trial_status`, and `covariates` are the column names given to
+`setup_analysis_*()`.
+
+The built-in methods immediately standardize the data with the internal
+helper `.build_analysis_df()`. It returns the outcome columns, then the
+trial status column renamed to `S`, the treatment column renamed to `A`,
+then the covariates. Here the trial status and treatment columns start
+out as `in_trial` and `arm`:
+
+``` r
+
+trial_data <- SyntheticData
+names(trial_data)[names(trial_data) == "S"] <- "in_trial"
+names(trial_data)[names(trial_data) == "A"] <- "arm"
+
+df <- rdborrow:::.build_analysis_df(
+  trial_data,
+  outcomes = c("y1", "y2"), treatment = "arm", trial_status = "in_trial",
+  covariates = c("x1", "x2")
+)
+head(df, 3)
+#>          y1         y2 S A x1 x2
+#> 1 3.4512377 -0.7642287 1 1  1  1
+#> 2 0.4518106  6.3516296 1 1  0  1
+#> 3 3.0532714 -2.0453190 1 0  1  1
+```
+
+Do the same. The shared bootstrap helper stratifies on columns literally
+named `S` and `A`, and user formulas are rewritten to match: for example
+[`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+replaces the left-hand side of `ps_formula` with `S`.
+
+Validate anything that depends on the analysis inside
+[`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md),
+not in the constructor, because the constructor can’t see the data. For
+example,
+[`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+checks there that it has one outcome formula per outcome.
+
+### What `estimate()` returns
+
+The analysis and simulation code expects a specific shape.
+
+| Analysis | Return value |
+|----|----|
+| Primary, sandwich SE | `list(results, borrow_weight)`, where `results` is a data frame with one row per outcome (`tau1`, `tau2`, …) and columns `point_estimates`, `standard_deviation`, `lower_CI_normal`, `upper_CI_normal` |
+| Primary, bootstrap | The same, but `standard_deviation` is the bootstrap standard deviation and the CI columns are `lower_CI_boot`, `upper_CI_boot` instead of the `*_normal` pair |
+| OLE | A data frame with one row per post-crossover outcome and columns `point_estimates`, `lower_CI_boot`, `upper_CI_boot` |
+
+A primary method doesn’t need a sandwich variance. If it only supports
+the bootstrap, return just the bootstrap shape.
+
+[`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+keeps the last row (the final time point) from each replicate. To
+compute coverage, type I error, and power, it uses the `*_boot`
+confidence interval columns if they exist and the `*_normal` columns
+otherwise. Keep these column names exactly as shown. For the same
+reason, `setup_simulation_*()` takes `true_effect` as a single number:
+the effect at the final visit.
+
+## A toy method, end to end
+
+The fastest way to see the contract in action is to define a method
+outside the package. The dummy estimator below, `hamburger()`, is
+deliberately named so that nobody mistakes it for a real method. It
+pools trial controls and external controls with a fixed weight `w` and
+makes no covariate adjustment:
+
+``` math
+\hat\tau = \bar Y_{11} - \left[(1 - w)\,\bar Y_{10} + w\,\bar Y_{00}\right]
+```
+
+Here $`\bar Y_{11}`$, $`\bar Y_{10}`$, and $`\bar Y_{00}`$ are the
+outcome means for trial treated, trial control, and external control
+patients.
+
+First, the class and a validated constructor. `bootstrap` and
+`bootstrap_ci_type` are slots inherited from `method_obj`:
+
+``` r
+
+.hamburger_method <- setClass(
+  "hamburger_method",
+  contains = "method_primary_obj",
+  slots = c(weight = "numeric"),
+  prototype = list(method_name = "Hamburger", weight = 0.5)
+)
+
+hamburger <- function(weight = 0.5, bootstrap = NULL,
+                      bootstrap_ci_type = NULL) {
+  checkmate::assert_number(weight, lower = 0, upper = 1)
+  checkmate::assert_int(bootstrap, lower = 2, null.ok = TRUE)
+  if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    bootstrap_ci_type <- "perc"
+  }
+  .hamburger_method(
+    method_name = "Hamburger", weight = weight,
+    bootstrap = bootstrap, bootstrap_ci_type = bootstrap_ci_type
+  )
+}
+```
+
+Next, the estimator. Following the package convention, one internal
+function, `.hamburger_core()`, computes the point estimate. The
+bootstrap statistic resamples rows and calls the same function, so the
+point estimate is defined in exactly one place:
+
+``` r
+
+.hamburger_core <- function(Y, S, A, weight) {
+  groups <- list(
+    trt = S == 1 & A == 1,
+    ctrl = S == 1 & A == 0,
+    ext = S == 0
+  )
+  means <- lapply(groups, \(g) colMeans(Y[g, , drop = FALSE]))
+  vars <- lapply(groups, \(g) apply(Y[g, , drop = FALSE], 2, var) / sum(g))
+
+  list(
+    tau = means$trt - (1 - weight) * means$ctrl - weight * means$ext,
+    sd_tau = sqrt(vars$trt + (1 - weight)^2 * vars$ctrl +
+      weight^2 * vars$ext)
+  )
+}
+
+.hamburger_boot_statistic <- function(data, indices, outcomes, weight) {
+  d <- data[indices, , drop = FALSE]
+  Y <- as.matrix(d[, outcomes, drop = FALSE])
+  .hamburger_core(Y, d$S, d$A, weight)$tau
+}
+```
+
+[`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+standardizes the data, computes the point estimate, and then attaches
+either a closed-form standard error or bootstrap intervals. Inside the
+package you would call `.build_analysis_df()` and `.run_bootstrap()`
+directly; outside it they need `rdborrow:::`.
+
+``` r
+
+setMethod("estimate", "hamburger_method", function(method, data, outcomes,
+                                                   treatment, trial_status,
+                                                   covariates, alpha = 0.05,
+                                                   quiet = TRUE) {
+  df <- rdborrow:::.build_analysis_df(
+    data, outcomes, treatment, trial_status, covariates
+  )
+  Y <- as.matrix(df[, outcomes, drop = FALSE])
+  core <- .hamburger_core(Y, df$S, df$A, method@weight)
+  labels <- paste0("tau", seq_along(outcomes))
+
+  if (is.null(method@bootstrap)) {
+    cutoff <- qnorm(1 - alpha / 2)
+    results <- data.frame(
+      point_estimates = core$tau,
+      standard_deviation = core$sd_tau,
+      lower_CI_normal = core$tau - cutoff * core$sd_tau,
+      upper_CI_normal = core$tau + cutoff * core$sd_tau,
+      row.names = labels
+    )
+  } else {
+    boot_res <- rdborrow:::.run_bootstrap(
+      df = df, statistic = .hamburger_boot_statistic,
+      n_estimates = length(outcomes), bootstrap = method@bootstrap,
+      bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
+      outcomes = outcomes, weight = method@weight
+    )
+    results <- data.frame(
+      point_estimates = core$tau,
+      standard_deviation = boot_res$sd_boot,
+      lower_CI_boot = boot_res$lower_ci,
+      upper_CI_boot = boot_res$upper_ci,
+      row.names = labels
+    )
+  }
+
+  list(results = results, borrow_weight = method@weight)
+})
+```
+
+`.run_bootstrap()` takes the standardized data frame, the statistic, the
+number of estimates it returns, the number of replicates, the CI type,
+and `alpha`. Any further named arguments (here `outcomes` and `weight`)
+are passed through to the statistic. It resamples within each trial
+status and treatment group and returns a list with `lower_ci`,
+`upper_ci`, and `sd_boot`, one value per estimate.
+
+That is the whole method. It runs through the standard workflow without
+any changes to rdborrow:
+
+``` r
+
+analysis <- setup_analysis_primary(
+  data = SyntheticData,
+  trial_status_col_name = "S",
+  treatment_col_name = "A",
+  outcome_col_name = c("y1", "y2"),
+  covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
+  method_weighting_obj = hamburger(weight = 0.5)
+)
+run_analysis(analysis)
+#> $results
+#>      point_estimates standard_deviation lower_CI_normal upper_CI_normal
+#> tau1      -0.2737487          0.4786262      -1.2118388       0.6643413
+#> tau2       0.4433154          0.4910037      -0.5190343       1.4056650
+#> 
+#> $borrow_weight
+#> [1] 0.5
+```
+
+With `bootstrap` set, the same call returns bootstrap intervals:
+
+``` r
+
+analysis@method_obj <- hamburger(weight = 0.5, bootstrap = 200)
+set.seed(1)
+run_analysis(analysis)
+#> $results
+#>      point_estimates standard_deviation lower_CI_boot upper_CI_boot
+#> tau1      -0.2737487          0.4541803    -1.1540878     0.6748227
+#> tau2       0.4433154          0.4654845    -0.5639337     1.2522272
+#> 
+#> $borrow_weight
+#> [1] 0.5
+```
+
+Swapping in
+[`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+with the same fixed weight shows how much the covariate adjustment
+changes the answer:
+
+``` r
+
+analysis@method_obj <- ec_ipw(
+  ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
+  weight = 0.5
+)
+run_analysis(analysis)
+#> $results
+#>      point_estimates standard_deviation lower_CI_normal upper_CI_normal
+#> tau1      -0.6012644          0.5552445      -1.6895237       0.4869949
+#> tau2       0.6133830          0.6602476      -0.6806784       1.9074445
+#> 
+#> $borrow_weight
+#> [1] 0.5
+```
+
+For the same reason, `hamburger()` can go straight into the
+`method_obj_list` of
+[`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
+and be compared against the built-in methods (see
+[`vignette("primary_simulation_workflow")`](https://genentech.github.io/rdborrow/articles/primary_simulation_workflow.md)).
+
+## Moving the method into the package
+
+Defining a method outside the package works for prototyping. To add it
+to rdborrow itself, use `R/ec_ipw.R` as the template.
+
+1.  **Create `R/{name}.R`.** Start it with `#' @include method_class.R`.
+    rdborrow uses a `Collate` field, so `devtools::document()` needs
+    this tag to load the parent classes first. Functions from the
+    packages and `stats` functions that rdborrow already imports (see
+    `R/package.R`) can be used directly. For anything else, add an
+    `@importFrom` there or call it as `pkg::fun()`.
+
+2.  **Define the class and constructor.** Validate every argument with
+    checkmate, including
+    `checkmate::assert_int(bootstrap, lower = 2, null.ok = TRUE)` (drop
+    `null.ok` if the method is bootstrap only). Resolve
+    `bootstrap_ci_type` to `"perc"` when `bootstrap` is set. Document
+    the constructor with roxygen, `@export` it, and give it runnable
+    `@examples`.
+
+3.  **Write the
+    [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+    method.** Tag it with `#' @rdname estimate`. Start with
+    `.build_analysis_df()`, and put any validation that depends on the
+    analysis, such as one formula per outcome, here.
+
+4.  **Split the internals into three functions:**
+
+    - `.{name}_core()`: the single source of the point estimate.
+    - `.{name}_se()`: the sandwich variance, if the method has a closed
+      form. Skip it for a bootstrap-only method, as the DID methods and
+      [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md)
+      do.
+    - `.{name}_boot_statistic(data, indices, ...)`: a thin wrapper that
+      resamples rows and calls `.{name}_core()`. Pass it to the shared
+      `.run_bootstrap()`, as in the toy method above. Don’t write a new
+      bootstrap loop.
+
+    Describe internal functions with `#'` comments that end in `@noRd`,
+    as `R/ec_ipw.R` does, so they don’t get a help page.
+
+5.  **Lock the numbers with a test.** Add
+    `tests/testthat/test-full_pipeline_{name}.R` that runs the method on
+    `SyntheticData` through `setup_analysis_*()` and
+    [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md).
+    Check the point estimates against an independent reference, such as
+    the paper’s code or a hand calculation, rather than against the new
+    function’s own output. Call
+    [`set.seed()`](https://rdrr.io/r/base/Random.html) before any
+    bootstrap. Model refits on small resamples can warn (for example,
+    rank-deficient fits on `SyntheticData`); expect those warnings
+    explicitly with `expect_warning()`.
+
+6.  **Register the method.** Add it to:
+
+    - the method lists in
+      [`?run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+      (`R/run_analysis.R`),
+      [`?run_simulation`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+      (`R/run_simulation.R`), and
+      [`?setup_analysis_primary`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+      (`R/analysis_primary_class.R`) or
+      [`?setup_analysis_OLE`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+      (`R/analysis_OLE_class.R`)
+    - the “Borrowing methods” section of `_pkgdown.yml`
+    - `NEWS.md`
+
+    `devtools::document()` then updates `NAMESPACE` and the matching
+    `man/*.Rd` files. These registration edits are the only changes to
+    existing files.
+
+7.  **Validate:**
+
+    ``` r
+
+    devtools::document()
+    styler::style_pkg()
+    devtools::test()
+    pkgdown::check_pkgdown()
+    devtools::check()
+    ```
