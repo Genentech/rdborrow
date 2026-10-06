@@ -29,6 +29,35 @@ need and the order we do it in.
 
 The reviewer judges these against the docs and the papers' intent: `.build_analysis_df()`, the `estimate()` dispatch, argument validation in every constructor, and the deprecated `setup_method_*()` stubs.
 
+## Coverage
+
+| Reviewed | Function | Reference |
+|---|---|---|
+| [x] | `ec_ipw()` | Zhou et al. 2025, *JRSS-A* 188(3):791–818 (Def 1, Eq 6; Eq 11; Thm 3) |
+| [x] | `ec_aipw()` | Zhou et al. 2025 (Def 2, Eq 7; Thm 4) |
+| [x] | `setup_analysis_primary()` | Zhou et al. 2025 §2 |
+| [x] | `did_ec_or()` | Zhou et al. 2024, *J Biopharm Stat* 34(6):893–921 (Eq 3, App B) |
+| [x] | `did_ec_ipw()` | Zhou et al. 2024 (Eq 4, App B) |
+| [x] | `did_ec_aipw()` | Zhou et al. 2024 (Eq 5, App B) |
+| [x] | `scm()` | Zhou et al. 2024 (Eqs 7–9) |
+| [x] | `setup_analysis_OLE()` | Zhou et al. 2024 §2 |
+| [x] | `run_analysis()`, `estimate()` | None (package design) |
+| [ ] | `setup_simulation_primary()` | Zhou et al. 2025 §5 and supplement; Morris et al. 2019 |
+| [ ] | `setup_simulation_OLE()` | Zhou et al. 2024 §4; Morris et al. 2019 |
+| [ ] | `run_simulation()` | Morris et al. 2019 (partly checked: #90, #93) |
+| [ ] | `simulate_trial()` | Zhou et al. 2025 §5; Zhou et al. 2024 §4 |
+| [ ] | `simulate_trial_status()` | Zhou et al. 2025 supplement Table 1; Zhou et al. 2024 §4 |
+| [ ] | `simulate_trt_assign()` | Zhou et al. 2025 Assumption 3 |
+| [ ] | `simulate_outcome_from_model()` | Zhou et al. 2025 §5; Zhou et al. 2024 §4 |
+| [ ] | `simulate_X_copula()` | Yan 2007, *J Stat Softw* 21(4) |
+| [ ] | `simulate_X_dct_mvnorm()` | None (standard construction) |
+| [ ] | `simulate_X_mixture()` | None (standard construction) |
+| [ ] | `SyntheticData` | `data-raw/SyntheticData.R` (see #102) |
+
+Morris TP, White IR, Crowther MJ. Using simulation studies to evaluate statistical methods. *Stat Med.* 2019;38(11):2074–2102. doi:10.1002/sim.8086.
+
+The deprecated stubs (`setup_method_weighting()`, `setup_method_DID()`, `setup_method_SCM()`, `setup_bootstrap()`) only warn and error, so they need no review.
+
 ## 2. Phases
 
 | Phase | What happens | Inputs | Who |
