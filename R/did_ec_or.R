@@ -28,11 +28,13 @@ NULL
 #' Uses outcome models only (no propensity score model).
 #'
 #' @param outcome_formula_ext Character vector of outcome model formulas
-#'   for external controls, one per time point.
+#'   for external controls, one per outcome.
 #' @param outcome_formula_rct_ctrl Character vector of outcome model
-#'   formulas for RCT control subjects, one per time point.
+#'   formulas for RCT control subjects, one per outcome.
 #' @param outcome_formula_rct_trt Character vector of outcome model
-#'   formulas for RCT treated subjects, one per time point.
+#'   formulas for RCT treated subjects, one per outcome. In all three
+#'   arguments, each formula is matched to an outcome by its left-hand side,
+#'   so the order does not matter.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
@@ -99,14 +101,19 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   S <- df$S
   A <- df$A
 
+  f_ext <- .match_outcome_formulas(
+    method@outcome_formula_ext, outcomes, "outcome_formula_ext"
+  )
+  f_ctrl <- .match_outcome_formulas(
+    method@outcome_formula_rct_ctrl, outcomes, "outcome_formula_rct_ctrl"
+  )
+  f_trt <- .match_outcome_formulas(
+    method@outcome_formula_rct_trt, outcomes, "outcome_formula_rct_trt"
+  )
+
   if (!quiet) cat("Running DID-EC-OR estimator...\n")
 
-  result <- .did_ec_or_core(
-    df, S, A, T_cross,
-    method@outcome_formula_ext,
-    method@outcome_formula_rct_ctrl,
-    method@outcome_formula_rct_trt
-  )
+  result <- .did_ec_or_core(df, S, A, T_cross, f_ext, f_ctrl, f_trt)
   tau <- result$tau
 
   if (!quiet) cat("Running bootstrap inference...\n")
@@ -117,9 +124,9 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
     n_estimates = n_ole, bootstrap = method@bootstrap,
     bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes,
-    outcome_formula_ext = method@outcome_formula_ext,
-    outcome_formula_rct_ctrl = method@outcome_formula_rct_ctrl,
-    outcome_formula_rct_trt = method@outcome_formula_rct_trt,
+    outcome_formula_ext = f_ext,
+    outcome_formula_rct_ctrl = f_ctrl,
+    outcome_formula_rct_trt = f_trt,
     T_cross = T_cross
   )
 

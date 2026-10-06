@@ -61,3 +61,24 @@ test_that("bootstrap_ci_type rejects studentized intervals", {
     ec_ipw("S ~ x1", bootstrap = 100, bootstrap_ci_type = "stud")
   )
 })
+
+test_that(".match_outcome_formulas orders formulas by their left-hand side", {
+  outs <- c("y1", "y2", "y3")
+  f <- c("y3 ~ x1", "y1 ~ x1", "log(y2) ~ x2")
+  expect_identical(
+    .match_outcome_formulas(f, outs, "outcome_formula"),
+    c("y1 ~ x1", "log(y2) ~ x2", "y3 ~ x1")
+  )
+  expect_error(
+    .match_outcome_formulas(c("y1 ~ x1", "z ~ x1", "y3 ~ x1"), outs, "f"),
+    "f.*z"
+  )
+  expect_error(
+    .match_outcome_formulas(c("y1 ~ x1", "y1 ~ x2", "y3 ~ x1"), outs, "f"),
+    "f.*y1"
+  )
+  expect_error(
+    .match_outcome_formulas(c("y1 ~ x1", "y2 ~ x1"), outs, "f"),
+    "f.*y3"
+  )
+})

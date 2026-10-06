@@ -143,6 +143,38 @@ test_that("run_analysis dispatches scm correctly", {
   expect_true("point_estimates" %in% names(res))
 })
 
+test_that("outcome formulas are matched to outcomes by name, not position", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outs <- c("y1", "y2", "y3", "y4")
+  of <- paste(outs, "~ x1 + x2 + x3 + x4 + x5")
+  ps <- "S ~ x1 + x2 + x3 + x4 + x5"
+
+  fit_primary <- function(f) {
+    analysis <- setup_analysis_primary(
+      SyntheticData, "S", "A", c("y1", "y2"), covs, ec_aipw(ps, f)
+    )
+    run_analysis(analysis)$results
+  }
+  fit_ole <- function(method) {
+    analysis <- setup_analysis_OLE(
+      SyntheticData, "S", "A", outs, covs, method,
+      T_cross = 2
+    )
+    set.seed(1)
+    suppressWarnings(run_analysis(analysis))
+  }
+
+  expect_equal(fit_primary(rev(of[1:2])), fit_primary(of[1:2]))
+  expect_equal(
+    fit_ole(did_ec_aipw(ps, outcome_formula = rev(of), bootstrap = 2)),
+    fit_ole(did_ec_aipw(ps, outcome_formula = of, bootstrap = 2))
+  )
+  expect_equal(
+    fit_ole(did_ec_or(rev(of), rev(of), rev(of), bootstrap = 2)),
+    fit_ole(did_ec_or(of, of, of, bootstrap = 2))
+  )
+})
+
 test_that("trial-status and treatment columns can have any name", {
   covs <- c("x1", "x2", "x3", "x4", "x5")
   outs <- c("y1", "y2", "y3", "y4")

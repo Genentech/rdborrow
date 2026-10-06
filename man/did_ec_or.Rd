@@ -14,13 +14,15 @@ did_ec_or(
 }
 \arguments{
 \item{outcome_formula_ext}{Character vector of outcome model formulas
-for external controls, one per time point.}
+for external controls, one per outcome.}
 
 \item{outcome_formula_rct_ctrl}{Character vector of outcome model
-formulas for RCT control subjects, one per time point.}
+formulas for RCT control subjects, one per outcome.}
 
 \item{outcome_formula_rct_trt}{Character vector of outcome model
-formulas for RCT treated subjects, one per time point.}
+formulas for RCT treated subjects, one per outcome. In all three
+arguments, each formula is matched to an outcome by its left-hand side,
+so the order does not matter.}
 
 \item{bootstrap}{Number of bootstrap replicates (at least 2).
 Defaults to 500.}

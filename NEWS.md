@@ -8,6 +8,7 @@
 
 ## Bug fixes
 - All method constructors now require `bootstrap` to be at least 2. `bootstrap = 1` was accepted and then failed inside `run_analysis()` with an opaque confidence interval error (#91).
+- `ec_aipw()`, `did_ec_aipw()`, and `did_ec_or()` now match each outcome formula to an outcome by its left-hand side. They used the formulas in list order, so formulas listed in a different order from the outcomes silently gave wrong estimates; in `did_ec_or()`, reversing them flipped the signs. A formula for a variable that is not an outcome, two formulas for one outcome, or an outcome with no formula is now an error (#104).
 - `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()`, and `did_ec_aipw()` now work when the trial-status column is not named `S`, and `trt_formula` works when the treatment column is not named `A`. The formula's left-hand side was rewritten to the user's column name after the data had been copied into columns named `S` and `A`, so the model could not find it, or silently used a same-named object from the R session (#103).
 - `run_simulation()` no longer errors with "'x' is NULL" when a method's results have a single column. It kept the last row of each replicate without `drop = FALSE`, so a one-column data frame collapsed to a vector (#93).
 

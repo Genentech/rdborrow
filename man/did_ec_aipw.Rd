@@ -20,7 +20,8 @@ predicting trial participation.}
 or \code{NULL} (default) for marginal probability.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
-one per time point.}
+one per outcome. Each formula is matched to an outcome by its left-hand
+side, so the order does not matter.}
 
 \item{bootstrap}{Number of bootstrap replicates (at least 2).
 Defaults to 500.}

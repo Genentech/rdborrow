@@ -31,7 +31,8 @@ NULL
 #' @param trt_formula Formula string for the treatment assignment model,
 #'   or \code{NULL} (default) for marginal probability.
 #' @param outcome_formula Character vector of outcome model formulas,
-#'   one per time point.
+#'   one per outcome. Each formula is matched to an outcome by its left-hand
+#'   side, so the order does not matter.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
@@ -102,10 +103,14 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
     trt_formula <- sub("^[^~]*~", "A ~", trt_formula)
   }
 
+  outcome_formula <- .match_outcome_formulas(
+    method@outcome_formula, outcomes, "outcome_formula"
+  )
+
   if (!quiet) cat("Running DID-EC-AIPW estimator...\n")
 
   result <- .did_ec_aipw_core(
-    df, Y, S, A, T_cross, ps_formula, trt_formula, method@outcome_formula
+    df, Y, S, A, T_cross, ps_formula, trt_formula, outcome_formula
   )
   tau <- result$tau
 
@@ -117,7 +122,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
     n_estimates = n_ole, bootstrap = method@bootstrap,
     bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
     outcomes = outcomes, ps_formula = ps_formula,
-    trt_formula = trt_formula, outcome_formula = method@outcome_formula,
+    trt_formula = trt_formula, outcome_formula = outcome_formula,
     T_cross = T_cross
   )
 
