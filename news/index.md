@@ -60,6 +60,22 @@
   single column. It kept the last row of each replicate without
   `drop = FALSE`, so a one-column data frame collapsed to a vector
   ([\#93](https://github.com/Genentech/rdborrow/issues/93)).
+- [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  and the OLE methods now round a `T_cross` that is a whole number only
+  up to floating-point error, such as `0.6 / 0.2`. It passed validation
+  but was used unrounded, so one visit fell in both periods and
+  [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
+  and
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  gave silently wrong estimates. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly now also validates `T_cross`.
+  [`simulate_trial()`](https://genentech.github.io/rdborrow/reference/simulate_trial.md)
+  and
+  [`simulate_outcome_from_model()`](https://genentech.github.io/rdborrow/reference/simulate_outcome_from_model.md)
+  round `T_cross` the same way, so simulated data no longer starts the
+  crossover one visit early
+  ([\#110](https://github.com/Genentech/rdborrow/issues/110)).
 
 ### Documentation
 
