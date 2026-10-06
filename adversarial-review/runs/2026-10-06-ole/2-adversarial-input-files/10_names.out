@@ -1,0 +1,20 @@
+=== N1 outcome names with a space ('week 26' ...) through did_ec_ipw and scm
+[1] "ERROR: undefined columns selected"
+[1] "ERROR: undefined columns selected"
+
+=== N2 covariate name with a hyphen ('smn2-copies') through did_ec_ipw and scm
+[1] "ERROR: object 'smn2-copies' not found"
+[1] "ERROR: undefined columns selected"
+
+=== N3 outcome names starting with a digit ('1y' ...) through did_ec_or
+[1] "ERROR: object '1y' not found"
+
+=== N4 tibble input
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8972604      1.671055
+tau4        1.806968     1.3567019      2.205719
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.055042      1.703368      2.383057
+tau4        2.453182      1.756959      2.495077

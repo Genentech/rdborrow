@@ -1,0 +1,5 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+WARNING (x 4 ): Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information. 
+k = 0.01  tau / k = 2.068071 3.93991 

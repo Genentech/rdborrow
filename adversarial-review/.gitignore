@@ -1,5 +1,8 @@
 *.rds
 mutator-run/
+.mutants-*/
 paper.txt
 supp.txt
-pg-*.png
+zhou*.txt
+p[0-9].txt
+*.png

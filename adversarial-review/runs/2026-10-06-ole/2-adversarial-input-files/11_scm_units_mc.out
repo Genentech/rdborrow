@@ -1,0 +1,4 @@
+There were 22 warnings (use warnings() to see them)
+     years.y3 years.y4 days.y3 days.y4
+bias    0.430    0.555   0.909   1.130
+mcse    0.066    0.075   0.080   0.094

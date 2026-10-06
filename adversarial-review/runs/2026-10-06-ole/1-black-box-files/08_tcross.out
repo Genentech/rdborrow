@@ -1,0 +1,18 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 3 ): extreme order statistics used as endpoints 
+
+## T_cross 1 [20.8s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.2313462     0.1540489      2.183505
+tau3       2.1599454     1.1540943      1.279474
+tau4       3.9131912     3.5947024      3.727124
+WARNING (x 1 ): extreme order statistics used as endpoints 
+
+## T_cross 3 [19.8s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.852111      3.206605      3.451921
+WARNING (x 1 ): extreme order statistics used as endpoints 
+
+## one post visit [22.7s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756        1.1685      1.681733

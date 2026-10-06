@@ -1,0 +1,9 @@
+Error in ec[long_term_col_name, -loocv] %*% wt_est : 
+  requires numeric/complex matrix/vector arguments
+[1] "Error in ec[long_term_col_name, -loocv] %*% wt_est : \n  requires numeric/complex matrix/vector arguments\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in ec[long_term_col_name, -loocv] %*% wt_est: requires numeric/complex matrix/vector arguments>
+warnings: 0 
+< table of extent 0 >

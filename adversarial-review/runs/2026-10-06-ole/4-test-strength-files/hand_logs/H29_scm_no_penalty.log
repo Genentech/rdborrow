@@ -1,0 +1,6 @@
+# H29_scm_no_penalty - SCM: drop pairwise-discrepancy penalty in subject SC
+# test filter: scm|run_analysis|method_class
+# runtime (s): 82.1
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 63  FAILED_TESTS: 1 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs

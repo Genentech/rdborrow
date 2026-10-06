@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:10:52.630159567 -0700
+@@ -161,7 +161,7 @@
+ 
+   # delta_EC: external control OLE outcomes (Eq 4, second term)
+   mu_ext_ole <- colSums(w00_ext * Y_ext[, (T_cross + 1):n_time, drop = FALSE]) /
+-    sum(w00_ext)
++    length(w00_ext)
+ 
+   # bias correction: pre-crossover difference (negative control)
+   # Ybar(T1) for RCT controls minus Ybar(T1) for external controls

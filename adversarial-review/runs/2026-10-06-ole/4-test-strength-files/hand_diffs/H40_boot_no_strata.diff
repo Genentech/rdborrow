@@ -1,0 +1,11 @@
+--- a/R/method_class.R	2026-10-06 10:06:58.056177863 -0700
++++ b/R/method_class.R	2026-10-06 10:15:54.202292809 -0700
+@@ -105,7 +105,7 @@
+     data = df,
+     statistic = stat_fn,
+     R = bootstrap,
+-    strata = group_id,
++    strata = rep(1L, nrow(df)),
+     parallel = parallel,
+     ncpus = ncpus
+   )

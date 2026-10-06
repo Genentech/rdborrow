@@ -1,0 +1,11 @@
+--- a/R/did_ec_or.R	2026-10-06 10:06:58.056214141 -0700
++++ b/R/did_ec_or.R	2026-10-06 10:12:42.338640443 -0700
+@@ -170,7 +170,7 @@
+   })
+   model_list_rct <- c(model_list_rct_pc, model_list_rct_cr)
+ 
+-  rct_data <- df[S == 1, , drop = FALSE]
++  rct_data <- df; n <- nrow(df)
+ 
+   # predicted outcomes for RCT subjects from external models
+   mu_S0A0 <- vapply(seq_len(n_time), \(t) {

@@ -1,0 +1,11 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:13:14.291150118 -0700
+@@ -181,7 +181,7 @@
+   loss <- sum(((x1 - X0 %*% w))^2)
+   penal <- lambda * (sum(colSums((x1 - X0)^2) * w))
+   obj <- loss + penal
+-  constr <- list(sum(w) == 1, w >= 0)
++  constr <- list(w >= 0)
+   prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
+   CVXR::psolve(prob, solver = "ECOS")
+ 

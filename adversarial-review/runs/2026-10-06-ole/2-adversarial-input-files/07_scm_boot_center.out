@@ -1,0 +1,6 @@
+seed 7, m = 25               tau3 SCM: t0 1.974, boot mean 2.055, frac(t* > t0) 0.57, perc CI (1.261, 2.886) | OR: t0 1.124, boot mean 1.160, frac 0.56
+seed 7, m = 25               tau4 SCM: t0 2.725, boot mean 2.696, frac(t* > t0) 0.48, perc CI (1.854, 3.414) | OR: t0 1.808, boot mean 1.874, frac 0.57
+seed 8, m = 40               tau3 SCM: t0 1.822, boot mean 1.927, frac(t* > t0) 0.63, perc CI (1.370, 2.590) | OR: t0 1.469, boot mean 1.479, frac 0.49
+seed 8, m = 40               tau4 SCM: t0 1.913, boot mean 1.958, frac(t* > t0) 0.54, perc CI (1.231, 2.758) | OR: t0 1.780, boot mean 1.753, frac 0.44
+seed 9, m = 40, shift 1      tau3 SCM: t0 1.966, boot mean 1.986, frac(t* > t0) 0.47, perc CI (1.521, 2.481) | OR: t0 1.492, boot mean 1.478, frac 0.46
+seed 9, m = 40, shift 1      tau4 SCM: t0 2.727, boot mean 2.562, frac(t* > t0) 0.26, perc CI (2.077, 3.027) | OR: t0 1.937, boot mean 1.892, frac 0.39

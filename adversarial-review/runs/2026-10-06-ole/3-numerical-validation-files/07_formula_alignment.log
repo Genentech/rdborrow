@@ -1,0 +1,29 @@
+OR   in order: 1.568947 4.407834 
+OR   permuted: -4.157573 -1.406035 
+AIPW in order: 2.130006 4.180107 
+AIPW permuted: 2.19187 4.87523 
+OR, 3 formulas (y1..y3) for 4 outcomes:
+Error in boot.out$t[, index] : subscript out of bounds
+[1] "Error in boot.out$t[, index] : subscript out of bounds\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<subscriptOutOfBoundsError in boot.out$t[, index]: subscript out of bounds>
+AIPW, 3 formulas (y1..y3) for 4 outcomes:
+Error in Y0_models[[t]] : subscript out of bounds
+[1] "Error in Y0_models[[t]] : subscript out of bounds\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<subscriptOutOfBoundsError in Y0_models[[t]]: subscript out of bounds>
+OR, 5 formulas (y1..y4, y4) for 4 outcomes:
+Error in data.frame(point_estimates = tau, lower_CI_boot = boot_res$lower_ci,  : 
+  arguments imply differing number of rows: 3, 2
+[1] "Error in data.frame(point_estimates = tau, lower_CI_boot = boot_res$lower_ci,  : \n  arguments imply differing number of rows: 3, 2\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in data.frame(point_estimates = tau, lower_CI_boot = boot_res$lower_ci,     upper_CI_boot = boot_res$upper_ci, row.names = paste0("tau",         (T_cross + 1):length(outcomes))): arguments imply differing number of rows: 3, 2>
+OR with y3 of trial controls shifted by 100: 1.568947 4.407834 
+AIPW with y3 of trial controls shifted by 100: 2.130006 4.180107 
+IPW (orig / shifted): 2.323352 4.63252 2.323352 4.63252 

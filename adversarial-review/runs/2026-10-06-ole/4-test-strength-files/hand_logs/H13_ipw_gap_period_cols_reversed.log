@@ -1,0 +1,8 @@
+# H13_ipw_gap_period_cols_reversed - IPW: Period I gap computed as EC minus RCT control
+# test filter: did_ec|run_analysis|analysis_OLE|simulation_OLE|run_simulation|method_class
+# runtime (s): 37
+TESTFILES: test-analysis_OLE_class.R,test-full_pipeline_did_ec_aipw.R,test-full_pipeline_did_ec_ipw.R,test-full_pipeline_did_ec_or.R,test-full_pipeline_simulation_OLE.R,test-method_class.R,test-run_analysis.R,test-run_simulation.R 
+PASSED_EXPECTATIONS: 116  FAILED_TESTS: 3 
+KILLED_BY: test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs
+KILLED_BY: test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula)
+KILLED_BY: test-full_pipeline_simulation_OLE.R :: OLE simulation report matches vignette

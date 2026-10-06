@@ -1,0 +1,31 @@
+=== did_ec_aipw: formulas in reverse order
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.412817      1.119973      1.606680
+tau4        1.893869      1.616566      2.187336
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.397080      1.154321      1.620623
+tau4        1.835498      1.639269      2.123426
+
+=== did_ec_or: formulas in reverse order
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3      -0.1832894    -0.4417838    0.03987912
+tau4      -0.5274770    -0.8504073   -0.44151659
+
+=== did_ec_or: LHS names a column that is not in outcome_col_name
+[1] "ERROR: object 'z' not found"
+
+=== did_ec_or: five outcomes, four formulas (T_cross = 2)
+  WARNING x2: extreme order statistics used as endpoints
+[1] "ERROR: subscript out of bounds"
+
+=== did_ec_or: four outcomes, five formulas (extra y5 in data)
+[1] "ERROR: object 'y5' not found"
+
+=== did_ec_aipw: four outcomes, five formulas
+[1] "ERROR: object 'y5' not found"
+
+=== did_ec_aipw: five outcomes, four formulas
+[1] "ERROR: subscript out of bounds"

@@ -1,0 +1,17 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## x5 as is [20.3s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.168500      1.681733
+tau4        3.943234      3.342376      3.431776
+ERROR: requires numeric/complex matrix/vector arguments 
+
+## x5 * 1000 [1.1s] 
+NULL
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## x5 + 1000 [21.7s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.065839      1.167498      1.682852
+tau4        3.941654      3.341611      3.431548

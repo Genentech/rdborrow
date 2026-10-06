@@ -1,0 +1,6 @@
+# rdborrow 0.0.4.2 mode: installed 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756     0.2314241      3.305440
+tau4        3.943234     0.4821535      6.790167
+implied boot mean: 2.361081 4.250308  implied bias: 0.2963246 0.3070739 
+elapsed 36.21534 

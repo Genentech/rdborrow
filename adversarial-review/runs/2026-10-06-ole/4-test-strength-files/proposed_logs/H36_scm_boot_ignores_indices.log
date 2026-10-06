@@ -1,0 +1,5 @@
+[1] "All values of t are equal to  0.508422106293065 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  1.17248144459624 \n Cannot calculate confidence intervals"
+FAIL     8.1s test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls
+FAIL    17.2s test-scm.R :: scm() confidence intervals honour alpha
+PASS     5.9s test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error

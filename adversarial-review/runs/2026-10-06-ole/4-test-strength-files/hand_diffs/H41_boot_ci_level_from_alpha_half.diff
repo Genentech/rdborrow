@@ -1,0 +1,11 @@
+--- a/R/method_class.R	2026-10-06 10:06:58.056177863 -0700
++++ b/R/method_class.R	2026-10-06 10:16:00.292879849 -0700
+@@ -112,7 +112,7 @@
+ 
+   ci_bounds <- vapply(seq_len(n_estimates), \(i) {
+     ci <- boot::boot.ci(boot_out,
+-      conf = 1 - alpha,
++      conf = 1 - alpha / 2,
+       type = bootstrap_ci_type, index = i
+     )
+     # the normal component is a 3-column matrix, the others are 5-column

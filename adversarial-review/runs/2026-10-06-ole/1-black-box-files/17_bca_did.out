@@ -1,0 +1,27 @@
+# rdborrow 0.0.4.2 mode: installed 
+ERROR: estimated adjustment 'w' is infinite 
+B = 2 [0.1s] 
+NULL
+WARNING (x 2 ): extreme order statistics used as endpoints 
+B = 10 [3.0s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      1.719320      3.194194
+tau4        4.632520      2.283686      6.633394
+WARNING (x 2 ): extreme order statistics used as endpoints 
+B = 20 [3.9s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.7483828      4.877472
+tau4        4.632520     2.0938787      8.517333
+WARNING (x 1 ): extreme order statistics used as endpoints 
+B = 50 [3.1s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.2872942      4.815802
+tau4        4.632520     0.2479804      6.705791
+B = 299 [4.6s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.6192465      4.315978
+tau4        4.632520     0.7142948      7.335686
+B = 400 [2.0s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      0.212977      4.366959
+tau4        4.632520      1.014804      7.201110

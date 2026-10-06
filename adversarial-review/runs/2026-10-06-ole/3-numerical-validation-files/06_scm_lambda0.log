@@ -1,0 +1,6 @@
+lambda = 0.0: original order 2.06476, 3.94323 | externals permuted 2.06476, 3.94323 | diff 3.42e-08
+lambda = 0.1: original order 2.14211, 4.59405 | externals permuted 2.14211, 4.59405 | diff 2.38e-08
+package-path (ECOS) LOOCV SSE: lambda 0 = 3585.983  lambda 0.1 = 3523.491 
+independent (OSQP) LOOCV SSE:  lambda 0 = 3523.485  lambda 0.1 = 3523.49 
+package-path LOOCV SSE, externals permuted: lambda 0 = 3585.983 
+package LOOCV choice, original: 0.1  permuted: 0.1 

@@ -1,0 +1,3 @@
+PASS     7.2s test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls
+PASS    26.9s test-scm.R :: scm() confidence intervals honour alpha
+FAIL     7.4s test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error

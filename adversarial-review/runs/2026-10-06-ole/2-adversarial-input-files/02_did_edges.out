@@ -1,0 +1,147 @@
+
+=== E1 T_cross = 1 of 4
+-- ipw 
+  WARNING x3: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.7385737     0.1547086      1.276263
+tau3       1.2908631     0.7557698      1.727367
+tau4       1.7444979     1.2620545      2.171594
+-- aipw 
+  WARNING x3: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        0.775286     0.4926409      1.108529
+tau3        1.314175     0.9394320      1.660107
+tau4        1.795227     1.5945006      2.118223
+-- or 
+  WARNING x3: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.7631988     0.3960973      1.054759
+tau3       1.3008974     0.9972000      1.684332
+tau4       1.7862038     1.5984984      2.128268
+
+=== E2 T_cross = 3 of 4 (one OLE visit)
+-- ipw 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        1.512811      1.081602      1.900054
+-- aipw 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        1.591847      1.279354       1.85769
+-- or 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        1.591972      1.318865      1.894695
+
+=== E3 two visits, T_cross = 1
+-- ipw 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.7385737     0.1547086      1.276263
+-- aipw 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        0.775286     0.4926409      1.108529
+-- or 
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.7631988     0.3960973      1.054759
+
+=== E4 T_cross = 4 of 4 (rejected?)
+[1] "ERROR: T_cross must be less than the number of outcomes (got 4 for 4 outcomes)."
+
+=== E5 estimate() called directly with T_cross = 0 and 2.5
+  WARNING x4: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau1       0.4075932    -0.0246215     0.8991431
+tau2       0.7385737     0.1797590     1.3472142
+tau3       1.2908631     0.8384030     1.8749034
+tau4       1.7444979     1.3739847     2.4496870
+  WARNING x1: extreme order statistics used as endpoints
+       point_estimates lower_CI_boot upper_CI_boot
+tau3.5        1.353333     0.7991817      1.887352
+
+=== E6 tiny arms: n1 = 3, n0 = 2, m = 4
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x19: glm.fit: fitted probabilities numerically 0 or 1 occurred
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.101766    -0.1322637      3.338599
+tau4        2.702381     0.6771948      4.246135
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x19: glm.fit: fitted probabilities numerically 0 or 1 occurred
+  WARNING x72: prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+     point_estimates lower_CI_boot upper_CI_boot
+tau3      -312.99647    -312.99647      56.43781
+tau4       -44.56308     -44.56308      18.41647
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x160: prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+     point_estimates lower_CI_boot upper_CI_boot
+tau3      -330.81226    -330.81226      63.08937
+tau4       -93.81438     -93.81438      19.60724
+
+=== E7 no trial controls (all trial patients A = 1)
+-- ipw 
+[1] "ERROR: missing value where TRUE/FALSE needed"
+-- aipw 
+[1] "ERROR: missing value where TRUE/FALSE needed"
+-- or 
+[1] "ERROR: 0 (non-NA) cases"
+
+=== E8 no external controls
+-- ipw 
+[1] "ERROR: missing value where TRUE/FALSE needed"
+-- aipw 
+[1] "ERROR: 0 (non-NA) cases"
+-- or 
+[1] "ERROR: 0 (non-NA) cases"
+
+=== E9 very unbalanced: n1 = 200, n0 = 3, m = 300
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.496510     0.6683554      2.286437
+tau4        2.059265     1.2137660      2.894707
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.607783      1.411011      1.833120
+tau4        2.171536      1.947106      2.403644
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x44: prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.591568     0.8889156      2.158625
+tau4        2.166775     1.5120835      2.679340
+
+=== E10 bootstrap = 2, each CI type, did_ec_ipw
+-- perc 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      1.298753      1.380588
+tau4        1.806968      1.545424      2.191205
+-- basic 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      1.326078      1.407913
+tau4        1.806968      1.422730      2.068512
+-- norm 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     1.2535804      1.480411
+tau4        1.806968     0.8506298      2.640612
+-- bca 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      1.298753      1.380588
+tau4        1.806968      1.545424      2.191205
+
+=== E11 alpha = 0 and alpha = 1
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.7991817            NA
+tau4        1.806968     1.4312203            NA
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      1.217978      1.217978
+tau4        1.806968      1.709286      1.709286

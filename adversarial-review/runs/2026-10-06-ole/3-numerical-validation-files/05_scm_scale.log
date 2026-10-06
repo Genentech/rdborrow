@@ -1,0 +1,12 @@
+SDs of matching variables among externals:
+   x1    x2    x3    x4    x5    y1    y2 
+ 0.49  0.31  0.44  9.65 12.09  3.88  4.11 
+mean share of squared distance by variable:
+   x1    x2    x3    x4    x5    y1    y2 
+0.001 0.000 0.001 0.240 0.666 0.043 0.049 
+original     SCM(lambda=0.1): 2.1421, 4.5941 | DID-EC-OR: 1.5689, 4.4078 | DID-EC-AIPW: 2.1300, 4.1801
+x5_div_100   SCM(lambda=0.1): 1.8149, 5.8787 | DID-EC-OR: 1.5689, 4.4078 | DID-EC-AIPW: 2.1300, 4.1801
+x4_times_12  SCM(lambda=0.1): 1.4664, 4.8468 | DID-EC-OR: 1.5689, 4.4078 | DID-EC-AIPW: 2.1300, 4.1801
+independent, raw z: lambda 0 tau 2.10616 3.971716 
+independent, standardized z: lambda 0 tau 1.317328 5.269845 
+note: Period II outcomes y3, y4 are rescaled too in dz only if listed; they are not, so tau is on the original scale

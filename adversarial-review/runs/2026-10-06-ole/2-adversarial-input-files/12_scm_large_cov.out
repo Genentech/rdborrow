@@ -1,0 +1,4 @@
+  WARNING x1: Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information.
+[1] "ERROR: Solver \"ECOS\" failed. Try another solver, or solve with `verbose = TRUE`\nfor more information."
+min weight -0.0000; controls with a weight < -1e-6: 4 of 15; max |sum - 1| 1.3e-07

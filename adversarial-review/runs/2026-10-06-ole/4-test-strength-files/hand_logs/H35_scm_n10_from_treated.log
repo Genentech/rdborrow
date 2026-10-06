@@ -1,0 +1,6 @@
+# H35_scm_n10_from_treated - SCM: number of synthetic controls taken from the treated-arm size
+# test filter: scm|run_analysis|method_class
+# runtime (s): 83.8
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 65  FAILED_TESTS: 0 
+SURVIVED

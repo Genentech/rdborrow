@@ -1,0 +1,102 @@
+# rdborrow 0.0.4.2 mode: dev 
+
+## baseline ipw / ipw+trt / aipw / or
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.075926 4.389438
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.130006 4.180107
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+
+## treatment column renamed to arm, trt_formula uses arm
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+ERROR: object 'arm' not found 
+ERROR: object 'arm' not found 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.130006 4.180107
+
+## covariates_col_name narrower than the formulas
+ERROR: object 'x2' not found 
+ERROR: object 'x2' not found 
+ERROR: object 'x2' not found 
+## covariates_col_name wider than the formulas (x1..x5) vs formula on x1 only
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.165358 5.723070
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.165358 5.723070
+
+## dot in did_ec_or and trt_formula
+WARNING (x 2 ): extreme order statistics used as endpoints 
+WARNING (x 32 ): prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases 
+[1] 1.167355 4.264990
+WARNING (x 2 ): extreme order statistics used as endpoints 
+WARNING (x 4 ): prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases 
+[1] 2.206829 4.107470
+
+## external controls with A = 1 (#108)
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.130006 4.180107
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+
+## missing outcome values
+ERROR: missing value where TRUE/FALSE needed 
+ERROR: missing value where TRUE/FALSE needed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.614983 4.407834
+## missing covariate values
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.284136 4.483537
+ERROR: missing value where TRUE/FALSE needed 
+ERROR: missing value where TRUE/FALSE needed 
+
+## treatment coded 1/2, logical, factor; trial status logical
+ERROR: Column 'A' must contain only 0 and 1. 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+ERROR: Column 'A' must contain only 0 and 1. 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+
+## duplicated / missing outcome names
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 3.100317 5.409484
+ERROR: Assertion on 'c(trial_status_col_name, treatment_col_name, outcome_col_name, covariates_col_name)' failed: Must be a subset of {'x1','x2','x3','x4','x5','A','S','T_cross','y1','y2','y3','y4'}, but has additional elements {'nope'}. 
+
+## no trial controls
+ERROR: missing value where TRUE/FALSE needed 
+ERROR: 0 (non-NA) cases 
+
+## tibble input
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 2.323352 4.632520
+WARNING (x 2 ): extreme order statistics used as endpoints 
+[1] 1.568947 4.407834
+
+## primary method passed to setup_analysis_OLE
+ERROR: Assertion on 'method_OLE_obj' failed: Must inherit from class 'method_OLE_obj', but has class 'ec_ipw_method'. 
+## OLE method passed to setup_analysis_primary
+ERROR: Assertion on 'method_weighting_obj' failed: Must inherit from class 'method_primary_obj', but has class 'did_ec_ipw_method'. 
+
+## quiet = FALSE
+Running DID-EC-IPW estimator...
+Running bootstrap inference...
+Warning messages:
+1: In norm.inter(t, alpha) : extreme order statistics used as endpoints
+2: In norm.inter(t, alpha) : extreme order statistics used as endpoints
+## run_analysis(quiet = 'no')
+ERROR: invalid argument type 
+
+## reproducibility: same seed twice
+[1] TRUE

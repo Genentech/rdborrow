@@ -1,0 +1,7 @@
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.048129      1.607624      2.939366
+tau4        2.265026      1.922156      2.965549
+identical across runs with the same seed: TRUE 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.048129      1.607624      2.939366
+tau4        2.265026      1.922156      2.965549

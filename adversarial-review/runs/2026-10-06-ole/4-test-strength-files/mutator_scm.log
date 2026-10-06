@@ -1,0 +1,128 @@
+Generated 294 AST-based mutants for scm.R
+Generated 294 mutants from 1 source files.
+Running the test suites of 80 mutants...
+
+Surviving mutants (21):
+  R/scm.R:117   '<-' -> '<deleted>'
+      116 |   X00 <- t(as.matrix(df[S == 0, c(covariates, outcomes), drop = FALSE]))
+    > 117 |   colnames(X10) <- NULL
+      118 |   colnames(X00) <- NULL
+  R/scm.R:133   '!quiet' -> 'quiet'
+      132 |   # construct synthetic controls for each RCT control subject
+    > 133 |   if (!quiet) cat("Constructing pseudo controls for internal data...\n")
+      134 |   res <- lapply(seq_len(n10), .scm_subject_sc,
+  R/scm.R:145   'Performing bootstrap inference...
+' -> 'NA_character_'
+      144 |   # bootstrap inference
+    > 145 |   if (!quiet) cat("Performing bootstrap inference...\n")
+      146 |   n_ole <- n_time - T_cross
+  R/scm.R:5-23   '1L' -> 'NA_integer_'
+    >  5 | .scm_method <- setClass(
+    >  6 |   "scm_method",
+         | ...
+    > 22 |   )
+    > 23 | )
+  R/scm.R:133   'Constructing pseudo controls for internal data...
+' -> 'NULL'
+      132 |   # construct synthetic controls for each RCT control subject
+    > 133 |   if (!quiet) cat("Constructing pseudo controls for internal data...\n")
+      134 |   res <- lapply(seq_len(n10), .scm_subject_sc,
+  R/scm.R:145   '!quiet' -> 'quiet'
+      144 |   # bootstrap inference
+    > 145 |   if (!quiet) cat("Performing bootstrap inference...\n")
+      146 |   n_ole <- n_time - T_cross
+  R/scm.R:5-23   'SCM' -> 'NA_character_'
+    >  5 | .scm_method <- setClass(
+    >  6 |   "scm_method",
+         | ...
+    > 22 |   )
+    > 23 | )
+  R/scm.R:118   '<-' -> '<deleted>'
+      117 |   colnames(X10) <- NULL
+    > 118 |   colnames(X00) <- NULL
+      119 | 
+  R/scm.R:120   '==' -> '!='
+      119 | 
+    > 120 |   n10 <- sum(S == 1 & A == 0)
+      121 | 
+  R/scm.R:74-76   'basic' -> 'NULL'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/scm.R:74-76   'checkmate::assert_choice' -> '<deleted>'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/scm.R:68   'checkmate::assert_count' -> '<deleted>'
+      67 |   checkmate::assert_choice(parallel, c("no", "multicore", "snow"))
+    > 68 |   checkmate::assert_count(ncpus, positive = TRUE)
+      69 |   checkmate::assert_int(bootstrap, lower = 2)
+  R/scm.R:99-103   'FALSE' -> 'NA'
+    >  99 |     stop(
+    > 100 |       "The 'ECOSolveR' package is required to fit the synthetic control ",
+          | ...
+    > 102 |       call. = FALSE
+    > 103 |     )
+  R/scm.R:74-76   'bca' -> 'NA_character_'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/scm.R:67   'multicore' -> 'NA_character_'
+      66 |   checkmate::assert_count(nlambda, positive = TRUE)
+    > 67 |   checkmate::assert_choice(parallel, c("no", "multicore", "snow"))
+      68 |   checkmate::assert_count(ncpus, positive = TRUE)
+  R/scm.R:145   'Performing bootstrap inference...
+' -> 'NULL'
+      144 |   # bootstrap inference
+    > 145 |   if (!quiet) cat("Performing bootstrap inference...\n")
+      146 |   n_ole <- n_time - T_cross
+  R/scm.R:250   '&' -> '|'
+      249 | 
+    > 250 |   X10 <- t(as.matrix(d[S == 1 & A == 0, c(covariates, outcomes), drop = FALSE]))
+      251 |   X00 <- t(as.matrix(d[S == 0, c(covariates, outcomes), drop = FALSE]))
+  R/scm.R:111   'if' -> '<deleted>'
+      110 | 
+    > 111 |   if (!quiet) cat("Running the synthetic control method...\n")
+      112 |   # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
+  R/scm.R:219   'ECOS' -> 'NULL'
+      218 |       prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
+    > 219 |       CVXR::psolve(prob, solver = "ECOS")
+      220 | 
+  R/scm.R:111   'Running the synthetic control method...
+' -> 'NULL'
+      110 | 
+    > 111 |   if (!quiet) cat("Running the synthetic control method...\n")
+      112 |   # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
+  R/scm.R:5-23   '1L' -> 'NULL'
+    >  5 | .scm_method <- setClass(
+    >  6 |   "scm_method",
+         | ...
+    > 22 |   )
+    > 23 | )
+Timing (seconds):
+  Baseline run:          97.9
+  Mutant generation:     0.8
+  Test execution:        533.4
+  Equivalence detection: 0.0
+
+Mutation Testing Summary:
+  Total mutants:    80
+  Killed:           59
+  Hanged:           0
+  Survived:         21
+  Mutation Score:   73.75%  (95% CI 63.2-82.1%, sampled 80 of 294)
+wall time: 10.53733 mins 
+List of 8
+ $ generated        : int 294
+ $ tested           : int 80
+ $ killed           : int 59
+ $ hanged           : int 0
+ $ survived         : int 21
+ $ mutation_score   : num 73.8
+ $ mutation_score_ci: num [1:2] 63.2 82.1
+ $ confidence       : num 0.95
+List of 4
+ $ baseline             : num 97.9
+ $ generation           : num 0.818
+ $ test_execution       : num 533
+ $ equivalence_detection: num 0

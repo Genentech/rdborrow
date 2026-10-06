@@ -1,0 +1,6 @@
+PASS     0.0s test-method_class.R :: .run_bootstrap resamples within (S, A) strata
+PASS     0.1s test-method_class.R :: .run_bootstrap returns boot.ci intervals at level 1 - alpha
+FAIL     0.1s test-method_class.R :: OLE constructors accept every supported CI type and reject others
+PASS     7.2s test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls
+PASS    21.2s test-scm.R :: scm() confidence intervals honour alpha
+PASS     3.0s test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error

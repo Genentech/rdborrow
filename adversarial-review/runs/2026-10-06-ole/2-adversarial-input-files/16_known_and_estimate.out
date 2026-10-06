@@ -1,0 +1,24 @@
+=== #108: 10 external controls recoded A = 1, OLE point estimates
+ipw : before 1.353333 1.806968  after 1.353333 1.806968 
+aipw : before 1.412817 1.893869  after 1.412817 1.893869 
+or : before 1.391646 1.876952  after 1.391646 1.876952 
+scm : before 2.055042 2.453182  after 2.055042 2.453182 
+setup_analysis_OLE accepts it:
+[1] "analysis_OLE_obj"
+attr(,"package")
+[1] "rdborrow"
+
+=== estimate() directly: T_cross = 0, 4, 2.5 (no validation)
+-- T_cross = 0 
+  WARNING x4: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau1       0.0000000    0.00000000     0.0000000
+tau2       0.3441876    0.04982196     0.5920901
+tau3       0.8818862    0.45154486     1.1592598
+tau4       1.3671926    1.20119791     1.6207998
+-- T_cross = 4 
+[1] "ERROR: invalid formula NA_character_: not a call"
+-- T_cross = 2.5 
+[1] "ERROR: subscript out of bounds"
+-- did_ec_ipw, S coded 1/2 (not 0/1) through estimate()
+[1] "ERROR: 0 (non-NA) cases"

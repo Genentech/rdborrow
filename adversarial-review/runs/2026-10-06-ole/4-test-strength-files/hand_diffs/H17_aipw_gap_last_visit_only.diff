@@ -1,0 +1,11 @@
+--- a/R/did_ec_aipw.R	2026-10-06 10:06:58.056109381 -0700
++++ b/R/did_ec_aipw.R	2026-10-06 10:12:08.905167332 -0700
+@@ -197,7 +197,7 @@
+   # bias correction: pre-crossover difference in residuals
+   bias_ctrl <- sum(w10_ctrl * rowMeans(Yr_ctrl[, 1:T_cross, drop = FALSE])) /
+     sum(w10_ctrl)
+-  bias_ext <- sum(w00_ext * rowMeans(Yr_ext[, 1:T_cross, drop = FALSE])) /
++  bias_ext <- sum(w00_ext * Yr_ext[, T_cross]) /
+     sum(w00_ext)
+   bias <- bias_ctrl - bias_ext
+ 

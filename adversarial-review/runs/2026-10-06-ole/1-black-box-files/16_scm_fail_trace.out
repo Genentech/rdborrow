@@ -1,0 +1,22 @@
+# rdborrow 0.0.4.2 mode: dev 
+ERROR: requires numeric/complex matrix/vector arguments 
+call stack:
+  try(withCallingHandlers(ole(scm(lambda_min = 0, lambda_max = 0, 
+  tryCatch(expr, error = function(e) {
+  tryCatchList(expr, classes, parentenv, handlers)
+  tryCatchOne(expr, names, parentenv, handlers[[1L]])
+  doTryCatch(return(expr), name, parentenv, handler)
+  withCallingHandlers(ole(scm(lambda_min = 0, lambda_max = 0, nlambda = 1, 
+  ole(scm(lambda_min = 0, lambda_max = 0, nlambda = 1, bootstrap = 2), 
+  run_analysis(a)
+  do.call(estimate, args)
+  (new("standardGeneric", .Data = function (method, ...) 
+  (new("standardGeneric", .Data = function (method, ...) 
+  .local(method, ...)
+  .scm_lambdacv(ec = X00, long_term_col_name = long_term_col_name, 
+  vapply(lambda_vals, function(lambda) {
+  FUN(X[[i]], ...)
+  lapply(seq_len(dim(ec)[2]), function(loocv) {
+  FUN(X[[i]], ...)
+  .handleSimpleError(function (e) 
+  h(simpleError(msg, call))

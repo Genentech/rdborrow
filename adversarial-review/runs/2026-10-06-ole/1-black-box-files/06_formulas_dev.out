@@ -1,0 +1,50 @@
+# rdborrow 0.0.4.2 mode: dev 
+
+## eq 5 by hand (aipw, mu fit on external controls only)
+hand:     2.130006 4.180107 
+package:  2.130006 4.180107 
+
+## did_ec_aipw: formula order
+y1..y4 order:      2.130006 4.180107 
+y4,y3,y2,y1 order: 2.566062 4.501037 
+y2,y1,y4,y3 order: 1.87094 4.439173 
+
+## did_ec_aipw: formula lengths
+length 1 : ERROR: subscript out of bounds 
+NULL
+length 2 : ERROR: subscript out of bounds 
+NULL
+length 3 : ERROR: subscript out of bounds 
+NULL
+length 5 : [1] 2.130006 4.180107
+
+## did_ec_aipw: LHS not an outcome
+[1] 2.130006 4.343491
+
+## did_ec_or: order of each formula vector
+baseline:         1.568947 4.407834 
+ext reversed:     2.997455 4.92367 
+rct_ctrl reversed: -1.797432 1.041455 
+rct_trt reversed: 0.5318348 -1.307032 
+
+## did_ec_or: lengths
+rct_trt only post visits (y3, y4):
+ERROR: invalid formula NA_character_: not a call 
+NULL
+rct_ctrl only pre visits (y1, y2):
+[1] 1.568947 4.407834
+ext of length 3:
+ERROR: subscript out of bounds 
+NULL
+all of length 5:
+ERROR: arguments imply differing number of rows: 3, 2 
+NULL
+all of length 1:
+ERROR: invalid formula NA_character_: not a call 
+NULL
+
+## did_ec_or: formulas used only where the paper needs them?
+rct_trt formulas for y1, y2 replaced by nonsense LHS x1:
+[1] 1.568947 4.407834
+rct_ctrl formulas for y3, y4 replaced by nonsense LHS x1:
+[1] 1.568947 4.407834

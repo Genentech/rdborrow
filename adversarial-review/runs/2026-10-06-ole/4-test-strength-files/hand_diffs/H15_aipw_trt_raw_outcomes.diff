@@ -1,0 +1,11 @@
+--- a/R/did_ec_aipw.R	2026-10-06 10:06:58.056109381 -0700
++++ b/R/did_ec_aipw.R	2026-10-06 10:12:06.593105733 -0700
+@@ -179,7 +179,7 @@
+   w10 <- 1 / (1 - pi_AX)
+ 
+   # normalized weighted residuals per group
+-  Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
++  Yr_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+   Yr_ext <- Yr[S == 0, , drop = FALSE]
+   w11_trt <- w11[S == 1 & A == 1]

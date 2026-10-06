@@ -1,0 +1,16 @@
+x5 * 1e+03: sum(w) range [1.0000, 1.0000], min w -8.88e-07, NA preds 0, warnings 6
+[1] "Solution may be inaccurate. Try another solver, adjusting the solver settings,\nor solve with `verbose = TRUE` for more information."
+Error in `problem_unpack_results()`:
+! Solver "ECOS" failed. Try another solver, or solve with `verbose =
+  TRUE` for more information.
+Backtrace:
+    ▆
+ 1. ├─base::withCallingHandlers(...)
+ 2. └─base::lapply(...)
+ 3.   └─global FUN(X[[i]], ...)
+ 4.     └─rdborrow:::.scm_subject_sc(i, X10k, X00, outs[3:4], 0.1)
+ 5.       └─CVXR::psolve(prob, solver = "ECOS")
+ 6.         └─CVXR::problem_unpack_results(problem, raw_result, chain, inverse_data)
+ 7.           └─cli::cli_abort("Solver {.val {solver_name(chain@solver)}} failed. Try another solver, or solve with {.code verbose = TRUE} for more information.")
+ 8.             └─rlang::abort(...)
+Execution halted

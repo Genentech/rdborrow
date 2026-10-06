@@ -1,0 +1,13 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:11:29.658751454 -0700
+@@ -106,8 +106,8 @@
+ 
+   data.frame(
+     point_estimates = tau,
+-    lower_CI_boot = boot_res$lower_ci,
+-    upper_CI_boot = boot_res$upper_ci,
++    lower_CI_boot = boot_res$upper_ci,
++    upper_CI_boot = boot_res$lower_ci,
+     row.names = paste0("tau", (T_cross + 1):ncol(Y))
+   )
+ })

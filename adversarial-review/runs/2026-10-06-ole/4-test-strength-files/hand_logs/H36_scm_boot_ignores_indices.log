@@ -1,0 +1,11 @@
+# H36_scm_boot_ignores_indices - SCM: bootstrap statistic ignores resampling indices
+# test filter: scm|run_analysis|method_class
+# runtime (s): 81.6
+[1] "All values of t are equal to  2.13834591855364 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  2.142105818165 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  0.279774328348775 \n Cannot calculate confidence intervals"
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 55  FAILED_TESTS: 3 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs [error]
+KILLED_BY: test-run_analysis.R :: run_analysis dispatches scm correctly [error]
+KILLED_BY: test-scm.R :: scm() runs end to end on a small data set [error]

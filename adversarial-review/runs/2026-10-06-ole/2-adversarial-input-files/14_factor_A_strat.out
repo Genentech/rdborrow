@@ -1,0 +1,19 @@
+true tau_t = E_R[0.5 t (1 + 2 x2)] = 3.15 4.2 
+numeric A
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        3.345563      2.911578      3.753654
+tau4        4.457056      4.018489      4.831092
+factor A, levels c('1', '0')
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        7.996891      7.554179      8.365722
+tau4        9.529298      9.162905      9.863226
+did_ec_aipw, numeric A
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        3.146008      2.935234      3.397728
+tau4        4.251502      4.059144      4.482520
+did_ec_aipw, factor A, levels c('1', '0')
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        4.415835      4.224861      4.579675
+tau4        5.969467      5.808745      6.149813
+did_ec_ipw, character A
+[1] "ERROR: non-numeric argument to binary operator"

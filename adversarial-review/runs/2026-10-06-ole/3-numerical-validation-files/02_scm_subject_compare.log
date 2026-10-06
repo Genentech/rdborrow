@@ -1,0 +1,44 @@
+lambda = 0.1 
+    obj_pkg           obj_ind             maxw                yhat          
+ Min.   :  1.048   Min.   :  1.048   Min.   :4.100e-11   Min.   :4.300e-10  
+ 1st Qu.:  4.126   1st Qu.:  4.126   1st Qu.:2.043e-07   1st Qu.:7.186e-07  
+ Median : 13.866   Median : 13.866   Median :3.946e-07   Median :2.015e-06  
+ Mean   : 32.472   Mean   : 32.472   Mean   :1.332e-06   Mean   :9.413e-06  
+ 3rd Qu.: 26.475   3rd Qu.: 26.475   3rd Qu.:1.181e-06   3rd Qu.:5.670e-06  
+ Max.   :300.266   Max.   :300.266   Max.   :3.363e-05   Max.   :3.361e-04  
+    minw_pkg             sumw_pkg    nnz_pkg        nnz_ind    
+ Min.   :-1.604e-10   Min.   :1   Min.   :1.00   Min.   :1.00  
+ 1st Qu.:-6.394e-12   1st Qu.:1   1st Qu.:3.00   1st Qu.:3.00  
+ Median :-1.760e-12   Median :1   Median :4.00   Median :4.00  
+ Mean   :-7.293e-12   Mean   :1   Mean   :3.63   Mean   :3.63  
+ 3rd Qu.:-5.859e-13   3rd Qu.:1   3rd Qu.:4.00   3rd Qu.:4.00  
+ Max.   :-6.735e-14   Max.   :1   Max.   :7.00   Max.   :7.00  
+max (obj_pkg - obj_ind): 1.852711e-06  max rel: 1.10484e-08 
+subjects with |yhat diff| > 1e-3: 0 
+subjects with zero objective (z_i in hull): 0 
+lambda = 0 
+    obj_pkg             obj_ind               maxw          
+ Min.   :0.000e+00   Min.   :0.000e+00   Min.   :2.000e-09  
+ 1st Qu.:7.775e-03   1st Qu.:7.775e-03   1st Qu.:7.040e-07  
+ Median :9.576e-01   Median :9.576e-01   Median :2.410e-06  
+ Mean   :1.949e+01   Mean   :1.949e+01   Mean   :1.843e-02  
+ 3rd Qu.:1.150e+01   3rd Qu.:1.150e+01   3rd Qu.:1.439e-05  
+ Max.   :2.596e+02   Max.   :2.596e+02   Max.   :2.028e-01  
+      yhat              minw_pkg             sumw_pkg    nnz_pkg     
+ Min.   :0.000e+00   Min.   :-4.560e-10   Min.   :1   Min.   : 1.00  
+ 1st Qu.:3.700e-06   1st Qu.:-6.767e-11   1st Qu.:1   1st Qu.: 3.00  
+ Median :1.469e-05   Median :-4.463e-12   Median :1   Median : 5.00  
+ Mean   :1.324e-01   Mean   : 1.730e-08   Mean   :1   Mean   :10.07  
+ 3rd Qu.:1.012e-04   3rd Qu.: 2.528e-12   3rd Qu.:1   3rd Qu.: 6.00  
+ Max.   :1.538e+00   Max.   : 1.607e-07   Max.   :1   Max.   :41.00  
+    nnz_ind     
+ Min.   : 1.00  
+ 1st Qu.: 3.00  
+ Median : 5.00  
+ Mean   : 6.47  
+ 3rd Qu.: 6.00  
+ Max.   :33.00  
+max (obj_pkg - obj_ind): 1.88362e-06  max rel: 0.01537919 
+subjects with |yhat diff| > 1e-3: 18 
+subjects with zero objective (z_i in hull): 17 
+There were 50 or more warnings (use warnings() to see the first 50)

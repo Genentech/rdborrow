@@ -1,0 +1,5 @@
+# rdborrow 0.0.4.2 mode: installed 
+ERROR: requires numeric/complex matrix/vector arguments 
+WARNING (x 5 ): Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information. 
+k = 100  tau / k =  

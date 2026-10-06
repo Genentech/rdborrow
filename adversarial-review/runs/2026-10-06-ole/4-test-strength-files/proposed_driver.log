@@ -1,0 +1,110 @@
+   id                                    n_fail
+1  H01_ipw_gap_first_visit_only          3     
+2  H02_ipw_gap_includes_postcross        3     
+3  H03_ipw_did_sign                      3     
+4  H04_ipw_ext_not_normalized            2     
+5  H05_ipw_trt_model_all_rows            1     
+6  H06_ipw_ctrl_uses_w11                 1     
+7  H07_ipw_marginal_wrong_denominator    0     
+8  H08_ipw_n_ole_equals_T_cross          1     
+9  H09_ipw_gap_drop_false_removed        1     
+10 H10_ipw_swap_ci_bounds                1     
+11 H11_ipw_ignore_alpha                  1     
+12 H12_ipw_boot_ignores_indices          2     
+13 H13_ipw_gap_period_cols_reversed      3     
+14 H14_aipw_outcome_model_all_rows       2     
+15 H15_aipw_trt_raw_outcomes             3     
+16 H16_aipw_outcome_model_trial_controls 1     
+17 H17_aipw_gap_last_visit_only          1     
+18 H18_aipw_n_ole_equals_T_cross         1     
+19 H19_aipw_ignore_alpha                 1     
+20 H20_or_ctrl_model_all_trial           3     
+21 H21_or_trt_model_on_controls          3     
+22 H22_or_standardize_pooled             1     
+23 H23_or_gap_last_visit                 3     
+24 H24_or_pc_models_n_ole                3     
+25 H25_or_ignore_alpha                   1     
+26 H26_or_ext_formula_for_rct            1     
+27 H27_scm_no_sum_to_one                 1     
+28 H28_scm_no_nonneg                     3     
+29 H29_scm_no_penalty                    2     
+30 H30_scm_covariates_only               2     
+31 H31_scm_outcomes_only                 2     
+32 H32_scm_worst_lambda                  1     
+33 H33_scm_loocv_leak                    1     
+34 H34_scm_loocv_predict_wrong           0     
+35 H35_scm_n10_from_treated              1     
+36 H36_scm_boot_ignores_indices          2     
+37 H37_scm_ignore_alpha                  1     
+38 H38_scm_swap_ci                       0     
+39 H39_scm_boot_relambda_ignored_T       2     
+40 H42_scm_match_on_ole_outcomes         2     
+41 H40_boot_no_strata                    2     
+42 H41_boot_ci_level_from_alpha_half     1     
+43 MUT_did_ec_ipw.R_031                  1     
+44 MUT_did_ec_aipw.R_032                 1     
+45 MUT_did_ec_or.R_040                   1     
+46 MUT_did_ec_ipw.R_120                  0     
+47 MUT_did_ec_aipw.R_198                 1     
+48 MUT_did_ec_ipw.R_164                  1     
+49 MUT_did_ec_ipw.R_075                  1     
+50 MUT_did_ec_ipw.R_085                  0     
+51 MUT_scm.R_254                         1     
+52 MUT_scm.R_116                         1     
+53 MUT_scm.R_060                         0     
+54 MUT_scm.R_052                         0     
+   failing                                                                                                                                                                                                                                                                
+1  test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID | test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula | test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies          
+2  test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID | test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula | test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies          
+3  test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID | test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula | test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies          
+4  test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula | test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies                                                                                               
+5  test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula                                                                                                                                                                                         
+6  test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula                                                                                                                                                                                         
+7                                                                                                                                                                                                                                                                         
+8  test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                     
+9  test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                     
+10 test-did_ec_ipw.R :: did_ec_ipw() confidence intervals honour alpha                                                                                                                                                                                                    
+11 test-did_ec_ipw.R :: did_ec_ipw() confidence intervals honour alpha                                                                                                                                                                                                    
+12 test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID | test-did_ec_ipw.R :: did_ec_ipw() confidence intervals honour alpha                                                                                                               
+13 test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID | test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula | test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies          
+14 test-did_ec_aipw.R :: did_ec_aipw() matches the Appendix B weighted-residual formula | test-did_ec_aipw.R :: did_ec_aipw() responds to outcome shifts as the DID algebra implies                                                                                       
+15 test-did_ec_aipw.R :: did_ec_aipw() with intercept-only models is the unadjusted DID | test-did_ec_aipw.R :: did_ec_aipw() matches the Appendix B weighted-residual formula | test-did_ec_aipw.R :: did_ec_aipw() responds to outcome shifts as the DID algebra implies
+16 test-did_ec_aipw.R :: did_ec_aipw() matches the Appendix B weighted-residual formula                                                                                                                                                                                   
+17 test-did_ec_aipw.R :: did_ec_aipw() matches the Appendix B weighted-residual formula                                                                                                                                                                                   
+18 test-did_ec_aipw.R :: did_ec_aipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                   
+19 test-did_ec_aipw.R :: did_ec_aipw() confidence intervals honour alpha                                                                                                                                                                                                  
+20 test-did_ec_or.R :: did_ec_or() with intercept-only models is the unadjusted DID | test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates | test-did_ec_or.R :: did_ec_or() responds to outcome shifts as the DID algebra implies     
+21 test-did_ec_or.R :: did_ec_or() with intercept-only models is the unadjusted DID | test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates | test-did_ec_or.R :: did_ec_or() responds to outcome shifts as the DID algebra implies     
+22 test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates                                                                                                                                                                                
+23 test-did_ec_or.R :: did_ec_or() with intercept-only models is the unadjusted DID | test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates | test-did_ec_or.R :: did_ec_or() responds to outcome shifts as the DID algebra implies     
+24 test-did_ec_or.R :: did_ec_or() with intercept-only models is the unadjusted DID | test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates | test-did_ec_or.R :: did_ec_or() responds to outcome shifts as the DID algebra implies     
+25 test-did_ec_or.R :: did_ec_or() confidence intervals honour alpha                                                                                                                                                                                                      
+26 test-did_ec_or.R :: did_ec_or() standardizes each group's model to the trial covariates                                                                                                                                                                                
+27 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls                                                                                                                                                                                  
+28 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: scm() confidence intervals honour alpha | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                          
+29 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                  
+30 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                  
+31 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                  
+32 test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                                                                                                          
+33 test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                                                                                                          
+34                                                                                                                                                                                                                                                                        
+35 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls                                                                                                                                                                                  
+36 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: scm() confidence intervals honour alpha                                                                                                                          
+37 test-scm.R :: scm() confidence intervals honour alpha                                                                                                                                                                                                                  
+38                                                                                                                                                                                                                                                                        
+39 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                  
+40 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls | test-scm.R :: .scm_lambdacv picks the lambda with the smallest held-out error                                                                                                  
+41 test-method_class.R :: .run_bootstrap resamples within (S, A) strata | test-method_class.R :: .run_bootstrap returns boot.ci intervals at level 1 - alpha                                                                                                              
+42 test-method_class.R :: .run_bootstrap returns boot.ci intervals at level 1 - alpha                                                                                                                                                                                     
+43 test-method_class.R :: OLE constructors accept every supported CI type and reject others                                                                                                                                                                               
+44 test-method_class.R :: OLE constructors accept every supported CI type and reject others                                                                                                                                                                               
+45 test-method_class.R :: OLE constructors accept every supported CI type and reject others                                                                                                                                                                               
+46                                                                                                                                                                                                                                                                        
+47 test-did_ec_aipw.R :: did_ec_aipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                   
+48 test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                     
+49 test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID                                                                                                                                                                                     
+50                                                                                                                                                                                                                                                                        
+51 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls                                                                                                                                                                                  
+52 test-scm.R :: scm() with a dominant penalty uses nearest-neighbour synthetic controls                                                                                                                                                                                  
+53                                                                                                                                                                                                                                                                        
+54                                                                                                                                                                                                                                                                        

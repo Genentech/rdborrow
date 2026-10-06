@@ -1,0 +1,10 @@
+# scm(parallel = "multicore") is reproducible under set.seed()? seed 2024
+source("/tmp/claude-1000/-home-matts-Documents-rdborrow/403de6d7-6cc1-4a41-9c33-1c39c7fb55db/scratchpad/review-ole/r2/helper.R")
+d <- make_ole(n1 = 20, n0 = 10, m = 15, seed = 7)
+mp <- m_scm(6, parallel = "multicore", ncpus = 2L)
+r1 <- suppressWarnings(fit(d, mp, seed = 2024))
+r2 <- suppressWarnings(fit(d, mp, seed = 2024))
+print(r1)
+cat("identical across runs with the same seed:", identical(r1, r2), "\n")
+r0 <- suppressWarnings(fit(d, m_scm(6), seed = 2024))
+print(r0)

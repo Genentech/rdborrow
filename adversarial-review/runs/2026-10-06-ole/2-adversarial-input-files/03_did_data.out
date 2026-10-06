@@ -1,0 +1,183 @@
+baseline
+        ipw     aipw       or
+y3 1.353333 1.412817 1.391646
+y4 1.806968 1.893869 1.876952
+
+=== M1 one missing covariate value in an external control
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA      1.296363      1.671055
+tau4              NA      1.467589      2.023017
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA      1.320541      1.467445
+tau4              NA      1.616566      2.045684
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.352558      1.078594      1.629244
+tau4        1.867571      1.635366      2.203355
+
+=== M2 one missing period-II outcome (y4) in an external control
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8972604      1.671055
+tau4              NA     1.4675886      2.023017
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.412817      1.119973      1.606680
+tau4              NA      1.616566      2.045684
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.391646      1.178497      1.664782
+tau4        1.875698      1.635366      2.231827
+
+=== M3 one missing period-I outcome (y1) in a trial control
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA     0.8972604      1.671055
+tau4              NA     1.4107298      2.205719
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA      1.165472      1.554049
+tau4              NA      1.716098      2.187336
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.395760      1.178497      1.662156
+tau4        1.881067      1.637846      2.209035
+
+=== M4 one missing period-II outcome (y3) in a treated patient
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA      0.978677      1.671055
+tau4        1.806968      1.356702      2.205719
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA      1.165472      1.554049
+tau4        1.893869      1.616566      2.187336
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.378553      1.156759      1.646393
+tau4        1.876952      1.635366      2.209035
+
+=== F1 factor covariate (x2 as factor)
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8972604      1.671055
+tau4        1.806968     1.3567019      2.205719
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.412817      1.119973      1.606680
+tau4        1.893869      1.616566      2.187336
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.391646      1.178497      1.664782
+tau4        1.876952      1.635366      2.209035
+
+=== F2 character covariate (x2 as character)
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8972604      1.671055
+tau4        1.806968     1.3567019      2.205719
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.412817      1.119973      1.606680
+tau4        1.893869      1.616566      2.187336
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.391646      1.178497      1.664782
+tau4        1.876952      1.635366      2.209035
+
+=== C1 constant covariate (x2 = 1 for everyone)
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.355203     0.8950911      1.662692
+tau4        1.815045     1.3687797      2.104029
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.341364      1.071314      1.580423
+tau4        1.820951      1.555079      2.074255
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.346048      1.096675      1.588995
+tau4        1.817710      1.520171      2.107981
+
+=== C2 constant outcomes at every visit
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3               0             0             0
+tau4               0             0             0
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3    8.881784e-17 -5.921189e-16  2.220446e-16
+tau4    8.881784e-17 -5.921189e-16  2.220446e-16
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3   -5.329071e-15 -5.329071e-15 -3.552714e-15
+tau4   -5.329071e-15 -5.329071e-15 -3.552714e-15
+
+=== C3 constant outcome at one OLE visit (y4 = 5 for everyone)
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8972604     1.6710548
+tau4       -1.062827    -1.3787423    -0.8940433
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.412817      1.119973      1.606680
+tau4       -1.125045     -1.437803     -1.032141
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.391646      1.178497     1.6647825
+tau4       -1.141506     -1.392435    -0.9755712
+
+=== O1 complete separation: ECs far from the trial on x1
+-- ipw 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x22: glm.fit: algorithm did not converge
+  WARNING x22: glm.fit: fitted probabilities numerically 0 or 1 occurred
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.517012      0.971006      2.547875
+tau4        2.603930      2.146272      3.394509
+-- aipw 
+  WARNING x2: extreme order statistics used as endpoints
+  WARNING x22: glm.fit: algorithm did not converge
+  WARNING x22: glm.fit: fitted probabilities numerically 0 or 1 occurred
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.137986     0.4744873      3.450873
+tau4        2.743926     1.8195377      3.851778
+-- or 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.711622     0.8137305       3.44604
+tau4        2.893800     1.5257907       3.88291
+
+=== O2 ECs identical in distribution to the trial, no study bias
+        ipw     aipw       or
+y3 1.613449 1.599301 1.599071
+y4 2.032141 2.017413 2.016595

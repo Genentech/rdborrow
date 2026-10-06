@@ -1,0 +1,2 @@
+"id","file","desc","status","killed_by","secs"
+"H42_scm_match_on_ole_outcomes","scm.R","SCM: matching also uses the OLE (post-crossover) outcomes","KILLED","test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs",164.8

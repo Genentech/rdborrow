@@ -1,0 +1,7 @@
+PASS     0.5s test-did_ec_ipw.R :: did_ec_ipw() with intercept-only models is the unadjusted DID
+PASS     0.0s test-did_ec_ipw.R :: did_ec_ipw() matches the Appendix B weighted-mean formula
+PASS     0.0s test-did_ec_ipw.R :: did_ec_ipw() responds to outcome shifts as the DID algebra implies
+PASS     1.0s test-did_ec_ipw.R :: did_ec_ipw() confidence intervals honour alpha
+PASS     0.0s test-method_class.R :: .run_bootstrap resamples within (S, A) strata
+PASS     0.0s test-method_class.R :: .run_bootstrap returns boot.ci intervals at level 1 - alpha
+PASS     0.1s test-method_class.R :: OLE constructors accept every supported CI type and reject others

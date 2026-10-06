@@ -1,0 +1,6 @@
+# H38_scm_swap_ci - SCM: CI silently widened to always contain the point estimate
+# test filter: scm|run_analysis|method_class
+# runtime (s): 80
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 65  FAILED_TESTS: 0 
+SURVIVED

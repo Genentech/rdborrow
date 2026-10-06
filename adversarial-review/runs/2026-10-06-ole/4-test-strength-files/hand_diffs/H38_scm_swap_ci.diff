@@ -1,0 +1,13 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:14:56.513692734 -0700
+@@ -155,8 +155,8 @@
+ 
+   data.frame(
+     point_estimates = tau,
+-    lower_CI_boot = boot_res$lower_ci,
+-    upper_CI_boot = boot_res$upper_ci,
++    lower_CI_boot = pmin(boot_res$lower_ci, tau),
++    upper_CI_boot = pmax(boot_res$upper_ci, tau),
+     row.names = paste0("tau", (T_cross + 1):n_time)
+   )
+ })

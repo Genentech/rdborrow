@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:11:29.112875000 -0700
+@@ -95,7 +95,7 @@
+ 
+   if (!quiet) cat("Running bootstrap inference...\n")
+ 
+-  n_ole <- ncol(Y) - T_cross
++  n_ole <- T_cross
+   boot_res <- .run_bootstrap(
+     df = df, statistic = .did_ec_ipw_boot_statistic,
+     n_estimates = n_ole, bootstrap = method@bootstrap,

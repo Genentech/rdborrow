@@ -1,0 +1,20 @@
+F1 hand value, saturated models (all three DID): 7/6 = 1.166667 
+F1 DID-EC-OR  ~x             pkg = 1.16666667 | ind = 1.16666667 | max|diff| = 2.22e-16
+F1 DID-EC-IPW ~x             pkg = 1.16666667 | ind = 1.16666667 | max|diff| = 1.19e-13
+F1 DID-EC-AIPW ~x            pkg = 1.16666667 | ind = 1.16666667 | max|diff| = 2.22e-16
+F1 hand value, intercept-only models: 7/4 = 1.75 
+F1 DID-EC-OR  ~1             pkg = 1.75000000 | ind = 1.75000000 | max|diff| = 8.88e-16
+F1 DID-EC-IPW ~1             pkg = 1.75000000 | ind = 1.75000000 | max|diff| = 0.00e+00
+F1 DID-EC-AIPW ~1            pkg = 1.75000000 | ind = 1.75000000 | max|diff| = 0.00e+00
+independent implementation on F1 (~x): 1.166667 1.166667 1.166667 
+F2 SCM lambda=0.0 (w_a=0.25) pkg = 2.99991894 | ind = 3.00000000 | max|diff| = 8.11e-05
+F2 SCM lambda=0.4 (w_a=0.15) pkg = 3.79999930 | ind = 3.80000000 | max|diff| = 7.02e-07
+F2 SCM lambda=0.8 (w_a=0.05) pkg = 4.60001185 | ind = 4.60000000 | max|diff| = 1.18e-05
+F2 SCM lambda=1.5 (w_a=0.00) pkg = 5.00000000 | ind = 5.00000000 | max|diff| = 1.39e-09
+Error in colSums((x1 - X0)^2) : 
+  'x' must be an array of at least two dimensions
+[1] "Error in colSums((x1 - X0)^2) : \n  'x' must be an array of at least two dimensions\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in colSums((x1 - X0)^2): 'x' must be an array of at least two dimensions>

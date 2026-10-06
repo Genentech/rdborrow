@@ -1,0 +1,345 @@
+Generated 218 AST-based mutants for did_ec_aipw.R
+Generated 199 AST-based mutants for did_ec_ipw.R
+Generated 139 AST-based mutants for did_ec_or.R
+Generated 556 mutants from 3 source files.
+Running the test suites of 300 mutants...
+
+Surviving mutants (69):
+  R/did_ec_ipw.R:190   'FALSE' -> 'NA'
+      189 |   d <- data[indices, , drop = FALSE]
+    > 190 |   Y <- as.matrix(d[, outcomes, drop = FALSE])
+      191 |   .did_ec_ipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula)$tau
+  R/did_ec_aipw.R:198-199   'FALSE' -> 'NA'
+    > 198 |   bias_ctrl <- sum(w10_ctrl * rowMeans(Yr_ctrl[, 1:T_cross, drop = FALSE])) /
+    > 199 |     sum(w10_ctrl)
+  R/did_ec_ipw.R:91   'Running DID-EC-IPW estimator...
+' -> 'NULL'
+      90 | 
+    > 91 |   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
+      92 | 
+  R/did_ec_aipw.R:183   'FALSE' -> 'NA'
+      182 |   Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+    > 183 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+      184 |   Yr_ext <- Yr[S == 0, , drop = FALSE]
+  R/did_ec_ipw.R:91   'Running DID-EC-IPW estimator...
+' -> 'NA_character_'
+      90 | 
+    > 91 |   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
+      92 | 
+  R/did_ec_ipw.R:55   'checkmate::assert_string' -> '<deleted>'
+      54 |   checkmate::assert_string(ps_formula)
+    > 55 |   checkmate::assert_string(trt_formula, null.ok = TRUE)
+      56 |   checkmate::assert_int(bootstrap, lower = 2)
+  R/did_ec_or.R:5-19   '' -> 'NA_character_'
+    >  5 | .did_ec_or_method <- setClass(
+    >  6 |   "did_ec_or_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_ipw.R:61-63   'checkmate::assert_choice' -> '<deleted>'
+    > 61 |   checkmate::assert_choice(
+    > 62 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 63 |   )
+  R/did_ec_ipw.R:159-160   'FALSE' -> 'NULL'
+    > 159 |   mu_trt_ole <- colSums(w11_trt * Y_trt[, (T_cross + 1):n_time, drop = FALSE]) /
+    > 160 |     sum(w11_trt)
+  R/did_ec_aipw.R:194-195   'FALSE' -> 'NULL'
+    > 194 |   mu_ext_ole <- colSums(w00_ext * Yr_ext[, (T_cross + 1):n_time, drop = FALSE]) /
+    > 195 |     sum(w00_ext)
+  R/did_ec_or.R:102   'Running DID-EC-OR estimator...
+' -> 'NULL'
+      101 | 
+    > 102 |   if (!quiet) cat("Running DID-EC-OR estimator...\n")
+      103 | 
+  R/did_ec_aipw.R:105   '!quiet' -> 'quiet'
+      104 | 
+    > 105 |   if (!quiet) cat("Running DID-EC-AIPW estimator...\n")
+      106 | 
+  R/did_ec_ipw.R:151   'FALSE' -> 'NULL'
+      150 |   # normalized weighted outcomes per group
+    > 151 |   Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+      152 |   Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+  R/did_ec_aipw.R:74-76   'basic' -> 'NULL'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/did_ec_ipw.R:5-17   '' -> 'NA_character_'
+    >  5 | .did_ec_ipw_method <- setClass(
+    >  6 |   "did_ec_ipw_method",
+         | ...
+    > 16 |   )
+    > 17 | )
+  R/did_ec_aipw.R:5-19   '' -> 'NULL'
+    >  5 | .did_ec_aipw_method <- setClass(
+    >  6 |   "did_ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_aipw.R:182   'FALSE' -> 'NULL'
+      181 |   # normalized weighted residuals per group
+    > 182 |   Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+      183 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+  R/did_ec_or.R:102   '!quiet' -> 'quiet'
+      101 | 
+    > 102 |   if (!quiet) cat("Running DID-EC-OR estimator...\n")
+      103 | 
+  R/did_ec_ipw.R:96   'if' -> '<deleted>'
+      95 | 
+    > 96 |   if (!quiet) cat("Running bootstrap inference...\n")
+      97 | 
+  R/did_ec_ipw.R:153   'FALSE' -> 'NA'
+      152 |   Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+    > 153 |   Y_ext <- Y[S == 0, , drop = FALSE]
+      154 |   w11_trt <- w11[S == 1 & A == 1]
+  R/did_ec_or.R:76-78   'norm' -> 'NULL'
+    > 76 |   checkmate::assert_choice(
+    > 77 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 78 |   )
+  R/did_ec_aipw.R:74-76   'bca' -> 'NULL'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/did_ec_or.R:112   '!quiet' -> 'quiet'
+      111 | 
+    > 112 |   if (!quiet) cat("Running bootstrap inference...\n")
+      113 | 
+  R/did_ec_ipw.R:152   'FALSE' -> 'NULL'
+      151 |   Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+    > 152 |   Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+      153 |   Y_ext <- Y[S == 0, , drop = FALSE]
+  R/did_ec_ipw.R:5-17   '' -> 'NULL'
+    >  5 | .did_ec_ipw_method <- setClass(
+    >  6 |   "did_ec_ipw_method",
+         | ...
+    > 16 |   )
+    > 17 | )
+  R/did_ec_aipw.R:95   'FALSE' -> 'NA'
+      94 |   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+    > 95 |   Y <- as.matrix(df[, outcomes, drop = FALSE])
+      96 |   S <- df$S
+  R/did_ec_aipw.R:74-76   'basic' -> 'NA_character_'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/did_ec_or.R:80-87   'DID-EC-OR' -> 'NA_character_'
+    > 80 |   .did_ec_or_method(
+    > 81 |     outcome_formula_ext = outcome_formula_ext,
+         | ...
+    > 86 |     method_name = "DID-EC-OR"
+    > 87 |   )
+  R/did_ec_ipw.R:75-113   'did_ec_ipw_method' -> 'NULL'
+    >  75 | setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
+    >  76 |                                                     treatment, trial_status,
+          | ...
+    > 112 |   )
+    > 113 | })
+  R/did_ec_ipw.R:96   'Running bootstrap inference...
+' -> 'NA_character_'
+      95 | 
+    > 96 |   if (!quiet) cat("Running bootstrap inference...\n")
+      97 | 
+  R/did_ec_ipw.R:170-171   'FALSE' -> 'NA'
+    > 170 |   bias_ext <- sum(w00_ext * rowMeans(Y_ext[, 1:T_cross, drop = FALSE])) /
+    > 171 |     sum(w00_ext)
+  R/did_ec_ipw.R:87-89   'if' -> '<deleted>'
+    > 87 |   if (!is.null(trt_formula)) {
+    > 88 |     trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
+    > 89 |   }
+  R/did_ec_or.R:5-19   '' -> 'NULL'
+    >  5 | .did_ec_or_method <- setClass(
+    >  6 |   "did_ec_or_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_aipw.R:5-19   '' -> 'NA_character_'
+    >  5 | .did_ec_aipw_method <- setClass(
+    >  6 |   "did_ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_or.R:70   '1' -> 'NULL'
+      69 |   checkmate::assert_character(outcome_formula_rct_ctrl, min.len = 1)
+    > 70 |   checkmate::assert_character(outcome_formula_rct_trt, min.len = 1)
+      71 |   checkmate::assert_int(bootstrap, lower = 2)
+  R/did_ec_ipw.R:91   '!quiet' -> 'quiet'
+      90 | 
+    > 91 |   if (!quiet) cat("Running DID-EC-IPW estimator...\n")
+      92 | 
+  R/did_ec_aipw.R:5-19   '' -> 'NA_character_'
+    >  5 | .did_ec_aipw_method <- setClass(
+    >  6 |   "did_ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_aipw.R:198-199   'FALSE' -> 'NULL'
+    > 198 |   bias_ctrl <- sum(w10_ctrl * rowMeans(Yr_ctrl[, 1:T_cross, drop = FALSE])) /
+    > 199 |     sum(w10_ctrl)
+  R/did_ec_or.R:76-78   'bca' -> 'NULL'
+    > 76 |   checkmate::assert_choice(
+    > 77 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 78 |   )
+  R/did_ec_ipw.R:159-160   'FALSE' -> 'NA'
+    > 159 |   mu_trt_ole <- colSums(w11_trt * Y_trt[, (T_cross + 1):n_time, drop = FALSE]) /
+    > 160 |     sum(w11_trt)
+  R/did_ec_aipw.R:194-195   'FALSE' -> 'NA'
+    > 194 |   mu_ext_ole <- colSums(w00_ext * Yr_ext[, (T_cross + 1):n_time, drop = FALSE]) /
+    > 195 |     sum(w00_ext)
+  R/did_ec_aipw.R:78-85   'DID-EC-AIPW' -> 'NA_character_'
+    > 78 |   .did_ec_aipw_method(
+    > 79 |     ps_formula = ps_formula,
+         | ...
+    > 84 |     method_name = "DID-EC-AIPW"
+    > 85 |   )
+  R/did_ec_ipw.R:170-171   'FALSE' -> 'NULL'
+    > 170 |   bias_ext <- sum(w00_ext * rowMeans(Y_ext[, 1:T_cross, drop = FALSE])) /
+    > 171 |     sum(w00_ext)
+  R/did_ec_ipw.R:107-112   'tau' -> 'NULL'
+    > 107 |   data.frame(
+    > 108 |     point_estimates = tau,
+          | ...
+    > 111 |     row.names = paste0("tau", (T_cross + 1):ncol(Y))
+    > 112 |   )
+  R/did_ec_ipw.R:151   'FALSE' -> 'NA'
+      150 |   # normalized weighted outcomes per group
+    > 151 |   Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+      152 |   Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+  R/did_ec_aipw.R:5-19   'DID-EC-AIPW' -> 'NA_character_'
+    >  5 | .did_ec_aipw_method <- setClass(
+    >  6 |   "did_ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_ipw.R:152   'FALSE' -> 'NA'
+      151 |   Y_trt <- Y[S == 1 & A == 1, , drop = FALSE]
+    > 152 |   Y_ctrl <- Y[S == 1 & A == 0, , drop = FALSE]
+      153 |   Y_ext <- Y[S == 0, , drop = FALSE]
+  R/did_ec_or.R:69   'checkmate::assert_character' -> '<deleted>'
+      68 |   checkmate::assert_character(outcome_formula_ext, min.len = 1)
+    > 69 |   checkmate::assert_character(outcome_formula_rct_ctrl, min.len = 1)
+      70 |   checkmate::assert_character(outcome_formula_rct_trt, min.len = 1)
+  R/did_ec_ipw.R:61-63   'norm' -> 'NULL'
+    > 61 |   checkmate::assert_choice(
+    > 62 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 63 |   )
+  R/did_ec_aipw.R:112   'Running bootstrap inference...
+' -> 'NA_character_'
+      111 | 
+    > 112 |   if (!quiet) cat("Running bootstrap inference...\n")
+      113 | 
+  R/did_ec_aipw.R:182   'FALSE' -> 'NA'
+      181 |   # normalized weighted residuals per group
+    > 182 |   Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+      183 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+  R/did_ec_ipw.R:138   '/' -> '*'
+      137 |     # can be subset by a length-N logical like the modelled branch
+    > 138 |     pi_AX <- rep(sum(A[S == 1]) / n, length(S))
+      139 |   } else {
+  R/did_ec_or.R:5-19   '' -> 'NULL'
+    >  5 | .did_ec_or_method <- setClass(
+    >  6 |   "did_ec_or_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_ipw.R:65-71   'DID-EC-IPW' -> 'NA_character_'
+    > 65 |   .did_ec_ipw_method(
+    > 66 |     ps_formula = ps_formula,
+         | ...
+    > 70 |     method_name = "DID-EC-IPW"
+    > 71 |   )
+  R/did_ec_or.R:93-132   'did_ec_or_method' -> 'NULL'
+    >  93 | setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
+    >  94 |                                                    treatment, trial_status,
+          | ...
+    > 131 |   )
+    > 132 | })
+  R/did_ec_aipw.R:184   'FALSE' -> 'NA'
+      183 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+    > 184 |   Yr_ext <- Yr[S == 0, , drop = FALSE]
+      185 |   w11_trt <- w11[S == 1 & A == 1]
+  R/did_ec_ipw.R:61-63   'norm' -> 'NA_character_'
+    > 61 |   checkmate::assert_choice(
+    > 62 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 63 |   )
+  R/did_ec_aipw.R:112   'if' -> '<deleted>'
+      111 | 
+    > 112 |   if (!quiet) cat("Running bootstrap inference...\n")
+      113 | 
+  R/did_ec_aipw.R:5-19   'DID-EC-AIPW' -> 'NULL'
+    >  5 | .did_ec_aipw_method <- setClass(
+    >  6 |   "did_ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_or.R:5-19   'DID-EC-OR' -> 'NULL'
+    >  5 | .did_ec_or_method <- setClass(
+    >  6 |   "did_ec_or_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/did_ec_aipw.R:74-76   'checkmate::assert_choice' -> '<deleted>'
+    > 74 |   checkmate::assert_choice(
+    > 75 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 76 |   )
+  R/did_ec_or.R:112   'Running bootstrap inference...
+' -> 'NA_character_'
+      111 | 
+    > 112 |   if (!quiet) cat("Running bootstrap inference...\n")
+      113 | 
+  R/did_ec_aipw.R:101-103   '<-' -> '<deleted>'
+    > 101 |   if (!is.null(trt_formula)) {
+    > 102 |     trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
+    > 103 |   }
+  R/did_ec_or.R:69   '1' -> 'NULL'
+      68 |   checkmate::assert_character(outcome_formula_ext, min.len = 1)
+    > 69 |   checkmate::assert_character(outcome_formula_rct_ctrl, min.len = 1)
+      70 |   checkmate::assert_character(outcome_formula_rct_trt, min.len = 1)
+  R/did_ec_ipw.R:96   'Running bootstrap inference...
+' -> 'NULL'
+      95 | 
+    > 96 |   if (!quiet) cat("Running bootstrap inference...\n")
+      97 | 
+  R/did_ec_aipw.R:89-130   'did_ec_aipw_method' -> 'NULL'
+    >  89 | setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
+    >  90 |                                                      treatment, trial_status,
+          | ...
+    > 129 |   )
+    > 130 | })
+  R/did_ec_or.R:102   'if' -> '<deleted>'
+      101 | 
+    > 102 |   if (!quiet) cat("Running DID-EC-OR estimator...\n")
+      103 | 
+  R/did_ec_or.R:76-78   'basic' -> 'NA_character_'
+    > 76 |   checkmate::assert_choice(
+    > 77 |     bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 78 |   )
+  R/did_ec_aipw.R:67   'checkmate::assert_string' -> '<deleted>'
+      66 |   checkmate::assert_string(ps_formula)
+    > 67 |   checkmate::assert_string(trt_formula, null.ok = TRUE)
+      68 |   checkmate::assert_character(outcome_formula, min.len = 1)
+Timing (seconds):
+  Baseline run:          49.7
+  Mutant generation:     0.9
+  Test execution:        333.6
+  Equivalence detection: 0.0
+
+Mutation Testing Summary:
+  Total mutants:    300
+  Killed:           231
+  Hanged:           0
+  Survived:         69
+  Mutation Score:   77.00%  (95% CI 71.9-81.4%, sampled 300 of 556)
+wall time: 6.403621 mins 
+List of 8
+ $ generated        : int 556
+ $ tested           : int 300
+ $ killed           : int 231
+ $ hanged           : int 0
+ $ survived         : int 69
+ $ mutation_score   : num 77
+ $ mutation_score_ci: num [1:2] 71.9 81.4
+ $ confidence       : num 0.95
+List of 4
+ $ baseline             : num 49.7
+ $ generation           : num 0.898
+ $ test_execution       : num 334
+ $ equivalence_detection: num 0

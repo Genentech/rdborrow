@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:11:33.967418640 -0700
+@@ -186,7 +186,7 @@
+ #' @noRd
+ .did_ec_ipw_boot_statistic <- function(data, indices, outcomes, ps_formula,
+                                        trt_formula, T_cross) {
+-  d <- data[indices, , drop = FALSE]
++  d <- data
+   Y <- as.matrix(d[, outcomes, drop = FALSE])
+   .did_ec_ipw_core(d, Y, d$S, d$A, T_cross, ps_formula, trt_formula)$tau
+ }

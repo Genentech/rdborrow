@@ -1,0 +1,7 @@
+# H39_scm_boot_relambda_ignored_T - SCM: synthetic control is the unweighted EC mean (weights ignored)
+# test filter: scm|run_analysis|method_class
+# runtime (s): 94.3
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 62  FAILED_TESTS: 2 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs
+KILLED_BY: test-scm.R :: .scm_subject_sc returns convex weights and their predictions

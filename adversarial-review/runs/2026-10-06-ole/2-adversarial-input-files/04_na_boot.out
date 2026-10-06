@@ -1,0 +1,16 @@
+t0: NA NA 
+finite replicates: 71 of 200 
+     conf                            
+[1,] 0.95 1.8 70.2 0.7561757 1.824563
+complete-case point estimate for comparison:
+      y3       y4 
+1.319012 1.797963 
+
+run_analysis with B = 200:
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA     0.7561757      1.824563
+tau4              NA     1.3083777      2.263719
+
+DID-EC-OR silently changes with the NA (no warning):
+[1] 1.352558 1.867571
+[1] 1.391646 1.876952

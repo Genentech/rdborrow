@@ -1,0 +1,105 @@
+### SURVIVED scm.R:5 '1L' -> 'NA_integer_' [scm.R_025.R]
+@@ -7 +5 @@
+-        nlambda = 2L, parallel = "no", ncpus = 1L))
++        nlambda = 2L, parallel = "no", ncpus = NA_integer_))
+
+### SURVIVED scm.R:5 'SCM' -> 'NA_character_' [scm.R_015.R]
+@@ -6,2 +4,2 @@
+-    prototype = list(method_name = "SCM", lambda_min = 0, lambda_max = 0.1, 
+-        nlambda = 2L, parallel = "no", ncpus = 1L))
++    prototype = list(method_name = NA_character_, lambda_min = 0, 
++        lambda_max = 0.1, nlambda = 2L, parallel = "no", ncpus = 1L))
+
+### SURVIVED scm.R:5 '1L' -> 'NULL' [scm.R_026.R]
+@@ -7 +5 @@
+-        nlambda = 2L, parallel = "no", ncpus = 1L))
++        nlambda = 2L, parallel = "no", ncpus = NULL))
+
+### SURVIVED scm.R:67 'multicore' -> 'NA_character_' [scm.R_037.R]
+@@ -14 +12,2 @@
+-    checkmate::assert_choice(parallel, c("no", "multicore", "snow"))
++    checkmate::assert_choice(parallel, c("no", NA_character_, 
++        "snow"))
+
+### SURVIVED scm.R:68 'checkmate::assert_count' -> '<deleted>' [scm.R_041.R]
+@@ -15 +12,0 @@
+-    checkmate::assert_count(ncpus, positive = TRUE)
+
+### SURVIVED scm.R:74 'basic' -> 'NULL' [scm.R_060.R]
+@@ -21 +19 @@
+-        "norm", "basic"))
++        "norm", NULL))
+
+### SURVIVED scm.R:74 'checkmate::assert_choice' -> '<deleted>' [scm.R_052.R]
+@@ -20,2 +17,0 @@
+-    checkmate::assert_choice(bootstrap_ci_type, c("perc", "bca", 
+-        "norm", "basic"))
+
+### SURVIVED scm.R:74 'bca' -> 'NA_character_' [scm.R_055.R]
+@@ -20 +18 @@
+-    checkmate::assert_choice(bootstrap_ci_type, c("perc", "bca", 
++    checkmate::assert_choice(bootstrap_ci_type, c("perc", NA_character_, 
+
+### SURVIVED scm.R:99 'FALSE' -> 'NA' [scm.R_079.R]
+@@ -34 +32 @@
+-            call. = FALSE)
++            call. = NA)
+
+### SURVIVED scm.R:111 'if' -> '<deleted>' [scm.R_089.R]
+@@ -42,2 +39,0 @@
+-    if (!quiet) 
+-        cat("Running the synthetic control method...\n")
+
+### SURVIVED scm.R:111 'Running the synthetic control method...\n' -> 'NULL' [scm.R_092.R]
+@@ -43 +41 @@
+-        cat("Running the synthetic control method...\n")
++        cat(NULL)
+
+### SURVIVED scm.R:117 '<-' -> '<deleted>' [scm.R_109.R]
+@@ -47 +44,0 @@
+-    colnames(X10) <- NULL
+
+### SURVIVED scm.R:118 '<-' -> '<deleted>' [scm.R_110.R]
+@@ -48 +45,0 @@
+-    colnames(X00) <- NULL
+
+### SURVIVED scm.R:120 '==' -> '!=' [scm.R_116.R]
+@@ -49 +47 @@
+-    n10 <- sum(S == 1 & A == 0)
++    n10 <- sum(S == 1 & A != 0)
+
+### SURVIVED scm.R:133 '!quiet' -> 'quiet' [scm.R_125.R]
+@@ -55 +53 @@
+-    if (!quiet) 
++    if (quiet) 
+
+### SURVIVED scm.R:133 'Constructing pseudo controls for internal data...\n' -> 'NULL' [scm.R_127.R]
+@@ -56 +54 @@
+-        cat("Constructing pseudo controls for internal data...\n")
++        cat(NULL)
+
+### SURVIVED scm.R:145 'Performing bootstrap inference...\n' -> 'NA_character_' [scm.R_146.R]
+@@ -64 +62 @@
+-        cat("Performing bootstrap inference...\n")
++        cat(NA_character_)
+
+### SURVIVED scm.R:145 '!quiet' -> 'quiet' [scm.R_145.R]
+@@ -63 +61 @@
+-    if (!quiet) 
++    if (quiet) 
+
+### SURVIVED scm.R:145 'Performing bootstrap inference...\n' -> 'NULL' [scm.R_147.R]
+@@ -64 +62 @@
+-        cat("Performing bootstrap inference...\n")
++        cat(NULL)
+
+### SURVIVED scm.R:219 'ECOS' -> 'NULL' [scm.R_228.R]
+@@ -109 +107 @@
+-            CVXR::psolve(prob, solver = "ECOS")
++            CVXR::psolve(prob, solver = NULL)
+
+### SURVIVED scm.R:250 '&' -> '|' [scm.R_254.R]
+@@ -127 +125 @@
+-    X10 <- t(as.matrix(d[S == 1 & A == 0, c(covariates, outcomes), 
++    X10 <- t(as.matrix(d[S == 1 | A == 0, c(covariates, outcomes), 
+

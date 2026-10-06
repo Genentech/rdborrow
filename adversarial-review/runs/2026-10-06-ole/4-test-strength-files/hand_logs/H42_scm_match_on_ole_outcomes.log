@@ -1,0 +1,6 @@
+# H42_scm_match_on_ole_outcomes - SCM: matching also uses the OLE (post-crossover) outcomes
+# test filter: scm|run_analysis|method_class
+# runtime (s): 164.8
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 63  FAILED_TESTS: 1 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs

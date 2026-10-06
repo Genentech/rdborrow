@@ -1,0 +1,13 @@
+# H12_ipw_boot_ignores_indices - IPW: bootstrap statistic ignores resampling indices
+# test filter: did_ec|run_analysis|analysis_OLE|simulation_OLE|run_simulation|method_class
+# runtime (s): 34.1
+[1] "All values of t are equal to  2.07592563343837 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  2.32335215596875 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  4.14087542888277 \n Cannot calculate confidence intervals"
+[1] "All values of t are equal to  2.07592563343837 \n Cannot calculate confidence intervals"
+TESTFILES: test-analysis_OLE_class.R,test-full_pipeline_did_ec_aipw.R,test-full_pipeline_did_ec_ipw.R,test-full_pipeline_did_ec_or.R,test-full_pipeline_simulation_OLE.R,test-method_class.R,test-run_analysis.R,test-run_simulation.R 
+PASSED_EXPECTATIONS: 100  FAILED_TESTS: 4 
+KILLED_BY: test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs [error]
+KILLED_BY: test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula) [error]
+KILLED_BY: test-full_pipeline_simulation_OLE.R :: OLE simulation report matches vignette [error]
+KILLED_BY: test-run_analysis.R :: run_analysis dispatches did_ec_ipw correctly [error]

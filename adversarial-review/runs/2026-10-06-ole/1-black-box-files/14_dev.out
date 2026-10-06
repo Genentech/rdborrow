@@ -1,0 +1,26 @@
+# rdborrow 0.0.4.2 mode: dev 
+## did_ec_or, outcome_col_name y1..y4 (vignette)
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.463867      3.569813
+tau4        4.407834      1.918617      6.407367
+## did_ec_or, outcome_col_name y4, y3, y2, y1 with the same formulas
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.463867      3.569813
+tau4        4.407834      1.918617      6.407367
+## did_ec_or, outcome_col_name x1, x2, x3, x4 (covariates!) with the same formulas
+ERROR: object 'y1' not found 
+NULL
+## did_ec_ipw, outcome_col_name y4, y3, y2, y1 (changes, as it should)
+     point_estimates lower_CI_boot upper_CI_boot
+tau3       -2.066130     -5.166112      1.218179
+tau4       -4.057742     -6.232837     -1.883562
+
+## did_ec_or, outcome_col_name y1..y3 (one OLE visit) with the 4-visit vignette formulas
+ERROR: object 'y4' not found 
+NULL
+## did_ec_aipw, outcome_col_name y1..y3 with the 4-visit vignette formulas
+ERROR: object 'y4' not found 
+NULL
+## did_ec_or, outcome_col_name y1, y2, y4 (visit 3 dropped) with the 4-visit vignette formulas
+ERROR: object 'y3' not found 
+NULL

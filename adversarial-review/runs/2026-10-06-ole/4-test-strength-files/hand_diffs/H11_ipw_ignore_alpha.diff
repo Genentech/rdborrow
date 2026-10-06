@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:11:31.936763828 -0700
+@@ -99,7 +99,7 @@
+   boot_res <- .run_bootstrap(
+     df = df, statistic = .did_ec_ipw_boot_statistic,
+     n_estimates = n_ole, bootstrap = method@bootstrap,
+-    bootstrap_ci_type = method@bootstrap_ci_type, alpha = alpha,
++    bootstrap_ci_type = method@bootstrap_ci_type, alpha = 0.05,
+     outcomes = outcomes, ps_formula = ps_formula,
+     trt_formula = trt_formula, T_cross = T_cross
+   )

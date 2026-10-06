@@ -1,0 +1,73 @@
+=== T1 exact twin: first trial control copied into the EC pool
+lambda=0: weight on twin 0.999993, synthetic y3,y4 = 99.9993, 199.9986
+lambda=0.01: weight on twin 1.000000, synthetic y3,y4 = 100, 200
+
+=== L1 large-magnitude covariate: x1 * 10^k (solver status and weights)
+k=0: sum(w)-1 = 7.2e-13, min(w) = -3.8e-11, tau = 1.974, 2.725, warnings: 
+k=2: sum(w)-1 = -7.7e-13, min(w) = -4.7e-12, tau = 2.755, 3.334, warnings: 
+k=4: sum(w)-1 = -7.9e-11, min(w) = -8.3e-11, tau = 2.861, 3.47, warnings: 
+k=6: sum(w)-1 = -5.4e-08, min(w) = -0.061, tau = 2.788, 3.398, warnings: Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information.
+k=8: ERROR Solver "ECOS" failed. Try another solver, or solve with `verbose = TRUE`
+for more information.
+
+=== FAC factor covariate in scm()
+[1] "ERROR: Cannot convert object of class <matrix/array> to a CVXR Expression."
+
+=== TINY EC arm m = 1, 2, 3
+-- m = 1 
+[1] "ERROR: Shape dimensions must be positive."
+-- m = 2 
+[1] "ERROR: 'x' must be an array of at least two dimensions"
+-- m = 3 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.474966    0.03745138      2.117937
+tau4        1.276550    0.09161287      1.786108
+
+=== TINY trial control arm n0 = 1
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3       0.7114129    -0.7583710      1.274026
+tau4       0.1144306     0.2164271      1.354952
+
+=== NA in an EC covariate
+[1] "ERROR: Problem data \"b\" contains NaN values."
+=== NA in a trial-control period-II outcome (unused cell)
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.974178      1.692643      2.028120
+tau4        2.724684      2.612585      2.758855
+=== NA in a treated period-I outcome (unused cell)
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.974178      1.692643      2.028120
+tau4        2.724684      2.612585      2.758855
+
+=== T_cross = 1 and 3
+  WARNING x3: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        2.193305      1.406141      1.720527
+tau3        2.203262      1.904561      2.131375
+tau4        2.851174      2.705884      2.951642
+  WARNING x1: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        2.090987      1.884052      2.178901
+
+=== bootstrap = 2, each CI type
+-- perc 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.974178      2.077092      2.307065
+tau4        2.724684      2.711719      3.264446
+-- basic 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.974178      1.641292      1.871265
+tau4        2.724684      2.184922      2.737649
+-- norm 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.974178      1.437559      2.074998
+tau4        2.724684      1.695259      3.227312
+-- bca 
+[1] "ERROR: estimated adjustment 'w' is infinite"

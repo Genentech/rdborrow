@@ -1,0 +1,6 @@
+# H18_aipw_n_ole_equals_T_cross - AIPW: number of OLE estimates confused with T_cross
+# test filter: did_ec|run_analysis|analysis_OLE|simulation_OLE|run_simulation|method_class
+# runtime (s): 39.2
+TESTFILES: test-analysis_OLE_class.R,test-full_pipeline_did_ec_aipw.R,test-full_pipeline_did_ec_ipw.R,test-full_pipeline_did_ec_or.R,test-full_pipeline_simulation_OLE.R,test-method_class.R,test-run_analysis.R,test-run_simulation.R 
+PASSED_EXPECTATIONS: 129  FAILED_TESTS: 0 
+SURVIVED

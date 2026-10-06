@@ -1,0 +1,23 @@
+-- did_ec_ipw bca, B = 10 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.9617738      1.500756
+tau4        1.806968     1.5341500      1.902822
+-- did_ec_ipw bca, B = 50 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      0.937947      1.771446
+tau4        1.806968      1.321220      2.099204
+-- did_ec_ipw bca, B = 200 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.8142128      1.812532
+tau4        1.806968     1.3586673      2.302463
+-- did_ec_ipw perc, B = 10 
+  WARNING x2: extreme order statistics used as endpoints
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333     0.9617738      1.500756
+tau4        1.806968     1.5341500      1.902822
+-- did_ec_ipw perc, B = 50 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.353333      0.982457      1.868888
+tau4        1.806968      1.378246      2.302656

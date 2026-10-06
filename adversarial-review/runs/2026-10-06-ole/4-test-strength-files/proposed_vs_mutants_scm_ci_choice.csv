@@ -1,0 +1,4 @@
+"id","n_fail","failing"
+"MUT_scm.R_060",1,"test-method_class.R :: OLE constructors accept every supported CI type and reject others"
+"MUT_scm.R_052",1,"test-method_class.R :: OLE constructors accept every supported CI type and reject others"
+"MUT_scm.R_055",1,"test-method_class.R :: OLE constructors accept every supported CI type and reject others"

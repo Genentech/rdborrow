@@ -1,0 +1,11 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:14:25.809117707 -0700
+@@ -219,7 +219,7 @@
+       CVXR::psolve(prob, solver = "ECOS")
+ 
+       wt_est <- CVXR::value(w)
+-      y_est <- ec[long_term_col_name, -loocv] %*% wt_est
++      y_est <- ec[long_term_col_name, -1] %*% wt_est
+       list(wt_est, y_est)
+     })
+     y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))

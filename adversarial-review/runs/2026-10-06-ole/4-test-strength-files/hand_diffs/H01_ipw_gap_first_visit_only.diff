@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:10:52.626618481 -0700
+@@ -165,7 +165,7 @@
+ 
+   # bias correction: pre-crossover difference (negative control)
+   # Ybar(T1) for RCT controls minus Ybar(T1) for external controls
+-  bias_ctrl <- sum(w10_ctrl * rowMeans(Y_ctrl[, 1:T_cross, drop = FALSE])) /
++  bias_ctrl <- sum(w10_ctrl * Y_ctrl[, 1]) /
+     sum(w10_ctrl)
+   bias_ext <- sum(w00_ext * rowMeans(Y_ext[, 1:T_cross, drop = FALSE])) /
+     sum(w00_ext)

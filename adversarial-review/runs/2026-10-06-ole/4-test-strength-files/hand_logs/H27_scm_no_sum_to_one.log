@@ -1,0 +1,7 @@
+# H27_scm_no_sum_to_one - SCM: drop sum-to-one constraint in subject SC (not in LOOCV)
+# test filter: scm|run_analysis|method_class
+# runtime (s): 71.5
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 62  FAILED_TESTS: 2 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs
+KILLED_BY: test-scm.R :: .scm_subject_sc returns convex weights and their predictions

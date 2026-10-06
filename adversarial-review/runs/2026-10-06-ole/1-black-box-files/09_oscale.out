@@ -1,0 +1,12 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+y *  1 : 2.064756 3.943234 (divided by k)
+WARNING (x 2 ): extreme order statistics used as endpoints 
+WARNING (x 23 ): Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information. 
+y *  100 : 1.703904 5.231271 (divided by k)
+ERROR: Solver "ECOS" failed. Try another solver, or solve with `verbose = TRUE`
+for more information. 
+WARNING (x 1 ): Solution may be inaccurate. Try another solver, adjusting the solver settings,
+or solve with `verbose = TRUE` for more information. 
+y *  1000 :  (divided by k)

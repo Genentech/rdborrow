@@ -1,0 +1,26 @@
+---- T_cross = 1 
+DID-EC-OR                    pkg = 2.67626927, 2.77095866, 5.60984573 | ind = 2.67626927, 2.77095866, 5.60984573 | max|diff| = 1.24e-14
+DID-EC-IPW (marginal piA)    pkg = 1.96352523, 3.10031698, 5.40948438 | ind = 1.96352523, 3.10031698, 5.40948438 | max|diff| = 4.44e-15
+DID-EC-IPW (trt model)       pkg = 1.89286124, 2.87700331, 5.19051572 | ind = 1.89286124, 2.87700331, 5.19051572 | max|diff| = 1.02e-13
+DID-EC-AIPW (marginal piA)   pkg = 1.86441298, 2.80385261, 4.85395446 | ind = 1.86441298, 2.80385261, 4.85395446 | max|diff| = 6.22e-15
+DID-EC-AIPW (trt model)      pkg = 1.96512371, 2.88525511, 4.87964541 | ind = 1.96512371, 2.88525511, 4.87964541 | max|diff| = 3.41e-13
+---- T_cross = 2 
+DID-EC-OR                    pkg = 1.56894658, 4.40783365 | ind = 1.56894658, 4.40783365 | max|diff| = 1.24e-14
+DID-EC-IPW (marginal piA)    pkg = 2.32335216, 4.63251955 | ind = 2.32335216, 4.63251955 | max|diff| = 7.11e-15
+DID-EC-IPW (trt model)       pkg = 2.07592563, 4.38943804 | ind = 2.07592563, 4.38943804 | max|diff| = 5.46e-14
+DID-EC-AIPW (marginal piA)   pkg = 2.13000561, 4.18010746 | ind = 2.13000561, 4.18010746 | max|diff| = 4.44e-15
+DID-EC-AIPW (trt model)      pkg = 2.04172746, 4.03611776 | ind = 2.04172746, 4.03611776 | max|diff| = 9.77e-15
+---- T_cross = 3 
+DID-EC-OR                    pkg = 3.78052382 | ind = 3.78052382 | max|diff| = 1.20e-14
+DID-EC-IPW (marginal piA)    pkg = 3.81580093 | ind = 3.81580093 | max|diff| = 7.11e-15
+DID-EC-IPW (trt model)       pkg = 3.58095201 | ind = 3.58095201 | max|diff| = 6.48e-14
+DID-EC-AIPW (marginal piA)   pkg = 3.37395719 | ind = 3.37395719 | max|diff| = 6.22e-15
+DID-EC-AIPW (trt model)      pkg = 3.23799997 | ind = 3.23799997 | max|diff| = 2.93e-14
+---- SCM, T_cross = 2, fixed lambda
+SCM lambda=0.1               pkg = 2.14210582, 4.59405010 | ind = 2.14210801, 4.59404721 | max|diff| = 2.89e-06
+  time 17.11939 secs 
+SCM lambda=0.001             pkg = 2.13668448, 3.93061931 | ind = 2.13668728, 3.93061557 | max|diff| = 3.74e-06
+  time 18.16272 secs 
+SCM lambda=0                 pkg = 2.06475645, 3.94323438 | ind = 2.10615951, 3.97171597 | max|diff| = 4.14e-02
+  time 23.30015 secs 
+There were 50 or more warnings (use warnings() to see the first 50)

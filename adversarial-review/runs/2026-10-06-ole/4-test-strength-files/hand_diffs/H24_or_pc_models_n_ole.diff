@@ -1,0 +1,11 @@
+--- a/R/did_ec_or.R	2026-10-06 10:06:58.056214141 -0700
++++ b/R/did_ec_or.R	2026-10-06 10:12:50.221910543 -0700
+@@ -158,7 +158,7 @@
+   })
+ 
+   # rct outcome models: control for placebo period, treated for OLE period
+-  model_list_rct_pc <- lapply(seq_len(T_cross), \(t) {
++  model_list_rct_pc <- lapply(seq_len(n_time - T_cross), \(t) {
+     lm(as.formula(outcome_formula_rct_ctrl[t]),
+       data = df[S == 1 & A == 0, , drop = FALSE]
+     )

@@ -1,0 +1,11 @@
+=== F2 one missing x5 in one external control, B = 200
+     point_estimates lower_CI_boot upper_CI_boot
+tau3              NA     0.2858187      4.965522
+tau4              NA     1.3777771      7.559315
+did_ec_or, complete data vs one NA (no warning):
+[1] 1.568947 4.407834
+[1] 1.713989 4.513045
+
+=== F3 scm, x5 in other units (x 10)
+[1] 2.339526 4.065761
+[1] 2.448964 4.646904

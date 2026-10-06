@@ -1,0 +1,11 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:15:07.518178432 -0700
+@@ -186,7 +186,7 @@
+   CVXR::psolve(prob, solver = "ECOS")
+ 
+   wt_est <- CVXR::value(w)
+-  y_est <- X00[long_term_col_name, ] %*% wt_est
++  y_est <- X00[long_term_col_name, ] %*% rep(1 / ncol(X00), ncol(X00))
+ 
+   list(wt_est, y_est)
+ }

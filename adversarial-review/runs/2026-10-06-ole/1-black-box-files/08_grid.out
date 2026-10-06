@@ -1,0 +1,35 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## default lambdas (0, 0.1, 2) [27.7s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.142106      2.440504      2.880001
+tau4        4.594050      3.529068      4.424193
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## lambda 0 only [22.0s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.168500      1.681733
+tau4        3.943234      3.342376      3.431776
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## lambda 0.1 only [21.9s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.142106      1.225819      1.352376
+tau4        4.594050      3.379067      3.996091
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## nlambda 1 with min 0 max 0.1 [17.5s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.168500      1.681733
+tau4        3.943234      3.342376      3.431776
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## lambda 10 only [19.0s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.790912     0.7899376      1.083903
+tau4        4.456933     4.0276883      4.400063
+ERROR: 'to' must be a finite number 
+
+## lambda_max Inf [0.0s] 
+NULL

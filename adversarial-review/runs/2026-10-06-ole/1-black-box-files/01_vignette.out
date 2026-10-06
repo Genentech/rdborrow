@@ -1,0 +1,196 @@
+# rdborrow 0.0.4.2 mode: installed 
+[1] "/tmp/RtmpOImi4o/file77ce34114ce9e.R"
+
+>  library(rdborrow) 
+[1] "rdborrow"  "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+[7] "methods"   "base"     
+[elapsed 0 s]
+
+>  head(SyntheticData[, c("A", "S", "y1", "y2", "y3", "y4")]) 
+  A S         y1         y2         y3        y4
+1 1 1  3.4512377 -0.7642287 -2.4713591  3.935466
+2 1 1  0.4518106  6.3516296  4.5231869 -0.198674
+3 0 1  3.0532714 -2.0453190  5.9064870 -1.374919
+4 1 1 -9.1183948  0.2304339  4.7858172  8.490757
+5 0 1 -1.4270057  1.5878794  3.7006101  9.449632
+6 0 1 -2.6967072 -0.6130288  0.7482786 -2.413717
+[elapsed 0 s]
+
+>  method <- did_ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",      trt_formula = "A ~ x1 + x2 + x3 + x4 + x5", bootstrap = 50) 
+An object of class "did_ec_ipw_method"
+Slot "ps_formula":
+[1] "S ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "trt_formula":
+[1] "A ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "method_name":
+[1] "DID-EC-IPW"
+
+Slot "bootstrap":
+[1] 50
+
+Slot "bootstrap_ci_type":
+[1] "perc"
+
+[elapsed 0 s]
+
+>  analysis <- setup_analysis_OLE(data = SyntheticData, trial_status_col_name = "S",      treatment_col_name = "A", outcome_col_name = c("y1", "y2",  
+<analysis_OLE_obj>
+  Observations: 300 
+  Trial status: S 
+  Treatment: A 
+  Outcomes: y1, y2, y3, y4 
+  Covariates: x1, x2, x3, x4, x5 
+  Method: DID-EC-IPW 
+  T_cross: 2 
+  Alpha: 0.05 
+[elapsed 0 s]
+
+>  run_analysis(analysis) 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.075926    -0.1093691      4.052144
+tau4        4.389438     1.8595075      7.168114
+[elapsed 0.3 s]
+
+>  model_forms <- c("y1 ~ x1 + x2 + x3 + x4 + x5", "y2 ~ x1 + x2 + x3 + x4 + x5",      "y3 ~ x1 + x2 + x3 + x4 + x5", "y4 ~ x1 + x2 + x3 + x4 + x5") 
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+[elapsed 0 s]
+
+>  method <- did_ec_aipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",      trt_formula = "A ~ x1 + x2 + x3 + x4 + x5", outcome_formula = model_forms,  
+An object of class "did_ec_aipw_method"
+Slot "ps_formula":
+[1] "S ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "trt_formula":
+[1] "A ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "outcome_formula":
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "method_name":
+[1] "DID-EC-AIPW"
+
+Slot "bootstrap":
+[1] 50
+
+Slot "bootstrap_ci_type":
+[1] "perc"
+
+[elapsed 0 s]
+
+>  analysis <- setup_analysis_OLE(data = SyntheticData, trial_status_col_name = "S",      treatment_col_name = "A", outcome_col_name = c("y1", "y2",  
+<analysis_OLE_obj>
+  Observations: 300 
+  Trial status: S 
+  Treatment: A 
+  Outcomes: y1, y2, y3, y4 
+  Covariates: x1, x2, x3, x4, x5 
+  Method: DID-EC-AIPW 
+  T_cross: 2 
+  Alpha: 0.05 
+[elapsed 0 s]
+
+>  run_analysis(analysis) 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.041727    -0.1217638      4.341748
+tau4        4.036118     0.9833684      7.785243
+[elapsed 0.2 s]
+
+>  model_forms <- c("y1 ~ x1 + x2 + x3 + x4 + x5", "y2 ~ x1 + x2 + x3 + x4 + x5",      "y3 ~ x1 + x2 + x3 + x4 + x5", "y4 ~ x1 + x2 + x3 + x4 + x5") 
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+[elapsed 0 s]
+
+>  method <- did_ec_or(outcome_formula_ext = model_forms, outcome_formula_rct_ctrl = model_forms,      outcome_formula_rct_trt = model_forms, bootstrap = 50) 
+An object of class "did_ec_or_method"
+Slot "outcome_formula_ext":
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "outcome_formula_rct_ctrl":
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "outcome_formula_rct_trt":
+[1] "y1 ~ x1 + x2 + x3 + x4 + x5" "y2 ~ x1 + x2 + x3 + x4 + x5"
+[3] "y3 ~ x1 + x2 + x3 + x4 + x5" "y4 ~ x1 + x2 + x3 + x4 + x5"
+
+Slot "method_name":
+[1] "DID-EC-OR"
+
+Slot "bootstrap":
+[1] 50
+
+Slot "bootstrap_ci_type":
+[1] "perc"
+
+[elapsed 0 s]
+
+>  analysis <- setup_analysis_OLE(data = SyntheticData, trial_status_col_name = "S",      treatment_col_name = "A", outcome_col_name = c("y1", "y2",  
+<analysis_OLE_obj>
+  Observations: 300 
+  Trial status: S 
+  Treatment: A 
+  Outcomes: y1, y2, y3, y4 
+  Covariates: x1, x2, x3, x4, x5 
+  Method: DID-EC-OR 
+  T_cross: 2 
+  Alpha: 0.05 
+[elapsed 0 s]
+
+>  run_analysis(analysis) 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.493807      2.860788
+tau4        4.407834      2.518497      6.520809
+[elapsed 0.2 s]
+
+>  method <- scm(lambda_min = 0, lambda_max = 0.001, nlambda = 2,      bootstrap = 3, bootstrap_ci_type = "perc") 
+An object of class "scm_method"
+Slot "lambda_min":
+[1] 0
+
+Slot "lambda_max":
+[1] 0.001
+
+Slot "nlambda":
+[1] 2
+
+Slot "parallel":
+[1] "no"
+
+Slot "ncpus":
+[1] 1
+
+Slot "method_name":
+[1] "SCM"
+
+Slot "bootstrap":
+[1] 3
+
+Slot "bootstrap_ci_type":
+[1] "perc"
+
+[elapsed 0 s]
+
+>  analysis <- setup_analysis_OLE(data = SyntheticData, trial_status_col_name = "S",      treatment_col_name = "A", outcome_col_name = c("y1", "y2",  
+<analysis_OLE_obj>
+  Observations: 300 
+  Trial status: S 
+  Treatment: A 
+  Outcomes: y1, y2, y3, y4 
+  Covariates: x1, x2, x3, x4, x5 
+  Method: SCM 
+  T_cross: 2 
+  Alpha: 0.05 
+[elapsed 0 s]
+
+>  run_analysis(analysis) 
+WARNING: extreme order statistics used as endpoints 
+WARNING: extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756     0.6126673      3.738756
+tau4        3.943234     3.0094341      6.193249
+[elapsed 13.5 s]

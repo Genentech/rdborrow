@@ -1,0 +1,17 @@
+# rdborrow 0.0.4.2 mode: installed 
+
+## ipw 
+           t0 boot_mean   boot_bias  boot_se
+tau3 2.323352  2.265632 -0.05771971 1.021702
+tau4 4.632520  4.738138  0.10561863 1.592633
+
+## aipw 
+           t0 boot_mean  boot_bias  boot_se
+tau3 2.130006  2.025535 -0.1044709 1.167080
+tau4 4.180107  4.356111  0.1760039 1.613614
+WARNING (x 26 ): prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases 
+
+## or 
+           t0 boot_mean   boot_bias  boot_se
+tau3 1.568947  1.520639 -0.04830767 1.064258
+tau4 4.407834  4.504787  0.09695375 1.091431

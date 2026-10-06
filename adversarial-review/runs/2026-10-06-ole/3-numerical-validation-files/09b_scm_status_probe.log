@@ -1,0 +1,6 @@
+  lambda  k             status value_class value_na
+1    0.0 14         infeasible        NULL    FALSE
+2    0.1  1 optimal_inaccurate      matrix    FALSE
+3    0.1 14         user_limit      matrix    FALSE
+independent OSQP on same data, lambda = 0.1, subject k: 14 
+sum w 1 objective 145281428 

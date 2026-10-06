@@ -1,0 +1,4 @@
+# rdborrow 0.0.4.2 mode: installed 
+[1] "requireNamespace"
+WARNING (x 2 ): extreme order statistics used as endpoints 
+vignette chunk guarded by requireNamespace('ECOSolveR')?  FALSE 

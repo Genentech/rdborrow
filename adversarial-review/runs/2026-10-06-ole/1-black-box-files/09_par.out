@@ -1,0 +1,25 @@
+# rdborrow 0.0.4.2 mode: installed 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## parallel = no ncpus = 1 [31.7s]
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.296654      2.232285
+tau4        3.943234      2.294677      6.567524
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## parallel = multicore ncpus = 2 [18.8s]
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.296654      2.232285
+tau4        3.943234      2.294677      6.567524
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## parallel = snow ncpus = 2 [27.5s]
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.296654      2.232285
+tau4        3.943234      2.294677      6.567524
+WARNING (x 2 ): extreme order statistics used as endpoints 
+
+## parallel = no ncpus = 1 [25.5s]
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      1.296654      2.232285
+tau4        3.943234      2.294677      6.567524

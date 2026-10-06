@@ -1,0 +1,11 @@
+--- a/R/did_ec_or.R	2026-10-06 10:06:58.056214141 -0700
++++ b/R/did_ec_or.R	2026-10-06 10:12:41.371214054 -0700
+@@ -165,7 +165,7 @@
+   })
+   model_list_rct_cr <- lapply((T_cross + 1):n_time, \(t) {
+     lm(as.formula(outcome_formula_rct_trt[t]),
+-      data = df[S == 1 & A == 1, , drop = FALSE]
++      data = df[S == 1 & A == 0, , drop = FALSE]
+     )
+   })
+   model_list_rct <- c(model_list_rct_pc, model_list_rct_cr)

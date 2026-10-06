@@ -1,0 +1,23 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:13:54.152941895 -0700
+@@ -208,9 +208,9 @@
+   mse_vals <- vapply(lambda_vals, \(lambda) {
+     res <- lapply(seq_len(dim(ec)[2]), \(loocv) {
+       x1 <- ec[-which(row.names(ec) %in% long_term_col_name), loocv]
+-      X0 <- ec[-which(row.names(ec) %in% long_term_col_name), -loocv]
++      X0 <- ec[-which(row.names(ec) %in% long_term_col_name), ]
+ 
+-      w <- CVXR::Variable(dim(ec)[2] - 1)
++      w <- CVXR::Variable(dim(ec)[2])
+       loss <- sum(((x1 - X0 %*% w))^2)
+       penal <- lambda * (sum(colSums((x1 - X0)^2) * w))
+       obj <- loss + penal
+@@ -219,7 +219,7 @@
+       CVXR::psolve(prob, solver = "ECOS")
+ 
+       wt_est <- CVXR::value(w)
+-      y_est <- ec[long_term_col_name, -loocv] %*% wt_est
++      y_est <- ec[long_term_col_name, ] %*% wt_est
+       list(wt_est, y_est)
+     })
+     y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))

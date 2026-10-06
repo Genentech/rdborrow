@@ -1,0 +1,231 @@
+# rdborrow 0.0.4.2 mode: installed 
+
+## T_cross = 1 method ipw 
+WARNING (x 3 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.963525    0.01679566      3.697599
+tau3        3.100317    1.77040966      5.224988
+tau4        5.409484    2.26987946      8.706780
+
+## T_cross = 1 method aipw 
+WARNING (x 3 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.864413   -0.01758787      3.409156
+tau3        2.803853    0.99303753      6.558748
+tau4        4.853954    1.63162801      8.855453
+
+## T_cross = 1 method or 
+WARNING (x 3 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        2.676269     0.7368199      4.562055
+tau3        2.770959     0.6809730      5.451569
+tau4        5.609846     3.6915956      8.376676
+
+## T_cross = 2 method ipw 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.7483828      4.877472
+tau4        4.632520     2.0938787      8.517333
+
+## T_cross = 2 method aipw 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.130006    -0.0753623      5.816333
+tau4        4.180107     1.1388148      8.580977
+
+## T_cross = 2 method or 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.394536      3.819375
+tau4        4.407834      2.631424      7.606032
+
+## T_cross = 3 method ipw 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.815801      1.180581      6.643165
+
+## T_cross = 3 method aipw 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.373957     0.4966184      6.719731
+
+## T_cross = 3 method or 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.780524      2.537687      5.914093
+
+## T_cross = 4 method ipw 
+ERROR: T_cross must be less than the number of outcomes (got 4 for 4 outcomes). 
+NULL
+
+## T_cross = 4 method aipw 
+ERROR: T_cross must be less than the number of outcomes (got 4 for 4 outcomes). 
+NULL
+
+## T_cross = 4 method or 
+ERROR: T_cross must be less than the number of outcomes (got 4 for 4 outcomes). 
+NULL
+
+## T_cross = 5 method ipw 
+ERROR: T_cross must be less than the number of outcomes (got 5 for 4 outcomes). 
+NULL
+
+## T_cross = 5 method aipw 
+ERROR: T_cross must be less than the number of outcomes (got 5 for 4 outcomes). 
+NULL
+
+## T_cross = 5 method or 
+ERROR: T_cross must be less than the number of outcomes (got 5 for 4 outcomes). 
+NULL
+
+## T_cross = 0 method ipw 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = 0 method aipw 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = 0 method or 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = -1 method ipw 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = -1 method aipw 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = -1 method or 
+ERROR: Assertion on 'T_cross' failed: Element 1 is not >= 1. 
+NULL
+
+## T_cross = 2.5 method ipw 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'double'. 
+NULL
+
+## T_cross = 2.5 method aipw 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'double'. 
+NULL
+
+## T_cross = 2.5 method or 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'double'. 
+NULL
+
+## T_cross = 2L method ipw 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.7483828      4.877472
+tau4        4.632520     2.0938787      8.517333
+
+## T_cross = 2L method aipw 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.130006    -0.0753623      5.816333
+tau4        4.180107     1.1388148      8.580977
+
+## T_cross = 2L method or 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.394536      3.819375
+tau4        4.407834      2.631424      7.606032
+
+## T_cross = "2" method ipw 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'character'. 
+NULL
+
+## T_cross = "2" method aipw 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'character'. 
+NULL
+
+## T_cross = "2" method or 
+ERROR: Assertion on 'T_cross' failed: Must be of type 'single integerish value', not 'character'. 
+NULL
+
+## T_cross = NA method ipw 
+ERROR: Assertion on 'T_cross' failed: May not be NA. 
+NULL
+
+## T_cross = NA method aipw 
+ERROR: Assertion on 'T_cross' failed: May not be NA. 
+NULL
+
+## T_cross = NA method or 
+ERROR: Assertion on 'T_cross' failed: May not be NA. 
+NULL
+
+## T_cross = c(1, 2) method ipw 
+ERROR: Assertion on 'T_cross' failed: Must have length 1. 
+NULL
+
+## T_cross = c(1, 2) method aipw 
+ERROR: Assertion on 'T_cross' failed: Must have length 1. 
+NULL
+
+## T_cross = c(1, 2) method or 
+ERROR: Assertion on 'T_cross' failed: Must have length 1. 
+NULL
+
+## T_cross = 2.000000001 method ipw 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+               point_estimates lower_CI_boot upper_CI_boot
+tau3.000000001        2.323352     0.7483828      4.877472
+tau4.000000001        4.632520     0.7483828      4.877472
+
+## T_cross = 2.000000001 method aipw 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+               point_estimates lower_CI_boot upper_CI_boot
+tau3.000000001        2.130006    -0.0753623      5.816333
+tau4.000000001        4.180107    -0.0753623      5.816333
+
+## T_cross = 2.000000001 method or 
+WARNING (x 1 ): extreme order statistics used as endpoints 
+               point_estimates lower_CI_boot upper_CI_boot
+tau3.000000001        1.568947     -1.394536      3.819375
+tau4.000000001        4.407834     -1.394536      3.819375
+
+#### one post-crossover visit: outcomes y1..y3, T_cross = 2
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.7483828      4.877472
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.130006    -0.0753623      5.816333
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     -1.394536      3.819375
+
+#### one pre-crossover visit: outcomes y2..y4, T_cross = 1
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.546387    -0.3111287      4.661193
+tau3        3.855555     1.4437072      8.327885
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.456159    -1.2796683      5.073917
+tau3        3.506260     0.6460016      8.306500
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.3669345     -3.470044      3.048731
+tau3       3.2058216      1.122177      6.835388
+
+#### two outcomes, T_cross = 1
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.546387    -0.3111287      4.661193
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2        1.456159     -1.279668      5.073917
+WARNING (x 1 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau2       0.3669345     -3.470044      3.048731
+
+#### one outcome
+ERROR: T_cross must be less than the number of outcomes (got 1 for 1 outcomes). 
+NULL
+ERROR: T_cross must be less than the number of outcomes (got 1 for 1 outcomes). 
+NULL
+ERROR: T_cross must be less than the number of outcomes (got 1 for 1 outcomes). 
+NULL

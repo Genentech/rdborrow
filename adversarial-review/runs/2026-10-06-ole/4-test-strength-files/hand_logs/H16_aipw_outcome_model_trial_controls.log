@@ -1,0 +1,8 @@
+# H16_aipw_outcome_model_trial_controls - AIPW: outcome model fitted on RCT controls instead of external controls
+# test filter: did_ec|run_analysis|analysis_OLE|simulation_OLE|run_simulation|method_class
+# runtime (s): 34.2
+TESTFILES: test-analysis_OLE_class.R,test-full_pipeline_did_ec_aipw.R,test-full_pipeline_did_ec_ipw.R,test-full_pipeline_did_ec_or.R,test-full_pipeline_simulation_OLE.R,test-method_class.R,test-run_analysis.R,test-run_simulation.R 
+PASSED_EXPECTATIONS: 116  FAILED_TESTS: 3 
+KILLED_BY: test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW point estimates and bootstrap CIs
+KILLED_BY: test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW marginal treatment model (default trt_formula)
+KILLED_BY: test-full_pipeline_simulation_OLE.R :: OLE simulation report matches vignette

@@ -1,0 +1,33 @@
+# rdborrow 0.0.4.2 mode: installed 
+T_cross = 0.6 / 0.2 = 2.9999999999999996 ; checkmate::test_int: TRUE 
+
+## T_cross = 3L
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.815801     0.7159556      6.841904
+
+## T_cross = 0.6 / 0.2
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        1.506634    0.04690194      3.120657
+
+## T_cross = 2L, for comparison
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.5064161      4.506462
+tau4        4.632520     1.5644509      7.697235
+
+## T_cross = 2 + 1e-9 (CI of row 2 copied from row 1)
+               point_estimates lower_CI_boot upper_CI_boot
+tau3.000000001        2.323352     0.5064161      4.506462
+tau4.000000001        4.632520     0.5064161      4.506462
+
+## DID-EC-AIPW T_cross = 3L vs 0.6 / 0.2
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.373957    0.06402591      6.485598
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        1.323855    -0.2390092      3.086823
+
+## DID-EC-OR T_cross = 3L vs 0.6 / 0.2
+     point_estimates lower_CI_boot upper_CI_boot
+tau4        3.780524       1.47121       5.88797
+Error in model_list_rct[[t]] : subscript out of bounds
+Calls: print
+Execution halted

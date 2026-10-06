@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:10:52.631333928 -0700
+@@ -138,7 +138,7 @@
+     pi_AX <- rep(sum(A[S == 1]) / n, length(S))
+   } else {
+     trt_model <- glm(as.formula(trt_formula),
+-      data = df[S == 1, , drop = FALSE], family = "binomial"
++      data = df, family = "binomial"
+     )
+     pi_AX <- predict(trt_model, newdata = df, type = "response")
+   }

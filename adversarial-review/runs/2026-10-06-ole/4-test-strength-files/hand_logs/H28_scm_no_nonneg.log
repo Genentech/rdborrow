@@ -1,0 +1,9 @@
+# H28_scm_no_nonneg - SCM: drop nonnegativity constraint in subject SC
+# test filter: scm|run_analysis|method_class
+# runtime (s): 22
+TESTFILES: test-full_pipeline_scm.R,test-method_class.R,test-run_analysis.R,test-scm.R 
+PASSED_EXPECTATIONS: 51  FAILED_TESTS: 4 
+KILLED_BY: test-full_pipeline_scm.R :: SCM point estimates and bootstrap CIs [error]
+KILLED_BY: test-run_analysis.R :: run_analysis dispatches scm correctly [error]
+KILLED_BY: test-scm.R :: .scm_subject_sc returns convex weights and their predictions [error]
+KILLED_BY: test-scm.R :: scm() runs end to end on a small data set [error]

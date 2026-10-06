@@ -1,0 +1,11 @@
+--- a/R/scm.R	2026-10-06 10:06:58.056143728 -0700
++++ b/R/scm.R	2026-10-06 10:14:36.436743006 -0700
+@@ -117,7 +117,7 @@
+   colnames(X10) <- NULL
+   colnames(X00) <- NULL
+ 
+-  n10 <- sum(S == 1 & A == 0)
++  n10 <- sum(S == 1 & A == 1)
+ 
+   # find optimal lambda via LOOCV
+   if (!quiet) cat("Performing cross validation for tuning parameter selection...\n")

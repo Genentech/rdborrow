@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:12:04.256687216 -0700
+@@ -169,7 +169,7 @@
+     sum(w10_ctrl)
+   bias_ext <- sum(w00_ext * rowMeans(Y_ext[, 1:T_cross, drop = FALSE])) /
+     sum(w00_ext)
+-  bias <- bias_ctrl - bias_ext
++  bias <- bias_ext - bias_ctrl
+ 
+   tau <- mu_trt_ole - mu_ext_ole - bias
+   list(tau = tau)

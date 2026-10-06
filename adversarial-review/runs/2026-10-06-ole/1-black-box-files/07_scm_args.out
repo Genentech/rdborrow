@@ -1,0 +1,58 @@
+# rdborrow 0.0.4.2 mode: installed 
+
+## scm( lambda_min = 0.1, lambda_max = 0 )
+ERROR: Assertion on 'lambda_max' failed: Element 1 is not >= 0.1. 
+
+## scm( lambda_min = -1, lambda_max = 0.1 )
+ERROR: Assertion on 'lambda_min' failed: Element 1 is not >= 0. 
+
+## scm( lambda_min = 0, lambda_max = Inf )
+accepted
+
+## scm( lambda_min = 0, lambda_max = 0.1, nlambda = 1 )
+accepted
+
+## scm( lambda_min = 0.05, lambda_max = 0.05, nlambda = 5 )
+accepted
+
+## scm( nlambda = 0 )
+ERROR: Assertion on 'nlambda' failed: Must be >= 1. 
+
+## scm( nlambda = 2.5 )
+ERROR: Assertion on 'nlambda' failed: Must be of type 'count', not 'double'. 
+
+## scm( nlambda = NA )
+ERROR: Assertion on 'nlambda' failed: May not be NA. 
+
+## scm( lambda_min = NA )
+ERROR: Assertion on 'lambda_min' failed: May not be NA. 
+
+## scm( lambda_min = c(0, 1) )
+ERROR: Assertion on 'lambda_min' failed: Must have length 1. 
+
+## scm( parallel = "foo" )
+ERROR: Assertion on 'parallel' failed: Must be element of set {'no','multicore','snow'}, but is 'foo'. 
+
+## scm( parallel = "multicore", ncpus = 0 )
+ERROR: Assertion on 'ncpus' failed: Must be >= 1. 
+
+## scm( parallel = "no", ncpus = 4 )
+accepted
+
+## scm( parallel = "snow", ncpus = 2 )
+accepted
+
+## scm( ncpus = 2.5 )
+ERROR: Assertion on 'ncpus' failed: Must be of type 'count', not 'double'. 
+
+## scm( bootstrap = 1 )
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+
+## scm( bootstrap = 2 )
+accepted
+
+## scm( bootstrap = NULL )
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'NULL'. 
+
+## scm( bootstrap_ci_type = "bca" )
+accepted

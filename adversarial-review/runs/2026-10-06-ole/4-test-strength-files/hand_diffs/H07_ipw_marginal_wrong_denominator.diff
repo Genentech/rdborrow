@@ -1,0 +1,11 @@
+--- a/R/did_ec_ipw.R	2026-10-06 10:06:58.056190857 -0700
++++ b/R/did_ec_ipw.R	2026-10-06 10:11:27.338712915 -0700
+@@ -135,7 +135,7 @@
+   if (is.null(trt_formula)) {
+     # marginal randomization probability, recycled so the weights below
+     # can be subset by a length-N logical like the modelled branch
+-    pi_AX <- rep(sum(A[S == 1]) / n, length(S))
++    pi_AX <- rep(sum(A[S == 1]) / length(S), length(S))
+   } else {
+     trt_model <- glm(as.formula(trt_formula),
+       data = df[S == 1, , drop = FALSE], family = "binomial"

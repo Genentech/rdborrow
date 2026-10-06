@@ -1,0 +1,6 @@
+# H07_ipw_marginal_wrong_denominator - IPW: marginal P(A=1) divides by N (trial + EC) instead of n
+# test filter: did_ec|run_analysis|analysis_OLE|simulation_OLE|run_simulation|method_class
+# runtime (s): 41.6
+TESTFILES: test-analysis_OLE_class.R,test-full_pipeline_did_ec_aipw.R,test-full_pipeline_did_ec_ipw.R,test-full_pipeline_did_ec_or.R,test-full_pipeline_simulation_OLE.R,test-method_class.R,test-run_analysis.R,test-run_simulation.R 
+PASSED_EXPECTATIONS: 129  FAILED_TESTS: 0 
+SURVIVED

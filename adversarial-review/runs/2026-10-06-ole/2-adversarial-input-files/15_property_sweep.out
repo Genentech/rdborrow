@@ -1,0 +1,4 @@
+       permute      shift_all          scale   ec_shift_all    ec_shift_II 
+      5.33e-15       5.51e-14       4.48e-15       3.33e-14       3.55e-15 
+  ctrl_shift_I   trt_I_unused ctrl_II_unused      duplicate 
+      3.55e-14       0.00e+00       0.00e+00       5.55e-15 

@@ -1,0 +1,10 @@
+# rdborrow 0.0.4.2 mode: installed 
+scm norm [53.7s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756      0.270774      2.795370
+tau4        3.943234      3.292978      5.171585
+WARNING (x 2 ): extreme order statistics used as endpoints 
+scm basic [43.3s] 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.064756     0.9034211      2.138112
+tau4        3.943234     3.7606481      4.898814

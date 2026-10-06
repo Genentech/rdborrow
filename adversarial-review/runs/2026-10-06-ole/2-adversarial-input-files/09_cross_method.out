@@ -1,0 +1,23 @@
+X1 intercept-only nuisance models: IPW, OR, AIPW and the raw DID of means agree
+             y3       y4
+ipw0   1.337445 1.741744
+or0    1.337445 1.741744
+aipw00 1.337445 1.741744
+raw    1.337445 1.741744
+
+X2 AIPW with intercept-only outcome models equals IPW
+               y3       y4
+ipw      1.353333 1.806968
+aipw_int 1.353333 1.806968
+
+X3 trt_formula = 'A ~ 1' equals the marginal default
+               y3       y4
+ipw      1.353333 1.806968
+ipw_trt1 1.353333 1.806968
+
+X4 covariate constant among external controls only (x2 = 1 for every EC)
+  WARNING x4: prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+[1] 1.398879 1.880945
+  WARNING x4: prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
+      y3       y4 
+1.345522 1.816777 

@@ -1,0 +1,9 @@
+package LOOCV on default grid {0, 0.1}: 0.1 
+< table of extent 0 >
+There were 50 or more warnings (use warnings() to see the first 50)
+independent LOOCV SSE over grid 0 0.001 0.01 0.1 1 :
+[1] 3523.485 3596.831 3616.201 3523.490 3795.573
+independent choice: 0 
+package LOOCV on seq(0, 1, length.out = 5): 0.25 
+There were 50 or more warnings (use warnings() to see the first 50)
+independent LOOCV on same grid: 0.25  SSE: 3523.485 3444.796 3551.291 3690.385 3795.573 

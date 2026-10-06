@@ -1,0 +1,3 @@
+FAIL     0.4s test-method_class.R :: .run_bootstrap resamples within (S, A) strata
+FAIL     0.2s test-method_class.R :: .run_bootstrap returns boot.ci intervals at level 1 - alpha
+PASS     0.2s test-method_class.R :: OLE constructors accept every supported CI type and reject others

@@ -1,0 +1,23 @@
+# rdborrow 0.0.4.2 mode: installed 
+
+## unadjusted DID by hand
+[1] 2.158304 5.803578
+did_ec_ipw(S ~ 1):           2.158304 5.803578 
+did_ec_or(all ~ 1):          2.158304 5.803578 
+did_ec_aipw(S ~ 1, y ~ 1):   2.158304 5.803578 
+
+## did_ec_ipw with covariates, marginal pi_A
+hand eq 4:  2.323352 4.63252 
+package:    2.323352 4.63252 
+
+## did_ec_ipw with trt_formula (W11 = 1/pi_A(X))
+hand eq 4:  2.075926 4.389438 
+package:    2.075926 4.389438 
+
+## did_ec_aipw with intercept-only outcome models equals did_ec_ipw (eq 5 -> eq 4)
+aipw:  2.323352 4.63252 
+ipw:   2.323352 4.63252 
+
+## did_ec_or with covariates (eq 3, average over trial population R)
+hand eq 3:  1.568947 4.407834 
+package:    1.568947 4.407834 

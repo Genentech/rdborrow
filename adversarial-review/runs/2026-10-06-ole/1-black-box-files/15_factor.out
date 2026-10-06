@@ -1,0 +1,7 @@
+# rdborrow 0.0.4.2 mode: installed 
+## DID methods with factor x3 (numeric 0/1 x3 for reference)
+[1] 2.323352 4.632520
+[1] 2.323352 4.632520
+[1] 1.568947 4.407834
+## scm with factor x3
+ERROR: Cannot convert object of class <matrix/array> to a CVXR Expression. 

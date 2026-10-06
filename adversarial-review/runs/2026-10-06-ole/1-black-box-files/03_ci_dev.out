@@ -1,0 +1,155 @@
+# rdborrow 0.0.4.2 mode: dev 
+
+#### ci types (did_ec_ipw, B = 200)
+
+## bootstrap_ci_type = NULL 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.5064161      4.506462
+tau4        4.632520     1.5644509      7.697235
+
+## bootstrap_ci_type = "perc" 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.5064161      4.506462
+tau4        4.632520     1.5644509      7.697235
+
+## bootstrap_ci_type = "norm" 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.4136424      4.262705
+tau4        4.632520     1.3780267      7.809557
+
+## bootstrap_ci_type = "basic" 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.1402423      4.140288
+tau4        4.632520     1.5678044      7.700588
+
+## bootstrap_ci_type = "bca" 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.5024351      4.409969
+tau4        4.632520     1.3635236      7.494063
+
+## bootstrap_ci_type = "stud" 
+ERROR: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','basic'}, but is 'stud'. 
+
+## bootstrap_ci_type = "all" 
+ERROR: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','basic'}, but is 'all'. 
+
+## bootstrap_ci_type = c("perc", "norm") 
+ERROR: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','basic'}, but is not atomic scalar. 
+
+## bootstrap_ci_type = "foo" 
+ERROR: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','basic'}, but is 'foo'. 
+
+## bootstrap_ci_type = NA 
+ERROR: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','basic'}, but is 'NA'. 
+
+#### alpha (did_ec_ipw, perc, B = 400)
+
+## alpha = 0.05 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.2362109      4.404843
+tau4        4.632520     1.4488129      7.506831
+
+## alpha = 0.2 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352     0.9210714      3.766448
+tau4        4.632520     2.6462164      6.551525
+
+## alpha = 0.5 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      1.562290      3.045073
+tau4        4.632520      3.639567      5.705042
+
+## alpha = 0.01 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352    -0.3882220      4.978566
+tau4        4.632520     0.4317568      8.496947
+
+## alpha = 0 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352    -0.6081196            NA
+tau4        4.632520     0.2747086            NA
+
+## alpha = 1 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      2.354577      2.354577
+tau4        4.632520      4.779726      4.779726
+
+## alpha = -0.1 
+ERROR: Assertion on 'alpha' failed: Element 1 is not >= 0. 
+NULL
+
+## alpha = 1.5 
+ERROR: Assertion on 'alpha' failed: Element 1 is not <= 1. 
+NULL
+
+## alpha = NA 
+ERROR: Assertion on 'alpha' failed: May not be NA. 
+NULL
+
+## alpha = c(0.05, 0.1) 
+ERROR: Assertion on 'alpha' failed: Must have length 1. 
+NULL
+
+#### bootstrap counts
+
+## bootstrap = NULL 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'NULL'. 
+
+## bootstrap = 0 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+
+## bootstrap = 1 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+
+## bootstrap = 2 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      2.784365      3.104454
+tau4        4.632520      3.364014      5.087255
+
+## bootstrap = 3 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.323352      1.543513      2.780779
+tau4        4.632520      4.577039      5.409337
+
+## bootstrap = 2.5 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'double'. 
+
+## bootstrap = -5 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+
+## bootstrap = NA 
+ERROR: Assertion on 'bootstrap' failed: May not be NA. 
+
+## bootstrap = "10" 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'character'. 
+
+## bootstrap = TRUE 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'logical'. 
+
+## bootstrap = 1e+09 
+constructed OK; not run
+
+#### the same for did_ec_or and did_ec_aipw: bootstrap NULL / 1 / 2
+
+## bootstrap = NULL 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'NULL'. 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'NULL'. 
+ERROR: Assertion on 'bootstrap' failed: Must be of type 'single integerish value', not 'NULL'. 
+
+## bootstrap = 1 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+ERROR: Assertion on 'bootstrap' failed: Element 1 is not >= 2. 
+
+## bootstrap = 2 
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        1.568947     0.6503664      2.054038
+tau4        4.407834     3.8764666      4.105871
+WARNING (x 2 ): extreme order statistics used as endpoints 
+     point_estimates lower_CI_boot upper_CI_boot
+tau3        2.130006    -0.7898314     0.3340665
+tau4        4.180107     4.3854000     5.8209126

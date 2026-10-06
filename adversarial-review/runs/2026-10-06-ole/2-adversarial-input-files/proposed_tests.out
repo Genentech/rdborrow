@@ -1,0 +1,22 @@
+                                                                     test
+1          F1 a factor treatment column is rejected or matches 0/1 coding
+2  F2 missing values in used columns are rejected by setup_analysis_OLE()
+3        F2 .run_bootstrap() does not drop non-finite replicates silently
+4                   F3-F4 scm() is unaffected by the units of a covariate
+5                                     F6 non-syntactic outcome names work
+6  F7 setup_analysis_OLE() requires both trial arms and external controls
+7                                F8 scm() runs with two external controls
+8                                         F5 estimate() validates T_cross
+9                              F9 alpha must lie strictly between 0 and 1
+10                  #104 did_ec_or() matches formulas to outcomes by name
+   failed error
+1       1 FALSE
+2       1 FALSE
+3       1 FALSE
+4       0  TRUE
+5       0  TRUE
+6       2 FALSE
+7       1 FALSE
+8       1 FALSE
+9       2 FALSE
+10      1 FALSE
