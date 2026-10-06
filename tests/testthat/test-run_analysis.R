@@ -175,6 +175,41 @@ test_that("outcome formulas are matched to outcomes by name, not position", {
   )
 })
 
+test_that("OLE methods treat a near-integer T_cross as that integer", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outs <- c("y1", "y2", "y3", "y4")
+  of <- paste(outs, "~ x1 + x2 + x3 + x4 + x5")
+  fit <- function(method, T_cross) {
+    analysis <- setup_analysis_OLE(
+      SyntheticData, "S", "A", outs, covs, method,
+      T_cross = T_cross
+    )
+    set.seed(1)
+    suppressWarnings(run_analysis(analysis))
+  }
+  methods <- list(
+    did_ec_ipw("S ~ x1 + x2", bootstrap = 2),
+    did_ec_aipw("S ~ x1 + x2", outcome_formula = of, bootstrap = 2),
+    did_ec_or(of, of, of, bootstrap = 2)
+  )
+  for (m in methods) {
+    expect_equal(fit(m, 0.6 / 0.2), fit(m, 3))
+  }
+})
+
+test_that("estimate() validates T_cross for OLE methods", {
+  outs <- c("y1", "y2", "y3", "y4")
+  call_estimate <- function(T_cross) {
+    estimate(
+      did_ec_ipw("S ~ x1 + x2", bootstrap = 2),
+      data = SyntheticData, outcomes = outs, treatment = "A",
+      trial_status = "S", covariates = c("x1", "x2"), T_cross = T_cross
+    )
+  }
+  expect_error(call_estimate(0), "T_cross")
+  expect_error(call_estimate(4), "T_cross")
+})
+
 test_that("trial-status and treatment columns can have any name", {
   covs <- c("x1", "x2", "x3", "x4", "x5")
   outs <- c("y1", "y2", "y3", "y4")
