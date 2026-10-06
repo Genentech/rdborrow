@@ -114,7 +114,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
-  ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
+  ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   if (length(method@outcome_formula) != length(outcomes)) {
     stop(
       "outcome_formula must have one formula per outcome (got ",

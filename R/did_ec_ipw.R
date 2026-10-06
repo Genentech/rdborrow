@@ -82,10 +82,10 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   S <- df$S
   A <- df$A
 
-  ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
+  ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   trt_formula <- method@trt_formula
   if (!is.null(trt_formula)) {
-    trt_formula <- sub("^[^~]*~", paste0(treatment, " ~"), trt_formula)
+    trt_formula <- sub("^[^~]*~", "A ~", trt_formula)
   }
 
   if (!quiet) cat("Running DID-EC-IPW estimator...\n")

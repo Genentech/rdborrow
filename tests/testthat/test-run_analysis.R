@@ -143,6 +143,51 @@ test_that("run_analysis dispatches scm correctly", {
   expect_true("point_estimates" %in% names(res))
 })
 
+test_that("trial-status and treatment columns can have any name", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  outs <- c("y1", "y2", "y3", "y4")
+  of <- paste(outs, "~ x1 + x2 + x3 + x4 + x5")
+  renamed <- SyntheticData
+  names(renamed)[match(c("S", "A"), names(renamed))] <- c("in_trial", "arm")
+
+  fit_primary <- function(data, trial, trt, method) {
+    analysis <- setup_analysis_primary(
+      data, trial, trt, c("y1", "y2"), covs, method
+    )
+    run_analysis(analysis)$results$point_estimates
+  }
+  fit_ole <- function(data, trial, trt, method) {
+    analysis <- setup_analysis_OLE(
+      data, trial, trt, outs, covs, method,
+      T_cross = 2
+    )
+    set.seed(1)
+    run_analysis(analysis)$point_estimates
+  }
+
+  primary <- list(
+    ec_ipw("S ~ x1 + x2 + x3 + x4 + x5"),
+    ec_aipw("S ~ x1 + x2 + x3 + x4 + x5", of[1:2])
+  )
+  ole <- list(
+    did_ec_ipw("S ~ x1 + x2", trt_formula = "A ~ x1", bootstrap = 2),
+    did_ec_aipw("S ~ x1 + x2", "A ~ x1", of, bootstrap = 2)
+  )
+
+  for (m in primary) {
+    expect_equal(
+      fit_primary(renamed, "in_trial", "arm", m),
+      fit_primary(SyntheticData, "S", "A", m)
+    )
+  }
+  for (m in ole) {
+    expect_equal(
+      suppressWarnings(fit_ole(renamed, "in_trial", "arm", m)),
+      suppressWarnings(fit_ole(SyntheticData, "S", "A", m))
+    )
+  }
+})
+
 test_that("run_analysis quiet argument suppresses output", {
   method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
   analysis <- setup_analysis_primary(
