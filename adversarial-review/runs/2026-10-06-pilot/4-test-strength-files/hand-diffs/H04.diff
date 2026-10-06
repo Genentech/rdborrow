@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -252,7 +252,7 @@
+   A_mat[(2 * n_time + 1):(3 * n_time), (3 * n_time + 1):block_dim] <- A34
+ 
+   # meat: influence functions (Psi_1 through Psi_4 in Theorem 3)
+-  phi1 <- S * A * sweep(Y, 2, core$mu1) / core$pi_A / pi_S
++  phi1 <- S * A * sweep(Y, 2, core$mu1) / (1 - core$pi_A) / pi_S
+   phi2 <- S * (1 - A) * sweep(Y, 2, core$mu10) / (1 - core$pi_A) / pi_S
+   phi3 <- (1 - S) * sweep(Y, 2, core$mu00) * core$w00 / (1 - pi_S)
+   phi_ps <- (S - core$pi_SX) * X_model

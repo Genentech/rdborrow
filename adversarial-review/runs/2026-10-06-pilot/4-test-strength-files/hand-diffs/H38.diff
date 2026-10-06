@@ -1,0 +1,13 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -90,8 +90,9 @@
+     norm = "normal",
+     bca = "bca",
+     perc = "percent",
+-    basic = "basic"
++    basic = "percent"
+   )
++  if (bootstrap_ci_type == "basic") bootstrap_ci_type <- "perc"
+ 
+   # capture the extra arguments so boot sees a plain (data, indices)
+   # statistic. boot.ci(type = "bca") re-invokes it through empinf(), which

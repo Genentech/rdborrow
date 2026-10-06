@@ -1,0 +1,152 @@
+H01 65s
+  KILLED: tests 139, failing tests 4, expectations passed 397
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=6, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)
+H02 64s
+  KILLED: tests 139, failing tests 4, expectations passed 393
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=8, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=3, error=FALSE)
+H03 66s
+  KILLED: tests 139, failing tests 4, expectations passed 389
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=8, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=3, error=FALSE)
+H04 72s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H05 65s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H06 69s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H07 71s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H08 64s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H09 65s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H10 68s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H11 66s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H12 65s
+  KILLED: tests 139, failing tests 3, expectations passed 395
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=9, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=9, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=3, error=FALSE)
+H13 66s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H14 68s
+  KILLED: tests 139, failing tests 2, expectations passed 404
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)
+H15 66s
+  KILLED: tests 139, failing tests 2, expectations passed 404
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)
+H16 67s
+  KILLED: tests 139, failing tests 2, expectations passed 404
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)
+H17 69s
+  KILLED: tests 139, failing tests 3, expectations passed 398
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=6, error=FALSE)
+H18 72s
+  KILLED: tests 139, failing tests 3, expectations passed 403
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)
+H19 68s
+  KILLED: tests 139, failing tests 2, expectations passed 409
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW zero weight (no borrowing) (failed=6, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)
+H20 69s
+  KILLED: tests 139, failing tests 5, expectations passed 378
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=8, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=6, error=FALSE)
+H21 70s
+  KILLED: tests 139, failing tests 5, expectations passed 378
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=8, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=6, error=FALSE)
+H22 72s
+  KILLED: tests 139, failing tests 1, expectations passed 415
+  FAIL test-method_class.R :: all bootstrap CI types return finite bounds (failed=1, error=FALSE)
+H23 69s
+  KILLED: tests 139, failing tests 1, expectations passed 410
+  FAIL test-method_class.R :: all bootstrap CI types return finite bounds (failed=0, error=TRUE)
+H24 69s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H25 70s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H26 71s
+  KILLED: tests 139, failing tests 1, expectations passed 415
+  FAIL test-run_analysis.R :: run_analysis respects alpha parameter (failed=1, error=FALSE)
+H27 74s
+  KILLED: tests 139, failing tests 7, expectations passed 388
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW marginal treatment model (default trt_formula) (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula) (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_or.R :: DID-EC-OR point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=6, error=FALSE)
+H28 65s
+  KILLED: tests 139, failing tests 7, expectations passed 388
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW marginal treatment model (default trt_formula) (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula) (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_or.R :: DID-EC-OR point estimates and bootstrap CIs (failed=4, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=6, error=FALSE)
+H29 67s
+  KILLED: tests 139, failing tests 7, expectations passed 404
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW point estimates and bootstrap CIs (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW marginal treatment model (default trt_formula) (failed=1, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs (failed=2, error=FALSE)
+  FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula) (failed=1, error=FALSE)
+  FAIL test-full_pipeline_did_ec_or.R :: DID-EC-OR point estimates and bootstrap CIs (failed=2, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=2, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=2, error=FALSE)
+H30 67s
+  KILLED: tests 139, failing tests 3, expectations passed 398
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=6, error=FALSE)
+H31 68s
+  KILLED: tests 139, failing tests 5, expectations passed 376
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=8, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=8, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=8, error=FALSE)
+H32 68s
+  KILLED: tests 139, failing tests 1, expectations passed 410
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=6, error=FALSE)
+H33 65s
+  SURVIVED: tests 139, failing tests 0, expectations passed 416
+H34 65s
+  KILLED: tests 139, failing tests 2, expectations passed 409
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW zero weight (no borrowing) (failed=6, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)
+H35 63s
+  KILLED: tests 139, failing tests 4, expectations passed 397
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=6, error=FALSE)
+  FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)
+H36 63s
+  KILLED: tests 139, failing tests 2, expectations passed 404
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+  FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)

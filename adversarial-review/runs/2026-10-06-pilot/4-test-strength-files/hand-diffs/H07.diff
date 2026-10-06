@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -184,7 +184,7 @@
+ 
+   # optimal weight
+   if (is.null(weight)) {
+-    w10 <- 1 / (1 - pi_A)
++    w10 <- 1 / pi_A
+     n_ctrl <- sum(S == 1 & A == 0)
+     num <- sum(rep(w10^2, n_ctrl)) / sum(rep(w10, n_ctrl))^2
+     denom <- sum(w00_ext^2) / sum(w00_ext)^2

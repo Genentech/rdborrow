@@ -1,0 +1,11 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -113,7 +113,7 @@
+   ci_bounds <- vapply(seq_len(n_estimates), \(i) {
+     ci <- boot::boot.ci(boot_out,
+       conf = 1 - alpha,
+-      type = bootstrap_ci_type, index = i
++      type = bootstrap_ci_type, index = 1
+     )
+     # the normal component is a 3-column matrix, the others are 5-column
+     bounds <- if (ci_type_long == "normal") 2:3 else 4:5

@@ -1,0 +1,10 @@
+--- R/ec_weights.R
++++ R/ec_weights.R (mutant)
+@@ -16,6 +16,6 @@
+     ps_model = ps_model,
+     pi_SX = pi_SX,
+     pi_S = pi_S,
+-    w00 = (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
++    w00 = (pi_SX / (1 - pi_SX))
+   )
+ }

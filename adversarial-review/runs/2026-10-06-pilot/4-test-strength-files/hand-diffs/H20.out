@@ -1,0 +1,6 @@
+KILLED: tests 139, failing tests 5, expectations passed 378
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW optimal weight (failed=8, error=FALSE)
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW zero weight (no borrowing) (failed=8, error=FALSE)
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW fixed weight 0.3 (failed=8, error=FALSE)
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=8, error=FALSE)
+FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=6, error=FALSE)

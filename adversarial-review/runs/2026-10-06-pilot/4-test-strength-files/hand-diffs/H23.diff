@@ -1,0 +1,11 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -90,7 +90,7 @@
+     norm = "normal",
+     bca = "bca",
+     perc = "percent",
+-    basic = "basic"
++    basic = "percent"
+   )
+ 
+   # capture the extra arguments so boot sees a plain (data, indices)

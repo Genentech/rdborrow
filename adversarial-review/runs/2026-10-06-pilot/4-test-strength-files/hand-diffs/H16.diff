@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -241,7 +241,7 @@
+   A33 <- diag(rep(-mean((1 - S) * core$w00 / (1 - pi_S)), n_time), nrow = n_time)
+   A34 <- t((1 - S) * core$w00 / (1 - pi_S) *
+     sweep(Y, 2, core$mu00)) %*% X_model / N
+-  A44 <- t(X_model) %*% diag(-core$pi_SX * (1 - core$pi_SX)) %*% X_model / N
++  A44 <- t(X_model) %*% diag(core$pi_SX * (1 - core$pi_SX)) %*% X_model / N
+ 
+   block_dim <- 3 * n_time + n_ps
+   A_mat <- matrix(0, nrow = block_dim, ncol = block_dim)

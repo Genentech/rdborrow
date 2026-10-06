@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -217,7 +217,7 @@
+   Yr_ext <- Yr[S == 0, , drop = FALSE]
+   w00_ext <- w00[S == 0]
+ 
+-  mu1 <- colMeans(Yr_trt)
++  mu1 <- colMeans(Y[S == 1 & A == 1, , drop = FALSE])
+   mu10 <- colMeans(Yr_ctrl)
+   mu00 <- colSums(w00_ext * Yr_ext) / sum(w00_ext)
+ 

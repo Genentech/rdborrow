@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -114,7 +114,7 @@
+                                                  treatment, trial_status,
+                                                  covariates, alpha = 0.05,
+                                                  quiet = TRUE) {
+-  ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
++  ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
+   if (length(method@outcome_formula) != length(outcomes)) {
+     stop(
+       "outcome_formula must have one formula per outcome (got ",

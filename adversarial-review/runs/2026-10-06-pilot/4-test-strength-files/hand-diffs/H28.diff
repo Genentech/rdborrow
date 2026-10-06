@@ -1,0 +1,11 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -84,7 +84,7 @@
+ .run_bootstrap <- function(df, statistic, n_estimates, bootstrap,
+                            bootstrap_ci_type, alpha,
+                            parallel = "no", ncpus = 1L, ...) {
+-  group_id <- as.integer(interaction(df$S, df$A, drop = TRUE))
++  group_id <- as.integer(factor(df$S))
+ 
+   ci_type_long <- switch(bootstrap_ci_type,
+     norm = "normal",

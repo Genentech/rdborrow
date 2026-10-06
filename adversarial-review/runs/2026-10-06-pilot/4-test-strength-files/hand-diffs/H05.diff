@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -225,7 +225,7 @@
+     Y_rct <- Y[S == 1, , drop = FALSE]
+     A_rct <- A[S == 1]
+     phi1 <- A_rct * sweep(Y_rct, 2, core$mu1) / core$pi_A
+-    phi0 <- (1 - A_rct) * sweep(Y_rct, 2, core$mu10) / (1 - core$pi_A)
++    phi0 <- (1 - A_rct) * sweep(Y_rct, 2, core$mu10) / core$pi_A
+     B <- crossprod(cbind(phi1, phi0)) / n
+     coef_mat <- cbind(diag(n_time), -diag(n_time))
+     sd_tau <- sqrt(diag(coef_mat %*% B %*% t(coef_mat) / n))

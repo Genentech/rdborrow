@@ -1,0 +1,3 @@
+KILLED: tests 139, failing tests 2, expectations passed 409
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW zero weight (no borrowing) (failed=6, error=FALSE)
+FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=1, error=FALSE)

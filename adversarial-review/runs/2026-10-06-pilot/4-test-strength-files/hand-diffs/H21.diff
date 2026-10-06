@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -204,7 +204,7 @@
+ 
+   # outcome regression on controls, predict for all subjects
+   Y0_models <- lapply(outcome_formula, \(f) {
+-    lm(as.formula(f), data = df[A == 0, , drop = FALSE])
++    lm(as.formula(f), data = df[A == 0 & S == 1, , drop = FALSE])
+   })
+   Y0 <- vapply(seq_len(n_time), \(t) {
+     predict(Y0_models[[t]], newdata = df)

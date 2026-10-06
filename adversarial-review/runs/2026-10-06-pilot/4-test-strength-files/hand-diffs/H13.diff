@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -223,7 +223,7 @@
+ 
+   # optimal weight
+   if (is.null(weight)) {
+-    num <- sum(rep(w10^2, nrow(Yr_ctrl))) / sum(rep(w10, nrow(Yr_ctrl)))^2
++    num <- sum(rep(w10^2, nrow(Yr_ext))) / sum(rep(w10, nrow(Yr_ext)))^2
+     denom <- sum(w00_ext^2) / sum(w00_ext)^2
+     borrow_weight <- num / (num + denom)
+   } else {

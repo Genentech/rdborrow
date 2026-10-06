@@ -1,0 +1,13 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -269,7 +269,9 @@
+     -core$borrow_weight * diag(n_time),
+     matrix(0, nrow = n_time, ncol = n_ps)
+   )
+-  sd_tau <- sqrt(diag(coef_mat %*% sigma %*% t(coef_mat) / N))
++  sd_tau <- sqrt(vapply(seq_len(n_time), \(t) {
++    sum(coef_mat[t, ]^2 * diag(sigma))
++  }, numeric(1)) / N)
+ 
+   list(tau = core$tau, sd_tau = sd_tau)
+ }

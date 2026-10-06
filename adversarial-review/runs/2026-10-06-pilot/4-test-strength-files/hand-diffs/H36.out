@@ -1,0 +1,3 @@
+KILLED: tests 139, failing tests 2, expectations passed 404
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=6, error=FALSE)
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=6, error=FALSE)

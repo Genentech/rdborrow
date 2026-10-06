@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -180,7 +180,7 @@
+ 
+   # external control mean
+   Y_ext <- Y[S == 0, , drop = FALSE]
+-  mu00 <- colSums(w00_ext * Y_ext) / sum(w00_ext)
++  mu00 <- colSums(w00_ext * Y_ext) / length(w00_ext)
+ 
+   # optimal weight
+   if (is.null(weight)) {

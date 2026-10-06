@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -255,7 +255,7 @@
+   phi1 <- S * A * sweep(Y, 2, core$mu1) / core$pi_A / pi_S
+   phi2 <- S * (1 - A) * sweep(Y, 2, core$mu10) / (1 - core$pi_A) / pi_S
+   phi3 <- (1 - S) * sweep(Y, 2, core$mu00) * core$w00 / (1 - pi_S)
+-  phi_ps <- (S - core$pi_SX) * X_model
++  phi_ps <- 0 * X_model
+   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps)) / N
+ 
+   # sandwich: Sigma = A^{-1} B A^{-T} (Eq 13)

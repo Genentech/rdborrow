@@ -1,0 +1,63 @@
+mode: installed 
+
+F4 trial status column not named S
+ERROR: object 'in_trial' not found 
+ERROR: object 'in_trial' not found 
+
+F3 column named A collides with treatment
+                    sd1     sd2      bw 
+-0.1972  0.4697  0.5134  0.5410  0.1475 
+                    sd1     sd2      bw 
+-0.0299  0.5247  0.5233  0.5358  0.1214 
+             sd      bw 
+-0.0027  0.0675  0.1475 
+           sd     bw 
+0.9110 0.0143 0.1427 
+
+F1 outcome_formula matched by position, LHS used
+                    sd1     sd2      bw 
+-0.5463  0.5402  0.5306  0.5543  0.1475 
+                    sd1     sd2      bw 
+-0.1267  0.1206  0.5516  0.5532  0.1475 
+                    sd1     sd2      bw 
+-0.5463  0.1206  0.5306  0.5532  0.1475 
+
+F2 S ~ . pulls outcomes and treatment into the PS model
+                    sd1     sd2      bw 
+-0.1972  0.4697  0.5134  0.5410  0.1475 
+                 sd1    sd2     bw 
+0.0357 0.4028 0.5376 0.5586 0.1429 
+                 sd1    sd2     bw 
+0.0357 0.4028 0.5376 0.5586 0.1429 
+
+F5 optimal weight ignores outcome conflict
+                    sd1     sd2      bw 
+-0.1972  0.4697  0.5134  0.5410  0.1475 
+                    sd1     sd2      bw 
+-0.9348 -0.2679  0.5134  0.5410  0.1475 
+                    sd1     sd2      bw 
+-7.5732 -6.9063  0.5134  0.5410  0.1475 
+
+F6 missing outcome values: silent NA that contaminates other outcomes
+                 sd1    sd2     bw 
+    NA 0.4697     NA     NA 0.1475 
+ERROR: non-conformable arguments 
+
+F7 external controls with A = 1 accepted silently
+                    sd1     sd2      bw 
+-0.1972  0.4697  0.5134  0.5410  0.1475 
+                    sd1     sd2      bw 
+-0.5485  0.5384  0.5308  0.5574  0.1475 
+
+F8 bootstrap_ci_type without bootstrap silently ignored
+[1] "bca"
+[1] "point_estimates"    "standard_deviation" "lower_CI_normal"   
+[4] "upper_CI_normal"   
+
+F9 alpha = 0 / 1 accepted
+     point_estimates standard_deviation lower_CI_boot upper_CI_boot
+tau1      -0.1971969          0.4882918     -1.528695            NA
+Warning message:
+In norm.inter(t, alpha) : extreme order statistics used as endpoints
+     point_estimates standard_deviation lower_CI_normal upper_CI_normal
+tau1      -0.1971969          0.5134018      -0.1971969      -0.1971969

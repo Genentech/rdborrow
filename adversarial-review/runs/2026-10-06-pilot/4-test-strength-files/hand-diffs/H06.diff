@@ -1,0 +1,14 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -312,9 +312,9 @@
+   A_mat <- cbind(A_left, A_right)
+ 
+   # meat: influence functions----
+-  phi1 <- S * A * sweep(core$Yr, 2, core$mu1) / core$pi_A / core$pi_S
++  phi1 <- S * A * sweep(core$Yr, 2, core$mu1) / (1 - core$pi_A) / core$pi_S
+   phi2 <- S * (1 - A) * sweep(core$Yr, 2, core$mu10) /
+-    (1 - core$pi_A) / core$pi_S
++    core$pi_A / core$pi_S
+   phi3 <- (1 - S) * sweep(core$Yr, 2, core$mu00) *
+     core$w00 / (1 - core$pi_S)
+   phi_ps <- (S - core$pi_SX) * X_ps

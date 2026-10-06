@@ -1,0 +1,2 @@
+KILLED: tests 139, failing tests 1, expectations passed 415
+FAIL test-method_class.R :: all bootstrap CI types return finite bounds (failed=1, error=FALSE)

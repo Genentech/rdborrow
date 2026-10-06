@@ -1,0 +1,5 @@
+KILLED: tests 139, failing tests 4, expectations passed 389
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW optimal weight (failed=8, error=FALSE)
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW fixed weight 0.3 (failed=8, error=FALSE)
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=8, error=FALSE)
+FAIL test-full_pipeline_simulation_primary.R :: Primary simulation (parametric) report matches vignette (failed=3, error=FALSE)

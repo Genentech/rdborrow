@@ -1,0 +1,36 @@
+[loaded installed rdborrow 0.0.4.2 ]
+F1 outcome_formula paired by position
+  aipw y=(y1,y2), f=(y1,y2)                                  tau = -0.546326,  0.540175 | se = 0.5306, 0.5543 | w = 0.1475
+  aipw y=(y2,y1), f=(y1,y2)                                  tau =  0.120592, -0.126743 | se = 0.5532, 0.5516 | w = 0.1475
+  aipw y=(y2,y1), f=(y2,y1)                                  tau =  0.540175, -0.546326 | se = 0.5543, 0.5306 | w = 0.1475
+F2 external controls with A = 1 accepted
+  ipw w=1, 10 externals A=1 (y1 + 50)                        tau = -3.21635,  0.81717 | se = 1.509, 1.060 | w = 1.0000
+  ipw w=1, those 10 rows dropped                             tau = -1.159938,  0.831593 | se = 0.7982, 1.1610 | w = 1.0000
+F3 trial status column not named S
+  ipw S col 'trial'                                          ERROR: object 'trial' not found
+  aipw S col 'trial'                                         ERROR: object 'trial' not found
+  ipw S col 'trial' + global `trial` (other row order)       tau = -0.212912,  0.403008 | se = 0.476, 0.493 | w = 0.4857
+F4 covariate named like an internal column
+  ipw covariate named 'A', treatment 'trt'                   tau = -0.0808949,  0.4208844 | se = 0.4804, 0.4924 | w = 0.4742
+  ipw same covariate named 'age'                             tau = -0.176841,  0.436313 | se = 0.4760, 0.4891 | w = 0.4927
+F5 'S ~ .' expands over outcomes and treatment
+  ipw 'S ~ .'                                                tau = 0.0357054, 0.4028027 | se = 0.5376, 0.5586 | w = 0.1429
+  ipw 'S ~ x1 + ... + x5'                                    tau = -0.197197,  0.469721 | se = 0.5134, 0.5410 | w = 0.1475
+F6 missing values
+  ipw NA in one trial-control y1                             tau =       NA, 0.469721 | se = NA, NA | w = 0.1475
+  ipw + bootstrap: tau1 = NA  sd1 = NA  CI1 = [ -1.060079 , 0.4177658 ]
+  aipw NA in one trial-control y1                            ERROR: non-conformable arguments
+  ipw NA in one external x5                                  ERROR: missing value where TRUE/FALSE needed
+  ipw w=0.5 NA in one external x5                            ERROR: non-conformable arguments
+F7 empty arms give NaN without error
+  aipw, no external controls                                 tau = NaN, NaN | se = NaN, NaN | w = NaN
+  ipw, no trial treated                                      tau = NaN, NaN | se = NaN, NaN | w = 0.1499
+  ipw w=1, no trial controls                                 tau = NaN, NaN | se = NaN, NaN | w = 1.0000
+F8 aliased / collinear covariates: point estimate fine, sandwich errors
+  ipw S ~ x5 + x6 (x6 = 2*x5)                                ERROR: Lapack routine dgesv: system is exactly singular: U[9,9] = 0
+  ipw S ~ x5                                                 tau = -0.229049,  0.370705 | se = 0.5194, 0.5546 | w = 0.0822
+  core tau with aliased x6: -0.229049 0.3707047 
+F9 EC-AIPW sandwich fails for large-magnitude covariate
+  aipw x5 * 1e5                                              ERROR: system is computationally singular: reciprocal condition number = 9.67808e-17
+  ipw  x5 * 1e5                                              tau = -0.197197,  0.469721 | se = 0.5134, 0.5410 | w = 0.1475
+  aipw x5 * 1 (reference)                                    tau = -0.546326,  0.540175 | se = 0.5306, 0.5543 | w = 0.1475

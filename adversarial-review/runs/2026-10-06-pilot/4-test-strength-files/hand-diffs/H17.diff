@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -305,7 +305,7 @@
+   # assemble full bread matrix----
+   A_left <- rbind(A0, matrix(0, nrow = n_outcome, ncol = 3 * n_time + n_ps))
+   A_right <- rbind(
+-    Phi1_gamma, Phi2_gamma, Phi3_gamma,
++    0 * Phi1_gamma, 0 * Phi2_gamma, 0 * Phi3_gamma,
+     matrix(0, nrow = n_ps, ncol = n_outcome),
+     Y0_gamma
+   )

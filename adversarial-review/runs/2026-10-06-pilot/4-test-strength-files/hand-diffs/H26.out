@@ -1,0 +1,2 @@
+KILLED: tests 139, failing tests 1, expectations passed 415
+FAIL test-run_analysis.R :: run_analysis respects alpha parameter (failed=1, error=FALSE)

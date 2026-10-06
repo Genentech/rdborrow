@@ -1,0 +1,312 @@
+[H04] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H04] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H04] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H04] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H04] P5 normal CIs use alpha for both methods: pass
+[H04] P6 bootstrap CIs use alpha: pass
+[H04] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H04] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H04] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H04] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H04] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H04] P12 unused covariate columns do not change the fit: pass
+[H05] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: FAIL
+[H05] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H05] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H05] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H05] P5 normal CIs use alpha for both methods: pass
+[H05] P6 bootstrap CIs use alpha: pass
+[H05] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H05] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H05] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H05] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H05] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H05] P12 unused covariate columns do not change the fit: pass
+[H06] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H06] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H06] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H06] P4 ec_aipw() sandwich SE matches an independent M-estimator: FAIL
+[H06] P5 normal CIs use alpha for both methods: pass
+[H06] P6 bootstrap CIs use alpha: pass
+[H06] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H06] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H06] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H06] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H06] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H06] P12 unused covariate columns do not change the fit: pass
+[H07] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H07] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H07] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H07] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H07] P5 normal CIs use alpha for both methods: pass
+[H07] P6 bootstrap CIs use alpha: pass
+[H07] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H07] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H07] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H07] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H07] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H07] P12 unused covariate columns do not change the fit: pass
+[H08] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H08] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H08] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H08] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H08] P5 normal CIs use alpha for both methods: pass
+[H08] P6 bootstrap CIs use alpha: pass
+[H08] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H08] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H08] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H08] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H08] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H08] P12 unused covariate columns do not change the fit: pass
+[H09] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H09] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H09] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H09] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H09] P5 normal CIs use alpha for both methods: pass
+[H09] P6 bootstrap CIs use alpha: pass
+[H09] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H09] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H09] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H09] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H09] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H09] P12 unused covariate columns do not change the fit: pass
+[H10] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H10] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+[H10] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H10] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H10] P5 normal CIs use alpha for both methods: pass
+[H10] P6 bootstrap CIs use alpha: pass
+[H10] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H10] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H10] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H10] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H10] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H10] P12 unused covariate columns do not change the fit: pass
+[H11] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H11] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+[H11] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H11] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H11] P5 normal CIs use alpha for both methods: pass
+[H11] P6 bootstrap CIs use alpha: pass
+[H11] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H11] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H11] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H11] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H11] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H11] P12 unused covariate columns do not change the fit: pass
+[H13] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H13] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+[H13] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H13] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H13] P5 normal CIs use alpha for both methods: pass
+[H13] P6 bootstrap CIs use alpha: pass
+[H13] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H13] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H13] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H13] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H13] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H13] P12 unused covariate columns do not change the fit: pass
+[H14] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H14] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H14] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H14] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H14] P5 normal CIs use alpha for both methods: pass
+[H14] P6 bootstrap CIs use alpha: pass
+[H14] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H14] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H14] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H14] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H14] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H14] P12 unused covariate columns do not change the fit: pass
+[H15] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H15] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H15] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H15] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H15] P5 normal CIs use alpha for both methods: pass
+[H15] P6 bootstrap CIs use alpha: pass
+[H15] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H15] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H15] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H15] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H15] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H15] P12 unused covariate columns do not change the fit: pass
+[H16] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H16] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H16] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H16] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H16] P5 normal CIs use alpha for both methods: pass
+[H16] P6 bootstrap CIs use alpha: pass
+[H16] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H16] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H16] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H16] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H16] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H16] P12 unused covariate columns do not change the fit: pass
+[H17] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H17] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H17] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H17] P4 ec_aipw() sandwich SE matches an independent M-estimator: FAIL
+[H17] P5 normal CIs use alpha for both methods: pass
+[H17] P6 bootstrap CIs use alpha: pass
+[H17] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H17] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H17] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H17] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H17] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H17] P12 unused covariate columns do not change the fit: pass
+[H18] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H18] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H18] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H18] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H18] P5 normal CIs use alpha for both methods: pass
+[H18] P6 bootstrap CIs use alpha: pass
+[H18] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H18] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H18] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H18] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H18] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H18] P12 unused covariate columns do not change the fit: pass
+[H19] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: FAIL
+[H19] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H19] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H19] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H19] P5 normal CIs use alpha for both methods: pass
+[H19] P6 bootstrap CIs use alpha: pass
+[H19] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H19] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H19] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H19] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H19] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H19] P12 unused covariate columns do not change the fit: pass
+[H22] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H22] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H22] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H22] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H22] P5 normal CIs use alpha for both methods: pass
+[H22] P6 bootstrap CIs use alpha: pass
+[H22] P7 basic and norm bootstrap CIs have their defining relations: FAIL
+[H22] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H22] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H22] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H22] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H22] P12 unused covariate columns do not change the fit: pass
+[H23] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H23] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H23] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H23] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H23] P5 normal CIs use alpha for both methods: pass
+[H23] P6 bootstrap CIs use alpha: pass
+[H23] P7 basic and norm bootstrap CIs have their defining relations: FAIL
+[H23] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H23] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H23] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H23] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H23] P12 unused covariate columns do not change the fit: pass
+[H24] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H24] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H24] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H24] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H24] P5 normal CIs use alpha for both methods: pass
+[H24] P6 bootstrap CIs use alpha: FAIL
+[H24] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H24] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H24] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H24] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H24] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H24] P12 unused covariate columns do not change the fit: pass
+[H25] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H25] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H25] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H25] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H25] P5 normal CIs use alpha for both methods: FAIL
+[H25] P6 bootstrap CIs use alpha: pass
+[H25] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H25] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H25] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H25] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H25] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H25] P12 unused covariate columns do not change the fit: pass
+[H27] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H27] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H27] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H27] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H27] P5 normal CIs use alpha for both methods: pass
+[H27] P6 bootstrap CIs use alpha: pass
+[H27] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H27] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: FAIL
+[H27] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H27] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H27] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H27] P12 unused covariate columns do not change the fit: pass
+[H28] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H28] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H28] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H28] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H28] P5 normal CIs use alpha for both methods: pass
+[H28] P6 bootstrap CIs use alpha: pass
+[H28] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H28] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: FAIL
+[H28] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H28] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H28] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H28] P12 unused covariate columns do not change the fit: pass
+[H30] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H30] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H30] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H30] P4 ec_aipw() sandwich SE matches an independent M-estimator: FAIL
+[H30] P5 normal CIs use alpha for both methods: pass
+[H30] P6 bootstrap CIs use alpha: pass
+[H30] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H30] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H30] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H30] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H30] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H30] P12 unused covariate columns do not change the fit: pass
+[H33] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H33] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H33] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H33] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H33] P5 normal CIs use alpha for both methods: pass
+[H33] P6 bootstrap CIs use alpha: pass
+[H33] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H33] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H33] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H33] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H33] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H33] P12 unused covariate columns do not change the fit: pass
+[H34] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: FAIL
+[H34] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H34] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H34] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H34] P5 normal CIs use alpha for both methods: pass
+[H34] P6 bootstrap CIs use alpha: pass
+[H34] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H34] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H34] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H34] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H34] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H34] P12 unused covariate columns do not change the fit: pass
+[H35] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H35] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H35] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[H35] P4 ec_aipw() sandwich SE matches an independent M-estimator: FAIL
+[H35] P5 normal CIs use alpha for both methods: pass
+[H35] P6 bootstrap CIs use alpha: pass
+[H35] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H35] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H35] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H35] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H35] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H35] P12 unused covariate columns do not change the fit: pass
+[H36] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[H36] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[H36] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+[H36] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[H36] P5 normal CIs use alpha for both methods: pass
+[H36] P6 bootstrap CIs use alpha: pass
+[H36] P7 basic and norm bootstrap CIs have their defining relations: pass
+[H36] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[H36] P9 results do not depend on the trial-status and treatment column names: FAIL
+[H36] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[H36] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[H36] P12 unused covariate columns do not change the fit: pass

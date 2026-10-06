@@ -1,0 +1,311 @@
+Generated 403 AST-based mutants for ec_aipw.R
+Generated 410 AST-based mutants for ec_ipw.R
+Generated 18 AST-based mutants for ec_weights.R
+Generated 85 AST-based mutants for method_class.R
+Generated 916 mutants from 4 source files.
+Running the test suites of 500 mutants...
+
+Surviving mutants (51):
+  R/method_class.R:132-135   'FALSE' -> 'NA'
+    > 132 |   data.frame(Y,
+    > 133 |     S = data[[trial_status]], A = data[[treatment]],
+    > 134 |     data[, covariates, drop = FALSE]
+    > 135 |   )
+  R/ec_ipw.R:5-17   '' -> 'NULL'
+    >  5 | .ec_ipw_method <- setClass(
+    >  6 |   "ec_ipw_method",
+         | ...
+    > 16 |   )
+    > 17 | )
+  R/ec_ipw.R:166-172   'if' -> '<deleted>'
+    > 166 |   if (!is.null(weight) && weight == 0) {
+    > 167 |     return(list(
+          | ...
+    > 171 |     ))
+    > 172 |   }
+  R/ec_aipw.R:102-109   'EC-AIPW' -> 'NA_character_'
+    > 102 |   .ec_aipw_method(
+    > 103 |     ps_formula = ps_formula,
+          | ...
+    > 108 |     method_name = "EC-AIPW"
+    > 109 |   )
+  R/ec_ipw.R:73-75   '!is.null(bootstrap)' -> 'is.null(bootstrap)'
+    > 73 |   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    > 74 |     bootstrap_ci_type <- "perc"
+    > 75 |   }
+  R/ec_aipw.R:151   'Running bootstrap inference...
+' -> 'NULL'
+      150 |   if (!is.null(method@bootstrap)) {
+    > 151 |     if (!quiet) cat("Running bootstrap inference...\n")
+      152 |     boot_res <- .run_bootstrap(
+  R/ec_aipw.R:96-100   'if' -> '<deleted>'
+    >  96 |   if (!is.null(bootstrap_ci_type)) {
+    >  97 |     checkmate::assert_choice(
+          | ...
+    >  99 |     )
+    > 100 |   }
+  R/ec_ipw.R:187   '-' -> '+'
+      186 |   if (is.null(weight)) {
+    > 187 |     w10 <- 1 / (1 - pi_A)
+      188 |     n_ctrl <- sum(S == 1 & A == 0)
+  R/ec_aipw.R:97-99   'basic' -> 'NA_character_'
+    > 97 |     checkmate::assert_choice(
+    > 98 |       bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 99 |     )
+  R/ec_aipw.R:93-95   '!is.null(bootstrap)' -> 'is.null(bootstrap)'
+    > 93 |   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    > 94 |     bootstrap_ci_type <- "perc"
+    > 95 |   }
+  R/ec_aipw.R:97-99   'basic' -> 'NULL'
+    > 97 |     checkmate::assert_choice(
+    > 98 |       bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 99 |     )
+  R/ec_aipw.R:94   'perc' -> 'NULL'
+      93 |   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    > 94 |     bootstrap_ci_type <- "perc"
+      95 |   }
+  R/ec_ipw.R:132-138   'tau' -> 'NA_character_'
+    > 132 |     results <- data.frame(
+    > 133 |       point_estimates = tau,
+          | ...
+    > 137 |       row.names = paste0("tau", seq_len(n_time))
+    > 138 |     )
+  R/ec_ipw.R:225   'FALSE' -> 'NA'
+      224 |   if (core$borrow_weight == 0) {
+    > 225 |     Y_rct <- Y[S == 1, , drop = FALSE]
+      226 |     A_rct <- A[S == 1]
+  R/ec_aipw.R:215   'FALSE' -> 'NA'
+      214 |   # mu-hat components using residuals (Def 2, Eq 7)
+    > 215 |   Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+      216 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+  R/ec_ipw.R:230   '-' -> '+'
+      229 |     B <- crossprod(cbind(phi1, phi0)) / n
+    > 230 |     coef_mat <- cbind(diag(n_time), -diag(n_time))
+      231 |     sd_tau <- sqrt(diag(coef_mat %*% B %*% t(coef_mat) / n))
+  R/ec_ipw.R:188   '==' -> '!='
+      187 |     w10 <- 1 / (1 - pi_A)
+    > 188 |     n_ctrl <- sum(S == 1 & A == 0)
+      189 |     num <- sum(rep(w10^2, n_ctrl)) / sum(rep(w10, n_ctrl))^2
+  R/ec_aipw.R:216   'FALSE' -> 'NULL'
+      215 |   Yr_trt <- Yr[S == 1 & A == 1, , drop = FALSE]
+    > 216 |   Yr_ctrl <- Yr[S == 1 & A == 0, , drop = FALSE]
+      217 |   Yr_ext <- Yr[S == 0, , drop = FALSE]
+  R/method_class.R:12-24   '' -> 'NULL'
+    > 12 | .method_obj <- setClass(
+    > 13 |   "method_obj",
+         | ...
+    > 23 |   )
+    > 24 | )
+  R/ec_ipw.R:225   'FALSE' -> 'NULL'
+      224 |   if (core$borrow_weight == 0) {
+    > 225 |     Y_rct <- Y[S == 1, , drop = FALSE]
+      226 |     A_rct <- A[S == 1]
+  R/ec_aipw.R:150-167   'if' -> '<deleted>'
+    > 150 |   if (!is.null(method@bootstrap)) {
+    > 151 |     if (!quiet) cat("Running bootstrap inference...\n")
+          | ...
+    > 166 |     )
+    > 167 |   }
+  R/ec_aipw.R:186   'FALSE' -> 'NA'
+      185 | 
+    > 186 |   Y <- as.matrix(df[, outcomes, drop = FALSE])
+      187 |   S <- df$S
+  R/ec_aipw.R:119-123   ' outcomes).' -> 'NA_character_'
+    > 119 |     stop(
+    > 120 |       "outcome_formula must have one formula per outcome (got ",
+          | ...
+    > 122 |       call. = FALSE
+    > 123 |     )
+  R/ec_aipw.R:128   'Running EC-AIPW estimator...
+' -> 'NULL'
+      127 | 
+    > 128 |   if (!quiet) cat("Running EC-AIPW estimator...\n")
+      129 | 
+  R/ec_aipw.R:5-19   '' -> 'NULL'
+    >  5 | .ec_aipw_method <- setClass(
+    >  6 |   "ec_aipw_method",
+         | ...
+    > 18 |   )
+    > 19 | )
+  R/ec_aipw.R:97-99   'norm' -> 'NA_character_'
+    > 97 |     checkmate::assert_choice(
+    > 98 |       bootstrap_ci_type, c("perc", "bca", "norm", "basic")
+    > 99 |     )
+  R/ec_ipw.R:100   'Running EC-IPW estimator...
+' -> 'NA_character_'
+       99 | 
+    > 100 |   if (!quiet) cat("Running EC-IPW estimator...\n")
+      101 | 
+  R/ec_ipw.R:166-172   'return' -> '<deleted>'
+    > 166 |   if (!is.null(weight) && weight == 0) {
+    > 167 |     return(list(
+          | ...
+    > 171 |     ))
+    > 172 |   }
+  R/ec_aipw.R:160-166   'tau' -> 'NULL'
+    > 160 |     results <- data.frame(
+    > 161 |       point_estimates = tau,
+          | ...
+    > 165 |       row.names = paste0("tau", seq_len(n_time))
+    > 166 |     )
+  R/ec_aipw.R:113-170   'ec_aipw_method' -> 'NULL'
+    > 113 | setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
+    > 114 |                                                  treatment, trial_status,
+          | ...
+    > 169 |   list(results = results, borrow_weight = borrow_weight)
+    > 170 | })
+  R/method_class.R:12-24   '' -> 'NA_character_'
+    > 12 | .method_obj <- setClass(
+    > 13 |   "method_obj",
+         | ...
+    > 23 |   )
+    > 24 | )
+  R/ec_aipw.R:88   'checkmate::assert_character' -> '<deleted>'
+      87 |   checkmate::assert_string(ps_formula)
+    > 88 |   checkmate::assert_character(outcome_formula, min.len = 1)
+      89 |   checkmate::assert_number(weight, lower = 0, upper = 1, null.ok = TRUE)
+  R/ec_weights.R:15-20   '-' -> '+'
+    > 15 |   list(
+    > 16 |     ps_model = ps_model,
+         | ...
+    > 19 |     w00 = (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
+    > 20 |   )
+  R/ec_aipw.R:203   '/' -> '*'
+      202 |   w11 <- 1 / pi_A
+    > 203 |   w10 <- 1 / (1 - pi_A)
+      204 | 
+  R/ec_ipw.R:100   'Running EC-IPW estimator...
+' -> 'NULL'
+       99 | 
+    > 100 |   if (!quiet) cat("Running EC-IPW estimator...\n")
+      101 | 
+  R/ec_aipw.R:160-166   'tau' -> 'NA_character_'
+    > 160 |     results <- data.frame(
+    > 161 |       point_estimates = tau,
+          | ...
+    > 165 |       row.names = paste0("tau", seq_len(n_time))
+    > 166 |     )
+  R/ec_ipw.R:100   'if' -> '<deleted>'
+       99 | 
+    > 100 |   if (!quiet) cat("Running EC-IPW estimator...\n")
+      101 | 
+  R/ec_aipw.R:93-95   '!is.null(bootstrap) && is.null(bootstrap_ci_type)' -> '!(!is.null(bootstrap) && is.null(bootstrap_ci_type))'
+    > 93 |   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    > 94 |     bootstrap_ci_type <- "perc"
+    > 95 |   }
+  R/ec_aipw.R:141-147   'tau' -> 'NULL'
+    > 141 |   results <- data.frame(
+    > 142 |     point_estimates = tau,
+          | ...
+    > 146 |     row.names = paste0("tau", seq_len(n_time))
+    > 147 |   )
+  R/ec_ipw.R:92-142   'ec_ipw_method' -> 'NULL'
+    >  92 | setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
+    >  93 |                                                 treatment, trial_status,
+          | ...
+    > 141 |   list(results = results, borrow_weight = borrow_weight)
+    > 142 | })
+  R/ec_aipw.R:128   'Running EC-AIPW estimator...
+' -> 'NA_character_'
+      127 | 
+    > 128 |   if (!quiet) cat("Running EC-AIPW estimator...\n")
+      129 | 
+  R/ec_aipw.R:93-95   '<-' -> '<deleted>'
+    > 93 |   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
+    > 94 |     bootstrap_ci_type <- "perc"
+    > 95 |   }
+  R/ec_aipw.R:202   '1' -> 'NA_real_'
+      201 |   # weights
+    > 202 |   w11 <- 1 / pi_A
+      203 |   w10 <- 1 / (1 - pi_A)
+  R/ec_aipw.R:119-123   ' for ' -> 'NA_character_'
+    > 119 |     stop(
+    > 120 |       "outcome_formula must have one formula per outcome (got ",
+          | ...
+    > 122 |       call. = FALSE
+    > 123 |     )
+  R/ec_weights.R:11   '/' -> '*'
+      10 | .ec_weights <- function(df, ps_formula, S) {
+    > 11 |   pi_S <- sum(S) / length(S)
+      12 |   ps_model <- glm(as.formula(ps_formula), data = df, family = "binomial")
+  R/ec_weights.R:15-20   '*' -> '/'
+    > 15 |   list(
+    > 16 |     ps_model = ps_model,
+         | ...
+    > 19 |     w00 = (pi_SX / (1 - pi_SX)) * ((1 - pi_S) / pi_S)
+    > 20 |   )
+  R/ec_aipw.R:96-100   'checkmate::assert_choice' -> '<deleted>'
+    >  96 |   if (!is.null(bootstrap_ci_type)) {
+    >  97 |     checkmate::assert_choice(
+          | ...
+    >  99 |     )
+    > 100 |   }
+  R/ec_aipw.R:202   '<-' -> '<deleted>'
+      201 |   # weights
+    > 202 |   w11 <- 1 / pi_A
+      203 |   w10 <- 1 / (1 - pi_A)
+  R/ec_ipw.R:5-17   'EC-IPW' -> 'NULL'
+    >  5 | .ec_ipw_method <- setClass(
+    >  6 |   "ec_ipw_method",
+         | ...
+    > 16 |   )
+    > 17 | )
+  R/ec_aipw.R:119-123   'FALSE' -> 'NULL'
+    > 119 |     stop(
+    > 120 |       "outcome_formula must have one formula per outcome (got ",
+          | ...
+    > 122 |       call. = FALSE
+    > 123 |     )
+  R/ec_aipw.R:128   '!quiet' -> 'quiet'
+      127 | 
+    > 128 |   if (!quiet) cat("Running EC-AIPW estimator...\n")
+      129 | 
+Timing (seconds):
+  Baseline run:          48.4
+  Mutant generation:     1.6
+  Test execution:        399.9
+  Equivalence detection: 0.0
+
+Mutation Testing Summary:
+  Total mutants:    500
+  Killed:           449
+  Hanged:           0
+  Survived:         51
+  Mutation Score:   89.80%  (95% CI 86.8-92.2%, sampled 500 of 916)
+Time difference of 7.499179 mins
+$generated
+[1] 916
+
+$tested
+[1] 500
+
+$killed
+[1] 449
+
+$hanged
+[1] 0
+
+$survived
+[1] 51
+
+$mutation_score
+[1] 89.8
+
+$mutation_score_ci
+[1] 86.83654 92.15656
+
+$confidence
+[1] 0.95
+
+$baseline
+[1] 48.365
+
+$generation
+[1] 1.553037
+
+$test_execution
+[1] 399.9432
+
+$equivalence_detection
+[1] 0
+

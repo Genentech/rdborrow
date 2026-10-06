@@ -1,0 +1,2 @@
+KILLED: tests 139, failing tests 1, expectations passed 410
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=6, error=FALSE)

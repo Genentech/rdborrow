@@ -1,0 +1,11 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -116,7 +116,7 @@
+       type = bootstrap_ci_type, index = i
+     )
+     # the normal component is a 3-column matrix, the others are 5-column
+-    bounds <- if (ci_type_long == "normal") 2:3 else 4:5
++    bounds <- if (ci_type_long == "normal") 3:2 else 4:5
+     ci[[ci_type_long]][bounds]
+   }, numeric(2))
+ 

@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -188,7 +188,7 @@
+   A <- df$A
+   n <- sum(S)
+   N <- length(S)
+-  pi_S <- n / N
++  pi_S <- (N - n) / N
+   n_time <- ncol(Y)
+ 
+   # propensity score model and density ratio weights

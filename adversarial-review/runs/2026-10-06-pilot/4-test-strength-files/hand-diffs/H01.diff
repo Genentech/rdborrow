@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -195,7 +195,7 @@
+ 
+   # combine trial and external controls
+   mu0 <- (1 - borrow_weight) * mu10 + borrow_weight * mu00
+-  tau <- mu1 - mu0
++  tau <- mu0 - mu1
+ 
+   list(
+     tau = tau, borrow_weight = borrow_weight,

@@ -1,0 +1,8 @@
+KILLED: tests 139, failing tests 7, expectations passed 404
+FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW point estimates and bootstrap CIs (failed=2, error=FALSE)
+FAIL test-full_pipeline_did_ec_aipw.R :: DID-EC-AIPW marginal treatment model (default trt_formula) (failed=1, error=FALSE)
+FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW point estimates and bootstrap CIs (failed=2, error=FALSE)
+FAIL test-full_pipeline_did_ec_ipw.R :: DID-EC-IPW marginal treatment model (default trt_formula) (failed=1, error=FALSE)
+FAIL test-full_pipeline_did_ec_or.R :: DID-EC-OR point estimates and bootstrap CIs (failed=2, error=FALSE)
+FAIL test-full_pipeline_ec_aipw.R :: EC-AIPW with bootstrap (failed=2, error=FALSE)
+FAIL test-full_pipeline_ec_ipw.R :: EC-IPW with bootstrap (failed=2, error=FALSE)

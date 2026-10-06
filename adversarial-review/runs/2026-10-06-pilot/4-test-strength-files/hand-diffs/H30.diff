@@ -1,0 +1,11 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -319,7 +319,7 @@
+     core$w00 / (1 - core$pi_S)
+   phi_ps <- (S - core$pi_SX) * X_ps
+   phi_Y0 <- do.call(cbind, lapply(seq_len(n_time), \(t) {
+-    ((1 - A) / (1 - mean(A))) * (core$Yr[, t] * Y0_model_mats[[t]])
++    ((1 - A) / (1 - core$pi_A)) * (core$Yr[, t] * Y0_model_mats[[t]])
+   }))
+ 
+   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps, phi_Y0)) / N

@@ -1,0 +1,816 @@
+[surv:method_class.R_method_class.R_082.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:method_class.R_method_class.R_082.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:method_class.R_method_class.R_082.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_082.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_082.R] P5 normal CIs use alpha for both methods: pass
+[surv:method_class.R_method_class.R_082.R] P6 bootstrap CIs use alpha: pass
+[surv:method_class.R_method_class.R_082.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:method_class.R_method_class.R_082.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:method_class.R_method_class.R_082.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:method_class.R_method_class.R_082.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:method_class.R_method_class.R_082.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:method_class.R_method_class.R_082.R] P12 unused covariate columns do not change the fit: FAIL
+[surv:method_class.R_method_class.R_082.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:method_class.R_method_class.R_082.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:method_class.R_method_class.R_082.R] P16 quiet controls progress messages for both methods: pass
+[surv:method_class.R_method_class.R_082.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_012.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_012.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_120.R] P10 ec_ipw(weight = 0) never touches external outcomes: FAIL
+[surv:ec_ipw.R_ec_ipw.R_120.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_120.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_052.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_aipw.R_ec_aipw.R_052.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_052.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_052.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P6 bootstrap CIs use alpha: FAIL
+[surv:ec_ipw.R_ec_ipw.R_029.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_029.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_ipw.R_ec_ipw.R_029.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_029.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_ipw.R_ec_ipw.R_029.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_aipw.R_ec_aipw.R_104.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_104.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_104.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_104.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_040.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_040.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_040.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_155.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_155.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_049.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_049.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_049.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P6 bootstrap CIs use alpha: FAIL
+[surv:ec_aipw.R_ec_aipw.R_036.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_036.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_aipw.R_ec_aipw.R_036.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_036.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_036.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_aipw.R_ec_aipw.R_050.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_050.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_050.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_050.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P6 bootstrap CIs use alpha: FAIL
+[surv:ec_aipw.R_ec_aipw.R_039.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_039.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_aipw.R_ec_aipw.R_039.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_039.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_039.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_ipw.R_ec_ipw.R_091.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_091.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_091.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_ipw.R_ec_ipw.R_208.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_208.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+[surv:ec_ipw.R_ec_ipw.R_208.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_208.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_159.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+[surv:ec_aipw.R_ec_aipw.R_159.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_159.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_233.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_233.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+[surv:ec_ipw.R_ec_ipw.R_163.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_163.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_163.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_170.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+[surv:ec_aipw.R_ec_aipw.R_170.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_170.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:method_class.R_method_class.R_022.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:method_class.R_method_class.R_022.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:method_class.R_method_class.R_022.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_022.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_022.R] P5 normal CIs use alpha for both methods: pass
+[surv:method_class.R_method_class.R_022.R] P6 bootstrap CIs use alpha: pass
+[surv:method_class.R_method_class.R_022.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:method_class.R_method_class.R_022.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:method_class.R_method_class.R_022.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:method_class.R_method_class.R_022.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:method_class.R_method_class.R_022.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:method_class.R_method_class.R_022.R] P12 unused covariate columns do not change the fit: pass
+[surv:method_class.R_method_class.R_022.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:method_class.R_method_class.R_022.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:method_class.R_method_class.R_022.R] P16 quiet controls progress messages for both methods: pass
+[surv:method_class.R_method_class.R_022.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_209.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+[surv:ec_ipw.R_ec_ipw.R_209.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_209.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_101.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_101.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_101.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_111.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+[surv:ec_aipw.R_ec_aipw.R_111.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_111.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_071.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_071.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_080.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_080.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_080.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_014.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_014.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_047.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_047.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_047.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_060.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_060.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_ipw.R_ec_ipw.R_060.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_127.R] P10 ec_ipw(weight = 0) never touches external outcomes: FAIL
+[surv:ec_ipw.R_ec_ipw.R_127.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_127.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_108.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_108.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_aipw.R_ec_aipw.R_057.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_057.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_057.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:method_class.R_method_class.R_021.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:method_class.R_method_class.R_021.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:method_class.R_method_class.R_021.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_021.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:method_class.R_method_class.R_021.R] P5 normal CIs use alpha for both methods: pass
+[surv:method_class.R_method_class.R_021.R] P6 bootstrap CIs use alpha: pass
+[surv:method_class.R_method_class.R_021.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:method_class.R_method_class.R_021.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:method_class.R_method_class.R_021.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:method_class.R_method_class.R_021.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:method_class.R_method_class.R_021.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:method_class.R_method_class.R_021.R] P12 unused covariate columns do not change the fit: pass
+[surv:method_class.R_method_class.R_021.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:method_class.R_method_class.R_021.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:method_class.R_method_class.R_021.R] P16 quiet controls progress messages for both methods: pass
+[surv:method_class.R_method_class.R_021.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_018.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_018.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_018.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_weights.R_ec_weights.R_016.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_weights.R_ec_weights.R_016.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_134.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_134.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_061.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_061.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_ipw.R_ec_ipw.R_061.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_107.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_107.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_ipw.R_ec_ipw.R_058.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_058.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_058.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_ipw.R_ec_ipw.R_058.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P6 bootstrap CIs use alpha: FAIL
+[surv:ec_aipw.R_ec_aipw.R_034.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_034.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_034.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_aipw.R_ec_aipw.R_034.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_034.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_034.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_aipw.R_ec_aipw.R_098.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_098.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_098.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_ipw.R_ec_ipw.R_050.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_050.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_050.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_079.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_079.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_079.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P6 bootstrap CIs use alpha: FAIL
+[surv:ec_aipw.R_ec_aipw.R_037.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_037.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+[surv:ec_aipw.R_ec_aipw.R_037.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_037.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_037.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+[surv:ec_aipw.R_ec_aipw.R_131.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_131.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_131.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_069.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_069.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_weights.R_ec_weights.R_002.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_weights.R_ec_weights.R_002.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_weights.R_ec_weights.R_010.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_weights.R_ec_weights.R_010.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_042.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+[surv:ec_aipw.R_ec_aipw.R_042.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_042.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_129.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_129.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_ipw.R_ec_ipw.R_010.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_ipw.R_ec_ipw.R_010.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_074.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P16 quiet controls progress messages for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_074.R] P13 result rows are named tau1..tauT for every inference path: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P2 optimal weight matches Eq 11 on unbalanced arms: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P3 ec_ipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P4 ec_aipw() sandwich SE matches an independent M-estimator: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P5 normal CIs use alpha for both methods: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P6 bootstrap CIs use alpha: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P7 basic and norm bootstrap CIs have their defining relations: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P9 results do not depend on the trial-status and treatment column names: FAIL
+[surv:ec_aipw.R_ec_aipw.R_078.R] P10 ec_ipw(weight = 0) never touches external outcomes: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P11 a single outcome reproduces the first row of a two-outcome fit: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P12 unused covariate columns do not change the fit: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: pass
+[surv:ec_aipw.R_ec_aipw.R_078.R] P16 quiet controls progress messages for both methods: FAIL
+[surv:ec_aipw.R_ec_aipw.R_078.R] P13 result rows are named tau1..tauT for every inference path: pass

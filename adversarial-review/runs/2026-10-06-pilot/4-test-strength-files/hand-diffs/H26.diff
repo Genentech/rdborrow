@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -110,7 +110,7 @@
+   # format results
+   tau <- result$tau
+   sd_tau <- result$sd_tau
+-  cutoff <- qnorm(1 - alpha / 2)
++  cutoff <- qnorm(1 - 0.05 / 2)
+   results <- data.frame(
+     point_estimates = tau,
+     standard_deviation = sd_tau,

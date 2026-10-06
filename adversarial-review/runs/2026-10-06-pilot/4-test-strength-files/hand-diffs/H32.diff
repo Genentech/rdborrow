@@ -1,0 +1,10 @@
+--- R/ec_aipw.R
++++ R/ec_aipw.R (mutant)
+@@ -350,6 +350,6 @@
+ .ec_aipw_boot_statistic <- function(data, indices, outcomes,
+                                     ps_formula, outcome_formula, borrow_wt) {
+   d <- data[indices, , drop = FALSE]
+-  core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, borrow_wt)
++  core <- .ec_aipw_core(d, outcomes, ps_formula, outcome_formula, NULL)
+   core$tau
+ }

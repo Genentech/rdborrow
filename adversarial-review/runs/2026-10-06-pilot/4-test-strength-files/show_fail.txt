@@ -1,0 +1,152 @@
+[orig] P9 results do not depend on the trial-status and treatment column names: FAIL
+   >
+   > Error in `eval(predvars, data, env)`: object 'trial' not found
+[H04] P3 ec_ipw() sandwich SE matches an independent M-estimator: FAIL
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.207)
+   > [1] 0.780 - 0.575 == 0.205
+   > [2] 0.772 - 0.563 == 0.209
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.204)
+   > [1] 0.781 - 0.577 == 0.205
+   > [2] 0.789 - 0.585 == 0.204
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.127)
+   > [1] 1.10 - 0.965 == 0.134
+   > [2] 1.24 - 1.120 == 0.120
+[H05] P1 ec_ipw(weight = 0) SE matches the closed-form Hajek variance: FAIL
+   >
+   > Expected `res$standard_deviation` to equal `unname(expected)`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.118)
+   > [1] 0.480 - 0.601 == -0.121
+   > [2] 0.475 - 0.589 == -0.114
+[H06] P4 ec_aipw() sandwich SE matches an independent M-estimator: FAIL
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.146)
+   > [1] 0.748 - 0.598 == 0.149
+   > [2] 0.754 - 0.611 == 0.143
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.123)
+   > [1] 0.754 - 0.628 == 0.126
+   > [2] 0.759 - 0.640 == 0.120
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.17)
+   > [1] 0.767 - 0.592 == 0.175
+   > [2] 0.793 - 0.629 == 0.165
+   >
+   > Expected `res$results$standard_deviation` to equal `ref$sd`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.133)
+   > [1] 1.1 - 0.948 == 0.148
+   > [2] 1.3 - 1.180 == 0.118
+[H10] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+   >
+   > Expected `run_primary(d, ec_ipw(ps))$borrow_weight` to equal `expected`.
+   > Differences:
+   > 1/1 mismatches
+   > [1] 0.0879 - 0.114 == -0.026
+[H13] P2 optimal weight matches Eq 11 on unbalanced arms: FAIL
+   >
+   > Expected `run_primary(d, ec_aipw(ps, of))$borrow_weight` to equal `expected`.
+   > Differences:
+   > 1/1 mismatches
+   > [1] 0.0879 - 0.114 == -0.026
+[H24] P6 bootstrap CIs use alpha: FAIL
+   >
+   > Expected every element of `narrow$lower_CI_boot > wide$lower_CI_boot` to equal TRUE.
+   > Differences:
+   > `actual`:   FALSE FALSE
+   > `expected`: TRUE  TRUE 
+   >
+   > Expected every element of `narrow$upper_CI_boot < wide$upper_CI_boot` to equal TRUE.
+   > Differences:
+   > `actual`:   FALSE FALSE
+   > `expected`: TRUE  TRUE 
+   >
+   > Expected every element of `narrow$lower_CI_boot > wide$lower_CI_boot` to equal TRUE.
+   > Differences:
+   > `actual`:   FALSE FALSE
+   > `expected`: TRUE  TRUE 
+   >
+   > Expected every element of `narrow$upper_CI_boot < wide$upper_CI_boot` to equal TRUE.
+   > Differences:
+   > `actual`:   FALSE FALSE
+   > `expected`: TRUE  TRUE 
+[H25] P5 normal CIs use alpha for both methods: FAIL
+   >
+   > Expected `res$upper_CI_normal - res$point_estimates` to equal `qnorm(0.9) * res$standard_deviation`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.368)
+   > [1] 1.04 - 0.68 == 0.360
+   > [2] 1.09 - 0.71 == 0.376
+   >
+   > Expected `res$point_estimates - res$lower_CI_normal` to equal `qnorm(0.9) * res$standard_deviation`.
+   > Differences:
+   > 2/2 mismatches (average diff: 0.368)
+   > [1] 1.04 - 0.68 == 0.360
+   > [2] 1.09 - 0.71 == 0.376
+[H23] P7 basic and norm bootstrap CIs have their defining relations: FAIL
+   >
+   > Error in `vapply(seq_len(n_estimates), function(i) {     ci <- boot::boot.ci(boot_out, conf = 1 - alpha, type = bootstrap_ci_type, index = i)     bounds <- if (ci_type_long == "normal")          2:3     else 4:5     ci[[ci_type_long]][bounds] }, numeric(2))`: values must be length 2,
+   >  but FUN(X[[1]]) result is length 0
+[H28] P8 .run_bootstrap() keeps the S x A group sizes in every replicate: FAIL
+   >
+   > Expected `out$sd_boot[2:3]` to equal `c(0, 0)`.
+   > Differences:
+   > 1/2 mismatches
+   > [2] 7.96 - 0 == 7.96
+[surv:ec_ipw.R_ec_ipw.R_029.R] P14 bootstrap_ci_type resolves to perc only when bootstrap is set: FAIL
+   >
+   > Expected `ec_ipw(ps, bootstrap = 50)@bootstrap_ci_type` to be identical to "perc".
+   > Differences:
+   > target is NULL, current is character
+   >
+   > Expected `ec_ipw(ps)@bootstrap_ci_type` to be NULL.
+   > Differences:
+   > `actual` is a character vector ('perc')
+   > `expected` is NULL
+[surv:ec_ipw.R_ec_ipw.R_120.R] P10 ec_ipw(weight = 0) never touches external outcomes: FAIL
+   >
+   > Expected `run_primary(d_na, ec_ipw(ps, weight = 0))` to equal `run_primary(d, ec_ipw(ps, weight = 0))`.
+   > Differences:
+   > Component “results”: Component “point_estimates”: 'is.NA' value mismatch: 0 in current 2 in target
+   > Component “results”: Component “lower_CI_normal”: 'is.NA' value mismatch: 0 in current 2 in target
+   > Component “results”: Component “upper_CI_normal”: 'is.NA' value mismatch: 0 in current 2 in target
+[surv:ec_aipw.R_ec_aipw.R_159.R] P11 a single outcome reproduces the first row of a two-outcome fit: FAIL
+   >
+   > Error in `colMeans(Yr_trt)`: 'x' must be an array of at least two dimensions
+[surv:method_class.R_method_class.R_082.R] P12 unused covariate columns do not change the fit: FAIL
+   >
+   > Error in `if (drop && length(y) == 1L) return(.subset2(y, 1L))`: missing value where TRUE/FALSE needed
+[surv:ec_aipw.R_ec_aipw.R_078.R] P16 quiet controls progress messages for both methods: FAIL
+   >
+   > Expected `run_analysis(analysis)` to run silently.
+   > Actual noise: output.
+   >
+   > Expected `out` to be identical to `c(paste0("Running ", method@method_name, " estimator..."), "Running bootstrap inference...")`.
+   > Differences:
+   > Lengths differ: 1 is not 2
+[surv:ec_aipw.R_ec_aipw.R_049.R] P15 ec_aipw() validates outcome_formula and bootstrap_ci_type: FAIL
+   >
+   > Error in `ec_aipw(ps, of, bootstrap = 50, bootstrap_ci_type = type)`: Assertion on 'bootstrap_ci_type' failed: Must be element of set {'perc','bca','norm','NA'}, but is 'basic'.
+[surv:ec_ipw.R_ec_ipw.R_091.R] P13 result rows are named tau1..tauT for every inference path: FAIL
+   >
+   > Expected `rownames(run_primary(SyntheticData, method)$results)` to be identical to `c("tau1", "tau2")`.
+   > Differences:
+   > 2/2 mismatches
+   > x[1]: "NA1"
+   > y[1]: "tau1"
+   > x[2]: "NA2"

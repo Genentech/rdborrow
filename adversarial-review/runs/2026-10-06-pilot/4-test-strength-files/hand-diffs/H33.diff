@@ -1,0 +1,11 @@
+--- R/ec_ipw.R
++++ R/ec_ipw.R (mutant)
+@@ -93,7 +93,7 @@
+                                                 treatment, trial_status,
+                                                 covariates, alpha = 0.05,
+                                                 quiet = TRUE) {
+-  ps_formula <- sub("^[^~]*~", paste0(trial_status, " ~"), method@ps_formula)
++  ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
+   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+   n_time <- length(outcomes)
+ 

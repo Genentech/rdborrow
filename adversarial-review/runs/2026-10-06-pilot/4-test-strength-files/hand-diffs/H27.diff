@@ -1,0 +1,11 @@
+--- R/method_class.R
++++ R/method_class.R (mutant)
+@@ -105,7 +105,7 @@
+     data = df,
+     statistic = stat_fn,
+     R = bootstrap,
+-    strata = group_id,
++
+     parallel = parallel,
+     ncpus = ncpus
+   )
