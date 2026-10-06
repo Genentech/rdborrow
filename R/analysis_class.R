@@ -58,16 +58,18 @@ setMethod(
     choices = names(data)
   )
 
-  # S and A must be binary 0/1
-  if (!all(data[[trial_status_col_name]] %in% c(0L, 1L, 0, 1))) {
-    stop("Column '", trial_status_col_name, "' must contain only 0 and 1.",
-      call. = FALSE
-    )
-  }
-  if (!all(data[[treatment_col_name]] %in% c(0L, 1L, 0, 1))) {
-    stop("Column '", treatment_col_name, "' must contain only 0 and 1.",
-      call. = FALSE
-    )
+  # S and A must be binary 0/1----
+  for (col in c(trial_status_col_name, treatment_col_name)) {
+    x <- data[[col]]
+    if (!is.numeric(x) && !is.logical(x)) {
+      stop("Column '", col, "' must be numeric or logical, not ",
+        class(x)[1], ". Convert a factor with as.numeric(as.character(x)).",
+        call. = FALSE
+      )
+    }
+    if (!all(x %in% c(0, 1))) {
+      stop("Column '", col, "' must contain only 0 and 1.", call. = FALSE)
+    }
   }
 }
 

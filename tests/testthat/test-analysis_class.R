@@ -77,6 +77,34 @@ test_that("setup_analysis validates alpha", {
   ))
 })
 
+test_that("trial-status and treatment columns must be numeric or logical", {
+  setup <- function(data) {
+    setup_analysis_primary(
+      data, "S", "A", c("y1", "y2"), c("x1", "x2"),
+      ec_ipw("S ~ x1 + x2")
+    )
+  }
+  as_factor <- function(col) {
+    d <- SyntheticData
+    d[[col]] <- factor(d[[col]], levels = c("1", "0"))
+    d
+  }
+  as_logical <- SyntheticData
+  as_logical$A <- as_logical$A == 1
+
+  expect_error(setup(as_factor("A")), "A.*numeric or logical")
+  expect_error(setup(as_factor("S")), "S.*numeric or logical")
+  expect_error(
+    setup_analysis_OLE(
+      as_factor("A"), "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2"),
+      did_ec_ipw("S ~ x1", trt_formula = "A ~ x1", bootstrap = 2),
+      T_cross = 2
+    ),
+    "A.*numeric or logical"
+  )
+  expect_s4_class(setup(as_logical), "analysis_primary_obj")
+})
+
 test_that("show method prints without error", {
   obj <- setup_analysis(
     data = SyntheticData,
