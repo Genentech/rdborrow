@@ -64,10 +64,14 @@ test_that("bootstrap_ci_type rejects studentized intervals", {
 
 test_that(".match_outcome_formulas orders formulas by their left-hand side", {
   outs <- c("y1", "y2", "y3")
-  f <- c("y3 ~ x1", "y1 ~ x1", "log(y2) ~ x2")
+  f <- c("y3 ~ x1", "y1 ~ x1", "y2 ~ x2")
   expect_identical(
     .match_outcome_formulas(f, outs, "outcome_formula"),
-    c("y1 ~ x1", "log(y2) ~ x2", "y3 ~ x1")
+    c("y1 ~ x1", "y2 ~ x2", "y3 ~ x1")
+  )
+  expect_identical(
+    .match_outcome_formulas("`week 12` ~ x1", "week 12", "f"),
+    "`week 12` ~ x1"
   )
   expect_error(
     .match_outcome_formulas(c("y1 ~ x1", "z ~ x1", "y3 ~ x1"), outs, "f"),
@@ -80,5 +84,25 @@ test_that(".match_outcome_formulas orders formulas by their left-hand side", {
   expect_error(
     .match_outcome_formulas(c("y1 ~ x1", "y2 ~ x1"), outs, "f"),
     "f.*y3"
+  )
+})
+
+test_that(".match_outcome_formulas rejects transformed and missing outcomes", {
+  outs <- c("y1", "y2")
+  expect_error(
+    .match_outcome_formulas(c("y1 ~ x1", "log(y2) ~ x1"), outs, "f"),
+    "f.*outcome name.*log\\(y2\\)"
+  )
+  expect_error(
+    .match_outcome_formulas(c("I(2 * y1) ~ x1", "y2 ~ x1"), outs, "f"),
+    "outcome name"
+  )
+  expect_error(
+    .match_outcome_formulas(c("~ x1", "y2 ~ x1"), outs, "f"),
+    "f.*left-hand side"
+  )
+  expect_error(
+    .match_outcome_formulas(c("~ y1", "y2 ~ x1"), outs, "f"),
+    "f.*left-hand side"
   )
 })

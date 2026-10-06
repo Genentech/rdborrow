@@ -19,7 +19,8 @@ predicting trial participation.}
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per outcome (e.g., \code{c("y1 ~ x1 + x2", "y2 ~ x1 + x2")}).
 Each formula is matched to an outcome by its left-hand side, so the
-order does not matter.}
+order does not matter. The left-hand side must be the outcome name
+itself; to model a transformed outcome, transform the column first.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for no direct borrowing, or a value in (0, 1].
