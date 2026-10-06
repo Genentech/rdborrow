@@ -247,7 +247,7 @@ setup_simulation_OLE <- function(data_matrix_list,
   for (i in seq_along(data_matrix_list)) {
     checkmate::assert_data_frame(data_matrix_list[[i]])
   }
-  T_cross <- .check_T_cross(T_cross, outcome_col_name)
+  checkmate::assert_number(T_cross, lower = 0)
   checkmate::assert_number(true_effect)
 
   simulation_OLE_obj <- .simulation_OLE_obj(
