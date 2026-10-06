@@ -92,17 +92,45 @@ test_that("trial-status and treatment columns must be numeric or logical", {
   as_logical <- SyntheticData
   as_logical$A <- as_logical$A == 1
 
-  expect_error(setup(as_factor("A")), "A.*numeric or logical")
-  expect_error(setup(as_factor("S")), "S.*numeric or logical")
+  expect_error(setup(as_factor("A")), "A.*Must be of type .numeric.")
+  expect_error(setup(as_factor("S")), "S.*Must be of type .numeric.")
   expect_error(
     setup_analysis_OLE(
       as_factor("A"), "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2"),
       did_ec_ipw("S ~ x1", trt_formula = "A ~ x1", bootstrap = 2),
       T_cross = 2
     ),
-    "A.*numeric or logical"
+    "A.*Must be of type .numeric."
   )
   expect_s4_class(setup(as_logical), "analysis_primary_obj")
+})
+
+test_that("estimate() also rejects a factor treatment column", {
+  d <- SyntheticData
+  d$A <- factor(d$A, levels = c("1", "0"))
+  outs <- c("y1", "y2", "y3", "y4")
+  call_estimate <- function(method, ...) {
+    estimate(
+      method,
+      data = d, outcomes = outs, treatment = "A", trial_status = "S",
+      covariates = c("x1", "x2"), ...
+    )
+  }
+  expect_error(
+    call_estimate(did_ec_ipw("S ~ x1", "A ~ x1 + x2", bootstrap = 2), T_cross = 2),
+    "A.*Must be of type .numeric."
+  )
+  expect_error(
+    call_estimate(
+      did_ec_aipw("S ~ x1", "A ~ x1 + x2", paste(outs, "~ x1"), bootstrap = 2),
+      T_cross = 2
+    ),
+    "A.*Must be of type .numeric."
+  )
+  expect_error(
+    call_estimate(ec_ipw("S ~ x1")),
+    "A.*Must be of type .numeric."
+  )
 })
 
 test_that("show method prints without error", {

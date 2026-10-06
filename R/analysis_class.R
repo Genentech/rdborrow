@@ -58,19 +58,8 @@ setMethod(
     choices = names(data)
   )
 
-  # S and A must be binary 0/1----
-  for (col in c(trial_status_col_name, treatment_col_name)) {
-    x <- data[[col]]
-    if (!is.numeric(x) && !is.logical(x)) {
-      stop("Column '", col, "' must be numeric or logical, not ",
-        class(x)[1], ". Convert a factor with as.numeric(as.character(x)).",
-        call. = FALSE
-      )
-    }
-    if (!all(x %in% c(0, 1))) {
-      stop("Column '", col, "' must contain only 0 and 1.", call. = FALSE)
-    }
-  }
+  .check_binary_column(data[[trial_status_col_name]], trial_status_col_name)
+  .check_binary_column(data[[treatment_col_name]], treatment_col_name)
 }
 
 setup_analysis <- function(data, trial_status_col_name, treatment_col_name,

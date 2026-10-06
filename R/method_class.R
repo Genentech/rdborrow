@@ -128,6 +128,8 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @noRd
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates) {
+  .check_binary_column(data[[trial_status]], trial_status)
+  .check_binary_column(data[[treatment]], treatment)
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   data.frame(Y,
     S = data[[trial_status]], A = data[[treatment]],
@@ -153,6 +155,25 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     )
   }
   T_cross
+}
+
+#' Check that a trial-status or treatment column is numeric or logical and
+#' holds only 0 and 1. %in% compares a factor's labels, so a factor with
+#' levels c("1", "0") would pass a value check alone.
+#' @param x the column.
+#' @param col the column name, for error messages.
+#' @return `x`, invisibly.
+#' @noRd
+.check_binary_column <- function(x, col) {
+  checkmate::assert(
+    checkmate::check_numeric(x),
+    checkmate::check_logical(x),
+    .var.name = col
+  )
+  if (!all(x %in% c(0, 1))) {
+    stop("Column '", col, "' must contain only 0 and 1.", call. = FALSE)
+  }
+  invisible(x)
 }
 
 #' Put outcome formulas in the order of the outcomes, matching each formula

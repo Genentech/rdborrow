@@ -41,8 +41,10 @@ setMethod(
 #' }
 #'
 #' @param data A data frame containing all subject-level data.
-#' @param trial_status_col_name Name of the trial status column.
-#' @param treatment_col_name Name of the treatment column.
+#' @param trial_status_col_name Name of the trial status column: 1 for
+#'   trial patients, 0 for external controls. Must be numeric or logical.
+#' @param treatment_col_name Name of the treatment column: 1 for treated, 0
+#'   for control. Must be numeric or logical, not a factor.
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_weighting_obj A method object created by
