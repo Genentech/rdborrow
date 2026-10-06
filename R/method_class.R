@@ -135,6 +135,26 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   )
 }
 
+#' Check the crossover time and return it as an exact whole number.
+#' checkmate::assert_int() accepts values within a tolerance of an integer,
+#' such as 0.6 / 0.2, but `:` and indexing then use the inexact value.
+#' @param T_cross crossover time point.
+#' @param outcomes outcome column names.
+#' @return `T_cross`, rounded to a whole number.
+#' @noRd
+.check_T_cross <- function(T_cross, outcomes) {
+  checkmate::assert_int(T_cross, lower = 1)
+  T_cross <- round(T_cross)
+  if (T_cross >= length(outcomes)) {
+    stop(
+      "T_cross must be less than the number of outcomes (got ",
+      T_cross, " for ", length(outcomes), " outcomes).",
+      call. = FALSE
+    )
+  }
+  T_cross
+}
+
 #' Put outcome formulas in the order of the outcomes, matching each formula
 #' to an outcome by the variable on its left-hand side.
 #' @param formulas character vector of outcome formulas.

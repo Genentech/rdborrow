@@ -97,14 +97,7 @@ setup_analysis_OLE <- function(data, trial_status_col_name,
     outcome_col_name, covariates_col_name, alpha
   )
   checkmate::assert_class(method_OLE_obj, "method_OLE_obj")
-  checkmate::assert_int(T_cross, lower = 1)
-  if (T_cross >= length(outcome_col_name)) {
-    stop(
-      "T_cross must be less than the number of outcomes (got ",
-      T_cross, " for ", length(outcome_col_name), " outcomes).",
-      call. = FALSE
-    )
-  }
+  T_cross <- .check_T_cross(T_cross, outcome_col_name)
 
   .analysis_OLE_obj(
     data = data,
