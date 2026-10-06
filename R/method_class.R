@@ -135,6 +135,50 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   )
 }
 
+#' Put outcome formulas in the order of the outcomes, matching each formula
+#' to an outcome by the variable on its left-hand side.
+#' @param formulas character vector of outcome formulas.
+#' @param outcomes outcome column names, in analysis order.
+#' @param arg argument name, for error messages.
+#' @return `formulas`, reordered to match `outcomes`.
+#' @noRd
+.match_outcome_formulas <- function(formulas, outcomes, arg) {
+  lhs <- vapply(formulas, \(f) {
+    vars <- all.vars(as.formula(f)[[2]])
+    if (length(vars) != 1) {
+      stop("Each formula in `", arg, "` must have one outcome on its ",
+        "left-hand side; got `", f, "`.",
+        call. = FALSE
+      )
+    }
+    vars
+  }, character(1), USE.NAMES = FALSE)
+
+  unknown <- setdiff(lhs, outcomes)
+  if (length(unknown) > 0) {
+    stop("`", arg, "` has formulas for variables that are not outcomes: ",
+      paste(unknown, collapse = ", "), ".",
+      call. = FALSE
+    )
+  }
+  repeated <- unique(lhs[duplicated(lhs)])
+  if (length(repeated) > 0) {
+    stop("`", arg, "` has more than one formula for: ",
+      paste(repeated, collapse = ", "), ".",
+      call. = FALSE
+    )
+  }
+  missing <- setdiff(outcomes, lhs)
+  if (length(missing) > 0) {
+    stop("`", arg, "` has no formula for: ",
+      paste(missing, collapse = ", "), ".",
+      call. = FALSE
+    )
+  }
+
+  formulas[match(outcomes, lhs)]
+}
+
 #' Create a base method_obj (internal, used only in tests).
 #' @param method_name character identifier for the method.
 #' @return a method_obj S4 instance.

@@ -139,5 +139,5 @@ test_that("EC-AIPW errors when outcome_formula length mismatches outcomes", {
     covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
     method_weighting_obj = method
   )
-  expect_error(run_analysis(analysis), "one formula per outcome")
+  expect_error(run_analysis(analysis), "no formula for: y2")
 })
