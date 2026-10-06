@@ -136,7 +136,9 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 }
 
 #' Put outcome formulas in the order of the outcomes, matching each formula
-#' to an outcome by the variable on its left-hand side.
+#' to an outcome by the outcome name on its left-hand side. A transformed
+#' left side such as log(y1) is rejected: the methods would mix its scale
+#' with the raw outcome.
 #' @param formulas character vector of outcome formulas.
 #' @param outcomes outcome column names, in analysis order.
 #' @param arg argument name, for error messages.
@@ -144,14 +146,21 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @noRd
 .match_outcome_formulas <- function(formulas, outcomes, arg) {
   lhs <- vapply(formulas, \(f) {
-    vars <- all.vars(as.formula(f)[[2]])
-    if (length(vars) != 1) {
-      stop("Each formula in `", arg, "` must have one outcome on its ",
+    parsed <- as.formula(f)
+    if (length(parsed) != 3) {
+      stop("Each formula in `", arg, "` must have an outcome on its ",
         "left-hand side; got `", f, "`.",
         call. = FALSE
       )
     }
-    vars
+    if (!is.name(parsed[[2]])) {
+      stop("The left-hand side of each formula in `", arg, "` must be an ",
+        "outcome name; got `", deparse(parsed[[2]]), "`. Transform the ",
+        "outcome column before the analysis instead.",
+        call. = FALSE
+      )
+    }
+    as.character(parsed[[2]])
   }, character(1), USE.NAMES = FALSE)
 
   unknown <- setdiff(lhs, outcomes)

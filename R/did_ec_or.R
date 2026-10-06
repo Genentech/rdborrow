@@ -34,7 +34,9 @@ NULL
 #' @param outcome_formula_rct_trt Character vector of outcome model
 #'   formulas for RCT treated subjects, one per outcome. In all three
 #'   arguments, each formula is matched to an outcome by its left-hand side,
-#'   so the order does not matter.
+#'   so the order does not matter. The left-hand side must be the outcome
+#'   name itself; to model a transformed outcome, transform the column
+#'   first.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.

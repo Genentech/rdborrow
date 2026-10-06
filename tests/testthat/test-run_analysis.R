@@ -169,10 +169,28 @@ test_that("outcome formulas are matched to outcomes by name, not position", {
     fit_ole(did_ec_aipw(ps, outcome_formula = rev(of), bootstrap = 2)),
     fit_ole(did_ec_aipw(ps, outcome_formula = of, bootstrap = 2))
   )
+  f_ext <- paste(outs, "~ x1")
+  f_ctrl <- paste(outs, "~ x2")
+  f_trt <- paste(outs, "~ x1 + x2")
   expect_equal(
-    fit_ole(did_ec_or(rev(of), rev(of), rev(of), bootstrap = 2)),
-    fit_ole(did_ec_or(of, of, of, bootstrap = 2))
+    fit_ole(did_ec_or(
+      rev(f_ext), f_ctrl[c(2, 1, 4, 3)], f_trt[c(4, 1, 2, 3)],
+      bootstrap = 2
+    )),
+    fit_ole(did_ec_or(f_ext, f_ctrl, f_trt, bootstrap = 2))
   )
+
+  set.seed(1)
+  boot_rev <- suppressWarnings(run_analysis(setup_analysis_primary(
+    SyntheticData, "S", "A", c("y1", "y2"), covs,
+    ec_aipw(ps, rev(of[1:2]), bootstrap = 20)
+  )))
+  set.seed(1)
+  boot_ord <- suppressWarnings(run_analysis(setup_analysis_primary(
+    SyntheticData, "S", "A", c("y1", "y2"), covs,
+    ec_aipw(ps, of[1:2], bootstrap = 20)
+  )))
+  expect_equal(boot_rev, boot_ord)
 })
 
 test_that("trial-status and treatment columns can have any name", {
