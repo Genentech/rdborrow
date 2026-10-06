@@ -32,6 +32,17 @@
   [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
   with an opaque confidence interval error
   ([\#91](https://github.com/Genentech/rdborrow/issues/91)).
+- [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md),
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md),
+  [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md),
+  and
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  now work when the trial-status column is not named `S`, and
+  `trt_formula` works when the treatment column is not named `A`. The
+  formula’s left-hand side was rewritten to the user’s column name after
+  the data had been copied into columns named `S` and `A`, so the model
+  could not find it, or silently used a same-named object from the R
+  session ([\#103](https://github.com/Genentech/rdborrow/issues/103)).
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
   no longer errors with “‘x’ is NULL” when a method’s results have a
   single column. It kept the last row of each replicate without

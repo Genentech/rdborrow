@@ -47,6 +47,8 @@
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li>All method constructors now require <code>bootstrap</code> to be at least 2. <code>bootstrap = 1</code> was accepted and then failed inside <code><a href="../reference/run_analysis.html">run_analysis()</a></code> with an opaque confidence interval error (<a href="https://github.com/Genentech/rdborrow/issues/91" class="external-link">#91</a>).</li>
 <li>
+<code><a href="../reference/ec_ipw.html">ec_ipw()</a></code>, <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code>, <code><a href="../reference/did_ec_ipw.html">did_ec_ipw()</a></code>, and <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code> now work when the trial-status column is not named <code>S</code>, and <code>trt_formula</code> works when the treatment column is not named <code>A</code>. The formula’s left-hand side was rewritten to the user’s column name after the data had been copied into columns named <code>S</code> and <code>A</code>, so the model could not find it, or silently used a same-named object from the R session (<a href="https://github.com/Genentech/rdborrow/issues/103" class="external-link">#103</a>).</li>
+<li>
 <code><a href="../reference/run_simulation.html">run_simulation()</a></code> no longer errors with “‘x’ is NULL” when a method’s results have a single column. It kept the last row of each replicate without <code>drop = FALSE</code>, so a one-column data frame collapsed to a vector (<a href="https://github.com/Genentech/rdborrow/issues/93" class="external-link">#93</a>).</li>
 </ul></div>
 <div class="section level3">
