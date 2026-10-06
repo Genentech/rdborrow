@@ -30,7 +30,9 @@ ec_aipw(
 
   Character vector of outcome model formulas, one per outcome (e.g.,
   `c("y1 ~ x1 + x2", "y2 ~ x1 + x2")`). Each formula is matched to an
-  outcome by its left-hand side, so the order does not matter.
+  outcome by its left-hand side, so the order does not matter. The
+  left-hand side must be the outcome name itself; to model a transformed
+  outcome, transform the column first.
 
 - weight:
 

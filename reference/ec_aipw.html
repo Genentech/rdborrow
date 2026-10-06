@@ -69,7 +69,8 @@ predicting trial participation.</p></dd>
 <dd><p>Character vector of outcome model formulas,
 one per outcome (e.g., <code>c("y1 ~ x1 + x2", "y2 ~ x1 + x2")</code>).
 Each formula is matched to an outcome by its left-hand side, so the
-order does not matter.</p></dd>
+order does not matter. The left-hand side must be the outcome name
+itself; to model a transformed outcome, transform the column first.</p></dd>
 
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>

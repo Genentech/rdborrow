@@ -4,6 +4,23 @@
 
 ### Breaking changes
 
+- Outcome formulas in
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md),
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
+  and
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md)
+  must now have the outcome name alone on the left-hand side. A
+  transformed left side, such as `log(y1) ~ x1`, was accepted, but
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md)
+  used the transformed scale while
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  and
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  mixed it with the raw outcome, so the estimates were wrong. Transform
+  the outcome column before the analysis instead. One-sided formulas
+  such as `~ x1` now fail with a clear message
+  ([\#138](https://github.com/Genentech/rdborrow/issues/138),
+  [\#139](https://github.com/Genentech/rdborrow/issues/139)).
 - [`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md)
   and
   [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)

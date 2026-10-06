@@ -74,7 +74,9 @@ formulas for RCT control subjects, one per outcome.</p></dd>
 <dd><p>Character vector of outcome model
 formulas for RCT treated subjects, one per outcome. In all three
 arguments, each formula is matched to an outcome by its left-hand side,
-so the order does not matter.</p></dd>
+so the order does not matter. The left-hand side must be the outcome
+name itself; to model a transformed outcome, transform the column
+first.</p></dd>
 
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>

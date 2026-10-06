@@ -34,7 +34,8 @@ did_ec_aipw(
 
   Character vector of outcome model formulas, one per outcome. Each
   formula is matched to an outcome by its left-hand side, so the order
-  does not matter.
+  does not matter. The left-hand side must be the outcome name itself;
+  to model a transformed outcome, transform the column first.
 
 - bootstrap:
 
