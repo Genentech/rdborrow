@@ -257,6 +257,27 @@ tidyverse team's instructions:
 - If you use `gh` to retrieve information about an issue, always use
   `--comments` to read all the comments.
 
+### Writing issues
+
+Write all issues and issue comments in ASD-STE100 (Simplified Technical
+English). Use these rules:
+
+- Write one instruction or one fact in each sentence.
+- Keep sentences short: a maximum of 20 words for an instruction and 25
+  words for a description.
+- Use the active voice and the present tense.
+- Use one word for one meaning. Do not use a different word for a term that
+  you defined before.
+- Use "a", "an", or "the" before nouns where possible.
+- Use numbered steps for procedures, and tables for data.
+- Put code, output, and names in code format, as written.
+
+For a bug, use the structure in `.github/ISSUE_TEMPLATE/bug_report.md`:
+Summary, Steps to reproduce, Expected result, Actual result, Cause,
+Correction, Affected functions, and Related. The steps to reproduce must be
+code that runs on the current `main`. Run the code before you file the issue,
+and copy the real output into Actual result.
+
 ## Writing
 
 - Use sentence case for headings.
