@@ -197,17 +197,34 @@ test_that("OLE methods treat a near-integer T_cross as that integer", {
   }
 })
 
-test_that("estimate() validates T_cross for OLE methods", {
+test_that("estimate() validates and rounds T_cross for every OLE method", {
   outs <- c("y1", "y2", "y3", "y4")
-  call_estimate <- function(T_cross) {
-    estimate(
-      did_ec_ipw("S ~ x1 + x2", bootstrap = 2),
-      data = SyntheticData, outcomes = outs, treatment = "A",
-      trial_status = "S", covariates = c("x1", "x2"), T_cross = T_cross
-    )
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  of <- paste(outs, "~ x1 + x2")
+  small <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  methods <- list(
+    did_ec_ipw("S ~ x1 + x2", bootstrap = 2),
+    did_ec_aipw("S ~ x1 + x2", outcome_formula = of, bootstrap = 2),
+    did_ec_or(of, of, of, bootstrap = 2),
+    scm(bootstrap = 2)
+  )
+  direct <- function(method, T_cross) {
+    set.seed(1)
+    suppressWarnings(estimate(
+      method,
+      data = small, outcomes = outs, treatment = "A", trial_status = "S",
+      covariates = covs, T_cross = T_cross
+    ))
   }
-  expect_error(call_estimate(0), "T_cross")
-  expect_error(call_estimate(4), "T_cross")
+  for (m in methods) {
+    expect_equal(direct(m, 0.6 / 0.2), direct(m, 3))
+    expect_error(direct(m, 0), "T_cross")
+    expect_error(direct(m, 4), "T_cross")
+  }
 })
 
 test_that("trial-status and treatment columns can have any name", {
