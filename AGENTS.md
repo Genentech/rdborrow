@@ -308,6 +308,9 @@ follow the tidyverse team’s instructions:
 
 - If you use `gh` to retrieve information about an issue, always use
   `--comments` to read all the comments.
+- Write issues in ASD-STE100 (Simplified Technical English) where
+  practical: short sentences, active voice, and one fact per sentence.
+  Include a reproducer that runs on `main`, with its real output.
 
 ## Writing
 
