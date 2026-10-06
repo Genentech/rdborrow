@@ -92,3 +92,21 @@ column names, and validation. Four of them silently return wrong numbers.
 The 42 raw findings merge into 15 items. Of the 7 findings I re-ran myself
 (A1, A2, A3a–c, A4, C1), all reproduced; none was unsupported. A2 was found
 independently by all four testers, and A1 by three.
+
+## Filed (2026-10-06)
+
+| Item | Issue |
+|---|---|
+| A1 | #104 |
+| A2 | #103 |
+| A3 | #105, #106, #107 |
+| A4 | #108 |
+| B1 | #114 (with OLE O6) |
+| B2 | #121, #122, #123, #125 |
+| B3 | #117, #118, #119, #120 |
+| B4 | comment on #86 |
+| C1 | #126 |
+| C2 | #127 |
+| C3 | #129 |
+| D1 | #102 |
+| D2, D3 | #130 |

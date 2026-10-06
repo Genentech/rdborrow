@@ -115,3 +115,22 @@ estimators.** The new problems specific to the OLE methods are
 
 All five findings I re-ran myself reproduced (O1, O2, O3, O5, and the O4 scale
 sensitivity). O1 was found independently by three testers, and O4 by three.
+
+## Filed (2026-10-06)
+
+| Item | Issue |
+|---|---|
+| O1 | comment on #104 |
+| O2 | #110 |
+| O3 | #111 |
+| O4 | #112 |
+| O5 | #113 |
+| O6 | #114 (with primary B1) |
+| O7 | #115, #116 |
+| O8 | #121, #122, #124, #125 |
+| O9 | #128 |
+| O10 | #129 |
+| O11 | #126 (paper errata) |
+| O12, O13 | #131 |
+| O14 | #132 |
+| C | comments on #104, #105, #103, #108, #86, #79 |
