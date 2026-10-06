@@ -28,8 +28,9 @@ ec_aipw(
 
 - outcome_formula:
 
-  Character vector of outcome model formulas, one per time point (e.g.,
-  `c("y1 ~ x1 + x2", "y2 ~ x1 + x2")`).
+  Character vector of outcome model formulas, one per outcome (e.g.,
+  `c("y1 ~ x1 + x2", "y2 ~ x1 + x2")`). Each formula is matched to an
+  outcome by its left-hand side, so the order does not matter.
 
 - weight:
 

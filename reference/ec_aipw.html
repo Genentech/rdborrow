@@ -67,7 +67,9 @@ predicting trial participation.</p></dd>
 
 <dt id="arg-outcome-formula">outcome_formula<a class="anchor" aria-label="anchor" href="#arg-outcome-formula"></a></dt>
 <dd><p>Character vector of outcome model formulas,
-one per time point (e.g., <code>c("y1 ~ x1 + x2", "y2 ~ x1 + x2")</code>).</p></dd>
+one per outcome (e.g., <code>c("y1 ~ x1 + x2", "y2 ~ x1 + x2")</code>).
+Each formula is matched to an outcome by its left-hand side, so the
+order does not matter.</p></dd>
 
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>

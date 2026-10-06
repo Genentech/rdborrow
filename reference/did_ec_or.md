@@ -22,17 +22,18 @@ did_ec_or(
 - outcome_formula_ext:
 
   Character vector of outcome model formulas for external controls, one
-  per time point.
+  per outcome.
 
 - outcome_formula_rct_ctrl:
 
   Character vector of outcome model formulas for RCT control subjects,
-  one per time point.
+  one per outcome.
 
 - outcome_formula_rct_trt:
 
   Character vector of outcome model formulas for RCT treated subjects,
-  one per time point.
+  one per outcome. In all three arguments, each formula is matched to an
+  outcome by its left-hand side, so the order does not matter.
 
 - bootstrap:
 

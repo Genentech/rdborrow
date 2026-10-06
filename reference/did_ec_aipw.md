@@ -32,7 +32,9 @@ did_ec_aipw(
 
 - outcome_formula:
 
-  Character vector of outcome model formulas, one per time point.
+  Character vector of outcome model formulas, one per outcome. Each
+  formula is matched to an outcome by its left-hand side, so the order
+  does not matter.
 
 - bootstrap:
 

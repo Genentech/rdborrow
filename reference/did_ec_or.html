@@ -62,17 +62,19 @@ Uses outcome models only (no propensity score model).</p>
 
 <dl><dt id="arg-outcome-formula-ext">outcome_formula_ext<a class="anchor" aria-label="anchor" href="#arg-outcome-formula-ext"></a></dt>
 <dd><p>Character vector of outcome model formulas
-for external controls, one per time point.</p></dd>
+for external controls, one per outcome.</p></dd>
 
 
 <dt id="arg-outcome-formula-rct-ctrl">outcome_formula_rct_ctrl<a class="anchor" aria-label="anchor" href="#arg-outcome-formula-rct-ctrl"></a></dt>
 <dd><p>Character vector of outcome model
-formulas for RCT control subjects, one per time point.</p></dd>
+formulas for RCT control subjects, one per outcome.</p></dd>
 
 
 <dt id="arg-outcome-formula-rct-trt">outcome_formula_rct_trt<a class="anchor" aria-label="anchor" href="#arg-outcome-formula-rct-trt"></a></dt>
 <dd><p>Character vector of outcome model
-formulas for RCT treated subjects, one per time point.</p></dd>
+formulas for RCT treated subjects, one per outcome. In all three
+arguments, each formula is matched to an outcome by its left-hand side,
+so the order does not matter.</p></dd>
 
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>

@@ -32,6 +32,18 @@
   [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
   with an opaque confidence interval error
   ([\#91](https://github.com/Genentech/rdborrow/issues/91)).
+- [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md),
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
+  and
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md)
+  now match each outcome formula to an outcome by its left-hand side.
+  They used the formulas in list order, so formulas listed in a
+  different order from the outcomes silently gave wrong estimates; in
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
+  reversing them flipped the signs. A formula for a variable that is not
+  an outcome, two formulas for one outcome, or an outcome with no
+  formula is now an error
+  ([\#104](https://github.com/Genentech/rdborrow/issues/104)).
 - [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md),
   [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md),
   [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md),
