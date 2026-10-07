@@ -30,7 +30,8 @@ setup_simulation_OLE(
 
 \item{method_obj_list}{List of method objects to evaluate.}
 
-\item{T_cross}{Numeric crossover time point.}
+\item{T_cross}{Crossover time point: a whole number of at least 1 and less
+than the number of outcomes.}
 
 \item{true_effect}{The true treatment effect at the final visit, a single
 number. [run_simulation()] evaluates estimates at the final visit only.}
