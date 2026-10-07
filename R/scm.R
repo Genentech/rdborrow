@@ -102,6 +102,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
       call. = FALSE
     )
   }
+  .check_alpha(alpha)
   T_cross <- .check_T_cross(T_cross, outcomes)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   S <- df$S

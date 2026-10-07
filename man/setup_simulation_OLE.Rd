@@ -38,7 +38,7 @@ number. [run_simulation()] evaluates estimates at the final visit only.}
 \item{method_description}{Character vector of method labels, one per method
 in `method_obj_list`.}
 
-\item{alpha}{Significance level.}
+\item{alpha}{Significance level, more than 0 and less than 1.}
 }
 \value{
 An object of class `simulation_OLE_obj`.

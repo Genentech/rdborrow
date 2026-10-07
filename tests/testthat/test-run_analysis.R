@@ -223,6 +223,30 @@ test_that("estimate() validates and rounds T_cross for every OLE method", {
   }
 })
 
+test_that("estimate() rejects alpha of 0 or 1 for every method", {
+  outs <- c("y1", "y2", "y3", "y4")
+  of <- paste(outs, "~ x1")
+  methods <- list(
+    ec_ipw("S ~ x1"),
+    ec_aipw("S ~ x1", outcome_formula = of),
+    did_ec_ipw("S ~ x1", bootstrap = 2),
+    did_ec_aipw("S ~ x1", outcome_formula = of, bootstrap = 2),
+    did_ec_or(of, of, of, bootstrap = 2),
+    scm(bootstrap = 2)
+  )
+  for (m in methods) {
+    ole <- if (is(m, "method_OLE_obj")) list(T_cross = 2)
+    for (a in c(0, 1)) {
+      args <- c(list(
+        m,
+        data = SyntheticData, outcomes = outs, treatment = "A",
+        trial_status = "S", covariates = "x1", alpha = a
+      ), ole)
+      expect_error(do.call(estimate, args), "alpha.*between 0 and 1")
+    }
+  }
+})
+
 test_that("trial-status and treatment columns can have any name", {
   covs <- c("x1", "x2", "x3", "x4", "x5")
   outs <- c("y1", "y2", "y3", "y4")

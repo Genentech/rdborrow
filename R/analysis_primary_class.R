@@ -52,7 +52,8 @@ setMethod(
 #'   columns must have no missing values.
 #' @param method_weighting_obj A method object created by
 #'   \code{\link{ec_ipw}} or \code{\link{ec_aipw}}.
-#' @param alpha Significance level (default 0.05).
+#' @param alpha Significance level, more than 0 and less than 1 (default
+#'   0.05).
 #'
 #' @return An object of class \code{analysis_primary_obj}, to be passed to
 #'   \code{\link{run_analysis}}.

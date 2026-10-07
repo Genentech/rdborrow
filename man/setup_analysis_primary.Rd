@@ -33,7 +33,8 @@ columns must have no missing values.}
 \item{method_weighting_obj}{A method object created by
 \code{\link{ec_ipw}} or \code{\link{ec_aipw}}.}
 
-\item{alpha}{Significance level (default 0.05).}
+\item{alpha}{Significance level, more than 0 and less than 1 (default
+0.05).}
 }
 \value{
 An object of class \code{analysis_primary_obj}, to be passed to
