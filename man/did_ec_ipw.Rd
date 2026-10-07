@@ -13,10 +13,14 @@ did_ec_ipw(
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
-predicting trial participation.}
+predicting trial participation.
+The right-hand side may use only columns in
+\code{covariates_col_name}, not \code{.}.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{NULL} (default) for marginal probability.}
+or \code{NULL} (default) for marginal probability.
+The right-hand side may use only columns in
+\code{covariates_col_name}, not \code{.}.}
 
 \item{bootstrap}{Number of bootstrap replicates, at least 2 (required for DID
 methods). Defaults to 500.}

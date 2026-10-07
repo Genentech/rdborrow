@@ -257,6 +257,37 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   invisible(data)
 }
 
+#' Check that the right-hand side of each formula uses only covariates. The
+#' internal data also holds the outcomes, S and A, which `.` would add, and
+#' R looks for any other variable in the formula's environment, which can be
+#' the user's R session.
+#' @param formulas character vector of formulas, or NULL.
+#' @param covariates covariate column names.
+#' @param arg argument name, for error messages.
+#' @return `formulas`, invisibly.
+#' @noRd
+.check_formula_covariates <- function(formulas, covariates, arg) {
+  for (f in formulas) {
+    parsed <- as.formula(f)
+    rhs_vars <- all.vars(parsed[[length(parsed)]])
+    if ("." %in% rhs_vars) {
+      stop("`", arg, "` uses `.`, which would also add the outcomes and the ",
+        "treatment to the model. List the covariates instead; got `", f, "`.",
+        call. = FALSE
+      )
+    }
+    unknown <- setdiff(rhs_vars, covariates)
+    if (length(unknown) > 0) {
+      stop("`", arg, "` uses variables that are not covariates: ",
+        paste(unknown, collapse = ", "), ". Add them to ",
+        "`covariates_col_name`, or remove them from the formula.",
+        call. = FALSE
+      )
+    }
+  }
+  invisible(formulas)
+}
+
 #' Put outcome formulas in the order of the outcomes, matching each formula
 #' to an outcome by the outcome name on its left-hand side. A transformed
 #' left side such as log(y1) is rejected: the methods would mix its scale

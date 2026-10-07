@@ -14,16 +14,22 @@ did_ec_aipw(
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
-predicting trial participation.}
+predicting trial participation.
+The right-hand side may use only columns in
+\code{covariates_col_name}, not \code{.}.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{NULL} (default) for marginal probability.}
+or \code{NULL} (default) for marginal probability.
+The right-hand side may use only columns in
+\code{covariates_col_name}, not \code{.}.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per outcome. Each formula is matched to an outcome by its left-hand
 side, so the order does not matter. The left-hand side must be the
 outcome name itself; to model a transformed outcome, transform the
-column first.}
+column first.
+The right-hand side may use only columns in
+\code{covariates_col_name}, not \code{.}.}
 
 \item{bootstrap}{Number of bootstrap replicates (at least 2).
 Defaults to 500.}

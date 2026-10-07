@@ -292,6 +292,44 @@ test_that("trial-status and treatment columns can have any name", {
   }
 })
 
+test_that("formulas may use only the covariates on the right-hand side", {
+  outs <- c("y1", "y2", "y3", "y4")
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  of <- paste(outs, "~ x1 + x2")
+  primary <- function(method) {
+    run_analysis(setup_analysis_primary(
+      SyntheticData, "S", "A", c("y1", "y2"), covs, method
+    ))
+  }
+  ole <- function(method) {
+    set.seed(1)
+    suppressWarnings(run_analysis(setup_analysis_OLE(
+      SyntheticData, "S", "A", outs, covs, method,
+      T_cross = 2
+    )))
+  }
+  assign("z_session_only", rnorm(nrow(SyntheticData)), envir = globalenv())
+  on.exit(rm("z_session_only", envir = globalenv()), add = TRUE)
+
+  expect_error(primary(ec_ipw("S ~ .")), "ps_formula.*`\\.`")
+  expect_error(
+    ole(did_ec_or(of, of, paste(outs, "~ ."), bootstrap = 2)),
+    "outcome_formula_rct_trt.*`\\.`"
+  )
+  expect_error(
+    primary(ec_aipw("S ~ x1", c("y1 ~ x1 + y2", "y2 ~ x1"))),
+    "outcome_formula.*not covariates: y2"
+  )
+  expect_error(
+    primary(ec_ipw("S ~ x1 + z_session_only")),
+    "ps_formula.*not covariates: z_session_only"
+  )
+  expect_error(
+    ole(did_ec_ipw("S ~ x1", "A ~ x1 + z_session_only", bootstrap = 2)),
+    "trt_formula.*not covariates: z_session_only"
+  )
+})
+
 test_that("run_analysis quiet argument suppresses output", {
   method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
   analysis <- setup_analysis_primary(
