@@ -41,6 +41,8 @@ setMethod(
 #' }
 #'
 #' @param data A data frame containing all subject-level data.
+#'   It must have trial treated patients and trial controls. It must also
+#'   have external controls, unless the method is \code{ec_ipw(weight = 0)}.
 #' @param trial_status_col_name Name of the trial status column: 1 for
 #'   trial patients, 0 for external controls. Must be numeric or logical.
 #' @param treatment_col_name Name of the treatment column: 1 for treated, 0
@@ -77,7 +79,8 @@ setup_analysis_primary <- function(data, trial_status_col_name, treatment_col_na
                                    alpha = 0.05) {
   .validate_analysis_base(
     data, trial_status_col_name, treatment_col_name,
-    outcome_col_name, covariates_col_name, alpha
+    outcome_col_name, covariates_col_name, alpha,
+    external = FALSE
   )
   checkmate::assert_class(method_weighting_obj, "method_primary_obj")
 

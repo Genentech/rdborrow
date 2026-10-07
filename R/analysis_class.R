@@ -43,7 +43,8 @@ setMethod(
 
 .validate_analysis_base <- function(data, trial_status_col_name,
                                     treatment_col_name, outcome_col_name,
-                                    covariates_col_name, alpha) {
+                                    covariates_col_name, alpha,
+                                    external = TRUE) {
   checkmate::assert_data_frame(data)
   checkmate::assert_string(trial_status_col_name)
   checkmate::assert_string(treatment_col_name)
@@ -59,7 +60,7 @@ setMethod(
   )
 
   .check_status_and_treatment(
-    data, trial_status_col_name, treatment_col_name
+    data, trial_status_col_name, treatment_col_name, external
   )
   checkmate::assert_data_frame(
     data[c(outcome_col_name, covariates_col_name)],

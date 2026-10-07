@@ -128,8 +128,8 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 
 #' @noRd
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
-                               covariates) {
-  .check_status_and_treatment(data, trial_status, treatment)
+                               covariates, external = TRUE) {
+  .check_status_and_treatment(data, trial_status, treatment, external)
   checkmate::assert_data_frame(
     data[c(outcomes, covariates)],
     any.missing = FALSE, .var.name = "data"
@@ -195,13 +195,16 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 }
 
 #' Check the trial-status and treatment columns: each holds only 0 and 1,
-#' and every external control (trial status 0) has treatment 0.
+#' every external control (trial status 0) has treatment 0, and no group
+#' that the method uses is empty.
 #' @param data data frame.
 #' @param trial_status trial-status column name.
 #' @param treatment treatment column name.
+#' @param external whether the data must have external controls.
 #' @return `data`, invisibly.
 #' @noRd
-.check_status_and_treatment <- function(data, trial_status, treatment) {
+.check_status_and_treatment <- function(data, trial_status, treatment,
+                                        external = TRUE) {
   .check_binary_column(data[[trial_status]], trial_status)
   .check_binary_column(data[[treatment]], treatment)
   n_treated_ext <- sum(data[[trial_status]] == 0 & data[[treatment]] == 1)
@@ -209,6 +212,19 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     stop("External controls must have treatment 0, but ", n_treated_ext,
       " external controls have treatment 1 (column '", treatment, "' is 1 ",
       "where column '", trial_status, "' is 0).",
+      call. = FALSE
+    )
+  }
+  S <- data[[trial_status]]
+  A <- data[[treatment]]
+  groups <- c(
+    "trial treated patients (trial status 1, treatment 1)" = sum(S == 1 & A == 1),
+    "trial controls (trial status 1, treatment 0)" = sum(S == 1 & A == 0),
+    "external controls (trial status 0)" = if (external) sum(S == 0) else NA
+  )
+  empty <- names(groups)[groups %in% 0]
+  if (length(empty) > 0) {
+    stop("The data has no ", paste(empty, collapse = " and no "), ".",
       call. = FALSE
     )
   }

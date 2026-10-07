@@ -16,7 +16,9 @@ setup_analysis_OLE(
 )
 }
 \arguments{
-\item{data}{A data frame containing all subject-level data.}
+\item{data}{A data frame containing all subject-level data.
+It must have trial treated patients, trial controls, and external
+controls.}
 
 \item{trial_status_col_name}{Name of the trial status column: 1 for
 trial patients, 0 for external controls. Must be numeric or logical.}

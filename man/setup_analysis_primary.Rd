@@ -15,7 +15,9 @@ setup_analysis_primary(
 )
 }
 \arguments{
-\item{data}{A data frame containing all subject-level data.}
+\item{data}{A data frame containing all subject-level data.
+It must have trial treated patients and trial controls. It must also
+have external controls, unless the method is \code{ec_ipw(weight = 0)}.}
 
 \item{trial_status_col_name}{Name of the trial status column: 1 for
 trial patients, 0 for external controls. Must be numeric or logical.}
