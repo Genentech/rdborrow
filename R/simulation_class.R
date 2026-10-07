@@ -201,7 +201,8 @@ setup_simulation_primary <- function(data_matrix_list_null,
 #' @param outcome_col_name Character vector of outcome column names.
 #' @param covariates_col_name Character vector of covariate column names.
 #' @param method_obj_list List of method objects to evaluate.
-#' @param T_cross Numeric crossover time point.
+#' @param T_cross Crossover time point: a whole number of at least 1 and less
+#'   than the number of outcomes.
 #' @param true_effect The true treatment effect at the final visit, a single
 #'   number. [run_simulation()] evaluates estimates at the final visit only.
 #' @param method_description Character vector of method labels, one per method
@@ -247,7 +248,7 @@ setup_simulation_OLE <- function(data_matrix_list,
   for (i in seq_along(data_matrix_list)) {
     checkmate::assert_data_frame(data_matrix_list[[i]])
   }
-  checkmate::assert_number(T_cross, lower = 0)
+  T_cross <- .check_T_cross(T_cross, outcome_col_name)
   checkmate::assert_number(true_effect)
 
   simulation_OLE_obj <- .simulation_OLE_obj(
