@@ -32,7 +32,9 @@ covering both placebo-controlled and OLE periods. The columns must have
 no missing values.}
 
 \item{covariates_col_name}{Character vector of covariate column names. The
-columns must have no missing values.}
+columns must have no missing values.
+Outcome and covariate columns cannot be named \code{S} or \code{A}, or
+be the trial-status or treatment column.}
 
 \item{method_OLE_obj}{A method object created by
 \code{\link{did_ec_ipw}}, \code{\link{did_ec_aipw}},

@@ -129,6 +129,7 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @noRd
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates, external = TRUE) {
+  .check_internal_names(outcomes, covariates, trial_status, treatment)
   .check_status_and_treatment(data, trial_status, treatment, external)
   checkmate::assert_data_frame(
     data[c(outcomes, covariates)],
@@ -159,6 +160,31 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     )
   }
   T_cross
+}
+
+#' Check that no outcome or covariate is named S or A, the internal names of
+#' the trial-status and treatment columns, or is one of those columns.
+#' data.frame() would make the duplicate names unique, and the methods would
+#' then read the wrong column as S or A.
+#' @param outcomes outcome column names.
+#' @param covariates covariate column names.
+#' @param trial_status trial-status column name.
+#' @param treatment treatment column name.
+#' @return `NULL`, invisibly.
+#' @noRd
+.check_internal_names <- function(outcomes, covariates, trial_status,
+                                  treatment) {
+  clash <- intersect(
+    c(outcomes, covariates), c("S", "A", trial_status, treatment)
+  )
+  if (length(clash) > 0) {
+    stop("Outcome and covariate columns cannot use the names S and A, which ",
+      "the package uses internally, or be the trial-status or treatment ",
+      "column. Rename or remove: ", paste(clash, collapse = ", "), ".",
+      call. = FALSE
+    )
+  }
+  invisible(NULL)
 }
 
 #' Check that a trial-status or treatment column is numeric or logical and
