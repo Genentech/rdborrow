@@ -41,7 +41,8 @@ external control borrowing for the open-label extension phase
 controls matching each RCT control subject on covariates and
 pre-crossover outcomes. The penalty is chosen by leave-one-out
 cross-validation over the external controls, so the data needs at least 2
-external controls.
+external controls. The covariates must be numeric or logical; code a
+factor as 0/1 indicators first.
 }
 \examples{
 scm(lambda_min = 0, lambda_max = 0.001, nlambda = 2, bootstrap = 50)
