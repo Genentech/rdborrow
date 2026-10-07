@@ -92,7 +92,7 @@ setMethod(
     checkmate::assert_class(method_obj_list[[i]], "method_obj")
   }
   checkmate::assert_character(method_description, len = length(method_obj_list))
-  checkmate::assert_number(alpha, lower = 0, upper = 1)
+  .check_alpha(alpha)
 }
 
 #' @noRd
@@ -134,7 +134,7 @@ setup_simulation <- function(trial_status_col_name,
 #' @param data_matrix_list_alt List of data frames simulated under the
 #'   alternative.
 #' @param alt_effect Numeric vector of alternative treatment effects.
-#' @param alpha Significance level.
+#' @param alpha Significance level, more than 0 and less than 1.
 #'
 #' @return An object of class `simulation_primary_obj`.
 #' @export
@@ -206,7 +206,7 @@ setup_simulation_primary <- function(data_matrix_list_null,
 #'   number. [run_simulation()] evaluates estimates at the final visit only.
 #' @param method_description Character vector of method labels, one per method
 #'   in `method_obj_list`.
-#' @param alpha Significance level.
+#' @param alpha Significance level, more than 0 and less than 1.
 #'
 #' @return An object of class `simulation_OLE_obj`.
 #' @export

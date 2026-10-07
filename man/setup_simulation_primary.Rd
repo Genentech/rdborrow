@@ -42,7 +42,7 @@ alternative.}
 
 \item{alt_effect}{Numeric vector of alternative treatment effects.}
 
-\item{alpha}{Significance level.}
+\item{alpha}{Significance level, more than 0 and less than 1.}
 }
 \value{
 An object of class `simulation_primary_obj`.

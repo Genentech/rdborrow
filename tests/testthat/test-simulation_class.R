@@ -55,6 +55,23 @@ test_that("setup_simulation validates alpha", {
   ))
 })
 
+test_that("setup_simulation rejects alpha of 0 or 1", {
+  for (a in c(0, 1)) {
+    expect_error(
+      setup_simulation(
+        trial_status_col_name = "S",
+        treatment_col_name = "A",
+        outcome_col_name = "y1",
+        covariates_col_name = "x1",
+        method_obj_list = list(setup_method()),
+        method_description = "m",
+        alpha = a
+      ),
+      "alpha.*between 0 and 1"
+    )
+  }
+})
+
 test_that("show method prints without error", {
   obj <- setup_simulation(
     trial_status_col_name = "S",

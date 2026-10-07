@@ -77,6 +77,27 @@ test_that("setup_analysis validates alpha", {
   ))
 })
 
+test_that("alpha must be strictly between 0 and 1", {
+  outs <- c("y1", "y2", "y3", "y4")
+  for (a in c(0, 1)) {
+    expect_error(
+      setup_analysis_primary(
+        SyntheticData, "S", "A", "y1", "x1", ec_ipw("S ~ x1"),
+        alpha = a
+      ),
+      "alpha.*between 0 and 1"
+    )
+    expect_error(
+      setup_analysis_OLE(
+        SyntheticData, "S", "A", outs, "x1",
+        did_ec_ipw("S ~ x1", bootstrap = 2),
+        T_cross = 2, alpha = a
+      ),
+      "alpha.*between 0 and 1"
+    )
+  }
+})
+
 test_that("trial-status and treatment columns must be numeric or logical", {
   setup <- function(data) {
     setup_analysis_primary(

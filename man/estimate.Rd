@@ -98,7 +98,8 @@ estimate(method, ...)
 
 \item{covariates}{Character vector of covariate column names.}
 
-\item{alpha}{Significance level (default 0.05).}
+\item{alpha}{Significance level, more than 0 and less than 1 (default
+0.05).}
 
 \item{quiet}{Logical. Suppress output (default TRUE).}
 

@@ -117,6 +117,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  treatment, trial_status,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
+  .check_alpha(alpha)
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   outcome_formula <- .match_outcome_formulas(
     method@outcome_formula, outcomes, "outcome_formula"

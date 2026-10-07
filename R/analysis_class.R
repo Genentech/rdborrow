@@ -49,7 +49,7 @@ setMethod(
   checkmate::assert_string(treatment_col_name)
   checkmate::assert_character(outcome_col_name, min.len = 1)
   checkmate::assert_character(covariates_col_name, min.len = 1)
-  checkmate::assert_number(alpha, lower = 0, upper = 1)
+  .check_alpha(alpha)
   checkmate::assert_subset(
     c(
       trial_status_col_name, treatment_col_name,

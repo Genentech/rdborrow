@@ -44,7 +44,8 @@ T_cross} columns are from the open-label extension phase and are
 used to estimate the treatment effect. Must be a positive integer
 strictly less than \code{length(outcome_col_name)}.}
 
-\item{alpha}{Significance level (default 0.05).}
+\item{alpha}{Significance level, more than 0 and less than 1 (default
+0.05).}
 }
 \value{
 An object of class \code{analysis_OLE_obj}, to be passed to

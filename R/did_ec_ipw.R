@@ -77,6 +77,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
                                                     covariates, alpha = 0.05,
                                                     quiet = TRUE,
                                                     T_cross) {
+  .check_alpha(alpha)
   T_cross <- .check_T_cross(T_cross, outcomes)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   Y <- as.matrix(df[, outcomes, drop = FALSE])

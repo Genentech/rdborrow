@@ -46,7 +46,8 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 #' @param treatment Name of the treatment column.
 #' @param trial_status Name of the trial participation column.
 #' @param covariates Character vector of covariate column names.
-#' @param alpha Significance level (default 0.05).
+#' @param alpha Significance level, more than 0 and less than 1 (default
+#'   0.05).
 #' @param quiet Logical. Suppress output (default TRUE).
 #' @param T_cross Integer crossover time point (OLE methods only).
 #' @param ... Additional method-specific arguments.
@@ -177,6 +178,20 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     stop("Column '", col, "' must contain only 0 and 1.", call. = FALSE)
   }
   invisible(x)
+}
+
+#' Check that the significance level is strictly between 0 and 1.
+#' checkmate::assert_number() has inclusive bounds only, and alpha = 0 or 1
+#' gives infinite, missing, or zero-width intervals.
+#' @param alpha significance level.
+#' @return `alpha`, invisibly.
+#' @noRd
+.check_alpha <- function(alpha) {
+  checkmate::assert_number(alpha)
+  if (alpha <= 0 || alpha >= 1) {
+    stop("`alpha` must be between 0 and 1, not ", alpha, ".", call. = FALSE)
+  }
+  invisible(alpha)
 }
 
 #' Check the trial-status and treatment columns: each holds only 0 and 1,
