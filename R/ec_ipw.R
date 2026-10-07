@@ -95,7 +95,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 quiet = TRUE) {
   .check_alpha(alpha)
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
-  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates,
+    external = !isTRUE(method@weight == 0)
+  )
   n_time <- length(outcomes)
 
   if (!quiet) cat("Running EC-IPW estimator...\n")

@@ -213,6 +213,60 @@ test_that("missing values in outcomes or covariates are rejected", {
   expect_s4_class(setup(with_na("x2")), "analysis_primary_obj")
 })
 
+test_that("an empty trial treated or trial control group is rejected", {
+  d <- SyntheticData
+  outs <- c("y1", "y2", "y3", "y4")
+  no_treated <- d[!(d$S == 1 & d$A == 1), ]
+  no_controls <- d[!(d$S == 1 & d$A == 0), ]
+
+  expect_error(
+    setup_analysis_primary(no_treated, "S", "A", outs, "x1", ec_ipw("S ~ x1")),
+    "no trial treated patients"
+  )
+  expect_error(
+    setup_analysis_OLE(
+      no_controls, "S", "A", outs, "x1", did_ec_ipw("S ~ x1", bootstrap = 2),
+      T_cross = 2
+    ),
+    "no trial controls"
+  )
+  expect_error(
+    estimate(
+      ec_ipw("S ~ x1"),
+      data = no_controls, outcomes = outs, treatment = "A",
+      trial_status = "S", covariates = "x1"
+    ),
+    "no trial controls"
+  )
+})
+
+test_that("no external controls is rejected unless the method does not use them", {
+  outs <- c("y1", "y2")
+  of <- paste(outs, "~ x1")
+  no_external <- SyntheticData[SyntheticData$S == 1, ]
+  fit <- function(data, method) {
+    run_analysis(setup_analysis_primary(data, "S", "A", outs, "x1", method))
+  }
+
+  expect_error(
+    setup_analysis_OLE(
+      no_external, "S", "A", c(outs, "y3"), "x1",
+      did_ec_ipw("S ~ x1", bootstrap = 2),
+      T_cross = 2
+    ),
+    "no external controls"
+  )
+  expect_error(fit(no_external, ec_ipw("S ~ x1")), "no external controls")
+  expect_error(
+    fit(no_external, ec_aipw("S ~ x1", of, weight = 0)),
+    "no external controls"
+  )
+  expect_equal(
+    suppressWarnings(fit(no_external, ec_ipw("S ~ x1", weight = 0))),
+    fit(SyntheticData, ec_ipw("S ~ x1", weight = 0))
+  )
+})
+
 test_that("show method prints without error", {
   obj <- setup_analysis(
     data = SyntheticData,
