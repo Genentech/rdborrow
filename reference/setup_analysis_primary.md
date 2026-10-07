@@ -22,7 +22,9 @@ setup_analysis_primary(
 
 - data:
 
-  A data frame containing all subject-level data.
+  A data frame containing all subject-level data. It must have trial
+  treated patients and trial controls. It must also have external
+  controls, unless the method is `ec_ipw(weight = 0)`.
 
 - trial_status_col_name:
 

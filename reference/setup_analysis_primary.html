@@ -57,7 +57,9 @@ object ready to be passed to <code><a href="run_analysis.html">run_analysis</a><
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A data frame containing all subject-level data.</p></dd>
+<dd><p>A data frame containing all subject-level data.
+It must have trial treated patients and trial controls. It must also
+have external controls, unless the method is <code>ec_ipw(weight = 0)</code>.</p></dd>
 
 
 <dt id="arg-trial-status-col-name">trial_status_col_name<a class="anchor" aria-label="anchor" href="#arg-trial-status-col-name"></a></dt>

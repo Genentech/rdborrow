@@ -147,6 +147,19 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same check
   ([\#121](https://github.com/Genentech/rdborrow/issues/121)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now give an error that names the empty group when the data has no
+  trial treated patients or no trial controls, and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  also when it has no external controls. The methods gave `NaN` results
+  or an unclear error. The primary methods check for external controls
+  when they run; `ec_ipw(weight = 0)` does not use them, so it still
+  runs without them. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same checks
+  ([\#122](https://github.com/Genentech/rdborrow/issues/122)).
 
 ### Documentation
 

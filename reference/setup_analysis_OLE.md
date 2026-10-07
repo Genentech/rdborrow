@@ -23,7 +23,8 @@ setup_analysis_OLE(
 
 - data:
 
-  A data frame containing all subject-level data.
+  A data frame containing all subject-level data. It must have trial
+  treated patients, trial controls, and external controls.
 
 - trial_status_col_name:
 
