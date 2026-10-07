@@ -30,7 +30,9 @@ NULL
 #' external control borrowing for the open-label extension phase
 #' (Zhou et al., 2024). Constructs a weighted combination of external
 #' controls matching each RCT control subject on covariates and
-#' pre-crossover outcomes.
+#' pre-crossover outcomes. The penalty is chosen by leave-one-out
+#' cross-validation over the external controls, so the data needs at least 2
+#' external controls.
 #'
 #' @param lambda_min Minimum penalty parameter for LOOCV.
 #' @param lambda_max Maximum penalty parameter for LOOCV.
@@ -105,6 +107,12 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   .check_alpha(alpha)
   T_cross <- .check_T_cross(T_cross, outcomes)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
+  if (sum(df$S == 0) < 2) {
+    stop("scm() needs at least 2 external controls for its leave-one-out ",
+      "cross-validation; the data has ", sum(df$S == 0), ".",
+      call. = FALSE
+    )
+  }
   n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
@@ -157,7 +165,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 #' @noRd
 .scm_subject_sc <- function(subject, X10, X00, long_term_col_name, lambda) {
   x1 <- X10[-which(row.names(X10) %in% long_term_col_name), subject]
-  X0 <- X00[-which(row.names(X10) %in% long_term_col_name), ]
+  X0 <- X00[-which(row.names(X10) %in% long_term_col_name), , drop = FALSE]
 
   w <- CVXR::Variable(dim(X00)[2])
   loss <- sum(((x1 - X0 %*% w))^2)
@@ -168,7 +176,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   CVXR::psolve(prob, solver = "ECOS")
 
   wt_est <- CVXR::value(w)
-  y_est <- X00[long_term_col_name, ] %*% wt_est
+  y_est <- X00[long_term_col_name, , drop = FALSE] %*% wt_est
 
   list(wt_est, y_est)
 }
@@ -190,7 +198,9 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   mse_vals <- vapply(lambda_vals, \(lambda) {
     res <- lapply(seq_len(dim(ec)[2]), \(loocv) {
       x1 <- ec[-which(row.names(ec) %in% long_term_col_name), loocv]
-      X0 <- ec[-which(row.names(ec) %in% long_term_col_name), -loocv]
+      X0 <- ec[-which(row.names(ec) %in% long_term_col_name), -loocv,
+        drop = FALSE
+      ]
 
       w <- CVXR::Variable(dim(ec)[2] - 1)
       loss <- sum(((x1 - X0 %*% w))^2)
@@ -201,7 +211,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
       CVXR::psolve(prob, solver = "ECOS")
 
       wt_est <- CVXR::value(w)
-      y_est <- ec[long_term_col_name, -loocv] %*% wt_est
+      y_est <- ec[long_term_col_name, -loocv, drop = FALSE] %*% wt_est
       list(wt_est, y_est)
     })
     y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))
