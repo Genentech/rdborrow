@@ -47,7 +47,8 @@ setup_simulation_OLE(
 
 - T_cross:
 
-  Numeric crossover time point.
+  Crossover time point: a whole number of at least 1 and less than the
+  number of outcomes.
 
 - true_effect:
 

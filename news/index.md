@@ -178,6 +178,14 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same check
   ([\#106](https://github.com/Genentech/rdborrow/issues/106)).
+- [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
+  now checks `T_cross` as
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  does: it must be a whole number of at least 1 and less than the number
+  of outcomes. An invalid value was accepted, and the error came later
+  from
+  [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+  ([\#141](https://github.com/Genentech/rdborrow/issues/141)).
 
 ### Documentation
 
