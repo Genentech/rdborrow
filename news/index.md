@@ -84,6 +84,12 @@
   single column. It kept the last row of each replicate without
   `drop = FALSE`, so a one-column data frame collapsed to a vector
   ([\#93](https://github.com/Genentech/rdborrow/issues/93)).
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
+  works with two external controls, and gives a clear error with one.
+  Its leave-one-out cross-validation left a single external control,
+  which R turned into a vector, and the analysis failed with “‘x’ must
+  be an array of at least two dimensions”
+  ([\#115](https://github.com/Genentech/rdborrow/issues/115)).
 - [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
   and the OLE methods now round a `T_cross` that is a whole number only
   up to floating-point error, such as `0.6 / 0.2`. It passed validation

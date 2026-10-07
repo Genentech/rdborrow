@@ -3,7 +3,9 @@
 Creates a method object for synthetic control estimation with external
 control borrowing for the open-label extension phase (Zhou et al.,
 2024). Constructs a weighted combination of external controls matching
-each RCT control subject on covariates and pre-crossover outcomes.
+each RCT control subject on covariates and pre-crossover outcomes. The
+penalty is chosen by leave-one-out cross-validation over the external
+controls, so the data needs at least 2 external controls.
 
 ## Usage
 
