@@ -121,3 +121,38 @@ test_that("scm() names a covariate that is not numeric", {
   )
   expect_error(run_analysis(analysis), "scm.*numeric.*x1")
 })
+
+test_that("scm() rejects lambda settings it cannot use", {
+  expect_error(scm(lambda_max = Inf), "lambda_max")
+  expect_error(scm(lambda_min = Inf, lambda_max = Inf), "lambda_min")
+  expect_error(
+    scm(lambda_min = 0, lambda_max = 100, nlambda = 1),
+    "nlambda = 1.*lambda_min"
+  )
+  expect_s4_class(
+    scm(lambda_min = 0.05, lambda_max = 0.05, nlambda = 1),
+    "scm_method"
+  )
+})
+
+test_that("scm() reports the selected lambda", {
+  skip_if_not_installed("ECOSolveR")
+  d <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  fit <- function(method) {
+    analysis <- setup_analysis_OLE(
+      d, "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2", "x3", "x4", "x5"),
+      method,
+      T_cross = 2
+    )
+    set.seed(1)
+    suppressWarnings(run_analysis(analysis))
+  }
+  fixed <- fit(scm(lambda_min = 0.05, lambda_max = 0.05, nlambda = 1, bootstrap = 2))
+  expect_identical(attr(fixed, "lambda"), 0.05)
+  searched <- fit(scm(lambda_min = 0, lambda_max = 0.1, nlambda = 2, bootstrap = 2))
+  expect_in(attr(searched, "lambda"), c(0, 0.1))
+})
