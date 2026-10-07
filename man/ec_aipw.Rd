@@ -33,7 +33,10 @@ it therefore does not use trial data only.}
 \item{bootstrap}{Number of bootstrap replicates (at least 2), or \code{NULL}
 (default) for sandwich variance with normal CIs.}
 
-\item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}
+\item{bootstrap_ci_type}{Bootstrap CI type, or \code{NULL} (default)
+which resolves to \code{"perc"} when \code{bootstrap} is set. One of
+\code{"perc"}, \code{"bca"}, \code{"norm"}, or \code{"basic"}. Needs
+\code{bootstrap}.}
 }
 \value{
 An S4 object of class \code{ec_aipw_method}.

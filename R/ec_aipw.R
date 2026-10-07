@@ -41,7 +41,10 @@ NULL
 #'   it therefore does not use trial data only.
 #' @param bootstrap Number of bootstrap replicates (at least 2), or \code{NULL}
 #'   (default) for sandwich variance with normal CIs.
-#' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
+#' @param bootstrap_ci_type Bootstrap CI type, or \code{NULL} (default)
+#'   which resolves to \code{"perc"} when \code{bootstrap} is set. One of
+#'   \code{"perc"}, \code{"bca"}, \code{"norm"}, or \code{"basic"}. Needs
+#'   \code{bootstrap}.
 #'
 #' @return An S4 object of class \code{ec_aipw_method}.
 #'
@@ -93,6 +96,13 @@ ec_aipw <- function(ps_formula,
   checkmate::assert_int(bootstrap, lower = 2, null.ok = TRUE)
 
   # bootstrap type
+  if (is.null(bootstrap) && !is.null(bootstrap_ci_type)) {
+    stop("`bootstrap_ci_type` needs `bootstrap`. Set `bootstrap` to the ",
+      "number of replicates, or leave `bootstrap_ci_type` as NULL for ",
+      "sandwich intervals.",
+      call. = FALSE
+    )
+  }
   if (!is.null(bootstrap) && is.null(bootstrap_ci_type)) {
     bootstrap_ci_type <- "perc"
   }
