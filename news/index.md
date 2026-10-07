@@ -72,6 +72,13 @@
   the data had been copied into columns named `S` and `A`, so the model
   could not find it, or silently used a same-named object from the R
   session ([\#103](https://github.com/Genentech/rdborrow/issues/103)).
+- [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  and
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  now give an error when `bootstrap_ci_type` is set without `bootstrap`.
+  The value was kept but not used, so a user who asked for, say, BCa
+  intervals got sandwich intervals with no message
+  ([\#123](https://github.com/Genentech/rdborrow/issues/123)).
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
   no longer errors with “‘x’ is NULL” when a method’s results have a
   single column. It kept the last row of each replicate without

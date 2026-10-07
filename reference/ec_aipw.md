@@ -52,7 +52,9 @@ ec_aipw(
 
 - bootstrap_ci_type:
 
-  Bootstrap CI type. Defaults to `"perc"`.
+  Bootstrap CI type, or `NULL` (default) which resolves to `"perc"` when
+  `bootstrap` is set. One of `"perc"`, `"bca"`, `"norm"`, or `"basic"`.
+  Needs `bootstrap`.
 
 ## Value
 
