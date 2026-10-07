@@ -61,7 +61,7 @@ setup_simulation_OLE(
 
 - alpha:
 
-  Significance level.
+  Significance level, more than 0 and less than 1.
 
 ## Value
 

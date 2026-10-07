@@ -135,6 +135,18 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same check
   ([\#114](https://github.com/Genentech/rdborrow/issues/114)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md),
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md),
+  [`setup_simulation_primary()`](https://genentech.github.io/rdborrow/reference/setup_simulation_primary.md),
+  and
+  [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
+  now require `alpha` to be more than 0 and less than 1. `alpha = 0` and
+  `alpha = 1` were accepted and gave infinite, missing, or zero-width
+  confidence intervals; with bootstrap and `alpha = 1`, the interval did
+  not contain the point estimate. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same check
+  ([\#121](https://github.com/Genentech/rdborrow/issues/121)).
 
 ### Documentation
 

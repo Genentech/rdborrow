@@ -66,7 +66,7 @@ setup_simulation_primary(
 
 - alpha:
 
-  Significance level.
+  Significance level, more than 0 and less than 1.
 
 ## Value
 

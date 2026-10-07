@@ -120,7 +120,7 @@ estimate(
 
 - alpha:
 
-  Significance level (default 0.05).
+  Significance level, more than 0 and less than 1 (default 0.05).
 
 - quiet:
 
