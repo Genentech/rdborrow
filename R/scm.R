@@ -35,15 +35,23 @@ NULL
 #' external controls. The covariates must be numeric or logical; code a
 #' factor as 0/1 indicators first.
 #'
-#' @param lambda_min Minimum penalty parameter for LOOCV.
-#' @param lambda_max Maximum penalty parameter for LOOCV.
-#' @param nlambda Number of lambda values to evaluate in LOOCV.
+#' @param lambda_min Minimum penalty parameter for LOOCV. A finite number of
+#'   at least 0.
+#' @param lambda_max Maximum penalty parameter for LOOCV. A finite number of
+#'   at least \code{lambda_min}.
+#' @param nlambda Number of lambda values to evaluate in LOOCV, evenly spaced
+#'   from \code{lambda_min} to \code{lambda_max}. With \code{nlambda = 1},
+#'   \code{lambda_max} must equal \code{lambda_min}.
 #' @param parallel Parallelization type for bootstrap (\code{"no"},
 #'   \code{"multicore"}, or \code{"snow"}).
 #' @param ncpus Number of CPUs for parallel bootstrap.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 200.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
+#'
+#' @details The analysis result from \code{\link{run_analysis}()} has an
+#'   attribute \code{"lambda"}, the penalty that cross-validation selected:
+#'   \code{attr(result, "lambda")}.
 #'
 #' @return An S4 object of class \code{scm_method}.
 #'
@@ -64,9 +72,15 @@ scm <- function(lambda_min = 0,
                 ncpus = 1L,
                 bootstrap = 200L,
                 bootstrap_ci_type = NULL) {
-  checkmate::assert_number(lambda_min, lower = 0)
-  checkmate::assert_number(lambda_max, lower = lambda_min)
+  checkmate::assert_number(lambda_min, lower = 0, finite = TRUE)
+  checkmate::assert_number(lambda_max, lower = lambda_min, finite = TRUE)
   checkmate::assert_count(nlambda, positive = TRUE)
+  if (nlambda == 1 && lambda_max != lambda_min) {
+    stop("With nlambda = 1, scm() uses only lambda_min. Set lambda_max equal ",
+      "to lambda_min, or set nlambda to 2 or more.",
+      call. = FALSE
+    )
+  }
   checkmate::assert_choice(parallel, c("no", "multicore", "snow"))
   checkmate::assert_count(ncpus, positive = TRUE)
   checkmate::assert_int(bootstrap, lower = 2)
@@ -154,12 +168,14 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
     T_cross = T_cross, lambda = lambda
   )
 
-  data.frame(
+  result <- data.frame(
     point_estimates = tau,
     lower_CI_boot = boot_res$lower_ci,
     upper_CI_boot = boot_res$upper_ci,
     row.names = paste0("tau", (T_cross + 1):n_time)
   )
+  attr(result, "lambda") <- lambda
+  result
 })
 
 # internal helpers----

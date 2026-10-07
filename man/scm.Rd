@@ -15,11 +15,15 @@ scm(
 )
 }
 \arguments{
-\item{lambda_min}{Minimum penalty parameter for LOOCV.}
+\item{lambda_min}{Minimum penalty parameter for LOOCV. A finite number of
+at least 0.}
 
-\item{lambda_max}{Maximum penalty parameter for LOOCV.}
+\item{lambda_max}{Maximum penalty parameter for LOOCV. A finite number of
+at least \code{lambda_min}.}
 
-\item{nlambda}{Number of lambda values to evaluate in LOOCV.}
+\item{nlambda}{Number of lambda values to evaluate in LOOCV, evenly spaced
+from \code{lambda_min} to \code{lambda_max}. With \code{nlambda = 1},
+\code{lambda_max} must equal \code{lambda_min}.}
 
 \item{parallel}{Parallelization type for bootstrap (\code{"no"},
 \code{"multicore"}, or \code{"snow"}).}
@@ -43,6 +47,11 @@ pre-crossover outcomes. The penalty is chosen by leave-one-out
 cross-validation over the external controls, so the data needs at least 2
 external controls. The covariates must be numeric or logical; code a
 factor as 0/1 indicators first.
+}
+\details{
+The analysis result from \code{\link{run_analysis}()} has an
+  attribute \code{"lambda"}, the penalty that cross-validation selected:
+  \code{attr(result, "lambda")}.
 }
 \examples{
 scm(lambda_min = 0, lambda_max = 0.001, nlambda = 2, bootstrap = 50)
