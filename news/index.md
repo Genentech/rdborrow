@@ -167,6 +167,17 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same checks
   ([\#122](https://github.com/Genentech/rdborrow/issues/122)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now give an error when an outcome or covariate is named `S` or `A`, or
+  is the trial-status or treatment column. The internal data uses `S`
+  and `A`, so an outcome named `A` with the treatment in another column
+  was read as the treatment, and the estimate was silently wrong.
+  Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same check
+  ([\#106](https://github.com/Genentech/rdborrow/issues/106)).
 
 ### Documentation
 

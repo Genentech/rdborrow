@@ -45,7 +45,8 @@ setup_analysis_OLE(
 - covariates_col_name:
 
   Character vector of covariate column names. The columns must have no
-  missing values.
+  missing values. Outcome and covariate columns cannot be named `S` or
+  `A`, or be the trial-status or treatment column.
 
 - method_OLE_obj:
 
