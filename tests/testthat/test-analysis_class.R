@@ -267,6 +267,45 @@ test_that("no external controls is rejected unless the method does not use them"
   )
 })
 
+test_that("outcomes and covariates cannot use the internal names S and A", {
+  covs <- c("x1", "x2")
+  outcome_a <- SyntheticData
+  names(outcome_a)[names(outcome_a) == "A"] <- "trt"
+  outcome_a$A <- outcome_a$y1
+  covariate_s <- SyntheticData
+  names(covariate_s)[names(covariate_s) == "S"] <- "in_trial"
+  covariate_s$S <- covariate_s$x1
+
+  expect_error(
+    setup_analysis_primary(
+      outcome_a, "S", "trt", c("A", "y2"), covs, ec_ipw("S ~ x1")
+    ),
+    "names S and A.*A"
+  )
+  expect_error(
+    setup_analysis_OLE(
+      covariate_s, "in_trial", "A", c("y1", "y2", "y3"), c("S", "x2"),
+      did_ec_ipw("in_trial ~ S", bootstrap = 2),
+      T_cross = 2
+    ),
+    "names S and A.*S"
+  )
+  expect_error(
+    estimate(
+      ec_ipw("S ~ x1"),
+      data = outcome_a, outcomes = c("A", "y2"), treatment = "trt",
+      trial_status = "S", covariates = covs
+    ),
+    "names S and A.*A"
+  )
+  expect_error(
+    setup_analysis_primary(
+      SyntheticData, "S", "A", c("y1", "y2"), c("x1", "A"), ec_ipw("S ~ x1")
+    ),
+    "names S and A.*A"
+  )
+})
+
 test_that("show method prints without error", {
   obj <- setup_analysis(
     data = SyntheticData,

@@ -52,6 +52,8 @@ setMethod(
 #'   columns must have no missing values.
 #' @param covariates_col_name Character vector of covariate column names. The
 #'   columns must have no missing values.
+#'   Outcome and covariate columns cannot be named \code{S} or \code{A}, or
+#'   be the trial-status or treatment column.
 #' @param method_weighting_obj A method object created by
 #'   \code{\link{ec_ipw}} or \code{\link{ec_aipw}}.
 #' @param alpha Significance level, more than 0 and less than 1 (default
