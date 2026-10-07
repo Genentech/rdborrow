@@ -24,9 +24,11 @@ trial patients, 0 for external controls. Must be numeric or logical.}
 for control. Must be numeric or logical, not a factor. External controls
 must have 0.}
 
-\item{outcome_col_name}{Character vector of outcome column names.}
+\item{outcome_col_name}{Character vector of outcome column names. The
+columns must have no missing values.}
 
-\item{covariates_col_name}{Character vector of covariate column names.}
+\item{covariates_col_name}{Character vector of covariate column names. The
+columns must have no missing values.}
 
 \item{method_weighting_obj}{A method object created by
 \code{\link{ec_ipw}} or \code{\link{ec_aipw}}.}

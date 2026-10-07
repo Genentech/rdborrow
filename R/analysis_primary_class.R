@@ -46,8 +46,10 @@ setMethod(
 #' @param treatment_col_name Name of the treatment column: 1 for treated, 0
 #'   for control. Must be numeric or logical, not a factor. External controls
 #'   must have 0.
-#' @param outcome_col_name Character vector of outcome column names.
-#' @param covariates_col_name Character vector of covariate column names.
+#' @param outcome_col_name Character vector of outcome column names. The
+#'   columns must have no missing values.
+#' @param covariates_col_name Character vector of covariate column names. The
+#'   columns must have no missing values.
 #' @param method_weighting_obj A method object created by
 #'   \code{\link{ec_ipw}} or \code{\link{ec_aipw}}.
 #' @param alpha Significance level (default 0.05).
