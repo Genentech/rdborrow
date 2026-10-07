@@ -62,6 +62,19 @@ test_that("bootstrap_ci_type rejects studentized intervals", {
   )
 })
 
+test_that("bootstrap_ci_type without bootstrap is an error", {
+  expect_error(
+    ec_ipw("S ~ x1", bootstrap_ci_type = "bca"),
+    "bootstrap_ci_type.*needs.*bootstrap"
+  )
+  expect_error(
+    ec_aipw("S ~ x1", "y1 ~ x1", bootstrap_ci_type = "norm"),
+    "bootstrap_ci_type.*needs.*bootstrap"
+  )
+  expect_null(ec_ipw("S ~ x1")@bootstrap_ci_type)
+  expect_identical(ec_ipw("S ~ x1", bootstrap = 2)@bootstrap_ci_type, "perc")
+})
+
 test_that(".match_outcome_formulas orders formulas by their left-hand side", {
   outs <- c("y1", "y2", "y3")
   f <- c("y3 ~ x1", "y1 ~ x1", "y2 ~ x2")
