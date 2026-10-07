@@ -22,7 +22,8 @@ setup_analysis_OLE(
 trial patients, 0 for external controls. Must be numeric or logical.}
 
 \item{treatment_col_name}{Name of the treatment column: 1 for treated, 0
-for control. Must be numeric or logical, not a factor.}
+for control. Must be numeric or logical, not a factor. External controls
+must have 0.}
 
 \item{outcome_col_name}{Character vector of outcome column names
 covering both placebo-controlled and OLE periods.}

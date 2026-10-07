@@ -128,8 +128,7 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @noRd
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates) {
-  .check_binary_column(data[[trial_status]], trial_status)
-  .check_binary_column(data[[treatment]], treatment)
+  .check_status_and_treatment(data, trial_status, treatment)
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   data.frame(Y,
     S = data[[trial_status]], A = data[[treatment]],
@@ -174,6 +173,27 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
     stop("Column '", col, "' must contain only 0 and 1.", call. = FALSE)
   }
   invisible(x)
+}
+
+#' Check the trial-status and treatment columns: each holds only 0 and 1,
+#' and every external control (trial status 0) has treatment 0.
+#' @param data data frame.
+#' @param trial_status trial-status column name.
+#' @param treatment treatment column name.
+#' @return `data`, invisibly.
+#' @noRd
+.check_status_and_treatment <- function(data, trial_status, treatment) {
+  .check_binary_column(data[[trial_status]], trial_status)
+  .check_binary_column(data[[treatment]], treatment)
+  n_treated_ext <- sum(data[[trial_status]] == 0 & data[[treatment]] == 1)
+  if (n_treated_ext > 0) {
+    stop("External controls must have treatment 0, but ", n_treated_ext,
+      " external controls have treatment 1 (column '", treatment, "' is 1 ",
+      "where column '", trial_status, "' is 0).",
+      call. = FALSE
+    )
+  }
+  invisible(data)
 }
 
 #' Put outcome formulas in the order of the outcomes, matching each formula
