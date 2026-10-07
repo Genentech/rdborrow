@@ -58,8 +58,9 @@ setMethod(
     choices = names(data)
   )
 
-  .check_binary_column(data[[trial_status_col_name]], trial_status_col_name)
-  .check_binary_column(data[[treatment_col_name]], treatment_col_name)
+  .check_status_and_treatment(
+    data, trial_status_col_name, treatment_col_name
+  )
 }
 
 setup_analysis <- function(data, trial_status_col_name, treatment_col_name,

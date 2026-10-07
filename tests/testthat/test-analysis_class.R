@@ -133,6 +133,33 @@ test_that("estimate() also rejects a factor treatment column", {
   )
 })
 
+test_that("external controls coded as treated are rejected", {
+  d <- SyntheticData
+  d$A[d$S == 0][1:20] <- 1
+  outs <- c("y1", "y2", "y3", "y4")
+  msg <- "20 external controls have treatment 1"
+
+  expect_error(
+    setup_analysis_primary(d, "S", "A", outs, "x1", ec_ipw("S ~ x1")),
+    msg
+  )
+  expect_error(
+    setup_analysis_OLE(
+      d, "S", "A", outs, "x1", did_ec_ipw("S ~ x1", bootstrap = 2),
+      T_cross = 2
+    ),
+    msg
+  )
+  expect_error(
+    estimate(
+      ec_ipw("S ~ x1"),
+      data = d, outcomes = outs, treatment = "A", trial_status = "S",
+      covariates = "x1"
+    ),
+    msg
+  )
+})
+
 test_that("show method prints without error", {
   obj <- setup_analysis(
     data = SyntheticData,
