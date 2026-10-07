@@ -61,6 +61,10 @@ setMethod(
   .check_status_and_treatment(
     data, trial_status_col_name, treatment_col_name
   )
+  checkmate::assert_data_frame(
+    data[c(outcome_col_name, covariates_col_name)],
+    any.missing = FALSE, .var.name = "data"
+  )
 }
 
 setup_analysis <- function(data, trial_status_col_name, treatment_col_name,

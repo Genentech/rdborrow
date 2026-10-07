@@ -53,8 +53,10 @@ setMethod(
 #'   for control. Must be numeric or logical, not a factor. External controls
 #'   must have 0.
 #' @param outcome_col_name Character vector of outcome column names
-#'   covering both placebo-controlled and OLE periods.
-#' @param covariates_col_name Character vector of covariate column names.
+#'   covering both placebo-controlled and OLE periods. The columns must have
+#'   no missing values.
+#' @param covariates_col_name Character vector of covariate column names. The
+#'   columns must have no missing values.
 #' @param method_OLE_obj A method object created by
 #'   \code{\link{did_ec_ipw}}, \code{\link{did_ec_aipw}},
 #'   \code{\link{did_ec_or}}, or \code{\link{scm}}.

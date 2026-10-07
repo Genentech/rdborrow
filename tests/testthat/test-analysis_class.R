@@ -160,6 +160,38 @@ test_that("external controls coded as treated are rejected", {
   )
 })
 
+test_that("missing values in outcomes or covariates are rejected", {
+  outs <- c("y1", "y2", "y3", "y4")
+  with_na <- function(col) {
+    d <- SyntheticData
+    d[[col]][5] <- NA
+    d
+  }
+  setup <- function(d) {
+    setup_analysis_primary(d, "S", "A", outs, "x1", ec_ipw("S ~ x1"))
+  }
+
+  expect_error(setup(with_na("y1")), "missing values.*'y1', row 5")
+  expect_error(setup(with_na("x1")), "missing values.*'x1', row 5")
+  expect_error(
+    setup_analysis_OLE(
+      with_na("y3"), "S", "A", outs, "x1",
+      did_ec_ipw("S ~ x1", bootstrap = 2),
+      T_cross = 2
+    ),
+    "missing values.*'y3', row 5"
+  )
+  expect_error(
+    estimate(
+      ec_ipw("S ~ x1"),
+      data = with_na("y2"), outcomes = outs, treatment = "A",
+      trial_status = "S", covariates = "x1"
+    ),
+    "missing values.*'y2', row 5"
+  )
+  expect_s4_class(setup(with_na("x2")), "analysis_primary_obj")
+})
+
 test_that("show method prints without error", {
   obj <- setup_analysis(
     data = SyntheticData,

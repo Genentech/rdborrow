@@ -129,6 +129,10 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 .build_analysis_df <- function(data, outcomes, treatment, trial_status,
                                covariates) {
   .check_status_and_treatment(data, trial_status, treatment)
+  checkmate::assert_data_frame(
+    data[c(outcomes, covariates)],
+    any.missing = FALSE, .var.name = "data"
+  )
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   data.frame(Y,
     S = data[[trial_status]], A = data[[treatment]],
