@@ -61,3 +61,27 @@ test_that("scm() runs end to end on a small data set", {
   expect_identical(rownames(res), c("tau3", "tau4"))
   expect_all_true(is.finite(unlist(res)))
 })
+
+test_that("the scm bootstrap statistic equals the estimate on the original sample", {
+  skip_if_not_installed("ECOSolveR")
+  outs <- c("y1", "y2", "y3", "y4")
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  d <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  method <- scm(lambda_min = 0.05, lambda_max = 0.05, nlambda = 1, bootstrap = 2)
+  set.seed(1)
+  res <- suppressWarnings(estimate(
+    method,
+    data = d, outcomes = outs, treatment = "A", trial_status = "S",
+    covariates = covs, T_cross = 2
+  ))
+  df <- .build_analysis_df(d, outs, "A", "S", covs)
+  boot_pe <- .scm_boot_statistic(
+    df, seq_len(nrow(df)),
+    outcomes = outs, covariates = covs, T_cross = 2, lambda = 0.05
+  )
+  expect_equal(unname(boot_pe), res$point_estimates)
+})

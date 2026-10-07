@@ -105,43 +105,23 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   .check_alpha(alpha)
   T_cross <- .check_T_cross(T_cross, outcomes)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
-  S <- df$S
-  A <- df$A
   n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
   if (!quiet) cat("Running the synthetic control method...\n")
-  # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
-
-  # build attribute matrices (covariates + all outcomes, transposed)
-  X10 <- t(as.matrix(df[S == 1 & A == 0, c(covariates, outcomes), drop = FALSE]))
-  X00 <- t(as.matrix(df[S == 0, c(covariates, outcomes), drop = FALSE]))
-  colnames(X10) <- NULL
-  colnames(X00) <- NULL
-
-  n10 <- sum(S == 1 & A == 0)
 
   # find optimal lambda via LOOCV
   if (!quiet) cat("Performing cross validation for tuning parameter selection...\n")
   lambda <- .scm_lambdacv(
-    ec = X00,
+    ec = .scm_matrices(df, outcomes, covariates)$X00,
     long_term_col_name = long_term_col_name,
     lambda_min = method@lambda_min,
     lambda_max = method@lambda_max,
     nlambda = method@nlambda
   )
 
-  # construct synthetic controls for each RCT control subject
   if (!quiet) cat("Constructing pseudo controls for internal data...\n")
-  res <- lapply(seq_len(n10), .scm_subject_sc,
-    X10 = X10, X00 = X00,
-    long_term_col_name = long_term_col_name, lambda = lambda
-  )
-  y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))
-
-  # aggregate: treated OLE outcomes minus synthetic control OLE outcomes
-  Y_trt <- colMeans(df[S == 1 & A == 1, long_term_col_name, drop = FALSE])
-  tau <- Y_trt - colMeans(y_est_mat)
+  tau <- .scm_core(df, outcomes, covariates, T_cross, lambda)$tau
 
   # bootstrap inference
   if (!quiet) cat("Performing bootstrap inference...\n")
@@ -231,6 +211,50 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   lambda_vals[which.min(mse_vals)]
 }
 
+#' build the attribute matrices for SCM: covariates and all outcomes, with
+#' one column per subject, for trial controls and for external controls.
+#' @param df internal data frame.
+#' @param outcomes outcome column names.
+#' @param covariates covariate column names.
+#' @return list with X10 (trial controls) and X00 (external controls).
+#' @noRd
+.scm_matrices <- function(df, outcomes, covariates) {
+  S <- df$S
+  A <- df$A
+  X10 <- t(as.matrix(df[S == 1 & A == 0, c(covariates, outcomes), drop = FALSE]))
+  X00 <- t(as.matrix(df[S == 0, c(covariates, outcomes), drop = FALSE]))
+  colnames(X10) <- NULL
+  colnames(X00) <- NULL
+  list(X10 = X10, X00 = X00)
+}
+
+#' SCM point estimate (Zhou 2024b, Eq 7-9) for a given lambda.
+#' @param df internal data frame.
+#' @param outcomes outcome column names.
+#' @param covariates covariate column names.
+#' @param T_cross crossover time point.
+#' @param lambda penalty parameter.
+#' @return list with tau vector.
+#' @noRd
+.scm_core <- function(df, outcomes, covariates, T_cross, lambda) {
+  # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
+  S <- df$S
+  A <- df$A
+  long_term_col_name <- outcomes[(T_cross + 1):length(outcomes)]
+  mats <- .scm_matrices(df, outcomes, covariates)
+
+  # construct synthetic controls for each RCT control subject
+  res <- lapply(seq_len(ncol(mats$X10)), .scm_subject_sc,
+    X10 = mats$X10, X00 = mats$X00,
+    long_term_col_name = long_term_col_name, lambda = lambda
+  )
+  y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))
+
+  # aggregate: treated OLE outcomes minus synthetic control OLE outcomes
+  Y_trt <- colMeans(df[S == 1 & A == 1, long_term_col_name, drop = FALSE])
+  list(tau = Y_trt - colMeans(y_est_mat))
+}
+
 #' bootstrap statistic for SCM.
 #' reconstructs synthetic controls on resampled data with pre-computed lambda.
 #' @param data internal data frame.
@@ -244,24 +268,5 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 .scm_boot_statistic <- function(data, indices, outcomes, covariates,
                                 T_cross, lambda) {
   d <- data[indices, , drop = FALSE]
-  S <- d$S
-  A <- d$A
-  n_time <- length(outcomes)
-  long_term_col_name <- outcomes[(T_cross + 1):n_time]
-
-  X10 <- t(as.matrix(d[S == 1 & A == 0, c(covariates, outcomes), drop = FALSE]))
-  X00 <- t(as.matrix(d[S == 0, c(covariates, outcomes), drop = FALSE]))
-  colnames(X10) <- NULL
-  colnames(X00) <- NULL
-
-  n10 <- sum(S == 1 & A == 0)
-
-  res <- lapply(seq_len(n10), .scm_subject_sc,
-    X10 = X10, X00 = X00,
-    long_term_col_name = long_term_col_name, lambda = lambda
-  )
-  y_est_mat <- do.call(rbind, lapply(res, \(x) as.vector(x[[2]])))
-
-  Y_trt <- colMeans(d[S == 1 & A == 1, long_term_col_name, drop = FALSE])
-  Y_trt - colMeans(y_est_mat)
+  .scm_core(d, outcomes, covariates, T_cross, lambda)$tau
 }
