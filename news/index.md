@@ -93,6 +93,19 @@
   round `T_cross` the same way, so simulated data no longer starts the
   crossover one visit early
   ([\#110](https://github.com/Genentech/rdborrow/issues/110)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now require the trial-status and treatment columns to be numeric or
+  logical. A factor with levels such as `c("1", "0")` passed the 0/1
+  check, and `trt_formula` then modeled the wrong level, so
+  [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md)
+  and
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md)
+  gave silently wrong estimates. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same check
+  ([\#111](https://github.com/Genentech/rdborrow/issues/111)).
 
 ### Documentation
 
