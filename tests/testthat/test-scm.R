@@ -85,3 +85,23 @@ test_that("the scm bootstrap statistic equals the estimate on the original sampl
   )
   expect_equal(unname(boot_pe), res$point_estimates)
 })
+
+test_that("scm() runs with two external controls and rejects one", {
+  skip_if_not_installed("ECOSolveR")
+  fit <- function(n_ext) {
+    d <- rbind(
+      SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+      SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+      SyntheticData[SyntheticData$S == 0, ][seq_len(n_ext), ]
+    )
+    analysis <- setup_analysis_OLE(
+      d, "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2", "x3", "x4", "x5"),
+      scm(bootstrap = 2),
+      T_cross = 2
+    )
+    set.seed(1)
+    suppressWarnings(run_analysis(analysis))
+  }
+  expect_all_true(is.finite(fit(2)$point_estimates))
+  expect_error(fit(1), "scm.*at least 2 external controls")
+})
