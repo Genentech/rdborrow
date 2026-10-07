@@ -106,6 +106,35 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same check
   ([\#111](https://github.com/Genentech/rdborrow/issues/111)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now give an error when an external control has treatment 1. The
+  methods assume that external controls are untreated, and
+  [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  and
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  used such patients in different ways:
+  [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  kept them as controls, and
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  left them out of its outcome model. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same check
+  ([\#108](https://github.com/Genentech/rdborrow/issues/108)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now give an error when an outcome or covariate column has missing
+  values, and name the first column and row. The methods gave `NA`
+  estimates, a finite confidence interval next to an `NA` estimate, or,
+  in
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
+  an estimate from the complete cases for some visits only, with no
+  message. Remove or impute missing values before the analysis. Calling
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
+  directly runs the same check
+  ([\#114](https://github.com/Genentech/rdborrow/issues/114)).
 
 ### Documentation
 

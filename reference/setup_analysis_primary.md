@@ -32,15 +32,17 @@ setup_analysis_primary(
 - treatment_col_name:
 
   Name of the treatment column: 1 for treated, 0 for control. Must be
-  numeric or logical, not a factor.
+  numeric or logical, not a factor. External controls must have 0.
 
 - outcome_col_name:
 
-  Character vector of outcome column names.
+  Character vector of outcome column names. The columns must have no
+  missing values.
 
 - covariates_col_name:
 
-  Character vector of covariate column names.
+  Character vector of covariate column names. The columns must have no
+  missing values.
 
 - method_weighting_obj:
 
