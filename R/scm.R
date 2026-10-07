@@ -32,7 +32,8 @@ NULL
 #' controls matching each RCT control subject on covariates and
 #' pre-crossover outcomes. The penalty is chosen by leave-one-out
 #' cross-validation over the external controls, so the data needs at least 2
-#' external controls.
+#' external controls. The covariates must be numeric or logical; code a
+#' factor as 0/1 indicators first.
 #'
 #' @param lambda_min Minimum penalty parameter for LOOCV.
 #' @param lambda_max Maximum penalty parameter for LOOCV.
@@ -110,6 +111,16 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   if (sum(df$S == 0) < 2) {
     stop("scm() needs at least 2 external controls for its leave-one-out ",
       "cross-validation; the data has ", sum(df$S == 0), ".",
+      call. = FALSE
+    )
+  }
+  not_numeric <- covariates[
+    !vapply(df[covariates], \(x) is.numeric(x) || is.logical(x), logical(1))
+  ]
+  if (length(not_numeric) > 0) {
+    stop("scm() matches patients on numeric covariates only. Convert these ",
+      "covariates to numeric (for example, 0/1 indicators for each level): ",
+      paste(not_numeric, collapse = ", "), ".",
       call. = FALSE
     )
   }

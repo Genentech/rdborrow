@@ -105,3 +105,19 @@ test_that("scm() runs with two external controls and rejects one", {
   expect_all_true(is.finite(fit(2)$point_estimates))
   expect_error(fit(1), "scm.*at least 2 external controls")
 })
+
+test_that("scm() names a covariate that is not numeric", {
+  skip_if_not_installed("ECOSolveR")
+  d <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  d$x1 <- factor(d$x1, levels = c(0, 1), labels = c("type II", "type III"))
+  analysis <- setup_analysis_OLE(
+    d, "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2", "x3", "x4", "x5"),
+    scm(bootstrap = 2),
+    T_cross = 2
+  )
+  expect_error(run_analysis(analysis), "scm.*numeric.*x1")
+})
