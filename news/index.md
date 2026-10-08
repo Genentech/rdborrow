@@ -94,6 +94,13 @@
   [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
   with an opaque confidence interval error
   ([\#91](https://github.com/Genentech/rdborrow/issues/91)).
+- [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  now computes its sandwich variance from the outcome models of the
+  point estimate. It fitted them again on all patients, so a formula
+  with a data-dependent basis such as
+  [`splines::ns()`](https://rdrr.io/r/splines/ns.html) got different
+  knots, and the standard error was slightly off
+  ([\#120](https://github.com/Genentech/rdborrow/issues/120)).
 - [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md),
   [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
   and
