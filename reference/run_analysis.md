@@ -25,10 +25,35 @@ run_analysis(analysis_obj, quiet = TRUE)
 
 ## Value
 
-For primary methods, a list with `results` (data frame of point
-estimates, standard errors, and confidence intervals) and
-`borrow_weight`. For OLE methods, a data frame of point estimates and
-bootstrap confidence intervals.
+For primary methods
+([`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md),
+[`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)),
+a list with:
+
+- `results`:
+
+  A data frame with one row for each outcome, named `tau1`, `tau2`, and
+  so on, in the order of `outcome_col_name`. The columns are
+  `point_estimates`, `standard_deviation`, and either `lower_CI_normal`
+  and `upper_CI_normal` (sandwich variance, when `bootstrap` is `NULL`)
+  or `lower_CI_boot` and `upper_CI_boot`. `standard_deviation` is the
+  sandwich standard error, or the standard deviation of the bootstrap
+  replicates.
+
+- `borrow_weight`:
+
+  The borrowing weight that was used.
+
+For OLE methods
+([`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md),
+[`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
+[`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
+[`scm()`](https://genentech.github.io/rdborrow/reference/scm.md)), a
+data frame with one row for each open-label visit and the columns
+`point_estimates`, `lower_CI_boot`, and `upper_CI_boot`. The rows are
+named `tau<k>` for `k` from `T_cross + 1` to the number of outcomes,
+where `k` is the position of the outcome in `outcome_col_name`. List the
+outcomes in visit order.
 
 ## Details
 

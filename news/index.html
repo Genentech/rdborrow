@@ -44,6 +44,8 @@
 <h3 id="minor-improvements-development-version">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/scm.html">scm()</a></code> now solves its optimizations with CVXR’s current interface (<code>psolve()</code> and <code>value()</code>) instead of <code><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve()</a></code> and <code>$getValue()</code>, which CVXR has deprecated and will remove. rdborrow now requires CVXR &gt;= 1.8.1. Estimates are unchanged (<a href="https://github.com/Genentech/rdborrow/issues/97" class="external-link">#97</a>).</li>
+<li>
+<code><a href="../reference/setup_analysis_primary.html">setup_analysis_primary()</a></code> now returns its analysis object visibly, as <code><a href="../reference/setup_analysis_OLE.html">setup_analysis_OLE()</a></code> does, so that it prints at the console (<a href="https://github.com/Genentech/rdborrow/issues/129" class="external-link">#129</a>).</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>

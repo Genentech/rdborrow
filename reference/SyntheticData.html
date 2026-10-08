@@ -46,7 +46,44 @@ and longitudinal outcomes for demonstrating external control borrowing methods.<
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A data frame.</p>
+    <p>A data frame with 300 rows and 12 columns: 100 trial patients on
+  treatment (<code>S = 1</code>, <code>A = 1</code>), 100 trial controls
+  (<code>S = 1</code>, <code>A = 0</code>), and 100 external controls (<code>S = 0</code>,
+  <code>A = 0</code>). The covariates mimic a spinal muscular atrophy (SMA)
+  study.</p><dl><dt>x1</dt>
+<dd><p>SMA type: 0 = type II, 1 = type III.</p></dd>
+
+    <dt>x2</dt>
+<dd><p>SMN2 copy number: 0 = 3 copies, 1 = 4 copies.</p></dd>
+
+    <dt>x3</dt>
+<dd><p>Scoliosis: 0 = no, 1 = yes.</p></dd>
+
+    <dt>x4</dt>
+<dd><p>Age at enrollment, in years.</p></dd>
+
+    <dt>x5</dt>
+<dd><p>Baseline outcome.</p></dd>
+
+    <dt>A</dt>
+<dd><p>Treatment: 1 = treated, 0 = control.</p></dd>
+
+    <dt>S</dt>
+<dd><p>Trial status: 1 = trial patient, 0 = external control.</p></dd>
+
+    <dt>T_cross</dt>
+<dd><p>Last visit before trial controls cross over to
+      treatment: 2 for all rows.</p></dd>
+
+    <dt>y1, y2, y3, y4</dt>
+<dd><p>Outcomes at visits 1 to 4.</p></dd>
+
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
+    <p>Simulated with <code><a href="simulate_trial.html">simulate_trial()</a></code>. The script is
+  <code>data-raw/SyntheticData.R</code> in the package source on GitHub.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

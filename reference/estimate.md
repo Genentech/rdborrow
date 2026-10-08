@@ -132,7 +132,10 @@ estimate(
 
 ## Value
 
-A list with estimation results.
+For primary methods, a list with `results` and `borrow_weight`; for OLE
+methods, a data frame. See
+[`run_analysis`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+for the columns and row names.
 
 ## Examples
 

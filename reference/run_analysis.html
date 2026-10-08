@@ -62,10 +62,28 @@ and pass it here.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For primary methods, a list with <code>results</code> (data frame of
-  point estimates, standard errors, and confidence intervals) and
-  <code>borrow_weight</code>. For OLE methods, a data frame of point estimates
-  and bootstrap confidence intervals.</p>
+    <p>For primary methods (<code><a href="ec_ipw.html">ec_ipw()</a></code>, <code><a href="ec_aipw.html">ec_aipw()</a></code>), a list
+  with:</p><dl><dt><code>results</code></dt>
+<dd><p>A data frame with one row for each outcome, named
+      <code>tau1</code>, <code>tau2</code>, and so on, in the order of
+      <code>outcome_col_name</code>. The columns are <code>point_estimates</code>,
+      <code>standard_deviation</code>, and either <code>lower_CI_normal</code> and
+      <code>upper_CI_normal</code> (sandwich variance, when <code>bootstrap</code> is
+      <code>NULL</code>) or <code>lower_CI_boot</code> and <code>upper_CI_boot</code>.
+      <code>standard_deviation</code> is the sandwich standard error, or the
+      standard deviation of the bootstrap replicates.</p></dd>
+
+    <dt><code>borrow_weight</code></dt>
+<dd><p>The borrowing weight that was used.</p></dd>
+
+
+</dl><p>For OLE methods (<code><a href="did_ec_ipw.html">did_ec_ipw()</a></code>, <code><a href="did_ec_aipw.html">did_ec_aipw()</a></code>,
+  <code><a href="did_ec_or.html">did_ec_or()</a></code>, <code><a href="scm.html">scm()</a></code>), a data frame with one row for each
+  open-label visit and the columns <code>point_estimates</code>,
+  <code>lower_CI_boot</code>, and <code>upper_CI_boot</code>. The rows are named
+  <code>tau&lt;k&gt;</code> for <code>k</code> from <code>T_cross + 1</code> to the number of
+  outcomes, where <code>k</code> is the position of the outcome in
+  <code>outcome_col_name</code>. List the outcomes in visit order.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

@@ -70,7 +70,11 @@ after randomization can bias the treatment effect.</p></dd>
 
 <dt id="arg-trt-formula">trt_formula<a class="anchor" aria-label="anchor" href="#arg-trt-formula"></a></dt>
 <dd><p>Formula string for the treatment assignment model,
-or <code>NULL</code> (default) for marginal probability.
+or <code>NULL</code> (default) for the marginal probability of treatment in
+the trial. The model is fit on trial patients only, and its predicted
+probabilities set the inverse-probability weights of trial treated and
+trial control patients. The left-hand side is replaced by the treatment
+column, so it can be any name.
 The right-hand side should use only columns in
 <code>covariates_col_name</code>. <code>.</code> or any other column is an error;
 an outcome gives a warning, because adjusting for an outcome measured

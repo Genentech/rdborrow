@@ -92,4 +92,12 @@ setup_analysis_primary(
   covariates_col_name = c("x1", "x2", "x3", "x4", "x5"),
   method_weighting_obj = method
 )
+#> <analysis_primary_obj>
+#>   Observations: 300 
+#>   Trial status: S 
+#>   Treatment: A 
+#>   Outcomes: y1, y2 
+#>   Covariates: x1, x2, x3, x4, x5 
+#>   Method: EC-IPW 
+#>   Alpha: 0.05 
 ```

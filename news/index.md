@@ -58,6 +58,11 @@
   and `$getValue()`, which CVXR has deprecated and will remove. rdborrow
   now requires CVXR \>= 1.8.1. Estimates are unchanged
   ([\#97](https://github.com/Genentech/rdborrow/issues/97)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  now returns its analysis object visibly, as
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  does, so that it prints at the console
+  ([\#129](https://github.com/Genentech/rdborrow/issues/129)).
 
 ### Bug fixes
 

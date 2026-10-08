@@ -39,8 +39,9 @@ setup_analysis_OLE(
 - outcome_col_name:
 
   Character vector of outcome column names covering both
-  placebo-controlled and OLE periods. The columns must have no missing
-  values.
+  placebo-controlled and OLE periods, in visit order. The position of
+  each outcome sets its period and its result row name. The columns must
+  have no missing values.
 
 - covariates_col_name:
 
