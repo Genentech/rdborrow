@@ -99,11 +99,17 @@ after randomization can bias the treatment effect.</p></dd>
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>
 <dd><p>Number of bootstrap replicates (at least 2).
-Defaults to 500.</p></dd>
+Defaults to 500.
+Use about 1000 or more for reported intervals; small values are for
+quick checks only, and their interval can exclude the point estimate.</p></dd>
 
 
 <dt id="arg-bootstrap-ci-type">bootstrap_ci_type<a class="anchor" aria-label="anchor" href="#arg-bootstrap-ci-type"></a></dt>
-<dd><p>Bootstrap CI type. Defaults to <code>"perc"</code>.</p></dd>
+<dd><p>Bootstrap CI type: one of <code>"perc"</code>
+(default), <code>"bca"</code>, <code>"norm"</code>, or <code>"basic"</code>.
+<code>"bca"</code> is slow when <code>bootstrap</code> is smaller than the number
+of patients: <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code> then refits the estimator once for
+each patient.</p></dd>
 
 </dl></div>
     <div class="section level2">

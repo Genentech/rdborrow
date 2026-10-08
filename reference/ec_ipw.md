@@ -31,13 +31,18 @@ ec_ipw(ps_formula, weight = NULL, bootstrap = NULL, bootstrap_ci_type = NULL)
 - bootstrap:
 
   Number of bootstrap replicates (at least 2), or `NULL` (default) for
-  sandwich variance with normal CIs.
+  sandwich variance with normal CIs. Use about 1000 or more for reported
+  intervals; small values are for quick checks only, and their interval
+  can exclude the point estimate.
 
 - bootstrap_ci_type:
 
   Bootstrap CI type, or `NULL` (default) which resolves to `"perc"` when
   `bootstrap` is set. One of `"perc"`, `"bca"`, `"norm"`, or `"basic"`.
-  Needs `bootstrap`.
+  Needs `bootstrap`. `"bca"` is slow when `bootstrap` is smaller than
+  the number of patients:
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) then
+  refits the estimator once for each patient.
 
 ## Value
 

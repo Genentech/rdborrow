@@ -110,6 +110,10 @@
   The value was kept but not used, so a user who asked for, say, BCa
   intervals got sandwich intervals with no message
   ([\#123](https://github.com/Genentech/rdborrow/issues/123)).
+- [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+  now checks that its first argument is an analysis object and that
+  `quiet` is `TRUE` or `FALSE`. A wrong type gave “no applicable method
+  for `@`” ([\#125](https://github.com/Genentech/rdborrow/issues/125)).
 - [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
   no longer errors with “‘x’ is NULL” when a method’s results have a
   single column. It kept the last row of each replicate without
@@ -228,6 +232,21 @@
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md)
   directly runs the same check
   ([\#106](https://github.com/Genentech/rdborrow/issues/106)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now give an error when an outcome or covariate name is listed twice,
+  including as both an outcome and a covariate.
+  `outcome_col_name = c("y1", "y1")` gave two identical estimates
+  ([\#125](https://github.com/Genentech/rdborrow/issues/125)).
+- [`setup_analysis_primary()`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
+  and
+  [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
+  now accept outcome and covariate names that are not syntactic R names,
+  such as `"week 12"`. The internal data renamed them (to `week.12`),
+  and the analysis failed with “undefined columns selected”. Write such
+  names with backticks in formulas
+  ([\#125](https://github.com/Genentech/rdborrow/issues/125)).
 - [`setup_simulation_OLE()`](https://genentech.github.io/rdborrow/reference/setup_simulation_OLE.md)
   now checks `T_cross` as
   [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)

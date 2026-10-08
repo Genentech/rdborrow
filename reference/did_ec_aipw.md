@@ -53,11 +53,17 @@ did_ec_aipw(
 
 - bootstrap:
 
-  Number of bootstrap replicates (at least 2). Defaults to 500.
+  Number of bootstrap replicates (at least 2). Defaults to 500. Use
+  about 1000 or more for reported intervals; small values are for quick
+  checks only, and their interval can exclude the point estimate.
 
 - bootstrap_ci_type:
 
-  Bootstrap CI type. Defaults to `"perc"`.
+  Bootstrap CI type: one of `"perc"` (default), `"bca"`, `"norm"`, or
+  `"basic"`. `"bca"` is slow when `bootstrap` is smaller than the number
+  of patients:
+  [`boot::boot.ci()`](https://rdrr.io/pkg/boot/man/boot.ci.html) then
+  refits the estimator once for each patient.
 
 ## Value
 
