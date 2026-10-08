@@ -62,6 +62,8 @@ Simulate trial and external control data
 
 - [`SyntheticData`](https://genentech.github.io/rdborrow/reference/SyntheticData.md)
   : Synthetic example dataset for rdborrow
+- [`SyntheticDataII`](https://genentech.github.io/rdborrow/reference/SyntheticDataII.md)
+  : Unbalanced synthetic example dataset for rdborrow
 
 ## Deprecated
 

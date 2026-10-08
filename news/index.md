@@ -52,6 +52,12 @@
 
 ### Minor improvements
 
+- New example dataset `SyntheticDataII`, an unbalanced companion to
+  `SyntheticData`: 2:1 randomization (160 treated, 80 controls), 140
+  external controls, and a covariate shift between the trial and the
+  external controls. Balanced data can hide errors, such as exchanging
+  the randomization probability and its complement
+  ([\#102](https://github.com/Genentech/rdborrow/issues/102)).
 - Progress output from `quiet = FALSE` in
   [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md),
   [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md),
