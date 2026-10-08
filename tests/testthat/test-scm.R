@@ -214,3 +214,25 @@ test_that(".scm_lambdacv picks the lambda with the smallest held-out error", {
   expect_equal(lambda, grid[which.min(mse)])
   expect_gt(max(mse) - min(mse), 1)
 })
+
+test_that("scm() stops with a clear error when the solver fails", {
+  skip_if_not_installed("ECOSolveR")
+  d <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  fit <- function() {
+    analysis <- setup_analysis_OLE(
+      d, "S", "A", c("y1", "y2", "y3", "y4"), c("x1", "x2", "x3", "x4", "x5"),
+      scm(bootstrap = 2),
+      T_cross = 2
+    )
+    set.seed(1)
+    suppressWarnings(run_analysis(analysis))
+  }
+  local_mocked_bindings(.scm_status = function(prob) "infeasible")
+  expect_error(fit(), "solver status is 'infeasible'.*rescale")
+  local_mocked_bindings(.scm_status = function(prob) "optimal_inaccurate")
+  expect_all_true(is.finite(fit()$point_estimates))
+})
