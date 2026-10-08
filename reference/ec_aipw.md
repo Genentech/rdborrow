@@ -1,7 +1,7 @@
 # EC-AIPW method
 
 Creates a method object for augmented IPW estimation with external
-control borrowing (Zhou et al., 2024). Augments the IPW estimator with
+control borrowing (Zhou et al., 2025). Augments the IPW estimator with
 an outcome regression model for improved efficiency. Pass to
 [`setup_analysis_primary`](https://genentech.github.io/rdborrow/reference/setup_analysis_primary.md)
 and
@@ -68,8 +68,9 @@ An S4 object of class `ec_aipw_method`.
 
 ## References
 
-Zhou et al. (2024). Causal estimators for incorporating external
-controls in randomized trials with longitudinal outcomes. *JRSS-A*.
+Zhou et al. (2025). Causal estimators for incorporating external
+controls in randomized trials with longitudinal outcomes. *JRSS-A*,
+188(3), 791-818.
 [doi:10.1093/jrsssa/qnae075](https://doi.org/10.1093/jrsssa/qnae075)
 
 ## Examples

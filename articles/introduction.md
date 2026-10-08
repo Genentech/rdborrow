@@ -21,8 +21,8 @@ placebo-controlled phase by borrowing from external controls.
 
 | Method | Function | Reference | Description |
 |----|----|----|----|
-| EC-IPW | [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md) | Zhou et al. (2024b) | Inverse probability weighting with external control borrowing |
-| EC-AIPW | [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md) | Zhou et al. (2024b) | Augmented IPW (doubly robust) |
+| EC-IPW | [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md) | Zhou et al. (2025) | Inverse probability weighting with external control borrowing |
+| EC-AIPW | [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md) | Zhou et al. (2025) | Augmented IPW (doubly robust) |
 
 Both methods support:
 
@@ -47,10 +47,10 @@ external controls who remain untreated.
 
 | Method | Function | Reference | Description |
 |----|----|----|----|
-| DID-EC-IPW | [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md) | Zhou et al. (2024a) | Difference-in-differences with IPW |
-| DID-EC-AIPW | [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md) | Zhou et al. (2024a) | DID with augmented IPW |
-| DID-EC-OR | [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md) | Zhou et al. (2024a) | DID with outcome regression |
-| SCM | [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) | Zhou et al. (2024a) | Synthetic control method |
+| DID-EC-IPW | [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md) | Zhou et al. (2024) | Difference-in-differences with IPW |
+| DID-EC-AIPW | [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md) | Zhou et al. (2024) | DID with augmented IPW |
+| DID-EC-OR | [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md) | Zhou et al. (2024) | DID with outcome regression |
+| SCM | [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) | Zhou et al. (2024) | Synthetic control method |
 
 All OLE methods use bootstrap for inference.
 
@@ -124,7 +124,7 @@ results
 
 ## References
 
-- Zhou X, Zhu J, Drake C, Pang H (2024). “Causal estimators for
+- Zhou X, Zhu J, Drake C, Pang H (2025). “Causal estimators for
   incorporating external controls in randomized trials with longitudinal
   outcomes.” *Journal of the Royal Statistical Society Series A:
   Statistics in Society*. doi:

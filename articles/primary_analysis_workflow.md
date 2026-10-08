@@ -4,7 +4,7 @@
 
 This vignette demonstrates the primary analysis workflow using the
 EC-IPW and EC-AIPW weighting estimators proposed in [Zhou et
-al. (2024)](https://doi.org/10.1093/jrsssa/qnae075) for incorporating
+al. (2025)](https://doi.org/10.1093/jrsssa/qnae075) for incorporating
 external controls in randomized trials with longitudinal outcomes.
 
 ### 1 Load data
@@ -227,7 +227,7 @@ run_analysis(analysis)
 
 ## References
 
-- Zhou X, Zhu J, Drake C, Pang H (2024). “Causal estimators for
+- Zhou X, Zhu J, Drake C, Pang H (2025). “Causal estimators for
   incorporating external controls in randomized trials with longitudinal
   outcomes.” *Journal of the Royal Statistical Society Series A:
   Statistics in Society*. doi:

@@ -4,7 +4,7 @@
 
 This vignette demonstrates Monte Carlo simulation for evaluating the
 EC-IPW and EC-AIPW weighting estimators proposed in [Zhou et
-al. (2024)](https://doi.org/10.1093/jrsssa/qnae075) for the primary
+al. (2025)](https://doi.org/10.1093/jrsssa/qnae075) for the primary
 (placebo-controlled) phase.
 
 ### 1 Simulate a list of datasets for primary analysis
@@ -381,7 +381,7 @@ simulation_report_bs
 
 ## References
 
-- Zhou X, Zhu J, Drake C, Pang H (2024). “Causal estimators for
+- Zhou X, Zhu J, Drake C, Pang H (2025). “Causal estimators for
   incorporating external controls in randomized trials with longitudinal
   outcomes.” *Journal of the Royal Statistical Society Series A:
   Statistics in Society*. doi:
