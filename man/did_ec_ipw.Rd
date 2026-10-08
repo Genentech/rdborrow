@@ -20,7 +20,11 @@ an outcome gives a warning, because adjusting for an outcome measured
 after randomization can bias the treatment effect.}
 
 \item{trt_formula}{Formula string for the treatment assignment model,
-or \code{NULL} (default) for marginal probability.
+or \code{NULL} (default) for the marginal probability of treatment in
+the trial. The model is fit on trial patients only, and its predicted
+probabilities set the inverse-probability weights of trial treated and
+trial control patients. The left-hand side is replaced by the treatment
+column, so it can be any name.
 The right-hand side should use only columns in
 \code{covariates_col_name}. \code{.} or any other column is an error;
 an outcome gives a warning, because adjusting for an outcome measured

@@ -7,6 +7,7 @@
 
 ## Minor improvements
 - `scm()` now solves its optimizations with CVXR's current interface (`psolve()` and `value()`) instead of `solve()` and `$getValue()`, which CVXR has deprecated and will remove. rdborrow now requires CVXR >= 1.8.1. Estimates are unchanged (#97).
+- `setup_analysis_primary()` now returns its analysis object visibly, as `setup_analysis_OLE()` does, so that it prints at the console (#129).
 
 ## Bug fixes
 - All method constructors now require `bootstrap` to be at least 2. `bootstrap = 1` was accepted and then failed inside `run_analysis()` with an opaque confidence interval error (#91).

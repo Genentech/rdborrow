@@ -52,7 +52,9 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 #' @param T_cross Integer crossover time point (OLE methods only).
 #' @param ... Additional method-specific arguments.
 #'
-#' @return A list with estimation results.
+#' @return For primary methods, a list with \code{results} and
+#'   \code{borrow_weight}; for OLE methods, a data frame. See
+#'   \code{\link{run_analysis}} for the columns and row names.
 #' @export
 #'
 #' @examples
