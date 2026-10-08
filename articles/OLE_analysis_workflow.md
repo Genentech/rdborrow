@@ -50,12 +50,13 @@ analysis <- setup_analysis_OLE(
   method_OLE_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.075926     0.1198765      4.230701
-    ## tau4        4.389438     0.8192601      7.040613
+    ## tau3        2.075926    -0.5383522      4.529989
+    ## tau4        4.389438     0.7651932      8.041151
 
 #### 1.2 DID-EC-AIPW
 
@@ -85,12 +86,13 @@ analysis <- setup_analysis_OLE(
   method_OLE_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.041727    -1.3020727      4.372254
-    ## tau4        4.036118     0.6559398      7.388494
+    ## tau3        2.041727    -0.9601101      4.902500
+    ## tau4        4.036118     0.9831966      7.465598
 
 #### 1.3 DID-EC-OR
 
@@ -120,14 +122,23 @@ analysis <- setup_analysis_OLE(
   method_OLE_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        1.568947      -1.06647      4.138741
-    ## tau4        4.407834       1.91722      7.107674
+    ## tau3        1.568947     -1.463867      3.569813
+    ## tau4        4.407834      1.918617      6.407367
 
 ### 2 Synthetic control method
+
+[`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) solves
+one optimization for each trial control patient in each bootstrap
+replicate, so it is slow. This example uses only 3 replicates so that
+the vignette builds quickly. Its interval is for demonstration only:
+`boot` warns that it uses the extreme replicates, and it can even
+exclude the point estimate. A real analysis needs many more replicates,
+for example `bootstrap = 1000`.
 
 ``` r
 
@@ -149,12 +160,16 @@ analysis <- setup_analysis_OLE(
   method_OLE_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
+    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
+    ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
+
     ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.064756     0.6869358      4.487804
-    ## tau4        3.943234     2.7631105      6.711921
+    ## tau3        2.064756      1.831022      2.854466
+    ## tau4        3.943234      1.909084      6.089916
 
 ## References
 

@@ -98,13 +98,14 @@ analysis <- setup_analysis_primary(
   method_weighting_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
     ## $results
     ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
-    ## tau1      -0.1971969          0.4959412    -1.2142174     0.8434478
-    ## tau2       0.4697209          0.5292954    -0.6256452     1.7990102
+    ## tau1      -0.1971969          0.4882918    -1.3705232     0.9723497
+    ## tau2       0.4697209          0.5516391    -0.8097839     1.4117831
     ## 
     ## $borrow_weight
     ## [1] 0.1475196
@@ -208,13 +209,14 @@ analysis <- setup_analysis_primary(
   method_weighting_obj = method
 )
 
+set.seed(1)
 run_analysis(analysis)
 ```
 
     ## $results
     ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
-    ## tau1      -0.5463256           0.565138     -1.617718     0.8547375
-    ## tau2       0.5401750           0.594804     -0.880384     1.5808952
+    ## tau1      -0.5463256          0.5266025     -1.649944     0.8207523
+    ## tau2       0.5401750          0.6137536     -1.055467     1.6622471
     ## 
     ## $borrow_weight
     ## [1] 0.1475196

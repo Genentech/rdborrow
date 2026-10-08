@@ -52,6 +52,15 @@
 
 ### Minor improvements
 
+- Progress output from `quiet = FALSE` in
+  [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md),
+  [`estimate()`](https://genentech.github.io/rdborrow/reference/estimate.md),
+  and
+  [`run_simulation()`](https://genentech.github.io/rdborrow/reference/run_simulation.md)
+  now uses [`message()`](https://rdrr.io/r/base/message.html) instead of
+  [`cat()`](https://rdrr.io/r/base/cat.html), so
+  [`suppressMessages()`](https://rdrr.io/r/base/message.html) silences
+  it ([\#129](https://github.com/Genentech/rdborrow/issues/129)).
 - [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
   solves its optimizations with CVXR’s current interface (`psolve()` and
   `value()`) instead of [`solve()`](https://rdrr.io/r/base/solve.html)
