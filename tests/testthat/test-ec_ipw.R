@@ -107,7 +107,8 @@ test_that("the sandwich variance does not build an N x N matrix", {
     invisible(gc(reset = TRUE))
     before <- sum(gc()[, 2])
     run_analysis(analysis)
-    sum(gc()[, 6]) - before
+    m <- gc()
+    sum(m[, which(colnames(m) == "max used") + 1]) - before
   }
   expect_lt(extra_mb(ec_ipw("S ~ x1")), 100)
   expect_lt(extra_mb(ec_aipw("S ~ x1", "y1 ~ x1")), 100)
