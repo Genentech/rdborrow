@@ -46,6 +46,7 @@ importFrom(methods,
 )
 importFrom(stats,
   as.formula,
+  coef,
   glm,
   lm,
   model.matrix,

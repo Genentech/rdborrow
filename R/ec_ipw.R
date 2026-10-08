@@ -257,7 +257,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
   # w>0: full sandwich with PS model blocks
   pi_S <- n / N
+  # drop columns that glm() aliased (coefficient NA), as the fit itself does
   X_model <- model.matrix(core$ps_model)
+  X_model <- X_model[, !is.na(coef(core$ps_model)), drop = FALSE]
   n_ps <- ncol(X_model)
 
   # bread: A matrix blocks (Eq 12)

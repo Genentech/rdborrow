@@ -49,3 +49,13 @@ test_that("ec_aipw() validates outcome_formula and bootstrap_ci_type", {
   expect_identical(ec_aipw(ps, of, bootstrap = 50)@bootstrap_ci_type, "perc")
   expect_null(ec_aipw(ps, of)@bootstrap_ci_type)
 })
+
+test_that("collinear covariates in either ec_aipw() model are dropped", {
+  d <- SyntheticDataII
+  d$x6 <- 2 * d$x5
+  fit <- function(ps, rhs) {
+    method <- ec_aipw(ps, paste(c("y1", "y2"), "~", rhs))
+    run_primary(d, method, covariates = c("x5", "x6"))
+  }
+  expect_equal(fit("S ~ x5 + x6", "x5 + x6"), fit("S ~ x5", "x5"))
+})
