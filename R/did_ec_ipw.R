@@ -124,7 +124,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   )
 })
 
-#' DID-EC-IPW point estimate (Zhou 2024b, Eq 4 / Appendix B).
+#' DID-EC-IPW point estimate (Zhou 2024, Eq 4 / Appendix B).
 #' @param df internal data frame.
 #' @param Y outcome matrix (N x T).
 #' @param S trial participation vector.
@@ -135,7 +135,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau vector.
 #' @noRd
 .did_ec_ipw_core <- function(df, Y, S, A, T_cross, ps_formula, trt_formula) {
-  # see Zhou 2024b: Eq 4 (identification), Appendix B (sample estimator)
+  # see Zhou 2024: Eq 4 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
   n_time <- ncol(Y)

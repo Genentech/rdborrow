@@ -31,7 +31,7 @@ An S4 object of class \code{ec_ipw_method}.
 }
 \description{
 Creates a method object for IPW estimation with external control
-borrowing (Zhou et al., 2024). Pass to \code{\link{setup_analysis_primary}}
+borrowing (Zhou et al., 2025). Pass to \code{\link{setup_analysis_primary}}
 and \code{\link{run_analysis}}.
 }
 \examples{
@@ -55,7 +55,7 @@ ec_ipw(
 )
 }
 \references{
-Zhou et al. (2024). Causal estimators for incorporating external
+Zhou et al. (2025). Causal estimators for incorporating external
 controls in randomized trials with longitudinal outcomes.
-\emph{JRSS-A}. \doi{10.1093/jrsssa/qnae075}
+\emph{JRSS-A}, 188(3), 791-818. \doi{10.1093/jrsssa/qnae075}
 }

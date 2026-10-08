@@ -10,7 +10,7 @@ Description: Implements causal inference methods for incorporating external
     as well as a simulation module for generating trial and external control
     data, evaluating estimator performance via Monte Carlo studies, and
     conducting power analyses for sample size determination. Methods are
-    based on Zhou et al. (2024) <doi:10.1093/jrsssa/qnae075> and
+    based on Zhou et al. (2025) <doi:10.1093/jrsssa/qnae075> and
     Zhou et al. (2024) <doi:10.1080/10543406.2024.2330209>.
 Version: 0.0.4.2
 License: Apache License (>= 2)

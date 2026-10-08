@@ -19,7 +19,7 @@ NULL
 #' EC-IPW method constructor
 #'
 #' Creates a method object for IPW estimation with external control
-#' borrowing (Zhou et al., 2024). Pass to \code{\link{setup_analysis_primary}}
+#' borrowing (Zhou et al., 2025). Pass to \code{\link{setup_analysis_primary}}
 #' and \code{\link{run_analysis}}.
 #'
 #' @param ps_formula Formula string for the propensity score model
@@ -41,9 +41,9 @@ NULL
 #' @return An S4 object of class \code{ec_ipw_method}.
 #'
 #' @references
-#' Zhou et al. (2024). Causal estimators for incorporating external
+#' Zhou et al. (2025). Causal estimators for incorporating external
 #' controls in randomized trials with longitudinal outcomes.
-#' \emph{JRSS-A}. \doi{10.1093/jrsssa/qnae075}
+#' \emph{JRSS-A}, 188(3), 791-818. \doi{10.1093/jrsssa/qnae075}
 #'
 #' @export
 #'
@@ -170,7 +170,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau, borrow_weight, and model intermediates.
 #' @noRd
 .ec_ipw_core <- function(df, Y, S, A, ps_formula, weight) {
-  # see Zhou 2024a: Def 1 (Eq 6) for point estimate, Eq 11 for optimal weight
+  # see Zhou 2025: Def 1 (Eq 6) for point estimate, Eq 11 for optimal weight
 
   n <- sum(S)
   pi_A <- sum(A[S == 1]) / n
@@ -228,7 +228,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau and sd_tau.
 #' @noRd
 .ec_ipw_se <- function(df, core, n_time) {
-  # see Zhou 2024a: Theorem 3 (Eq 12 for A/B matrices, Eq 13 for variance)
+  # see Zhou 2025: Theorem 3 (Eq 12 for A/B matrices, Eq 13 for variance)
 
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
   S <- df$S
