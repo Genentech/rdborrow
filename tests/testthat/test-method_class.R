@@ -119,3 +119,64 @@ test_that(".match_outcome_formulas rejects transformed and missing outcomes", {
     "f.*left-hand side"
   )
 })
+
+test_that("bootstrap intervals of both primary methods use alpha", {
+  ps <- "S ~ x1 + x2 + x3 + x4 + x5"
+  of <- paste(c("y1", "y2"), "~ x1 + x2 + x3 + x4 + x5")
+  for (method in list(ec_ipw(ps, bootstrap = 50), ec_aipw(ps, of, bootstrap = 50))) {
+    set.seed(1)
+    wide <- run_primary(SyntheticDataII, method, alpha = 0.05)$results
+    set.seed(1)
+    narrow <- run_primary(SyntheticDataII, method, alpha = 0.5)$results
+    expect_all_true(narrow$lower_CI_boot > wide$lower_CI_boot)
+    expect_all_true(narrow$upper_CI_boot < wide$upper_CI_boot)
+  }
+})
+
+test_that("basic and norm bootstrap intervals have their defining relations", {
+  boot_ci <- function(type) {
+    set.seed(7)
+    run_primary(
+      SyntheticDataII,
+      ec_ipw("S ~ x1 + x2 + x3 + x4 + x5", bootstrap = 50, bootstrap_ci_type = type)
+    )$results
+  }
+  perc <- boot_ci("perc")
+  basic <- boot_ci("basic")
+  norm <- boot_ci("norm")
+  tau <- perc$point_estimates
+  expect_equal(basic$lower_CI_boot, 2 * tau - perc$upper_CI_boot)
+  expect_equal(basic$upper_CI_boot, 2 * tau - perc$lower_CI_boot)
+  expect_equal(
+    norm$upper_CI_boot - norm$lower_CI_boot,
+    2 * qnorm(0.975) * norm$standard_deviation
+  )
+})
+
+test_that(".run_bootstrap() norm interval is the bias-corrected normal interval", {
+  d <- SyntheticDataII
+  stat <- function(data, indices) mean(data$y1[indices])
+  set.seed(11)
+  out <- .run_bootstrap(d, stat,
+    n_estimates = 1, bootstrap = 200,
+    bootstrap_ci_type = "norm", alpha = 0.1
+  )
+  set.seed(11)
+  b <- boot::boot(d, stat, R = 200, strata = as.integer(interaction(d$S, d$A, drop = TRUE)))
+  centre <- 2 * b$t0 - mean(b$t)
+  half <- qnorm(0.95) * sd(b$t)
+  expect_equal(c(out$lower_ci, out$upper_ci), centre + c(-half, half))
+  expect_equal(out$sd_boot, sd(b$t))
+})
+
+test_that(".run_bootstrap() keeps the S x A group sizes in every replicate", {
+  stat <- function(data, indices) {
+    c(mean(data$y1[indices]), sum(data$S[indices]), sum(data$A[indices]))
+  }
+  set.seed(3)
+  out <- suppressWarnings(.run_bootstrap(SyntheticDataII, stat,
+    n_estimates = 1, bootstrap = 30,
+    bootstrap_ci_type = "perc", alpha = 0.05
+  ))
+  expect_equal(out$sd_boot[2:3], c(0, 0))
+})
