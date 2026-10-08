@@ -8,6 +8,7 @@
 ## Minor improvements
 - New example dataset `SyntheticDataII`, an unbalanced companion to `SyntheticData`: 2:1 randomization (160 treated, 80 controls), 140 external controls, and a covariate shift between the trial and the external controls. Balanced data can hide errors, such as exchanging the randomization probability and its complement (#102).
 - Progress output from `quiet = FALSE` in `run_analysis()`, `estimate()`, and `run_simulation()` now uses `message()` instead of `cat()`, so `suppressMessages()` silences it (#129).
+- `did_ec_ipw()`, `did_ec_aipw()`, `did_ec_or()`, and `scm()` results now include a `standard_deviation` column, the standard deviation of the bootstrap replicates, as the primary methods do with bootstrap inference (#129).
 - `ec_ipw()` and `ec_aipw()` now compute the sandwich variance without an N x N matrix, so memory use grows linearly with the sample size. At N = 8,000, peak memory falls from about 650 MB to 185 MB, and N = 50,000 runs in 0.2 seconds instead of 20. The results are unchanged (#117).
 - `scm()` now solves its optimizations with CVXR's current interface (`psolve()` and `value()`) instead of `solve()` and `$getValue()`, which CVXR has deprecated and will remove. rdborrow now requires CVXR >= 1.8.1. Estimates are unchanged (#97).
 - `setup_analysis_primary()` now returns its analysis object visibly, as `setup_analysis_OLE()` does, so that it prints at the console (#129).

@@ -223,6 +223,34 @@ test_that("estimate() validates and rounds T_cross for every OLE method", {
   }
 })
 
+test_that("OLE methods return the bootstrap standard deviation", {
+  outs <- c("y1", "y2", "y3", "y4")
+  of <- paste(outs, "~ x1 + x2")
+  small <- rbind(
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 1, ][1:10, ],
+    SyntheticData[SyntheticData$S == 1 & SyntheticData$A == 0, ][1:10, ],
+    SyntheticData[SyntheticData$S == 0, ][1:15, ]
+  )
+  methods <- list(
+    did_ec_ipw("S ~ x1 + x2", bootstrap = 5),
+    did_ec_aipw("S ~ x1 + x2", outcome_formula = of, bootstrap = 5),
+    did_ec_or(of, of, of, bootstrap = 5),
+    scm(bootstrap = 5)
+  )
+  for (m in methods) {
+    set.seed(1)
+    res <- suppressWarnings(run_analysis(setup_analysis_OLE(
+      small, "S", "A", outs, c("x1", "x2"), m,
+      T_cross = 2
+    )))
+    expect_named(
+      res,
+      c("point_estimates", "standard_deviation", "lower_CI_boot", "upper_CI_boot")
+    )
+    expect_all_true(res$standard_deviation > 0)
+  }
+})
+
 test_that("estimate() rejects alpha of 0 or 1 for every method", {
   outs <- c("y1", "y2", "y3", "y4")
   of <- paste(outs, "~ x1")

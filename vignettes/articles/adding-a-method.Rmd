@@ -95,7 +95,7 @@ The analysis and simulation code expects a specific shape.
 |---|---|
 | Primary, sandwich SE | `list(results, borrow_weight)`, where `results` is a data frame with one row per outcome (`tau1`, `tau2`, ...) and columns `point_estimates`, `standard_deviation`, `lower_CI_normal`, `upper_CI_normal` |
 | Primary, bootstrap | The same, but `standard_deviation` is the bootstrap standard deviation and the CI columns are `lower_CI_boot`, `upper_CI_boot` instead of the `*_normal` pair |
-| OLE | A data frame with one row per post-crossover outcome and columns `point_estimates`, `lower_CI_boot`, `upper_CI_boot` |
+| OLE | A data frame with one row per post-crossover outcome and columns `point_estimates`, `standard_deviation` (the bootstrap standard deviation), `lower_CI_boot`, `upper_CI_boot` |
 
 A primary method doesn't need a sandwich variance. If it only supports the
 bootstrap, return just the bootstrap shape.

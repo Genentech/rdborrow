@@ -128,6 +128,7 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
 
   data.frame(
     point_estimates = tau,
+    standard_deviation = boot_res$sd_boot,
     lower_CI_boot = boot_res$lower_ci,
     upper_CI_boot = boot_res$upper_ci,
     row.names = paste0("tau", (T_cross + 1):ncol(Y))
