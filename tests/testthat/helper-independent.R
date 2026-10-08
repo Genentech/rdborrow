@@ -83,3 +83,14 @@ independent_ec <- function(d, outcomes, covs, w, augment = FALSE) {
     max_ee = max(abs(colMeans(psi(theta))))
   )
 }
+
+# the paper's Eq 11 optimal weight, from an independently fitted PS model----
+independent_opt_weight <- function(d, covs) {
+  X <- cbind(1, as.matrix(d[, covs]))
+  ps <- fitted(glm(d$S ~ X - 1, family = binomial))
+  w00 <- (ps / (1 - ps))[d$S == 0]
+  n10 <- sum(d$S == 1 & d$A == 0)
+  v10 <- 1 / n10
+  v00 <- sum(w00^2) / sum(w00)^2
+  v10 / (v10 + v00)
+}
