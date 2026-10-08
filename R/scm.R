@@ -265,7 +265,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   list(X10 = X10, X00 = X00)
 }
 
-#' SCM point estimate (Zhou 2024b, Eq 7-9) for a given lambda.
+#' SCM point estimate (Zhou 2024, Eq 7-9) for a given lambda.
 #' @param df internal data frame.
 #' @param outcomes outcome column names.
 #' @param covariates covariate column names.
@@ -274,7 +274,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
 #' @return list with tau vector.
 #' @noRd
 .scm_core <- function(df, outcomes, covariates, T_cross, lambda) {
-  # see Zhou 2024b: Eq 7-9 (SCM optimization and ATE estimation)
+  # see Zhou 2024: Eq 7-9 (SCM optimization and ATE estimation)
   S <- df$S
   A <- df$A
   long_term_col_name <- outcomes[(T_cross + 1):length(outcomes)]

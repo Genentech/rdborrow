@@ -157,7 +157,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
 
 # internal helpers----
 
-#' DID-EC-OR point estimate (Zhou 2024b, Eq 3 / Appendix B).
+#' DID-EC-OR point estimate (Zhou 2024, Eq 3 / Appendix B).
 #' @param df internal data frame.
 #' @param S trial participation vector.
 #' @param A treatment vector.
@@ -171,7 +171,7 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
                             outcome_formula_ext,
                             outcome_formula_rct_ctrl,
                             outcome_formula_rct_trt) {
-  # see Zhou 2024b: Eq 3 (identification), Appendix B (sample estimator)
+  # see Zhou 2024: Eq 3 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
   n_time <- length(outcome_formula_ext)

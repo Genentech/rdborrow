@@ -157,7 +157,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 
 # internal helpers----
 
-#' DID-EC-AIPW point estimate (Zhou 2024b, Eq 5 / Appendix B).
+#' DID-EC-AIPW point estimate (Zhou 2024, Eq 5 / Appendix B).
 #' @param df internal data frame.
 #' @param Y outcome matrix (N x T).
 #' @param S trial participation vector.
@@ -170,7 +170,7 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
 #' @noRd
 .did_ec_aipw_core <- function(df, Y, S, A, T_cross, ps_formula,
                               trt_formula, outcome_formula) {
-  # see Zhou 2024b: Eq 5 (identification), Appendix B (sample estimator)
+  # see Zhou 2024: Eq 5 (identification), Appendix B (sample estimator)
 
   n <- sum(S)
   N <- length(S)
