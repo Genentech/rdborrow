@@ -1,6 +1,7 @@
 # rdborrow (development version)
 
 ## Breaking changes
+- Formulas in `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()`, `did_ec_aipw()`, and `did_ec_or()` now give an error when the right-hand side uses `.` or a variable that is not in `covariates_col_name`. `.` added the outcomes and the treatment to the model (#105), and a variable not in the data was taken from the R session (#107). An outcome used as a predictor, such as `y1` in the model for `y2`, now gives a warning: it is measured after randomization, so adjusting for it can bias the treatment effect. The primary simulation vignette no longer does this.
 - Outcome formulas in `ec_aipw()`, `did_ec_aipw()`, and `did_ec_or()` must now have the outcome name alone on the left-hand side. A transformed left side, such as `log(y1) ~ x1`, was accepted, but `did_ec_or()` used the transformed scale while `ec_aipw()` and `did_ec_aipw()` mixed it with the raw outcome, so the estimates were wrong. Transform the outcome column before the analysis instead. One-sided formulas such as `~ x1` now fail with a clear message (#138, #139).
 - `setup_simulation_primary()` and `setup_simulation_OLE()` now require `true_effect` to be a single number, the true effect at the final visit. `run_simulation()` scores only the final visit, so a vector was recycled across simulated trials rather than matched to visits, and bias, coverage, type I error, and power were silently wrong unless every element was equal. With an even number of trials there was no warning (#90).
 

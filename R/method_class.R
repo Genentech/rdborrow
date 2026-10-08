@@ -257,6 +257,50 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   invisible(data)
 }
 
+#' Check that the right-hand side of each formula uses only covariates. The
+#' internal data also holds the outcomes, S and A, which `.` would add, and
+#' R looks for any other variable in the formula's environment, which can be
+#' the user's R session. Both are errors. An outcome used as a predictor is a
+#' warning: it is measured after randomization, so adjusting for it can bias
+#' the treatment effect, but the user named it on purpose.
+#' @param formulas character vector of formulas, or NULL.
+#' @param covariates covariate column names.
+#' @param outcomes outcome column names.
+#' @param arg argument name, for messages.
+#' @return `formulas`, invisibly.
+#' @noRd
+.check_formula_covariates <- function(formulas, covariates, outcomes, arg) {
+  rhs_outcomes <- character(0)
+  for (f in formulas) {
+    parsed <- as.formula(f)
+    rhs_vars <- all.vars(parsed[[length(parsed)]])
+    if ("." %in% rhs_vars) {
+      stop("`", arg, "` uses `.`, which would also add the outcomes and the ",
+        "treatment to the model. List the covariates instead; got `", f, "`.",
+        call. = FALSE
+      )
+    }
+    unknown <- setdiff(rhs_vars, c(covariates, outcomes))
+    if (length(unknown) > 0) {
+      stop("`", arg, "` uses variables that are not covariates: ",
+        paste(unknown, collapse = ", "), ". Add them to ",
+        "`covariates_col_name`, or remove them from the formula.",
+        call. = FALSE
+      )
+    }
+    rhs_outcomes <- union(rhs_outcomes, intersect(rhs_vars, outcomes))
+  }
+  if (length(rhs_outcomes) > 0) {
+    warning("`", arg, "` uses outcomes as predictors: ",
+      paste(rhs_outcomes, collapse = ", "), ". These are measured after ",
+      "randomization, so adjusting for them can bias the treatment effect. ",
+      "Use baseline covariates only unless this is intended.",
+      call. = FALSE
+    )
+  }
+  invisible(formulas)
+}
+
 #' Put outcome formulas in the order of the outcomes, matching each formula
 #' to an outcome by the outcome name on its left-hand side. A transformed
 #' left side such as log(y1) is rejected: the methods would mix its scale

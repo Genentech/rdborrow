@@ -14,13 +14,21 @@ ec_aipw(
 }
 \arguments{
 \item{ps_formula}{Formula string for the propensity score model
-predicting trial participation.}
+predicting trial participation.
+The right-hand side should use only columns in
+\code{covariates_col_name}. \code{.} or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.}
 
 \item{outcome_formula}{Character vector of outcome model formulas,
 one per outcome (e.g., \code{c("y1 ~ x1 + x2", "y2 ~ x1 + x2")}).
 Each formula is matched to an outcome by its left-hand side, so the
 order does not matter. The left-hand side must be the outcome name
-itself; to model a transformed outcome, transform the column first.}
+itself; to model a transformed outcome, transform the column first.
+The right-hand side should use only columns in
+\code{covariates_col_name}. \code{.} or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for no direct borrowing, or a value in (0, 1].

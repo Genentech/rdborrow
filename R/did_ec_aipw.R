@@ -28,13 +28,25 @@ NULL
 #'
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param trt_formula Formula string for the treatment assignment model,
 #'   or \code{NULL} (default) for marginal probability.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param outcome_formula Character vector of outcome model formulas,
 #'   one per outcome. Each formula is matched to an outcome by its left-hand
 #'   side, so the order does not matter. The left-hand side must be the
 #'   outcome name itself; to model a transformed outcome, transform the
 #'   column first.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
@@ -101,6 +113,11 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
   S <- df$S
   A <- df$A
 
+  .check_formula_covariates(method@ps_formula, covariates, outcomes, "ps_formula")
+  .check_formula_covariates(method@trt_formula, covariates, outcomes, "trt_formula")
+  .check_formula_covariates(
+    method@outcome_formula, covariates, outcomes, "outcome_formula"
+  )
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   trt_formula <- method@trt_formula
   if (!is.null(trt_formula)) {

@@ -25,6 +25,10 @@ NULL
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation. The left-hand side is replaced
 #'   internally (e.g., \code{"S ~ x1 + x2 + x3"}).
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param weight Borrowing weight. \code{NULL} (default) for data-adaptive
 #'   optimal weight, \code{0} for RCT-only, or a value in (0, 1].
 #' @param bootstrap Number of bootstrap replicates (at least 2), or \code{NULL}
@@ -102,6 +106,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
                                                 covariates, alpha = 0.05,
                                                 quiet = TRUE) {
   .check_alpha(alpha)
+  .check_formula_covariates(method@ps_formula, covariates, outcomes, "ps_formula")
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates,
     external = !isTRUE(method@weight == 0)

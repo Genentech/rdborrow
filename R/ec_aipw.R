@@ -27,11 +27,19 @@ NULL
 #'
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param outcome_formula Character vector of outcome model formulas,
 #'   one per outcome (e.g., \code{c("y1 ~ x1 + x2", "y2 ~ x1 + x2")}).
 #'   Each formula is matched to an outcome by its left-hand side, so the
 #'   order does not matter. The left-hand side must be the outcome name
 #'   itself; to model a transformed outcome, transform the column first.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param weight Borrowing weight. \code{NULL} (default) for data-adaptive
 #'   optimal weight, \code{0} for no direct borrowing, or a value in (0, 1].
 #'   At \code{0} the external controls get no weight, but the outcome model
@@ -128,6 +136,10 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
                                                  covariates, alpha = 0.05,
                                                  quiet = TRUE) {
   .check_alpha(alpha)
+  .check_formula_covariates(method@ps_formula, covariates, outcomes, "ps_formula")
+  .check_formula_covariates(
+    method@outcome_formula, covariates, outcomes, "outcome_formula"
+  )
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   outcome_formula <- .match_outcome_formulas(
     method@outcome_formula, outcomes, "outcome_formula"
