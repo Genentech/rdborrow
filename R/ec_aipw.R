@@ -301,7 +301,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   )
   A34 <- t((1 - S) * core$w00 / (1 - core$pi_S) *
     sweep(core$Yr, 2, core$mu00)) %*% X_ps / N
-  A44 <- t(X_ps) %*% diag(-core$pi_SX * (1 - core$pi_SX)) %*% X_ps / N
+  A44 <- crossprod(X_ps * (-core$pi_SX * (1 - core$pi_SX)), X_ps) / N
 
   A0 <- as.matrix(Matrix::bdiag(
     diag(-1, n_time), diag(-1, n_time), A33, A44
@@ -327,8 +327,9 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
       Y0_model_mats[[t]] / N
   })))
   Y0_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {
-    -t(Y0_model_mats[[t]]) %*%
-      diag((1 - A) / (1 - mean(A))) %*% Y0_model_mats[[t]] / N
+    -crossprod(
+      Y0_model_mats[[t]] * ((1 - A) / (1 - mean(A))), Y0_model_mats[[t]]
+    ) / N
   })))
 
   # assemble full bread matrix----
