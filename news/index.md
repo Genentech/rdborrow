@@ -124,6 +124,16 @@
   The value was kept but not used, so a user who asked for, say, BCa
   intervals got sandwich intervals with no message
   ([\#123](https://github.com/Genentech/rdborrow/issues/123)).
+- [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  and
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  no longer stop with a LAPACK “system is exactly singular” error when a
+  covariate is collinear with others or constant.
+  [`glm()`](https://rdrr.io/r/stats/glm.html) and
+  [`lm()`](https://rdrr.io/r/stats/lm.html) already drop such a
+  covariate from the fit, but the sandwich variance kept its column. The
+  results now equal those without the covariate
+  ([\#118](https://github.com/Genentech/rdborrow/issues/118)).
 - [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
   now checks that its first argument is an analysis object and that
   `quiet` is `TRUE` or `FALSE`. A wrong type gave “no applicable method
