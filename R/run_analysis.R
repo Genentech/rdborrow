@@ -40,6 +40,7 @@
 #'   For OLE methods (\code{did_ec_ipw()}, \code{did_ec_aipw()},
 #'   \code{did_ec_or()}, \code{scm()}), a data frame with one row for each
 #'   open-label visit and the columns \code{point_estimates},
+#'   \code{standard_deviation} (of the bootstrap replicates),
 #'   \code{lower_CI_boot}, and \code{upper_CI_boot}. The rows are named
 #'   \code{tau<k>} for \code{k} from \code{T_cross + 1} to the number of
 #'   outcomes, where \code{k} is the position of the outcome in
