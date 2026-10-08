@@ -10,8 +10,10 @@ ec_ipw(ps_formula, weight = NULL, bootstrap = NULL, bootstrap_ci_type = NULL)
 \item{ps_formula}{Formula string for the propensity score model
 predicting trial participation. The left-hand side is replaced
 internally (e.g., \code{"S ~ x1 + x2 + x3"}).
-The right-hand side may use only columns in
-\code{covariates_col_name}, not \code{.}.}
+The right-hand side should use only columns in
+\code{covariates_col_name}. \code{.} or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.}
 
 \item{weight}{Borrowing weight. \code{NULL} (default) for data-adaptive
 optimal weight, \code{0} for RCT-only, or a value in (0, 1].}

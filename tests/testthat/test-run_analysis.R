@@ -292,7 +292,7 @@ test_that("trial-status and treatment columns can have any name", {
   }
 })
 
-test_that("formulas may use only the covariates on the right-hand side", {
+test_that("formulas use only covariates, and outcomes as predictors warn", {
   outs <- c("y1", "y2", "y3", "y4")
   covs <- c("x1", "x2", "x3", "x4", "x5")
   of <- paste(outs, "~ x1 + x2")
@@ -316,10 +316,11 @@ test_that("formulas may use only the covariates on the right-hand side", {
     ole(did_ec_or(of, of, paste(outs, "~ ."), bootstrap = 2)),
     "outcome_formula_rct_trt.*`\\.`"
   )
-  expect_error(
-    primary(ec_aipw("S ~ x1", c("y1 ~ x1 + y2", "y2 ~ x1"))),
-    "outcome_formula.*not covariates: y2"
+  expect_warning(
+    res <- primary(ec_aipw("S ~ x1", c("y1 ~ x1", "y2 ~ x1 + y1"))),
+    "outcome_formula.*outcomes as predictors: y1.*bias"
   )
+  expect_all_true(is.finite(res$results$point_estimates))
   expect_error(
     primary(ec_ipw("S ~ x1 + z_session_only")),
     "ps_formula.*not covariates: z_session_only"

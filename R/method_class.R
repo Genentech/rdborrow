@@ -260,13 +260,17 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' Check that the right-hand side of each formula uses only covariates. The
 #' internal data also holds the outcomes, S and A, which `.` would add, and
 #' R looks for any other variable in the formula's environment, which can be
-#' the user's R session.
+#' the user's R session. Both are errors. An outcome used as a predictor is a
+#' warning: it is measured after randomization, so adjusting for it can bias
+#' the treatment effect, but the user named it on purpose.
 #' @param formulas character vector of formulas, or NULL.
 #' @param covariates covariate column names.
-#' @param arg argument name, for error messages.
+#' @param outcomes outcome column names.
+#' @param arg argument name, for messages.
 #' @return `formulas`, invisibly.
 #' @noRd
-.check_formula_covariates <- function(formulas, covariates, arg) {
+.check_formula_covariates <- function(formulas, covariates, outcomes, arg) {
+  rhs_outcomes <- character(0)
   for (f in formulas) {
     parsed <- as.formula(f)
     rhs_vars <- all.vars(parsed[[length(parsed)]])
@@ -276,7 +280,7 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
         call. = FALSE
       )
     }
-    unknown <- setdiff(rhs_vars, covariates)
+    unknown <- setdiff(rhs_vars, c(covariates, outcomes))
     if (length(unknown) > 0) {
       stop("`", arg, "` uses variables that are not covariates: ",
         paste(unknown, collapse = ", "), ". Add them to ",
@@ -284,6 +288,15 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
         call. = FALSE
       )
     }
+    rhs_outcomes <- union(rhs_outcomes, intersect(rhs_vars, outcomes))
+  }
+  if (length(rhs_outcomes) > 0) {
+    warning("`", arg, "` uses outcomes as predictors: ",
+      paste(rhs_outcomes, collapse = ", "), ". These are measured after ",
+      "randomization, so adjusting for them can bias the treatment effect. ",
+      "Use baseline covariates only unless this is intended.",
+      call. = FALSE
+    )
   }
   invisible(formulas)
 }

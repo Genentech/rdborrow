@@ -37,8 +37,10 @@ NULL
 #'   so the order does not matter. The left-hand side must be the outcome
 #'   name itself; to model a transformed outcome, transform the column
 #'   first.
-#'   The right-hand side may use only columns in
-#'   \code{covariates_col_name}, not \code{.}.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param bootstrap Number of bootstrap replicates (at least 2).
 #'   Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
@@ -108,13 +110,13 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
   A <- df$A
 
   .check_formula_covariates(
-    method@outcome_formula_ext, covariates, "outcome_formula_ext"
+    method@outcome_formula_ext, covariates, outcomes, "outcome_formula_ext"
   )
   .check_formula_covariates(
-    method@outcome_formula_rct_ctrl, covariates, "outcome_formula_rct_ctrl"
+    method@outcome_formula_rct_ctrl, covariates, outcomes, "outcome_formula_rct_ctrl"
   )
   .check_formula_covariates(
-    method@outcome_formula_rct_trt, covariates, "outcome_formula_rct_trt"
+    method@outcome_formula_rct_trt, covariates, outcomes, "outcome_formula_rct_trt"
   )
   f_ext <- .match_outcome_formulas(
     method@outcome_formula_ext, outcomes, "outcome_formula_ext"

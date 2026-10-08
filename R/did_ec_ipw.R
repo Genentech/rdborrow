@@ -25,12 +25,16 @@ NULL
 #'
 #' @param ps_formula Formula string for the propensity score model
 #'   predicting trial participation.
-#'   The right-hand side may use only columns in
-#'   \code{covariates_col_name}, not \code{.}.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param trt_formula Formula string for the treatment assignment model,
 #'   or \code{NULL} (default) for marginal probability.
-#'   The right-hand side may use only columns in
-#'   \code{covariates_col_name}, not \code{.}.
+#'   The right-hand side should use only columns in
+#'   \code{covariates_col_name}. \code{.} or any other column is an error;
+#'   an outcome gives a warning, because adjusting for an outcome measured
+#'   after randomization can bias the treatment effect.
 #' @param bootstrap Number of bootstrap replicates, at least 2 (required for DID
 #'   methods). Defaults to 500.
 #' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
@@ -88,8 +92,8 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
   S <- df$S
   A <- df$A
 
-  .check_formula_covariates(method@ps_formula, covariates, "ps_formula")
-  .check_formula_covariates(method@trt_formula, covariates, "trt_formula")
+  .check_formula_covariates(method@ps_formula, covariates, outcomes, "ps_formula")
+  .check_formula_covariates(method@trt_formula, covariates, outcomes, "trt_formula")
   ps_formula <- sub("^[^~]*~", "S ~", method@ps_formula)
   trt_formula <- method@trt_formula
   if (!is.null(trt_formula)) {
