@@ -67,6 +67,14 @@
   [`cat()`](https://rdrr.io/r/base/cat.html), so
   [`suppressMessages()`](https://rdrr.io/r/base/message.html) silences
   it ([\#129](https://github.com/Genentech/rdborrow/issues/129)).
+- [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
+  and
+  [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)
+  now compute the sandwich variance without an N x N matrix, so memory
+  use grows linearly with the sample size. At N = 8,000, peak memory
+  falls from about 650 MB to 185 MB, and N = 50,000 runs in 0.2 seconds
+  instead of 20. The results are unchanged
+  ([\#117](https://github.com/Genentech/rdborrow/issues/117)).
 - [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
   solves its optimizations with CVXR’s current interface (`psolve()` and
   `value()`) instead of [`solve()`](https://rdrr.io/r/base/solve.html)
