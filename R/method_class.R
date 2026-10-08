@@ -140,7 +140,8 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   Y <- as.matrix(data[, outcomes, drop = FALSE])
   data.frame(Y,
     S = data[[trial_status]], A = data[[treatment]],
-    data[, covariates, drop = FALSE]
+    data[, covariates, drop = FALSE],
+    check.names = FALSE
   )
 }
 
@@ -164,10 +165,9 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
   T_cross
 }
 
-#' Check that no outcome or covariate is named S or A, the internal names of
-#' the trial-status and treatment columns, or is one of those columns.
-#' data.frame() would make the duplicate names unique, and the methods would
-#' then read the wrong column as S or A.
+#' Check that no outcome or covariate name repeats, and that none is named S
+#' or A, the internal names of the trial-status and treatment columns, or is
+#' one of those columns. The methods would otherwise read the wrong column.
 #' @param outcomes outcome column names.
 #' @param covariates covariate column names.
 #' @param trial_status trial-status column name.
@@ -176,6 +176,15 @@ setGeneric("estimate", function(method, ...) standardGeneric("estimate"))
 #' @noRd
 .check_internal_names <- function(outcomes, covariates, trial_status,
                                   treatment) {
+  all_names <- c(outcomes, covariates)
+  repeated <- unique(all_names[duplicated(all_names)])
+  if (length(repeated) > 0) {
+    stop("Each outcome and covariate column can be listed only once, as an ",
+      "outcome or as a covariate; repeated: ", paste(repeated, collapse = ", "),
+      ".",
+      call. = FALSE
+    )
+  }
   clash <- intersect(
     c(outcomes, covariates), c("S", "A", trial_status, treatment)
   )

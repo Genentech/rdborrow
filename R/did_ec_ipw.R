@@ -41,7 +41,13 @@ NULL
 #'   after randomization can bias the treatment effect.
 #' @param bootstrap Number of bootstrap replicates, at least 2 (required for DID
 #'   methods). Defaults to 500.
-#' @param bootstrap_ci_type Bootstrap CI type. Defaults to \code{"perc"}.
+#'   Use about 1000 or more for reported intervals; small values are for
+#'   quick checks only, and their interval can exclude the point estimate.
+#' @param bootstrap_ci_type Bootstrap CI type: one of \code{"perc"}
+#'   (default), \code{"bca"}, \code{"norm"}, or \code{"basic"}.
+#'   \code{"bca"} is slow when \code{bootstrap} is smaller than the number
+#'   of patients: \code{boot::boot.ci()} then refits the estimator once for
+#'   each patient.
 #'
 #' @return An S4 object of class \code{did_ec_ipw_method}.
 #'
