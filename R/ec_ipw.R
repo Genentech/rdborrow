@@ -233,7 +233,9 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 #' @return list with tau and sd_tau.
 #' @noRd
 .ec_ipw_se <- function(df, core, n_time) {
-  # see Zhou 2025: Theorem 3 (Eq 12 for A/B matrices, Eq 13 for variance)
+  # see Zhou 2025: Theorem 3 (Eq 12 for A/B matrices). the variance of tau is
+  # c' Sigma c by the delta method, which includes the covariances between
+  # mu11, mu10 and mu00. the printed Eq 13 leaves these out; do not follow it.
 
   Y <- as.matrix(df[, seq_len(n_time), drop = FALSE])
   S <- df$S
@@ -279,11 +281,12 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   phi_ps <- (S - core$pi_SX) * X_model
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps)) / N
 
-  # sandwich: Sigma = A^{-1} B A^{-T} (Eq 13)
+  # sandwich: Sigma = A^{-1} B A^{-T} (Theorem 3)
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
-  # tau = mu1 - (1-w)*mu10 - w*mu00, extract variance via linear combination
+  # tau = mu1 - (1-w)*mu10 - w*mu00, so var(tau) = c' Sigma c with the full
+  # Sigma, including the cross-covariances
   coef_mat <- cbind(
     diag(n_time),
     -(1 - core$borrow_weight) * diag(n_time),

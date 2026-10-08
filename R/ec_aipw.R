@@ -278,7 +278,9 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
 .ec_aipw_se <- function(df, core, n_time, outcome_formula) {
-  # see Zhou 2025: Theorem 4 (Eq 15 for A/B matrices, Eq 16 for variance)
+  # see Zhou 2025: Theorem 4 (Eq 15 for A/B matrices). the variance of tau is
+  # c' Sigma c by the delta method, which includes the covariances between
+  # mu11, mu10 and mu00. the printed Eq 16 leaves these out; do not follow it.
 
   S <- df$S
   A <- df$A
@@ -351,7 +353,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 
   B <- crossprod(cbind(phi1, phi2, phi3, phi_ps, phi_Y0)) / N
 
-  # sandwich: A^{-1} B A^{-T}, then extract tau variance
+  # sandwich: A^{-1} B A^{-T}, then var(tau) = c' Sigma c with the full Sigma
   A_inv <- solve(A_mat)
   sigma <- A_inv %*% B %*% t(A_inv)
 
