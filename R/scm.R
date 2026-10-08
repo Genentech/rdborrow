@@ -208,11 +208,35 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   constr <- list(sum(w) == 1, w >= 0)
   prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
   CVXR::psolve(prob, solver = "ECOS")
+  .scm_check_status(prob)
 
   wt_est <- CVXR::value(w)
   y_est <- X00[long_term_col_name, , drop = FALSE] %*% wt_est
 
   list(wt_est, y_est)
+}
+
+#' solver status of a CVXR problem; a seam for tests.
+#' @param prob a solved CVXR problem.
+#' @return the status string.
+#' @noRd
+.scm_status <- function(prob) CVXR::status(prob)
+
+#' stop when the solver did not find a solution. "optimal_inaccurate" is
+#' accepted: CVXR warns about it, and the solution is usable.
+#' @param prob a solved CVXR problem.
+#' @return the status, invisibly.
+#' @noRd
+.scm_check_status <- function(prob) {
+  status <- .scm_status(prob)
+  if (!status %in% c("optimal", "optimal_inaccurate")) {
+    stop("scm() could not solve a matching problem: the solver status is '",
+      status, "'. This can happen when covariates have very different ",
+      "scales (for example, age in days); rescale them and try again.",
+      call. = FALSE
+    )
+  }
+  invisible(status)
 }
 
 #' find optimal lambda via leave-one-out cross-validation on EC subjects.
@@ -243,6 +267,7 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
       constr <- list(sum(w) == 1, w >= 0)
       prob <- CVXR::Problem(CVXR::Minimize(obj), constr)
       CVXR::psolve(prob, solver = "ECOS")
+      .scm_check_status(prob)
 
       wt_est <- CVXR::value(w)
       y_est <- ec[long_term_col_name, -loocv, drop = FALSE] %*% wt_est
