@@ -286,7 +286,9 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   A <- df$A
   N <- nrow(df)
 
+  # drop columns that glm() and lm() aliased (coefficient NA), as the fits do
   X_ps <- model.matrix(core$ps_model)
+  X_ps <- X_ps[, !is.na(coef(core$ps_model)), drop = FALSE]
   n_ps <- ncol(X_ps)
 
   # refit outcome models on full data (needed for sandwich, not for tau)
@@ -312,7 +314,9 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   ] <- A34
 
   # bread: outcome model blocks----
-  Y0_model_mats <- lapply(Y0_models_full, model.matrix)
+  Y0_model_mats <- lapply(Y0_models_full, \(m) {
+    model.matrix(m)[, !is.na(coef(m)), drop = FALSE]
+  })
   n_outcome <- sum(vapply(Y0_model_mats, ncol, integer(1)))
 
   Phi1_gamma <- as.matrix(Matrix::bdiag(lapply(seq_len(n_time), \(t) {

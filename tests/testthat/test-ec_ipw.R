@@ -113,3 +113,14 @@ test_that("the sandwich variance does not build an N x N matrix", {
   expect_lt(extra_mb(ec_ipw("S ~ x1")), 100)
   expect_lt(extra_mb(ec_aipw("S ~ x1", "y1 ~ x1")), 100)
 })
+
+test_that("a collinear or constant covariate is dropped, as glm() drops it", {
+  d <- SyntheticDataII
+  d$x6 <- 2 * d$x5
+  d$x7 <- 1
+  fit <- function(ps) {
+    run_primary(d, ec_ipw(ps), covariates = c("x5", "x6", "x7"))
+  }
+  expect_equal(fit("S ~ x5 + x6"), fit("S ~ x5"))
+  expect_equal(fit("S ~ x5 + x7"), fit("S ~ x5"))
+})
