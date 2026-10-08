@@ -67,6 +67,14 @@
   [`cat()`](https://rdrr.io/r/base/cat.html), so
   [`suppressMessages()`](https://rdrr.io/r/base/message.html) silences
   it ([\#129](https://github.com/Genentech/rdborrow/issues/129)).
+- [`did_ec_ipw()`](https://genentech.github.io/rdborrow/reference/did_ec_ipw.md),
+  [`did_ec_aipw()`](https://genentech.github.io/rdborrow/reference/did_ec_aipw.md),
+  [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
+  and [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md)
+  results now include a `standard_deviation` column, the standard
+  deviation of the bootstrap replicates, as the primary methods do with
+  bootstrap inference
+  ([\#129](https://github.com/Genentech/rdborrow/issues/129)).
 - [`ec_ipw()`](https://genentech.github.io/rdborrow/reference/ec_ipw.md)
   and
   [`ec_aipw()`](https://genentech.github.io/rdborrow/reference/ec_aipw.md)

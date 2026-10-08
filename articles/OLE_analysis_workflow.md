@@ -54,9 +54,9 @@ set.seed(1)
 run_analysis(analysis)
 ```
 
-    ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.075926    -0.5383522      4.529989
-    ## tau4        4.389438     0.7651932      8.041151
+    ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
+    ## tau3        2.075926           1.075571    -0.5383522      4.529989
+    ## tau4        4.389438           1.508449     0.7651932      8.041151
 
 #### 1.2 DID-EC-AIPW
 
@@ -90,9 +90,9 @@ set.seed(1)
 run_analysis(analysis)
 ```
 
-    ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.041727    -0.9601101      4.902500
-    ## tau4        4.036118     0.9831966      7.465598
+    ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
+    ## tau3        2.041727           1.253924    -0.9601101      4.902500
+    ## tau4        4.036118           1.532951     0.9831966      7.465598
 
 #### 1.3 DID-EC-OR
 
@@ -126,9 +126,9 @@ set.seed(1)
 run_analysis(analysis)
 ```
 
-    ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        1.568947     -1.463867      3.569813
-    ## tau4        4.407834      1.918617      6.407367
+    ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
+    ## tau3        1.568947          1.0759314     -1.463867      3.569813
+    ## tau4        4.407834          0.9722213      1.918617      6.407367
 
 ### 2 Synthetic control method
 
@@ -167,9 +167,9 @@ run_analysis(analysis)
     ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
     ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
 
-    ##      point_estimates lower_CI_boot upper_CI_boot
-    ## tau3        2.064756      1.831022      2.854466
-    ## tau4        3.943234      1.909084      6.089916
+    ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
+    ## tau3        2.064756          0.5305223      1.831022      2.854466
+    ## tau4        3.943234          2.1379553      1.909084      6.089916
 
 ## References
 

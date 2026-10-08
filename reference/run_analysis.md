@@ -50,10 +50,11 @@ For OLE methods
 [`did_ec_or()`](https://genentech.github.io/rdborrow/reference/did_ec_or.md),
 [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md)), a
 data frame with one row for each open-label visit and the columns
-`point_estimates`, `lower_CI_boot`, and `upper_CI_boot`. The rows are
-named `tau<k>` for `k` from `T_cross + 1` to the number of outcomes,
-where `k` is the position of the outcome in `outcome_col_name`. List the
-outcomes in visit order.
+`point_estimates`, `standard_deviation` (of the bootstrap replicates),
+`lower_CI_boot`, and `upper_CI_boot`. The rows are named `tau<k>` for
+`k` from `T_cross + 1` to the number of outcomes, where `k` is the
+position of the outcome in `outcome_col_name`. List the outcomes in
+visit order.
 
 ## Details
 
