@@ -141,10 +141,10 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
   n_time <- length(outcomes)
   long_term_col_name <- outcomes[(T_cross + 1):n_time]
 
-  if (!quiet) cat("Running the synthetic control method...\n")
+  if (!quiet) message("Running the synthetic control method...")
 
   # find optimal lambda via LOOCV
-  if (!quiet) cat("Performing cross validation for tuning parameter selection...\n")
+  if (!quiet) message("Performing cross validation for tuning parameter selection...")
   lambda <- .scm_lambdacv(
     ec = .scm_matrices(df, outcomes, covariates)$X00,
     long_term_col_name = long_term_col_name,
@@ -153,11 +153,11 @@ setMethod("estimate", "scm_method", function(method, data, outcomes,
     nlambda = method@nlambda
   )
 
-  if (!quiet) cat("Constructing pseudo controls for internal data...\n")
+  if (!quiet) message("Constructing pseudo controls for internal data...")
   tau <- .scm_core(df, outcomes, covariates, T_cross, lambda)$tau
 
   # bootstrap inference
-  if (!quiet) cat("Performing bootstrap inference...\n")
+  if (!quiet) message("Performing bootstrap inference...")
   n_ole <- n_time - T_cross
   boot_res <- .run_bootstrap(
     df = df, statistic = .scm_boot_statistic,

@@ -195,7 +195,8 @@ test_that("run_simulation quiet=FALSE produces output", {
     method_description = "IPW"
   )
 
-  expect_output(run_simulation(sim_obj, quiet = FALSE), "Null:")
+  expect_message(run_simulation(sim_obj, quiet = FALSE), "Null:")
+  expect_silent(suppressMessages(run_simulation(sim_obj, quiet = FALSE)))
 })
 
 test_that("run_simulation errors on invalid object", {

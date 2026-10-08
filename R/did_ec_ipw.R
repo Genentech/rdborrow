@@ -100,12 +100,12 @@ setMethod("estimate", "did_ec_ipw_method", function(method, data, outcomes,
     trt_formula <- sub("^[^~]*~", "A ~", trt_formula)
   }
 
-  if (!quiet) cat("Running DID-EC-IPW estimator...\n")
+  if (!quiet) message("Running DID-EC-IPW estimator...")
 
   result <- .did_ec_ipw_core(df, Y, S, A, T_cross, ps_formula, trt_formula)
   tau <- result$tau
 
-  if (!quiet) cat("Running bootstrap inference...\n")
+  if (!quiet) message("Running bootstrap inference...")
 
   n_ole <- ncol(Y) - T_cross
   boot_res <- .run_bootstrap(

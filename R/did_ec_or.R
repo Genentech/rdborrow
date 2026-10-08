@@ -128,12 +128,12 @@ setMethod("estimate", "did_ec_or_method", function(method, data, outcomes,
     method@outcome_formula_rct_trt, outcomes, "outcome_formula_rct_trt"
   )
 
-  if (!quiet) cat("Running DID-EC-OR estimator...\n")
+  if (!quiet) message("Running DID-EC-OR estimator...")
 
   result <- .did_ec_or_core(df, S, A, T_cross, f_ext, f_ctrl, f_trt)
   tau <- result$tau
 
-  if (!quiet) cat("Running bootstrap inference...\n")
+  if (!quiet) message("Running bootstrap inference...")
 
   n_ole <- length(outcomes) - T_cross
   boot_res <- .run_bootstrap(

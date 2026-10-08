@@ -343,6 +343,8 @@ test_that("run_analysis quiet argument suppresses output", {
   )
 
   expect_silent(run_analysis(analysis, quiet = TRUE))
+  expect_message(run_analysis(analysis, quiet = FALSE), "Running EC-IPW")
+  expect_silent(suppressMessages(run_analysis(analysis, quiet = FALSE)))
 })
 
 test_that("run_analysis works with single outcome", {

@@ -128,14 +128,14 @@ setMethod("estimate", "did_ec_aipw_method", function(method, data, outcomes,
     method@outcome_formula, outcomes, "outcome_formula"
   )
 
-  if (!quiet) cat("Running DID-EC-AIPW estimator...\n")
+  if (!quiet) message("Running DID-EC-AIPW estimator...")
 
   result <- .did_ec_aipw_core(
     df, Y, S, A, T_cross, ps_formula, trt_formula, outcome_formula
   )
   tau <- result$tau
 
-  if (!quiet) cat("Running bootstrap inference...\n")
+  if (!quiet) message("Running bootstrap inference...")
 
   n_ole <- ncol(Y) - T_cross
   boot_res <- .run_bootstrap(

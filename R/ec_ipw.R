@@ -113,7 +113,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
   )
   n_time <- length(outcomes)
 
-  if (!quiet) cat("Running EC-IPW estimator...\n")
+  if (!quiet) message("Running EC-IPW estimator...")
 
   # point estimate + sandwich SE
   core <- .ec_ipw_core(
@@ -137,7 +137,7 @@ setMethod("estimate", "ec_ipw_method", function(method, data, outcomes,
 
   # bootstrap (optional)
   if (!is.null(method@bootstrap)) {
-    if (!quiet) cat("Running bootstrap inference...\n")
+    if (!quiet) message("Running bootstrap inference...")
     boot_res <- .run_bootstrap(
       df = df, statistic = .ec_ipw_boot_statistic,
       n_estimates = n_time, bootstrap = method@bootstrap,
