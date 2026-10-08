@@ -147,7 +147,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   df <- .build_analysis_df(data, outcomes, treatment, trial_status, covariates)
   n_time <- length(outcomes)
 
-  if (!quiet) cat("Running EC-AIPW estimator...\n")
+  if (!quiet) message("Running EC-AIPW estimator...")
 
   # point estimate + sandwich SE
   core <- .ec_aipw_core(
@@ -170,7 +170,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 
   # bootstrap (optional)
   if (!is.null(method@bootstrap)) {
-    if (!quiet) cat("Running bootstrap inference...\n")
+    if (!quiet) message("Running bootstrap inference...")
     boot_res <- .run_bootstrap(
       df = df, statistic = .ec_aipw_boot_statistic,
       n_estimates = n_time, bootstrap = method@bootstrap,

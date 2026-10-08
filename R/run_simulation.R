@@ -73,7 +73,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
       niter <- length(data_matrix_list_null)
       for (iter in 1:niter) {
         if (!quiet) {
-          cat("Null: ", "| method setting: ", md_iter, "| data setting: ", iter, "\n")
+          message("Null: ", "| method setting: ", md_iter, "| data setting: ", iter)
         }
         # create a primary analysis object
         analysis_primary_obj <- setup_analysis_primary(
@@ -127,7 +127,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
         record_df_alt <- data.frame()
         for (iter in 1:niter) {
           if (!quiet) {
-            cat("Alternative: ", "| method setting: ", md_iter, "| data setting: ", iter, "\n")
+            message("Alternative: ", "| method setting: ", md_iter, "| data setting: ", iter)
           }
           # create a primary analysis object
           analysis_primary_obj <- setup_analysis_primary(
@@ -179,7 +179,7 @@ run_simulation <- function(simulation_obj, quiet = TRUE) {
       record_df <- data.frame()
       for (iter in 1:niter) {
         if (!quiet) {
-          cat("Null: ", "| method setting: ", md_iter, "| data setting: ", iter, "\n")
+          message("Null: ", "| method setting: ", md_iter, "| data setting: ", iter)
         }
         T_cross <- simulation_obj@T_cross
         # create a primary analysis object

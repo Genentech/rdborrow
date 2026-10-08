@@ -6,6 +6,7 @@
 - `setup_simulation_primary()` and `setup_simulation_OLE()` now require `true_effect` to be a single number, the true effect at the final visit. `run_simulation()` scores only the final visit, so a vector was recycled across simulated trials rather than matched to visits, and bias, coverage, type I error, and power were silently wrong unless every element was equal. With an even number of trials there was no warning (#90).
 
 ## Minor improvements
+- Progress output from `quiet = FALSE` in `run_analysis()`, `estimate()`, and `run_simulation()` now uses `message()` instead of `cat()`, so `suppressMessages()` silences it (#129).
 - `scm()` now solves its optimizations with CVXR's current interface (`psolve()` and `value()`) instead of `solve()` and `$getValue()`, which CVXR has deprecated and will remove. rdborrow now requires CVXR >= 1.8.1. Estimates are unchanged (#97).
 - `setup_analysis_primary()` now returns its analysis object visibly, as `setup_analysis_OLE()` does, so that it prints at the console (#129).
 
