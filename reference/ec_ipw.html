@@ -54,7 +54,11 @@ and <code><a href="run_analysis.html">run_analysis</a></code>.</p>
 <dl><dt id="arg-ps-formula">ps_formula<a class="anchor" aria-label="anchor" href="#arg-ps-formula"></a></dt>
 <dd><p>Formula string for the propensity score model
 predicting trial participation. The left-hand side is replaced
-internally (e.g., <code>"S ~ x1 + x2 + x3"</code>).</p></dd>
+internally (e.g., <code>"S ~ x1 + x2 + x3"</code>).
+The right-hand side should use only columns in
+<code>covariates_col_name</code>. <code>.</code> or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.</p></dd>
 
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>

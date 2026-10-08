@@ -353,7 +353,7 @@ the primary (placebo-controlled) phase.</p>
 <span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
 <span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5 + y1"</span></span>
+<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  bootstrap <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  bootstrap_ci_type <span class="op">=</span> <span class="st">"perc"</span></span>
@@ -370,7 +370,7 @@ the primary (placebo-controlled) phase.</p>
 <span>  ps_formula <span class="op">=</span> <span class="st">"S ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
 <span>  outcome_formula <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"y1 ~ x1 + x2 + x3 + x4 + x5"</span>,</span>
-<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5 + y1"</span></span>
+<span>    <span class="st">"y2 ~ x1 + x2 + x3 + x4 + x5"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  weight <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  bootstrap <span class="op">=</span> <span class="fl">50</span>,</span>
@@ -409,14 +409,14 @@ the primary (placebo-controlled) phase.</p>
 <code class="sourceCode R"><span><span class="va">simulation_report_bs</span></span>
 <span><span class="co">#&gt;                method_description         bias  variance       mse coverage</span></span>
 <span><span class="co">#&gt; 1  IPW, optimal weight, bootstrap -0.003333374 0.5948377 0.5948488     0.95</span></span>
-<span><span class="co">#&gt; 2 AIPW, optimal weight, bootstrap -0.108635705 0.2250218 0.2368236     0.95</span></span>
+<span><span class="co">#&gt; 2 AIPW, optimal weight, bootstrap -0.105637948 0.2263140 0.2374734     0.95</span></span>
 <span><span class="co">#&gt; 3     IPW, zero weight, bootstrap  0.009894312 0.6239639 0.6240618     0.90</span></span>
-<span><span class="co">#&gt; 4    AIPW, zero weight, bootstrap -0.150771625 0.2366983 0.2594304     0.95</span></span>
+<span><span class="co">#&gt; 4    AIPW, zero weight, bootstrap -0.147679223 0.2401897 0.2619988     0.95</span></span>
 <span><span class="co">#&gt;   type_I_error power</span></span>
-<span><span class="co">#&gt; 1         0.05   0.7</span></span>
-<span><span class="co">#&gt; 2         0.05   0.9</span></span>
-<span><span class="co">#&gt; 3         0.10   0.7</span></span>
-<span><span class="co">#&gt; 4         0.05   1.0</span></span></code></pre></div>
+<span><span class="co">#&gt; 1         0.05  0.70</span></span>
+<span><span class="co">#&gt; 2         0.05  0.95</span></span>
+<span><span class="co">#&gt; 3         0.10  0.70</span></span>
+<span><span class="co">#&gt; 4         0.05  1.00</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

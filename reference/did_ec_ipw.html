@@ -61,12 +61,20 @@ control borrowing for the open-label extension phase
 
 <dl><dt id="arg-ps-formula">ps_formula<a class="anchor" aria-label="anchor" href="#arg-ps-formula"></a></dt>
 <dd><p>Formula string for the propensity score model
-predicting trial participation.</p></dd>
+predicting trial participation.
+The right-hand side should use only columns in
+<code>covariates_col_name</code>. <code>.</code> or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.</p></dd>
 
 
 <dt id="arg-trt-formula">trt_formula<a class="anchor" aria-label="anchor" href="#arg-trt-formula"></a></dt>
 <dd><p>Formula string for the treatment assignment model,
-or <code>NULL</code> (default) for marginal probability.</p></dd>
+or <code>NULL</code> (default) for marginal probability.
+The right-hand side should use only columns in
+<code>covariates_col_name</code>. <code>.</code> or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.</p></dd>
 
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>

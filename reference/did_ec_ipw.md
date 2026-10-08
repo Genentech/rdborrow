@@ -20,12 +20,18 @@ did_ec_ipw(
 - ps_formula:
 
   Formula string for the propensity score model predicting trial
-  participation.
+  participation. The right-hand side should use only columns in
+  `covariates_col_name`. `.` or any other column is an error; an outcome
+  gives a warning, because adjusting for an outcome measured after
+  randomization can bias the treatment effect.
 
 - trt_formula:
 
   Formula string for the treatment assignment model, or `NULL` (default)
-  for marginal probability.
+  for marginal probability. The right-hand side should use only columns
+  in `covariates_col_name`. `.` or any other column is an error; an
+  outcome gives a warning, because adjusting for an outcome measured
+  after randomization can bias the treatment effect.
 
 - bootstrap:
 

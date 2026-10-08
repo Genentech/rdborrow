@@ -35,7 +35,10 @@ did_ec_or(
   one per outcome. In all three arguments, each formula is matched to an
   outcome by its left-hand side, so the order does not matter. The
   left-hand side must be the outcome name itself; to model a transformed
-  outcome, transform the column first.
+  outcome, transform the column first. The right-hand side should use
+  only columns in `covariates_col_name`. `.` or any other column is an
+  error; an outcome gives a warning, because adjusting for an outcome
+  measured after randomization can bias the treatment effect.
 
 - bootstrap:
 

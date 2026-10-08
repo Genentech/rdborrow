@@ -62,7 +62,11 @@ with an outcome regression model for improved efficiency. Pass to
 
 <dl><dt id="arg-ps-formula">ps_formula<a class="anchor" aria-label="anchor" href="#arg-ps-formula"></a></dt>
 <dd><p>Formula string for the propensity score model
-predicting trial participation.</p></dd>
+predicting trial participation.
+The right-hand side should use only columns in
+<code>covariates_col_name</code>. <code>.</code> or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.</p></dd>
 
 
 <dt id="arg-outcome-formula">outcome_formula<a class="anchor" aria-label="anchor" href="#arg-outcome-formula"></a></dt>
@@ -70,7 +74,11 @@ predicting trial participation.</p></dd>
 one per outcome (e.g., <code>c("y1 ~ x1 + x2", "y2 ~ x1 + x2")</code>).
 Each formula is matched to an outcome by its left-hand side, so the
 order does not matter. The left-hand side must be the outcome name
-itself; to model a transformed outcome, transform the column first.</p></dd>
+itself; to model a transformed outcome, transform the column first.
+The right-hand side should use only columns in
+<code>covariates_col_name</code>. <code>.</code> or any other column is an error;
+an outcome gives a warning, because adjusting for an outcome measured
+after randomization can bias the treatment effect.</p></dd>
 
 
 <dt id="arg-weight">weight<a class="anchor" aria-label="anchor" href="#arg-weight"></a></dt>

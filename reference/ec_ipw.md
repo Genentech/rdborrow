@@ -18,7 +18,10 @@ ec_ipw(ps_formula, weight = NULL, bootstrap = NULL, bootstrap_ci_type = NULL)
 
   Formula string for the propensity score model predicting trial
   participation. The left-hand side is replaced internally (e.g.,
-  `"S ~ x1 + x2 + x3"`).
+  `"S ~ x1 + x2 + x3"`). The right-hand side should use only columns in
+  `covariates_col_name`. `.` or any other column is an error; an outcome
+  gives a warning, because adjusting for an outcome measured after
+  randomization can bias the treatment effect.
 
 - weight:
 

@@ -304,7 +304,7 @@ method_AIPW_optimal_weight <- ec_aipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
   outcome_formula = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
-    "y2 ~ x1 + x2 + x3 + x4 + x5 + y1"
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
   ),
   bootstrap = 50,
   bootstrap_ci_type = "perc"
@@ -321,7 +321,7 @@ method_AIPW_zero_weight <- ec_aipw(
   ps_formula = "S ~ x1 + x2 + x3 + x4 + x5",
   outcome_formula = c(
     "y1 ~ x1 + x2 + x3 + x4 + x5",
-    "y2 ~ x1 + x2 + x3 + x4 + x5 + y1"
+    "y2 ~ x1 + x2 + x3 + x4 + x5"
   ),
   weight = 0,
   bootstrap = 50,
@@ -369,14 +369,14 @@ simulation_report_bs <- run_simulation(simulation_primary_obj, quiet = TRUE)
 simulation_report_bs
 #>                method_description         bias  variance       mse coverage
 #> 1  IPW, optimal weight, bootstrap -0.003333374 0.5948377 0.5948488     0.95
-#> 2 AIPW, optimal weight, bootstrap -0.108635705 0.2250218 0.2368236     0.95
+#> 2 AIPW, optimal weight, bootstrap -0.105637948 0.2263140 0.2374734     0.95
 #> 3     IPW, zero weight, bootstrap  0.009894312 0.6239639 0.6240618     0.90
-#> 4    AIPW, zero weight, bootstrap -0.150771625 0.2366983 0.2594304     0.95
+#> 4    AIPW, zero weight, bootstrap -0.147679223 0.2401897 0.2619988     0.95
 #>   type_I_error power
-#> 1         0.05   0.7
-#> 2         0.05   0.9
-#> 3         0.10   0.7
-#> 4         0.05   1.0
+#> 1         0.05  0.70
+#> 2         0.05  0.95
+#> 3         0.10  0.70
+#> 4         0.05  1.00
 ```
 
 ## References
