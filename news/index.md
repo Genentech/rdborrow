@@ -90,6 +90,19 @@
   which R turned into a vector, and the analysis failed with “‘x’ must
   be an array of at least two dimensions”
   ([\#115](https://github.com/Genentech/rdborrow/issues/115)).
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
+  gives an error that names a covariate that is not numeric or logical,
+  such as a factor. It failed with “Cannot convert object of class to a
+  CVXR Expression”, because the matching matrix became a character
+  matrix ([\#116](https://github.com/Genentech/rdborrow/issues/116)).
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
+  rejects an infinite `lambda_min` or `lambda_max`, which failed later
+  in the analysis, and gives an error when `nlambda = 1` and
+  `lambda_max` differs from `lambda_min`, because only `lambda_min` was
+  used. The result of
+  [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+  now has an attribute `"lambda"` with the penalty that cross-validation
+  selected ([\#124](https://github.com/Genentech/rdborrow/issues/124)).
 - [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
   and the OLE methods now round a `T_cross` that is a whole number only
   up to floating-point error, such as `0.6 / 0.2`. It passed validation

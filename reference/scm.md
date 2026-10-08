@@ -5,7 +5,8 @@ control borrowing for the open-label extension phase (Zhou et al.,
 2024). Constructs a weighted combination of external controls matching
 each RCT control subject on covariates and pre-crossover outcomes. The
 penalty is chosen by leave-one-out cross-validation over the external
-controls, so the data needs at least 2 external controls.
+controls, so the data needs at least 2 external controls. The covariates
+must be numeric or logical; code a factor as 0/1 indicators first.
 
 ## Usage
 
@@ -25,15 +26,18 @@ scm(
 
 - lambda_min:
 
-  Minimum penalty parameter for LOOCV.
+  Minimum penalty parameter for LOOCV. A finite number of at least 0.
 
 - lambda_max:
 
-  Maximum penalty parameter for LOOCV.
+  Maximum penalty parameter for LOOCV. A finite number of at least
+  `lambda_min`.
 
 - nlambda:
 
-  Number of lambda values to evaluate in LOOCV.
+  Number of lambda values to evaluate in LOOCV, evenly spaced from
+  `lambda_min` to `lambda_max`. With `nlambda = 1`, `lambda_max` must
+  equal `lambda_min`.
 
 - parallel:
 
@@ -55,6 +59,13 @@ scm(
 ## Value
 
 An S4 object of class `scm_method`.
+
+## Details
+
+The analysis result from
+[`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
+has an attribute `"lambda"`, the penalty that cross-validation selected:
+`attr(result, "lambda")`.
 
 ## References
 
