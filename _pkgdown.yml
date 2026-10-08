@@ -73,6 +73,7 @@ reference:
   - title: Data
     contents:
       - SyntheticData
+      - SyntheticDataII
 
   - title: Deprecated
     contents:
