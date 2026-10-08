@@ -177,6 +177,14 @@
   [`run_analysis()`](https://genentech.github.io/rdborrow/reference/run_analysis.md)
   now has an attribute `"lambda"` with the penalty that cross-validation
   selected ([\#124](https://github.com/Genentech/rdborrow/issues/124)).
+- [`scm()`](https://genentech.github.io/rdborrow/reference/scm.md) now
+  checks the status of each optimization. When the solver does not find
+  a solution, for example with a covariate in very different units such
+  as age in days, the analysis stops with an error that names the status
+  and suggests rescaling. It stopped later with “requires
+  numeric/complex matrix/vector arguments”. Solutions that CVXR marks as
+  inaccurate are still used, with CVXR’s warning
+  ([\#112](https://github.com/Genentech/rdborrow/issues/112)).
 - [`setup_analysis_OLE()`](https://genentech.github.io/rdborrow/reference/setup_analysis_OLE.md)
   and the OLE methods now round a `T_cross` that is a whole number only
   up to floating-point error, such as `0.6 / 0.2`. It passed validation
