@@ -59,3 +59,22 @@ test_that("collinear covariates in either ec_aipw() model are dropped", {
   }
   expect_equal(fit("S ~ x5 + x6", "x5 + x6"), fit("S ~ x5", "x5"))
 })
+
+test_that("the ec_aipw() SE uses the outcome model from the point estimate", {
+  covs <- c("x1", "x2", "x3", "x4", "x5")
+  d <- SyntheticDataII
+  ctrl <- d$A == 0
+  basis <- splines::ns(d$x5[ctrl], df = 3)
+  b <- predict(basis, d$x5)
+  d$b1 <- b[, 1]
+  d$b2 <- b[, 2]
+  d$b3 <- b[, 3]
+  fit <- function(formula, covariates) {
+    method <- ec_aipw("S ~ x1 + x2 + x3 + x4 + x5", formula, weight = 0.4)
+    run_primary(d, method, outcomes = "y1", covariates = covariates)
+  }
+  expect_equal(
+    fit("y1 ~ splines::ns(x5, df = 3)", covs),
+    fit("y1 ~ b1 + b2 + b3", c(covs, "b1", "b2", "b3"))
+  )
+})

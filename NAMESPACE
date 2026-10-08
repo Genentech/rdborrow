@@ -47,13 +47,16 @@ importFrom(methods,
 importFrom(stats,
   as.formula,
   coef,
+  delete.response,
   glm,
   lm,
+  model.frame,
   model.matrix,
   predict,
   qnorm,
   rbinom,
   rmultinom,
+  terms,
   var
 )
 importFrom(utils,data)

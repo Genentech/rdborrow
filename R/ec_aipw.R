@@ -159,7 +159,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
     df, outcomes, ps_formula,
     outcome_formula, method@weight
   )
-  sd_tau <- .ec_aipw_se(df, core, n_time, outcome_formula)
+  sd_tau <- .ec_aipw_se(df, core, n_time)
 
   # format results
   tau <- core$tau
@@ -265,7 +265,7 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
     tau = tau, borrow_weight = borrow_weight,
     ps_model = ps_model, pi_SX = pi_SX, pi_A = pi_A,
     pi_S = pi_S, w00 = w00,
-    Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00
+    Yr = Yr, mu1 = mu1, mu10 = mu10, mu00 = mu00, Y0_models = Y0_models
   )
 }
 
@@ -274,10 +274,9 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
 #' @param df internal data frame.
 #' @param core output from .ec_aipw_core.
 #' @param n_time number of time points.
-#' @param outcome_formula character vector of outcome model formulas.
 #' @return numeric vector of standard errors (length n_time).
 #' @noRd
-.ec_aipw_se <- function(df, core, n_time, outcome_formula) {
+.ec_aipw_se <- function(df, core, n_time) {
   # see Zhou 2025: Theorem 4 (Eq 15 for A/B matrices). the variance of tau is
   # c' Sigma c by the delta method, which includes the covariances between
   # mu11, mu10 and mu00. the printed Eq 16 leaves these out; do not follow it.
@@ -290,11 +289,6 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   X_ps <- model.matrix(core$ps_model)
   X_ps <- X_ps[, !is.na(coef(core$ps_model)), drop = FALSE]
   n_ps <- ncol(X_ps)
-
-  # refit outcome models on full data (needed for sandwich, not for tau)
-  Y0_models_full <- lapply(outcome_formula, \(f) {
-    lm(as.formula(f), data = df)
-  })
 
   # bread: ps block----
   A33 <- diag(
@@ -314,8 +308,12 @@ setMethod("estimate", "ec_aipw_method", function(method, data, outcomes,
   ] <- A34
 
   # bread: outcome model blocks----
-  Y0_model_mats <- lapply(Y0_models_full, \(m) {
-    model.matrix(m)[, !is.na(coef(m)), drop = FALSE]
+  # design matrices for all patients from the fitted control models, so that
+  # data-dependent terms such as ns() keep the basis of the point estimate
+  Y0_model_mats <- lapply(core$Y0_models, \(m) {
+    tt <- delete.response(terms(m))
+    X <- model.matrix(tt, model.frame(tt, df, xlev = m$xlevels))
+    X[, !is.na(coef(m)), drop = FALSE]
   })
   n_outcome <- sum(vapply(Y0_model_mats, ncol, integer(1)))
 
