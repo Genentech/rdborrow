@@ -39,12 +39,17 @@ external data affect only its precision. Unlike \code{\link{ec_ipw}},
 it therefore does not use trial data only.}
 
 \item{bootstrap}{Number of bootstrap replicates (at least 2), or \code{NULL}
-(default) for sandwich variance with normal CIs.}
+(default) for sandwich variance with normal CIs.
+Use about 1000 or more for reported intervals; small values are for
+quick checks only, and their interval can exclude the point estimate.}
 
 \item{bootstrap_ci_type}{Bootstrap CI type, or \code{NULL} (default)
 which resolves to \code{"perc"} when \code{bootstrap} is set. One of
 \code{"perc"}, \code{"bca"}, \code{"norm"}, or \code{"basic"}. Needs
-\code{bootstrap}.}
+\code{bootstrap}.
+\code{"bca"} is slow when \code{bootstrap} is smaller than the number
+of patients: \code{boot::boot.ci()} then refits the estimator once for
+each patient.}
 }
 \value{
 An S4 object of class \code{ec_aipw_method}.

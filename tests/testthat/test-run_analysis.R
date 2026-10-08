@@ -331,6 +331,14 @@ test_that("formulas use only covariates, and outcomes as predictors warn", {
   )
 })
 
+test_that("run_analysis validates its arguments", {
+  analysis <- setup_analysis_primary(
+    SyntheticData, "S", "A", "y1", "x1", ec_ipw("S ~ x1")
+  )
+  expect_error(run_analysis("not an analysis"), "analysis_obj")
+  expect_error(run_analysis(analysis, quiet = NA), "quiet")
+})
+
 test_that("run_analysis quiet argument suppresses output", {
   method <- ec_ipw(ps_formula = "S ~ x1 + x2 + x3 + x4 + x5")
   analysis <- setup_analysis_primary(

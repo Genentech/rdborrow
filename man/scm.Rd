@@ -31,9 +31,15 @@ from \code{lambda_min} to \code{lambda_max}. With \code{nlambda = 1},
 \item{ncpus}{Number of CPUs for parallel bootstrap.}
 
 \item{bootstrap}{Number of bootstrap replicates (at least 2).
-Defaults to 200.}
+Defaults to 200.
+Use about 1000 or more for reported intervals; small values are for
+quick checks only, and their interval can exclude the point estimate.}
 
-\item{bootstrap_ci_type}{Bootstrap CI type. Defaults to \code{"perc"}.}
+\item{bootstrap_ci_type}{Bootstrap CI type: one of \code{"perc"}
+(default), \code{"bca"}, \code{"norm"}, or \code{"basic"}.
+\code{"bca"} is slow when \code{bootstrap} is smaller than the number
+of patients: \code{boot::boot.ci()} then refits the estimator once for
+each patient.}
 }
 \value{
 An S4 object of class \code{scm_method}.

@@ -318,3 +318,52 @@ test_that("show method prints without error", {
   expect_output(show(obj), "analysis_obj")
   expect_output(show(obj), "300")
 })
+
+test_that("outcome and covariate names must not repeat", {
+  outs <- c("y1", "y2")
+  expect_error(
+    setup_analysis_primary(SyntheticData, "S", "A", c("y1", "y1"), "x1", ec_ipw("S ~ x1")),
+    "repeated: y1"
+  )
+  expect_error(
+    setup_analysis_primary(SyntheticData, "S", "A", outs, c("x1", "x1"), ec_ipw("S ~ x1")),
+    "repeated: x1"
+  )
+  expect_error(
+    setup_analysis_primary(SyntheticData, "S", "A", outs, c("x1", "y2"), ec_ipw("S ~ x1")),
+    "repeated: y2"
+  )
+  expect_error(
+    estimate(
+      ec_ipw("S ~ x1"),
+      data = SyntheticData, outcomes = c("y1", "y1"), treatment = "A",
+      trial_status = "S", covariates = "x1"
+    ),
+    "repeated: y1"
+  )
+})
+
+test_that("outcome and covariate names need not be syntactic", {
+  d <- SyntheticData
+  names(d)[names(d) == "y1"] <- "week 12"
+  names(d)[names(d) == "x1"] <- "SMA type"
+  fit <- function(data, outs, covs, method) {
+    run_analysis(setup_analysis_primary(data, "S", "A", outs, covs, method))
+  }
+  expect_equal(
+    fit(d, c("week 12", "y2"), "SMA type", ec_ipw("S ~ `SMA type`")),
+    fit(SyntheticData, c("y1", "y2"), "x1", ec_ipw("S ~ x1")),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    fit(
+      d, c("week 12", "y2"), "SMA type",
+      ec_aipw("S ~ `SMA type`", c("`week 12` ~ `SMA type`", "y2 ~ `SMA type`"))
+    ),
+    fit(
+      SyntheticData, c("y1", "y2"), "x1",
+      ec_aipw("S ~ x1", c("y1 ~ x1", "y2 ~ x1"))
+    ),
+    ignore_attr = TRUE
+  )
+})

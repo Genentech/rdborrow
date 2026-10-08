@@ -62,6 +62,8 @@
 #' )
 #' run_analysis(analysis)
 run_analysis <- function(analysis_obj, quiet = TRUE) {
+  checkmate::assert_class(analysis_obj, "analysis_obj")
+  checkmate::assert_flag(quiet)
   method <- analysis_obj@method_obj
 
   args <- list(
