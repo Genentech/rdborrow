@@ -94,3 +94,21 @@ test_that("result rows are named tau1 to tauT for every inference path", {
     expect_identical(rownames(res$results), c("tau1", "tau2"))
   }
 })
+
+test_that("the sandwich variance does not build an N x N matrix", {
+  set.seed(1)
+  n <- 6000
+  x <- rnorm(n)
+  s <- rbinom(n, 1, plogis(0.5 * x))
+  a <- ifelse(s == 1, rbinom(n, 1, 0.5), 0)
+  d <- data.frame(S = s, A = a, x1 = x, y1 = x + a + rnorm(n))
+  extra_mb <- function(method) {
+    analysis <- setup_analysis_primary(d, "S", "A", "y1", "x1", method)
+    invisible(gc(reset = TRUE))
+    before <- sum(gc()[, 2])
+    run_analysis(analysis)
+    sum(gc()[, 6]) - before
+  }
+  expect_lt(extra_mb(ec_ipw("S ~ x1")), 100)
+  expect_lt(extra_mb(ec_aipw("S ~ x1", "y1 ~ x1")), 100)
+})
