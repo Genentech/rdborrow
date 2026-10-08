@@ -86,7 +86,7 @@ setup_analysis_primary <- function(data, trial_status_col_name, treatment_col_na
   )
   checkmate::assert_class(method_weighting_obj, "method_primary_obj")
 
-  analysis_primary_obj <- .analysis_primary_obj(
+  .analysis_primary_obj(
     data = data,
     covariates_col_name = covariates_col_name,
     outcome_col_name = outcome_col_name,

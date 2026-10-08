@@ -106,7 +106,9 @@ estimate(method, ...)
 \item{T_cross}{Integer crossover time point (OLE methods only).}
 }
 \value{
-A list with estimation results.
+For primary methods, a list with \code{results} and
+  \code{borrow_weight}; for OLE methods, a data frame. See
+  \code{\link{run_analysis}} for the columns and row names.
 }
 \description{
 S4 generic that dispatches to the appropriate estimation logic
