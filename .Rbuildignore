@@ -12,3 +12,4 @@
 ^CRAN-SUBMISSION$
 ^vignettes/articles$
 ^AGENTS\.md$
+^adversarial-review$

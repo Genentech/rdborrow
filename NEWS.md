@@ -1,4 +1,4 @@
-# rdborrow (development version)
+# rdborrow 0.0.5.0
 
 ## Breaking changes
 - Formulas in `ec_ipw()`, `ec_aipw()`, `did_ec_ipw()`, `did_ec_aipw()`, and `did_ec_or()` now give an error when the right-hand side uses `.` or a variable that is not in `covariates_col_name`. `.` added the outcomes and the treatment to the model (#105), and a variable not in the data was taken from the R session (#107). An outcome used as a predictor, such as `y1` in the model for `y2`, now gives a warning: it is measured after randomization, so adjusting for it can bias the treatment effect. The primary simulation vignette no longer does this.

@@ -1,19 +1,30 @@
 ## Submission
 
-This release addresses the check failure reported on 2026-09-28 under
-"Additional issues" for the BLIS BLAS flavor.
+This is a feature and bug-fix release, 0.0.5.0. An adversarial review of the
+package against its methods papers found no errors in the estimators, but
+found gaps in input validation that could give incorrect results without a
+message. This release:
 
-Two tests compared a marginal treatment model against an equivalent
-intercept-only model with an exact floating-point equality assertion. The
-two are mathematically identical but computed by different routes, so under
-BLIS they differ in the last bit. Both assertions now use a tolerance. No
-estimator behavior changed.
+* rejects invalid inputs with clear errors (missing values, empty groups,
+  external controls coded as treated, factor treatment columns, formulas
+  that use variables other than the covariates, and `alpha` of 0 or 1);
+* fixes the sandwich variance for collinear covariates and for
+  data-dependent outcome-model bases, and makes its memory use linear in the
+  sample size;
+* adds `SyntheticDataII`, an unbalanced example dataset, and tests against
+  independent calculations;
+* corrects the citations and expands the documentation.
+
+Some changes are breaking: outcome formulas must name an outcome on the
+left-hand side, and formulas may use only the covariates. They are listed
+under "Breaking changes" in NEWS.md.
 
 ## Test environments
 
-* local: Ubuntu 24.04, R 4.6.1 (OpenBLAS)
-* local: Ubuntu 24.04, R 4.6.1, BLAS = BLIS 0.9.0 (openmp)
-* GitHub Actions: Ubuntu (R-release, R-devel), macOS, Windows
+* local: Pop!_OS 24.04 (Ubuntu 24.04), R 4.6.1, with
+  `NOT_CRAN = "false"` and the PDF manual
+* GitHub Actions: Ubuntu (R-release, R-devel), macOS (R-release),
+  Windows (R-release)
 
 ## R CMD check results
 
