@@ -168,8 +168,8 @@ run_analysis(analysis)
     ## Warning in norm.inter(t, alpha): extreme order statistics used as endpoints
 
     ##      point_estimates standard_deviation lower_CI_boot upper_CI_boot
-    ## tau3        2.064756          0.5305223      1.831022      2.854466
-    ## tau4        3.943234          2.1379553      1.909084      6.089916
+    ## tau3        2.064756          0.3437664      1.840215      2.502145
+    ## tau4        3.943234          1.3574987      2.701840      5.329380
 
 ## References
 

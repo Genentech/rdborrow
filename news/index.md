@@ -1,6 +1,8 @@
 # Changelog
 
-## rdborrow (development version)
+## rdborrow 0.0.5.0
+
+CRAN release: 2026-10-08
 
 ### Breaking changes
 

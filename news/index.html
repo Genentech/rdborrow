@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rdborrow</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,16 +32,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rdborrow-development-version">rdborrow (development version)<a class="anchor" aria-label="anchor" href="#rdborrow-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.0.5.0" id="rdborrow-0050">rdborrow 0.0.5.0<a class="anchor" aria-label="anchor" href="#rdborrow-0050"></a></h2><p class="text-muted">CRAN release: 2026-10-08</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-5-0"></a></h3>
 <ul><li>Formulas in <code><a href="../reference/ec_ipw.html">ec_ipw()</a></code>, <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code>, <code><a href="../reference/did_ec_ipw.html">did_ec_ipw()</a></code>, <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code>, and <code><a href="../reference/did_ec_or.html">did_ec_or()</a></code> now give an error when the right-hand side uses <code>.</code> or a variable that is not in <code>covariates_col_name</code>. <code>.</code> added the outcomes and the treatment to the model (<a href="https://github.com/Genentech/rdborrow/issues/105" class="external-link">#105</a>), and a variable not in the data was taken from the R session (<a href="https://github.com/Genentech/rdborrow/issues/107" class="external-link">#107</a>). An outcome used as a predictor, such as <code>y1</code> in the model for <code>y2</code>, now gives a warning: it is measured after randomization, so adjusting for it can bias the treatment effect. The primary simulation vignette no longer does this.</li>
 <li>Outcome formulas in <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code>, <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code>, and <code><a href="../reference/did_ec_or.html">did_ec_or()</a></code> must now have the outcome name alone on the left-hand side. A transformed left side, such as <code>log(y1) ~ x1</code>, was accepted, but <code><a href="../reference/did_ec_or.html">did_ec_or()</a></code> used the transformed scale while <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code> and <code><a href="../reference/did_ec_aipw.html">did_ec_aipw()</a></code> mixed it with the raw outcome, so the estimates were wrong. Transform the outcome column before the analysis instead. One-sided formulas such as <code>~ x1</code> now fail with a clear message (<a href="https://github.com/Genentech/rdborrow/issues/138" class="external-link">#138</a>, <a href="https://github.com/Genentech/rdborrow/issues/139" class="external-link">#139</a>).</li>
 <li>
 <code><a href="../reference/setup_simulation_primary.html">setup_simulation_primary()</a></code> and <code><a href="../reference/setup_simulation_OLE.html">setup_simulation_OLE()</a></code> now require <code>true_effect</code> to be a single number, the true effect at the final visit. <code><a href="../reference/run_simulation.html">run_simulation()</a></code> scores only the final visit, so a vector was recycled across simulated trials rather than matched to visits, and bias, coverage, type I error, and power were silently wrong unless every element was equal. With an even number of trials there was no warning (<a href="https://github.com/Genentech/rdborrow/issues/90" class="external-link">#90</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-improvements-development-version">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-development-version"></a></h3>
+<h3 id="minor-improvements-0-0-5-0">Minor improvements<a class="anchor" aria-label="anchor" href="#minor-improvements-0-0-5-0"></a></h3>
 <ul><li>New example dataset <code>SyntheticDataII</code>, an unbalanced companion to <code>SyntheticData</code>: 2:1 randomization (160 treated, 80 controls), 140 external controls, and a covariate shift between the trial and the external controls. Balanced data can hide errors, such as exchanging the randomization probability and its complement (<a href="https://github.com/Genentech/rdborrow/issues/102" class="external-link">#102</a>).</li>
 <li>Progress output from <code>quiet = FALSE</code> in <code><a href="../reference/run_analysis.html">run_analysis()</a></code>, <code><a href="../reference/estimate.html">estimate()</a></code>, and <code><a href="../reference/run_simulation.html">run_simulation()</a></code> now uses <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> instead of <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, so <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages()</a></code> silences it (<a href="https://github.com/Genentech/rdborrow/issues/129" class="external-link">#129</a>).</li>
 <li>
@@ -54,7 +54,7 @@
 <code><a href="../reference/setup_analysis_primary.html">setup_analysis_primary()</a></code> now returns its analysis object visibly, as <code><a href="../reference/setup_analysis_OLE.html">setup_analysis_OLE()</a></code> does, so that it prints at the console (<a href="https://github.com/Genentech/rdborrow/issues/129" class="external-link">#129</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-5-0"></a></h3>
 <ul><li>All method constructors now require <code>bootstrap</code> to be at least 2. <code>bootstrap = 1</code> was accepted and then failed inside <code><a href="../reference/run_analysis.html">run_analysis()</a></code> with an opaque confidence interval error (<a href="https://github.com/Genentech/rdborrow/issues/91" class="external-link">#91</a>).</li>
 <li>
 <code><a href="../reference/ec_aipw.html">ec_aipw()</a></code> now computes its sandwich variance from the outcome models of the point estimate. It fitted them again on all patients, so a formula with a data-dependent basis such as <code><a href="https://rdrr.io/r/splines/ns.html" class="external-link">splines::ns()</a></code> got different knots, and the standard error was slightly off (<a href="https://github.com/Genentech/rdborrow/issues/120" class="external-link">#120</a>).</li>
@@ -100,7 +100,7 @@
 <code><a href="../reference/setup_simulation_OLE.html">setup_simulation_OLE()</a></code> now checks <code>T_cross</code> as <code><a href="../reference/setup_analysis_OLE.html">setup_analysis_OLE()</a></code> does: it must be a whole number of at least 1 and less than the number of outcomes. An invalid value was accepted, and the error came later from <code><a href="../reference/run_simulation.html">run_simulation()</a></code> (<a href="https://github.com/Genentech/rdborrow/issues/141" class="external-link">#141</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="documentation-development-version">Documentation<a class="anchor" aria-label="anchor" href="#documentation-development-version"></a></h3>
+<h3 id="documentation-0-0-5-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-0-5-0"></a></h3>
 <ul><li>Two new developer articles. “Adding a new method” explains how an estimator plugs into <code><a href="../reference/run_analysis.html">run_analysis()</a></code> and <code><a href="../reference/run_simulation.html">run_simulation()</a></code> through S4 dispatch, walks through a runnable toy method, and gives a checklist for adding a method to the package (<a href="https://github.com/Genentech/rdborrow/issues/87" class="external-link">#87</a>). “Developing with AI coding agents” explains the new <code>AGENTS.md</code> file of agent instructions and gives a workflow, example prompts, and review habits for working on the package with an AI coding agent (<a href="https://github.com/Genentech/rdborrow/issues/88" class="external-link">#88</a>).</li>
 </ul></div>
 </div>
