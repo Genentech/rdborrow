@@ -1,23 +1,14 @@
 ## Submission
 
-This is a feature and bug-fix release, 0.0.5.0. An adversarial review of the
-package against its methods papers found no errors in the estimators, but
-found gaps in input validation that could give incorrect results without a
-message. This release:
+This is a bug-fix release, 0.0.5.1, soon after 0.0.5.0 (published
+2026-10-08). Sorry for the quick resubmission.
 
-* rejects invalid inputs with clear errors (missing values, empty groups,
-  external controls coded as treated, factor treatment columns, formulas
-  that use variables other than the covariates, and `alpha` of 0 or 1);
-* fixes the sandwich variance for collinear covariates and for
-  data-dependent outcome-model bases, and makes its memory use linear in the
-  sample size;
-* adds `SyntheticDataII`, an unbalanced example dataset, and tests against
-  independent calculations;
-* corrects the citations and expands the documentation.
-
-Some changes are breaking: outcome formulas must name an outcome on the
-left-hand side, and formulas may use only the covariates. They are listed
-under "Breaking changes" in NEWS.md.
+`scm()`, one of the six estimators, needs the ECOSolveR package, which was
+listed only in Suggests. A default `install.packages("rdborrow")` does not
+install it, so `scm()` failed for users with a default install. CRAN checks
+install suggested packages, so they did not show the problem. We found it by
+installing rdborrow from CRAN in a clean container. This release moves
+ECOSolveR to Imports. There are no other changes.
 
 ## Test environments
 
